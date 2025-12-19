@@ -11,13 +11,17 @@ export interface Project {
   title: string;
   tagline: string;
   description: string;
+  overview: string;
+  useCases: string[];
+  architecture: string;
+  roleHighlights: string[];
   category: ProjectCategory;
   thumbnailUrl: string;
+  secondaryImageUrl: string;
   tech: string[];
   liveUrl?: string;
   repoUrl?: string;
   featured?: boolean;
-  bullets?: string[];
 }
 
 export interface BlogPost {
