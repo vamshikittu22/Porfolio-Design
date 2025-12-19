@@ -1,0 +1,8 @@
+{
+  "name": "Nexus Portfolio: Swiss-AI Edition",
+  "description": "A premium, Swiss-style portfolio featuring glassmorphism UI, integrated AI image editing with Nano Banana, and video generation with Veo.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
