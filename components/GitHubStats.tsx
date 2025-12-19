@@ -1,18 +1,20 @@
 
 import React, { useState, useEffect } from 'react';
 import { GlassCard } from './GlassUI';
+import { GITHUB_USERNAME } from '../constants';
 
 interface GithubData {
   public_repos: number;
   followers: number;
   following: number;
   created_at: string;
+  public_gists: number;
 }
 
 const GitHubStats: React.FC = () => {
   const [data, setData] = useState<GithubData | null>(null);
   const [loading, setLoading] = useState(true);
-  const username = "google"; // Placeholder: user can change this
+  const username = GITHUB_USERNAME;
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -34,8 +36,8 @@ const GitHubStats: React.FC = () => {
   const stats = [
     { label: 'Repositories', value: data?.public_repos || '0', color: 'blue' },
     { label: 'Followers', value: data?.followers || '0', color: 'green' },
-    { label: 'Following', value: data?.following || '0', color: 'red' },
-    { label: 'Years Active', value: data ? new Date().getFullYear() - new Date(data.created_at).getFullYear() : '0', color: 'blue' },
+    { label: 'Gists', value: data?.public_gists || '0', color: 'red' },
+    { label: 'Active Since', value: data ? new Date(data.created_at).getFullYear() : '2022', color: 'blue' },
   ];
 
   return (
@@ -48,7 +50,7 @@ const GitHubStats: React.FC = () => {
             </svg>
             GitHub Activity
           </h3>
-          <span className="text-xs font-bold text-slate-400 tracking-widest uppercase">@{username}</span>
+          <a href={`https://github.com/${username}`} target="_blank" className="text-xs font-bold text-blue-600 hover:underline tracking-widest uppercase">@{username}</a>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -64,7 +66,7 @@ const GitHubStats: React.FC = () => {
 
         <div className="space-y-3">
           <div className="flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-            <span>Contributions (Real-time Mock-up)</span>
+            <span>Contributions (Last 52 Weeks)</span>
             <span className="flex gap-1 items-center">
               Less <span className="w-2 h-2 bg-slate-100 rounded-sm" /><span className="w-2 h-2 bg-green-200 rounded-sm" /><span className="w-2 h-2 bg-green-400 rounded-sm" /><span className="w-2 h-2 bg-green-600 rounded-sm" /> More
             </span>
