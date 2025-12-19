@@ -1,4 +1,3 @@
-
 import { Project, ProjectCategory, BlogPost, SocialPost } from './types';
 
 export const FULL_NAME = 'Vamshi Krishna Pullaiahgari';
@@ -29,8 +28,8 @@ export const PROJECTS: Project[] = [
       'Implemented multi-step wizard UX, validation, and live preview.'
     ],
     category: ProjectCategory.AI,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1000',
-    secondaryImageUrl: 'https://images.unsplash.com/photo-1664575602276-acd073f104c1?auto=format&fit=crop&q=80&w=1200',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=1000',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1200',
     tech: ['React', 'TypeScript', 'Gemini API', 'Tailwind', 'Node.js'],
     liveUrl: 'https://future-job-fit.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/future-job-fit',

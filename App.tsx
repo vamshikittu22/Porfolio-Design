@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { GlassCard, BubbleTag, GlassButton } from './components/GlassUI';
 import { PROJECTS, GITHUB_USERNAME, LINKEDIN_URL, BLOG_URL, X_HANDLE, FULL_NAME, RESUME_URL, BLOG_POSTS } from './constants';
@@ -147,7 +146,7 @@ const ProjectItem: React.FC<{
                <span className="w-12 h-[2px] bg-slate-200 group-hover:w-20 group-hover:bg-slate-950 transition-all" />
                Close Project
              </button>
-             <span className="text-[8px] font-black text-slate-300 uppercase tracking-[1.5em]">© 2025 Vamshi Pullaiahgari</span>
+             <span className="text-[8px] font-black text-slate-300 uppercase tracking-[1.5em]">© 2025 Vamshi Krishna Pullaiahgari</span>
           </div>
         </div>
       </GlassCard>
@@ -258,24 +257,24 @@ const App: React.FC = () => {
             <div className="space-y-10">
               <div className="flex items-center gap-8">
                  <div className="h-[2px] w-24 bg-purple-600" />
-                 <span className="text-[11px] font-bold uppercase tracking-[0.9em] text-purple-500">Full-Stack Developer</span>
+                 <span className="text-[11px] font-bold uppercase tracking-[0.9em] text-purple-500">Software Engineer</span>
               </div>
               <h1 className="text-6xl lg:text-8xl font-black font-display text-slate-950 tracking-tighter leading-[0.8] uppercase">
                 {FULL_NAME.split(' ').slice(0, 2).join(' ')} <br />
                 <span className="text-purple-700">{FULL_NAME.split(' ').slice(2).join(' ')}.</span>
               </h1>
               <p className="text-2xl text-slate-700 max-w-lg pt-10 leading-relaxed font-medium">
-                Building robust digital experiences with a focus on modern web architectures and AI-driven solutions.
-                <span className="text-purple-600 block mt-10 font-bold tracking-[0.6em] text-[11px] uppercase">Available for work // 2025</span>
+                Building performant, aesthetic, and functional digital experiences.
+                <span className="text-purple-600 block mt-10 font-bold tracking-[0.6em] text-[11px] uppercase">Available for new opportunities // 2025</span>
               </p>
             </div>
             
             <div className="flex gap-8 items-center">
               <GlassButton primary accent="purple" onClick={(e: any) => scrollToSection(e, 'portfolio-section')}>
-                Explore My Work
+                Explore My Projects
               </GlassButton>
               <GlassButton accent="orange" onClick={() => window.open(RESUME_URL, '_blank')}>
-                Download Resume
+                Download CV
               </GlassButton>
             </div>
           </div>
@@ -302,8 +301,8 @@ const App: React.FC = () => {
         <section id="portfolio-section" className="mb-80 scroll-mt-32">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-48 gap-20">
             <div className="space-y-8">
-              <h2 className="text-6xl lg:text-7xl font-bold font-display text-slate-950 uppercase tracking-tighter">My Projects.</h2>
-              <p className="text-purple-400 font-bold text-[11px] tracking-[0.6em] uppercase border-l-[6px] border-orange-500 pl-8">Selected Works // 2023-2025</p>
+              <h2 className="text-6xl lg:text-7xl font-bold font-display text-slate-950 uppercase tracking-tighter">My Work.</h2>
+              <p className="text-purple-400 font-bold text-[11px] tracking-[0.6em] uppercase border-l-[6px] border-orange-500 pl-8">V3.0 // SELECTED PROJECTS</p>
             </div>
             <div className="flex gap-12 flex-wrap">
               {['All', ...Object.values(ProjectCategory)].map(cat => (
@@ -335,10 +334,10 @@ const App: React.FC = () => {
         <section id="logic-section" className="mb-80 scroll-mt-32 border-4 border-purple-200 rounded-[48px] p-12 lg:p-24 bg-white/30 backdrop-blur-sm shadow-xl">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-14">
-              <div className="inline-block px-6 py-2.5 bg-indigo-600 text-white text-[11px] font-bold uppercase tracking-widest rounded-full shadow-lg shadow-purple-200">Interactive Game</div>
+              <div className="inline-block px-6 py-2.5 bg-indigo-600 text-white text-[11px] font-bold uppercase tracking-widest rounded-full shadow-lg shadow-purple-200">Interactive Lab</div>
               <h2 className="text-5xl lg:text-6xl font-bold font-display text-slate-950 uppercase tracking-tighter leading-tight">Can you beat <br /> our AI?</h2>
               <p className="text-slate-700 font-medium max-w-lg leading-relaxed text-xl">
-                Test your skills in this classic Tic-Tac-Toe game. Use the integrated AI Hint system to discover the optimal strategy for every move.
+                Test your skills in this classic Tic-Tac-Toe game. Use the AI Hint system to discover the optimal strategy for every move.
               </p>
               <div className="pt-12">
                 <GlassButton accent="purple" primary onClick={() => window.open('https://github.com/vamshikittu22', '_blank')}>View GitHub Profile</GlassButton>
@@ -374,7 +373,7 @@ const App: React.FC = () => {
               onClick={() => window.open(BLOG_URL, '_blank')}
               className="text-[11px] font-extrabold uppercase tracking-widest text-purple-700 hover:text-purple-900 transition-colors pb-2 border-b-2 border-purple-700"
             >
-              View All Articles
+              Access Blog Archive
             </button>
           </div>
           <div className="grid md:grid-cols-3 gap-16">
@@ -432,7 +431,7 @@ const App: React.FC = () => {
           <div className="flex flex-col items-center md:items-start gap-10">
              <button onClick={scrollToTop} className="group text-left focus:outline-none">
                 <h4 className="text-3xl font-black text-white uppercase tracking-tighter group-hover:text-purple-400 transition-all">{FULL_NAME}</h4>
-                <p className="text-[11px] font-bold text-purple-400 uppercase tracking-[0.8em] mt-2 leading-none">Vamshi Krishna Pullaiahgari // 2025</p>
+                <p className="text-[11px] font-bold text-purple-400 uppercase tracking-[0.8em] mt-2 leading-none">Software Engineer // 2025</p>
              </button>
              <div className="flex gap-10 items-center">
                 <a href={LINKEDIN_URL} target="_blank" className="text-purple-200 hover:text-white transition-all transform hover:scale-125">
@@ -450,8 +449,8 @@ const App: React.FC = () => {
           <div className="flex flex-col items-center md:items-end gap-10">
              <button onClick={() => window.open(RESUME_URL, '_blank')} className="text-[13px] font-black text-white uppercase tracking-[0.4em] bg-purple-700 hover:bg-purple-600 px-10 py-4 rounded-2xl border border-purple-500/50 shadow-2xl transition-all">Download Resume</button>
              <div className="text-center md:text-right space-y-3">
-                <p className="text-[11px] font-extrabold text-purple-300 uppercase tracking-[1.5em]">Handcrafted with Pride</p>
-                <p className="text-[9px] font-bold text-purple-600 uppercase tracking-[0.8em]">Secure Node // 2025</p>
+                <p className="text-[11px] font-extrabold text-purple-300 uppercase tracking-[1.5em]">Built with Passion & Swiss Precision</p>
+                <p className="text-[9px] font-bold text-purple-600 uppercase tracking-[0.8em]">Secure Node 22U // 2025</p>
              </div>
           </div>
         </div>
