@@ -54,28 +54,33 @@ const AIPlayground: React.FC = () => {
   };
 
   return (
-    <GlassCard className="p-8 max-w-4xl mx-auto" accent="red">
-      <div className="flex flex-col gap-6">
-        <div className="text-center">
-          <h3 className="text-2xl font-bold font-display text-slate-800">AI Media Lab</h3>
-          <p className="text-slate-500 mt-1">Transform your images into loops with Nano Banana & Veo</p>
+    <GlassCard className="p-12 max-w-5xl mx-auto shadow-2xl border-purple-50" accent="purple">
+      <div className="flex flex-col gap-12">
+        <div className="text-center space-y-4">
+          <h3 className="text-4xl font-bold font-display text-slate-900 uppercase tracking-tighter">Media_Synthesis.</h3>
+          <p className="text-slate-500 font-medium tracking-tight uppercase text-xs border-t border-slate-50 pt-4 inline-block">Neural Narrative Construction Module</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <div className="relative aspect-video rounded-2xl bg-slate-100 overflow-hidden flex items-center justify-center border-2 border-dashed border-slate-200 group">
+        <div className="grid lg:grid-cols-2 gap-16">
+          <div className="space-y-6">
+            <div className="relative aspect-[4/3] rounded-[32px] bg-slate-50 overflow-hidden flex items-center justify-center border border-slate-100 group shadow-inner">
               {video ? (
                 <video src={video} autoPlay loop muted className="w-full h-full object-cover" />
               ) : image ? (
                 <img src={image} className="w-full h-full object-cover" />
               ) : (
-                <span className="text-slate-400">No media selected</span>
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center">
+                    <span className="text-slate-300 text-2xl font-bold">+</span>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.4em]">Awaiting_Input</span>
+                </div>
               )}
               
               {loading && (
-                <div className="absolute inset-0 bg-white/60 glass-blur flex flex-col items-center justify-center p-4">
-                  <div className="w-12 h-12 border-4 border-red-500 border-t-transparent rounded-full animate-spin mb-4" />
-                  <p className="text-sm font-medium text-center text-red-600">{status}</p>
+                <div className="absolute inset-0 bg-white/80 backdrop-blur-xl flex flex-col items-center justify-center p-8 text-center">
+                  <div className="w-10 h-10 border-2 border-purple-100 border-t-purple-600 rounded-full animate-spin mb-6" />
+                  <p className="text-[11px] font-bold text-purple-600 uppercase tracking-widest leading-relaxed">{status}</p>
                 </div>
               )}
             </div>
@@ -88,45 +93,45 @@ const AIPlayground: React.FC = () => {
               onChange={handleFileChange}
             />
             <GlassButton 
-              accent="red" 
-              className="w-full"
+              accent="purple" 
+              className="w-full py-4"
               onClick={() => fileInputRef.current?.click()}
             >
-              Upload Initial Photo
+              Upload_Asset
             </GlassButton>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Prompt (Nano Banana / Veo)</label>
+          <div className="flex flex-col justify-between py-2">
+            <div className="space-y-6">
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em]">Neural_Prompt_Matrix</label>
               <textarea 
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="e.g. 'Add a retro cinematic filter' or 'Make the ocean waves move softly'"
-                className="w-full h-32 p-4 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none resize-none transition-all"
+                placeholder="Describe the desired synthesis. e.g. 'Add cinematic motion blur' or 'Render as 1970s film stock'"
+                className="w-full h-48 p-6 rounded-[24px] bg-slate-50 border border-slate-100 text-slate-700 font-medium text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none resize-none transition-all shadow-inner placeholder:text-slate-300"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4 mt-8">
               <GlassButton 
-                accent="red" 
+                accent="purple" 
                 primary 
                 onClick={handleEditImage} 
                 disabled={loading || !prompt}
               >
-                Edit Image
+                Synthesize_Img
               </GlassButton>
               <GlassButton 
-                accent="red" 
+                accent="orange" 
                 primary 
                 onClick={handleAnimate} 
                 disabled={loading}
               >
-                Animate (Veo)
+                Animate_Veo
               </GlassButton>
             </div>
-            <p className="text-[11px] text-slate-400 italic text-center">
-              Powered by Gemini 2.5 Flash Image & Veo-3.1
+            <p className="text-[9px] font-bold text-slate-200 uppercase tracking-[0.8em] text-center mt-10">
+              CORE_SYS_GEMINI_VEO_3.1
             </p>
           </div>
         </div>

@@ -1,11 +1,13 @@
 
 import { Project, ProjectCategory, BlogPost, SocialPost } from './types';
 
+export const FULL_NAME = 'Vamshi Krishna Pullaiahgari';
 export const GITHUB_USERNAME = 'vamshikittu22';
 export const INSTAGRAM_HANDLE = 'vamshi._.ki22u';
 export const X_HANDLE = 'ki22u__';
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/vamshi-krishna-pullaiahgari/';
 export const BLOG_URL = 'https://travelsofvk.blogspot.com';
+export const RESUME_URL = '#'; // Placeholder for resume link
 
 export const PROJECTS: Project[] = [
   {
@@ -117,67 +119,23 @@ export const PROJECTS: Project[] = [
 export const BLOG_POSTS: BlogPost[] = [
   {
     id: 'b1',
-    title: 'Wanderlust: The Santorini Chapter',
-    summary: 'A digital nomad guide to finding the best Wi-Fi and the quietest blue domes in Oia.',
-    date: 'Feb 12, 2025',
-    tag: 'Travel',
-    location: 'Greece'
+    title: 'Swiss Minimalism in Web Architecture',
+    summary: 'Exploring how intentional whitespace and typographic grid systems define modern engineering.',
+    date: 'Feb 15, 2025',
+    tag: 'Design',
   },
   {
     id: 'b2',
-    title: 'Swiss Minimalism in Web Design',
-    summary: 'How my travels through the Alps influenced my focus on whitespace and typography.',
-    date: 'Jan 05, 2025',
-    tag: 'Design',
-    location: 'Switzerland'
+    title: 'The Evolution of Gemini 2.5',
+    summary: 'A technical deep-dive into utilizing Flash models for high-performance generative UI.',
+    date: 'Jan 28, 2025',
+    tag: 'AI',
   },
   {
     id: 'b3',
-    title: 'The Nomad Stack 2025',
-    summary: 'Tools and workflows for deploying full-stack apps from a hammock in Bali.',
-    date: 'Dec 15, 2024',
-    tag: 'Lifestyle',
-    location: 'Indonesia'
-  }
-];
-
-export const SOCIAL_POSTS: SocialPost[] = [
-  {
-    id: 's1',
-    platform: 'instagram',
-    content: 'Coding with a view! 🏔️ Minimalist setup amidst the clouds.',
-    imageUrl: 'https://images.unsplash.com/photo-1484417894907-623942c8ee29?auto=format&fit=crop&q=80&w=400',
-    date: '2d ago',
-    link: `https://www.instagram.com/${INSTAGRAM_HANDLE}/`
-  },
-  {
-    id: 's2',
-    platform: 'x',
-    content: 'Just shipped Future Job Fit. The response times on Gemini 2.5 Flash are insane for resume scoring. #buildinpublic #genai',
-    date: '5h ago',
-    link: `https://x.com/${X_HANDLE}`
-  },
-  {
-    id: 's3',
-    platform: 'instagram',
-    content: 'Taco Tuesday but in CDMX. Best architecture inspiration ever.',
-    imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&q=80&w=400',
-    date: '1w ago',
-    link: `https://www.instagram.com/${INSTAGRAM_HANDLE}/`
-  },
-  {
-    id: 's4',
-    platform: 'x',
-    content: 'Rust + WASM is the future of performant web tools. Change my mind.',
-    date: '1d ago',
-    link: `https://x.com/${X_HANDLE}`
-  },
-  {
-    id: 's5',
-    platform: 'instagram',
-    content: 'Exploring the backstreets of Kyoto. The geometry here is perfection.',
-    imageUrl: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=400',
-    date: '3d ago',
-    link: `https://www.instagram.com/${INSTAGRAM_HANDLE}/`
+    title: 'Architecture over Hype',
+    summary: 'Why foundational system design outlasts the rapid cycle of JavaScript frameworks.',
+    date: 'Jan 10, 2025',
+    tag: 'Engineering',
   }
 ];
