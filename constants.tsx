@@ -139,3 +139,30 @@ export const BLOG_POSTS: BlogPost[] = [
     tag: 'Engineering',
   }
 ];
+
+// Added SOCIAL_POSTS mock data for SocialFeed component.
+export const SOCIAL_POSTS: SocialPost[] = [
+  {
+    id: 's1',
+    platform: 'instagram',
+    content: 'Exploring the intersection of Swiss typography and modern frontend architectures. Minimalist design is a language of its own.',
+    imageUrl: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=800',
+    date: 'Feb 10, 2025',
+    link: 'https://instagram.com'
+  },
+  {
+    id: 's2',
+    platform: 'x',
+    content: 'Just deployed the new Synthesis Lab module. Gemini 2.5 Flash is incredibly fast for multi-modal reasoning. #AI #GenAI #TypeScript',
+    date: 'Feb 12, 2025',
+    link: 'https://x.com'
+  },
+  {
+    id: 's3',
+    platform: 'instagram',
+    content: 'Neural networks are the new brushes. Coding is the new canvas. Architecture is the frame.',
+    imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800',
+    date: 'Feb 05, 2025',
+    link: 'https://instagram.com'
+  }
+];

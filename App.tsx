@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { GlassCard, BubbleTag, GlassButton } from './components/GlassUI';
-import { PROJECTS, GITHUB_USERNAME, LINKEDIN_URL, BLOG_URL, X_HANDLE, FULL_NAME, RESUME_URL, BLOG_POSTS } from './constants.tsx';
+import { PROJECTS, GITHUB_USERNAME, LINKEDIN_URL, BLOG_URL, X_HANDLE, FULL_NAME, RESUME_URL, BLOG_POSTS } from './constants';
 import { ProjectCategory, Project } from './types';
 import AIPlayground from './components/AIPlayground';
 import GitHubStats from './components/GitHubStats';
@@ -43,7 +43,7 @@ const ProjectItem: React.FC<{
     >
       <GlassCard 
         accent={accent}
-        className={`relative w-full overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] ${isExpanded ? 'bg-white shadow-2xl border-purple-200' : 'bg-white/70 hover:border-purple-300 shadow-sm'}`}
+        className={`relative w-full overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] ${isExpanded ? 'bg-white shadow-2xl border-purple-200' : 'bg-white/70 hover:border-purple-300 shadow-sm cursor-pointer'}`}
         onClick={onToggle}
       >
         <div className={`relative w-full transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] ${isExpanded ? 'h-[80px] bg-purple-50/40' : 'h-[480px]'}`}>
@@ -185,7 +185,14 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Explicit IDs for Nav
+  const scrollToSection = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const navItems = [
     { label: 'Portfolio', id: 'portfolio-section' },
     { label: 'Logic', id: 'logic-section' },
@@ -201,35 +208,33 @@ const App: React.FC = () => {
         <div className="absolute bottom-0 left-0 w-2/3 h-2/3 bg-indigo-200 blur-[300px] rounded-full -translate-x-1/4 translate-y-1/4" />
       </div>
 
-      {/* Nav */}
-      <nav id="home" className={`fixed top-8 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${scrolled ? 'scale-95 opacity-95' : 'scale-100 opacity-100'}`}>
-        <div className="bg-purple-200/90 backdrop-blur-3xl border border-purple-300 px-8 py-3.5 rounded-full flex items-center gap-10 shadow-2xl">
-          <a href="#home" onClick={scrollToTop} className="text-[11px] font-extrabold tracking-[0.4em] text-purple-950 uppercase whitespace-nowrap">VK_ARCHIVE</a>
+      <nav id="header-nav" className={`fixed top-8 left-1/2 -translate-x-1/2 z-[100] transition-all duration-1000 ${scrolled ? 'scale-95 opacity-100' : 'scale-100 opacity-100'}`}>
+        <div className="bg-purple-200/95 backdrop-blur-3xl border border-purple-400/30 px-8 py-3.5 rounded-full flex items-center gap-10 shadow-2xl">
+          <button onClick={scrollToTop} className="text-[11px] font-extrabold tracking-[0.4em] text-purple-950 uppercase whitespace-nowrap hover:text-purple-600 transition-colors">VK_ARCHIVE</button>
           <div className="h-4 w-[1px] bg-purple-300" />
           <div className="hidden lg:flex gap-8 items-center">
             {navItems.map(nav => (
-              <a 
+              <button 
                 key={nav.id} 
-                href={`#${nav.id}`}
-                className="text-[9px] font-bold uppercase tracking-[0.4em] text-purple-600 hover:text-purple-950 transition-colors whitespace-nowrap"
+                onClick={(e) => scrollToSection(e, nav.id)}
+                className="text-[9px] font-bold uppercase tracking-[0.4em] text-purple-700 hover:text-purple-950 transition-colors whitespace-nowrap focus:outline-none"
               >
                 {nav.label}
-              </a>
+              </button>
             ))}
           </div>
           <div className="h-4 w-[1px] bg-purple-300 hidden lg:block" />
-          <a 
-            href={RESUME_URL} 
+          <button 
+            onClick={() => window.open(RESUME_URL, '_blank')}
             className="text-[9px] font-extrabold uppercase tracking-[0.4em] text-white bg-purple-700 px-6 py-2.5 rounded-full hover:bg-purple-800 transition-all shadow-xl shadow-purple-200 whitespace-nowrap"
           >
             CV
-          </a>
+          </button>
         </div>
       </nav>
 
       <main className="max-w-[1440px] mx-auto px-6 lg:px-28 pt-56 pb-32">
-        {/* HERO */}
-        <section className="grid lg:grid-cols-2 gap-32 items-center mb-80 min-h-[70vh] relative z-10">
+        <section id="hero-section" className="grid lg:grid-cols-2 gap-32 items-center mb-80 min-h-[70vh] relative z-10 scroll-mt-32">
           <div className="space-y-14 animate-in fade-in slide-in-from-left duration-1000">
             <div className="space-y-10">
               <div className="flex items-center gap-8">
@@ -247,7 +252,7 @@ const App: React.FC = () => {
             </div>
             
             <div className="flex gap-8 items-center">
-              <GlassButton primary accent="purple" onClick={() => document.getElementById('portfolio-section')?.scrollIntoView({ behavior: 'smooth' })}>
+              <GlassButton primary accent="purple" onClick={(e: any) => scrollToSection(e, 'portfolio-section')}>
                 Review_Archive
               </GlassButton>
               <GlassButton accent="orange" onClick={() => window.open(RESUME_URL, '_blank')}>
@@ -275,7 +280,6 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        {/* PROJECTS */}
         <section id="portfolio-section" className="mb-80 scroll-mt-32">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-48 gap-20">
             <div className="space-y-8">
@@ -309,10 +313,9 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        {/* LOGIC GRID */}
-        <section id="logic-section" className="mb-80 scroll-mt-32">
-          <div className="grid lg:grid-cols-2 gap-40 items-center">
-            <div className="space-y-14 order-2 lg:order-1">
+        <section id="logic-section" className="mb-80 scroll-mt-32 border-4 border-purple-200 rounded-[48px] p-12 lg:p-24 bg-white/30 backdrop-blur-sm">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            <div className="space-y-14">
               <div className="inline-block px-6 py-2.5 bg-purple-600 text-white text-[11px] font-bold uppercase tracking-widest rounded-full shadow-lg shadow-purple-200">STRATEGY_ENGINE_V1</div>
               <h2 className="text-5xl lg:text-6xl font-bold font-display text-slate-950 uppercase tracking-tighter leading-tight">Interaction <br /> Module.</h2>
               <p className="text-slate-700 font-medium max-w-lg leading-relaxed text-xl">
@@ -322,13 +325,12 @@ const App: React.FC = () => {
                 <GlassButton accent="purple" primary onClick={() => window.open('https://github.com/vamshikittu22', '_blank')}>View_System_Repos</GlassButton>
               </div>
             </div>
-            <div className="order-1 lg:order-2 flex justify-center">
+            <div className="flex justify-center w-full overflow-visible">
               <TicTacToe />
             </div>
           </div>
         </section>
 
-        {/* AI LAB */}
         <section id="ai-section" className="mb-80 scroll-mt-32">
           <div className="max-w-3xl mx-auto text-center mb-28 space-y-8">
              <h2 className="text-6xl font-bold font-display text-slate-950 uppercase tracking-tighter">Synthesis_Lab.</h2>
@@ -343,7 +345,6 @@ const App: React.FC = () => {
           <GitHubStats />
         </section>
 
-        {/* FIELD LOGS */}
         <section id="logs-section" className="mb-80 scroll-mt-32">
           <div className="flex justify-between items-end mb-24 border-b border-purple-200 pb-12">
             <div className="space-y-4">
@@ -373,7 +374,6 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        {/* HANDSHAKE */}
         <section id="handshake-section" className="mb-64 scroll-mt-32">
           <div className="flex flex-col items-center justify-center space-y-28">
              {!contactRevealed ? (
@@ -405,7 +405,7 @@ const App: React.FC = () => {
         </section>
       </main>
 
-      <footer className="py-24 relative bg-purple-950/85 backdrop-blur-3xl overflow-hidden border-t border-purple-800">
+      <footer className="py-24 relative bg-purple-950/95 backdrop-blur-3xl overflow-hidden border-t border-purple-800">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-purple-500/10 to-transparent" />
         <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-orange-500/10 to-transparent" />
         
@@ -420,7 +420,7 @@ const App: React.FC = () => {
                    <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
                 <a href={`https://github.com/${GITHUB_USERNAME}`} target="_blank" className="text-purple-200 hover:text-white transition-all transform hover:scale-125">
-                   <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                   <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.7 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </a>
                 <a href={`https://x.com/${X_HANDLE}`} target="_blank" className="text-purple-200 hover:text-white transition-all transform hover:scale-125">
                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -429,9 +429,9 @@ const App: React.FC = () => {
           </div>
           
           <div className="flex flex-col items-center md:items-end gap-10">
-             <a href={RESUME_URL} className="text-[13px] font-black text-white uppercase tracking-[0.4em] bg-purple-700 hover:bg-purple-600 px-10 py-4 rounded-2xl border border-purple-500/50 shadow-2xl transition-all">Download_CV</a>
+             <button onClick={() => window.open(RESUME_URL, '_blank')} className="text-[13px] font-black text-white uppercase tracking-[0.4em] bg-purple-700 hover:bg-purple-600 px-10 py-4 rounded-2xl border border-purple-500/50 shadow-2xl transition-all">Download_CV</button>
              <div className="text-center md:text-right space-y-3">
-                <p className="text-[11px] font-extrabold text-purple-300 uppercase tracking-[1.5em]">NODE_SECURE_V3</p>
+                <p className="text-[11px] font-extrabold text-purple-300 uppercase tracking-[1.5em]">SYSTEM_SECURE_V3</p>
                 <p className="text-[9px] font-bold text-purple-600 uppercase tracking-[0.8em]">NODE_ENCRYPTION_ACTIVE // 2025</p>
              </div>
           </div>

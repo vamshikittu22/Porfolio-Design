@@ -102,61 +102,90 @@ export const TicTacToe: React.FC = () => {
   };
 
   return (
-    <GlassCard className="p-10 max-w-sm mx-auto shadow-2xl border-purple-300 bg-purple-50/80" accent="purple">
-      <div className="space-y-8">
-        <div className="flex justify-between items-end border-b border-purple-200 pb-6">
+    <GlassCard className="p-6 w-full max-w-2xl mx-auto shadow-2xl border-2 border-purple-400 bg-white overflow-hidden" accent="purple">
+      <div className="space-y-6">
+        <div className="flex justify-between items-end border-b border-purple-100 pb-3">
           <div className="space-y-1">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-purple-700">GAME_UNIT_01</h4>
-            <p className="text-2xl font-bold text-purple-950 uppercase tracking-tighter leading-none">Tic-Tac-Toe.</p>
+            <h4 className="text-[8px] font-bold uppercase tracking-[0.4em] text-purple-400">GAME_UNIT_01</h4>
+            <p className="text-lg font-bold text-slate-900 uppercase tracking-tighter leading-none">TIC-TAC-TOE.</p>
           </div>
-          <span className={`text-[9px] font-bold uppercase tracking-[0.2em] ${winner || isDraw ? 'text-orange-600' : 'text-purple-400'}`}>
+          <span className={`text-[8px] font-bold uppercase tracking-[0.2em] ${winner || isDraw ? 'text-orange-500' : 'text-purple-400'}`}>
             {status}
           </span>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 bg-purple-200 p-2 rounded-2xl overflow-hidden border-2 border-purple-400 shadow-xl">
-          {board.map((square, i) => (
-            <button
-              key={i}
-              onClick={() => handleUserClick(i)}
-              className={`aspect-square flex items-center justify-center text-4xl font-bold transition-all duration-500 rounded-xl
-                ${hint?.index === i ? 'bg-purple-100 ring-2 ring-purple-600 ring-inset' : 'bg-white/90'}
-                ${square === 'O' ? 'text-purple-700' : 'text-orange-600'}
-                ${!square && !xIsNext && !isCpuThinking ? 'hover:bg-purple-50 active:scale-95' : ''}
-                ${xIsNext || isCpuThinking ? 'cursor-wait opacity-50' : 'cursor-pointer'}
-              `}
-            >
-              {square}
-            </button>
-          ))}
-        </div>
-
-        {hint && (
-          <div className="bg-purple-600/10 p-5 rounded-2xl border border-purple-300 animate-in fade-in slide-in-from-bottom-2 duration-700">
-            <div className="flex items-center gap-2 mb-1.5">
-               <div className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse" />
-               <p className="text-[9px] text-purple-800 font-bold uppercase tracking-widest leading-none">Neural Assist</p>
+        <div className="flex flex-col md:flex-row gap-6 items-start">
+          {/* Left Column: Board - Reduced size for better containment */}
+          <div className="w-full md:w-[240px] flex-shrink-0 mx-auto md:mx-0">
+            <div className="grid grid-cols-3 gap-1.5 bg-purple-50 p-1.5 rounded-xl overflow-hidden border border-purple-100 shadow-inner w-full aspect-square">
+              {board.map((square, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleUserClick(i)}
+                  className={`aspect-square flex items-center justify-center text-3xl font-bold transition-all duration-300 rounded-lg
+                    ${hint?.index === i ? 'bg-purple-100 ring-2 ring-purple-600 ring-inset' : 'bg-white'}
+                    ${square === 'O' ? 'text-purple-600' : 'text-orange-500'}
+                    ${!square && !xIsNext && !isCpuThinking ? 'hover:bg-purple-50' : ''}
+                    ${xIsNext || isCpuThinking ? 'cursor-wait' : 'cursor-pointer'}
+                    shadow-sm
+                  `}
+                >
+                  {square}
+                </button>
+              ))}
             </div>
-            <p className="text-[11px] text-purple-950 font-medium leading-relaxed italic">"{hint.reason}"</p>
           </div>
-        )}
 
-        <div className="flex flex-col gap-4 pt-2">
-          <GlassButton 
-            accent="purple" 
-            primary 
-            className="w-full py-5" 
-            onClick={getAiHint} 
-            disabled={loadingHint || !!winner || isDraw || xIsNext}
-          >
-            {loadingHint ? 'Logic Mapping...' : 'Request AI Strategy'}
-          </GlassButton>
-          <button 
-            onClick={reset}
-            className="text-[9px] font-bold uppercase text-purple-400 hover:text-purple-900 transition-all tracking-[0.6em] py-2"
-          >
-            Reset_Board
-          </button>
+          {/* Right Column: Hint and Controls - Using flex-1 and min-w-0 to prevent overflow */}
+          <div className="flex-1 w-full min-w-0 flex flex-col justify-between self-stretch gap-4">
+            <div className="space-y-3 flex-1">
+              <label className="text-[7px] font-bold text-purple-300 uppercase tracking-[0.4em] block border-b border-purple-50 pb-1">NEURAL_STATUS_PANEL</label>
+              
+              <div className="min-h-[100px] flex items-center w-full">
+                {hint ? (
+                  <div className="bg-purple-50 p-4 rounded-xl border border-purple-100 animate-in fade-in slide-in-from-right-2 duration-500 w-full overflow-hidden">
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                       <div className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse flex-shrink-0" />
+                       <p className="text-[8px] text-purple-600 font-extrabold uppercase tracking-widest leading-none truncate">STRATEGY_OUTPUT</p>
+                    </div>
+                    <p className="text-[10px] text-slate-700 font-medium leading-relaxed italic break-words">"{hint.reason}"</p>
+                  </div>
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center border border-dashed border-purple-100 rounded-xl p-3 text-center">
+                     <p className="text-[8px] font-bold text-purple-200 uppercase tracking-[0.2em] mb-0.5">SYSTEM IDLE</p>
+                     <p className="text-[9px] text-purple-200 font-medium italic">Request a hint to activate logic synthesis</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <GlassButton 
+                accent="purple" 
+                primary 
+                className="w-full py-2.5 rounded-lg shadow-md text-[9px]" 
+                onClick={getAiHint} 
+                disabled={loadingHint || !!winner || isDraw || xIsNext}
+              >
+                {loadingHint ? 'PROCESSING...' : 'REQUEST AI STRATEGY'}
+              </GlassButton>
+              <button 
+                onClick={reset}
+                className="text-[8px] font-bold uppercase text-purple-300 hover:text-purple-600 transition-all tracking-[0.5em] py-1"
+              >
+                REINITIALIZE_GRID
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div className="pt-2 border-t border-purple-50 flex justify-between items-center opacity-30">
+           <span className="text-[6px] font-bold text-purple-300 uppercase tracking-widest leading-none truncate">ENCRYPTED_SIGNAL_STABLE</span>
+           <div className="flex gap-1 flex-shrink-0">
+              <div className="w-0.5 h-0.5 rounded-full bg-purple-300" />
+              <div className="w-0.5 h-0.5 rounded-full bg-purple-300" />
+              <div className="w-0.5 h-0.5 rounded-full bg-purple-300" />
+           </div>
         </div>
       </div>
     </GlassCard>
