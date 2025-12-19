@@ -21,8 +21,17 @@ const ProjectItem: React.FC<{
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.1 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+      },
+      { 
+        threshold: 0.3,
+        rootMargin: '0px 0px -10% 0px' 
+      }
     );
     if (itemRef.current) observer.observe(itemRef.current);
     return () => observer.disconnect();
@@ -46,27 +55,29 @@ const ProjectItem: React.FC<{
         className={`relative w-full overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] ${isExpanded ? 'bg-white shadow-2xl border-purple-200' : 'bg-white/70 hover:border-purple-300 shadow-sm cursor-pointer'}`}
         onClick={onToggle}
       >
-        <div className={`relative w-full transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] ${isExpanded ? 'h-[80px] bg-purple-50/40' : 'h-[480px]'}`}>
+        <div className={`relative w-full transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] ${isExpanded ? 'h-[80px] bg-purple-50/40' : 'h-[520px]'}`}>
           <div className={`
-            absolute transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] z-20 overflow-hidden
+            absolute transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] z-20 overflow-hidden
             ${isExpanded 
-              ? 'top-4 left-6 w-12 h-12 rounded-full grayscale-0 shadow-sm' 
+              ? 'top-4 left-6 w-12 h-12 rounded-full shadow-sm' 
               : 'inset-0 w-full h-full'}
-            ${!isVisible && !isExpanded ? 'grayscale' : 'grayscale-0'}
+            ${!isVisible && !isExpanded ? 'grayscale blur-[2px] scale-105 opacity-80' : 'grayscale-0 blur-0 scale-100 opacity-100'}
           `}>
             <img 
               src={project.thumbnailUrl} 
               alt={project.title}
               className="w-full h-full object-cover transition-all duration-1000" 
             />
+            <div className={`absolute inset-0 bg-${accentColors[accent]} mix-blend-color transition-opacity duration-1000 ${isVisible || isExpanded ? 'opacity-0' : 'opacity-40'}`} />
           </div>
+
           <div className={`
             absolute transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] z-30
             ${isExpanded 
               ? 'top-6 right-10 text-right' 
               : 'bottom-16 left-16 text-left pointer-events-none'}
           `}>
-            <h3 className={`font-bold font-display text-slate-950 uppercase tracking-tighter transition-all duration-1000 leading-none ${isExpanded ? 'text-lg' : 'text-6xl lg:text-7xl drop-shadow-lg text-white'}`}>
+            <h3 className={`font-black font-display text-slate-950 uppercase tracking-tighter transition-all duration-1000 leading-none ${isExpanded ? 'text-lg' : 'text-6xl lg:text-8xl drop-shadow-2xl text-white'}`}>
               {project.title}.
             </h3>
             {isExpanded && (
@@ -74,61 +85,69 @@ const ProjectItem: React.FC<{
             )}
           </div>
         </div>
+
         <div className={`
           transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)]
-          ${isExpanded ? 'max-h-[5000px] opacity-100 p-8 lg:p-24' : 'max-h-0 opacity-0 overflow-hidden'}
+          ${isExpanded ? 'max-h-[5000px] opacity-100 p-8 lg:p-14 bg-white' : 'max-h-0 opacity-0 overflow-hidden'}
         `}>
-          <div className={`flex flex-col lg:flex-row gap-24 items-start ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-             <div className="lg:w-[40%] w-full lg:sticky lg:top-32 h-fit">
-                <div className="relative overflow-hidden rounded-[32px] bg-white border border-slate-200 shadow-2xl group/img">
+          <div className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-start ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+             <div className="lg:w-[35%] w-full flex-shrink-0">
+                <div className="relative overflow-hidden rounded-[32px] bg-white border-4 border-white shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] group/img">
                   <img 
                     src={project.secondaryImageUrl} 
                     alt={project.title}
-                    className="w-full aspect-[3/4.5] object-cover transition-transform duration-1000 group-hover/img:scale-110" 
+                    className="w-full aspect-[4/5] lg:aspect-[3.5/4] object-cover transition-transform duration-1000 group-hover/img:scale-110" 
                   />
-                  <div className={`absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent pointer-events-none`} />
+                  <div className={`absolute inset-0 bg-gradient-to-t from-${accentColors[accent]}/20 to-transparent pointer-events-none opacity-0 group-hover/img:opacity-100 transition-opacity`} />
                 </div>
              </div>
-             <div className="flex-1 space-y-12">
-                <div className="space-y-8">
+             
+             <div className="flex-1 min-w-0 space-y-10">
+                <div className="space-y-4">
                    <div className="flex items-center gap-6">
                       <div className={`h-[2px] w-12 bg-${accentColors[accent]}`} />
-                      <p className={`text-[10px] font-bold uppercase tracking-[0.6em] text-${accentColors[accent]}`}>Technical Specification</p>
+                      <p className={`text-[10px] font-black uppercase tracking-[0.6em] text-${accentColors[accent]}`}>Spec_Manifesto</p>
                    </div>
-                   <h4 className="text-5xl lg:text-6xl font-bold text-slate-950 leading-[0.9] uppercase tracking-tighter">{project.tagline}</h4>
-                   <p className="text-slate-600 leading-relaxed text-xl font-medium max-w-xl">{project.overview}</p>
+                   <h4 className="text-4xl lg:text-5xl font-black text-slate-950 leading-[0.95] uppercase tracking-tighter">{project.tagline}</h4>
+                   <p className="text-slate-600 leading-relaxed text-lg lg:text-xl font-medium max-w-2xl">{project.overview}</p>
                 </div>
-                <div className="flex gap-3 flex-wrap">
-                   {project.tech.map(t => <BubbleTag key={t} accent={accent as any}>{t}</BubbleTag>)}
+
+                <div className="space-y-3">
+                   <h5 className="text-[9px] font-black uppercase tracking-[0.4em] text-slate-400">Core_Stack</h5>
+                   <div className="flex gap-2.5 flex-wrap">
+                      {project.tech.map(t => <BubbleTag key={t} accent={accent as any}>{t}</BubbleTag>)}
+                   </div>
                 </div>
-                <div className="space-y-10 pt-12 border-t border-slate-200">
-                   <h5 className="text-[10px] font-bold uppercase tracking-[0.5em] text-slate-400">System_Capabilities</h5>
-                   <ul className="flex flex-col gap-6">
+
+                <div className="space-y-6 pt-8 border-t-2 border-slate-50">
+                   <h5 className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-400">System_Capabilities</h5>
+                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                       {project.useCases.map((use, idx) => (
-                        <li key={idx} className="flex gap-8 items-start group/li">
-                          <span className={`text-${accentColors[accent]} font-bold text-xl pt-0.5 opacity-40 group-hover/li:opacity-100 transition-opacity`}>#</span>
-                          <span className="text-slate-700 font-medium uppercase tracking-tight leading-snug text-sm group-hover/li:text-slate-950 transition-colors">{use}</span>
+                        <li key={idx} className="flex gap-3 items-start group/li">
+                          <span className={`text-${accentColors[accent]} font-black text-lg pt-0.5 opacity-30 group-hover/li:opacity-100 transition-all duration-300`}>0{idx + 1}</span>
+                          <span className="text-slate-700 font-bold uppercase tracking-tight leading-snug text-sm group-hover/li:text-slate-950 transition-colors">{use}</span>
                         </li>
                       ))}
                    </ul>
                 </div>
-                <div className="pt-16 flex flex-col sm:flex-row gap-6">
-                   <GlassButton accent={accent as any} className="flex-1" onClick={(e: React.MouseEvent) => { e.stopPropagation(); window.open(project.repoUrl, '_blank'); }}>Source_Repo</GlassButton>
+
+                <div className="pt-8 flex flex-col sm:flex-row gap-5">
+                   <GlassButton accent={accent as any} className="flex-1 py-3" onClick={(e: React.MouseEvent) => { e.stopPropagation(); window.open(project.repoUrl, '_blank'); }}>Source_Repo</GlassButton>
                    {project.liveUrl && (
-                     <GlassButton primary accent={accent as any} className="flex-1" onClick={(e: React.MouseEvent) => { e.stopPropagation(); window.open(project.liveUrl, '_blank'); }}>Live_Deployment</GlassButton>
+                     <GlassButton primary accent={accent as any} className="flex-1 py-3" onClick={(e: React.MouseEvent) => { e.stopPropagation(); window.open(project.liveUrl, '_blank'); }}>Live_Deployment</GlassButton>
                    )}
                 </div>
              </div>
           </div>
-          <div className="mt-24 pt-10 border-t border-slate-200 flex justify-between items-center">
+          <div className="mt-12 pt-6 border-t border-slate-100 flex justify-between items-center">
              <button 
                onClick={(e) => { e.stopPropagation(); onToggle(); }} 
-               className="text-[10px] font-bold uppercase text-slate-400 hover:text-slate-950 transition-all tracking-[0.4em] flex items-center gap-8 group"
+               className="text-[9px] font-black uppercase text-slate-400 hover:text-slate-950 transition-all tracking-[0.5em] flex items-center gap-6 group"
              >
-               <span className="w-16 h-[1px] bg-slate-200 group-hover:w-24 group-hover:bg-slate-950 transition-all" />
-               Exit_Node
+               <span className="w-12 h-[2px] bg-slate-200 group-hover:w-20 group-hover:bg-slate-950 transition-all" />
+               Exit_Archive
              </button>
-             <span className="text-[9px] font-bold text-slate-300 uppercase tracking-[1.5em]">SYSTEM_ARCHIVE_2025</span>
+             <span className="text-[8px] font-black text-slate-300 uppercase tracking-[1.5em]">SYSTEM_MOD_2025</span>
           </div>
         </div>
       </GlassCard>
@@ -313,10 +332,10 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        <section id="logic-section" className="mb-80 scroll-mt-32 border-4 border-purple-200 rounded-[48px] p-12 lg:p-24 bg-white/30 backdrop-blur-sm">
+        <section id="logic-section" className="mb-80 scroll-mt-32 border-4 border-purple-200 rounded-[48px] p-12 lg:p-24 bg-white/30 backdrop-blur-sm shadow-xl">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-14">
-              <div className="inline-block px-6 py-2.5 bg-purple-600 text-white text-[11px] font-bold uppercase tracking-widest rounded-full shadow-lg shadow-purple-200">STRATEGY_ENGINE_V1</div>
+              <div className="inline-block px-6 py-2.5 bg-indigo-600 text-white text-[11px] font-bold uppercase tracking-widest rounded-full shadow-lg shadow-purple-200">STRATEGY_ENGINE_V1</div>
               <h2 className="text-5xl lg:text-6xl font-bold font-display text-slate-950 uppercase tracking-tighter leading-tight">Interaction <br /> Module.</h2>
               <p className="text-slate-700 font-medium max-w-lg leading-relaxed text-xl">
                 The Logic Grid serves as a testbed for deterministic CPU behaviors. Utilize the integrated Neural Hinting system to navigate the board.
@@ -395,8 +414,8 @@ const App: React.FC = () => {
                   <div className="flex flex-col gap-10">
                      <a href="mailto:hello@vamshi.dev" className="text-4xl lg:text-5xl font-black text-slate-950 underline decoration-purple-600 decoration-[8px] underline-offset-[16px] hover:text-purple-600 transition-all uppercase tracking-tight">hello@vamshi.dev</a>
                      <div className="flex justify-center gap-16 pt-12">
-                        <a href={LINKEDIN_URL} target="_blank" className="text-[12px] font-bold text-purple-400 hover:text-purple-700 transition-all uppercase tracking-[0.4em]">LINKEDIN</a>
-                        <a href={`https://github.com/${GITHUB_USERNAME}`} target="_blank" className="text-[12px] font-bold text-purple-400 hover:text-purple-700 transition-all uppercase tracking-[0.4em]">GITHUB</a>
+                        <a href={LINKEDIN_URL} target="_blank" className="text-[12px] font-bold text-purple-400 hover:text-purple-700 transition-all uppercase tracking-tight">LINKEDIN</a>
+                        <a href={`https://github.com/${GITHUB_USERNAME}`} target="_blank" className="text-[12px] font-bold text-purple-400 hover:text-purple-700 transition-all uppercase tracking-tight">GITHUB</a>
                      </div>
                   </div>
                </GlassCard>

@@ -29,8 +29,8 @@ export const PROJECTS: Project[] = [
       'Implemented multi-step wizard UX, validation, and live preview.'
     ],
     category: ProjectCategory.AI,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=800',
-    secondaryImageUrl: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1200',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1000',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1664575602276-acd073f104c1?auto=format&fit=crop&q=80&w=1200',
     tech: ['React', 'TypeScript', 'Gemini API', 'Tailwind', 'Node.js'],
     liveUrl: 'https://future-job-fit.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/future-job-fit',
@@ -55,8 +55,8 @@ export const PROJECTS: Project[] = [
       'Focused on clear separation between presentation and business logic.'
     ],
     category: ProjectCategory.FULLSTACK,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=800',
-    secondaryImageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1200',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=1000',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=1200',
     tech: ['PHP', 'MySQL', 'JavaScript', 'HTML5', 'CSS3'],
     liveUrl: 'https://wanderlust-trails.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/Wanderlusttrails',
@@ -81,8 +81,8 @@ export const PROJECTS: Project[] = [
       'Integrated MySQL for real-time booking persistence.'
     ],
     category: ProjectCategory.FULLSTACK,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=800',
-    secondaryImageUrl: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1200',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1000',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=1200',
     tech: ['PHP', 'MySQL', 'JavaScript', 'Bootstrap'],
     liveUrl: 'https://cinematic-discovery.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/Movie-Booking-Website',
@@ -107,8 +107,8 @@ export const PROJECTS: Project[] = [
       'Ensured data consistency for ticket availability vs sales.'
     ],
     category: ProjectCategory.FULLSTACK,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=800',
-    secondaryImageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1200',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=1000',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1200',
     tech: ['C#', '.NET', 'MySQL', 'JavaScript', 'HTML'],
     liveUrl: 'https://pullaiahgari-tickets.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/PullaiahgariTicketSales',
@@ -140,7 +140,6 @@ export const BLOG_POSTS: BlogPost[] = [
   }
 ];
 
-// Added SOCIAL_POSTS mock data for SocialFeed component.
 export const SOCIAL_POSTS: SocialPost[] = [
   {
     id: 's1',
