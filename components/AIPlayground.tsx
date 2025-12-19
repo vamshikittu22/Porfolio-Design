@@ -25,13 +25,13 @@ const AIPlayground: React.FC = () => {
   const handleEditImage = async () => {
     if (!prompt) return;
     setLoading(true);
-    setStatus('Asking Nano Banana to refine your vision...');
+    setStatus('AI is processing your image request...');
     try {
       const result = await gemini.generateImage(prompt, image || undefined);
       setImage(result);
     } catch (err) {
       console.error(err);
-      setStatus('Failed to edit image.');
+      setStatus('Failed to generate image.');
     } finally {
       setLoading(false);
       setStatus('');
@@ -40,7 +40,7 @@ const AIPlayground: React.FC = () => {
 
   const handleAnimate = async () => {
     setLoading(true);
-    setStatus('Veo is crafting your masterpiece (this may take 1-2 mins)...');
+    setStatus('Veo is generating your video (this can take up to 2 minutes)...');
     try {
       const result = await gemini.generateVideo(prompt || "abstract motion, smooth loop, high quality", image || undefined);
       setVideo(result);
@@ -57,8 +57,8 @@ const AIPlayground: React.FC = () => {
     <GlassCard className="p-12 max-w-5xl mx-auto shadow-2xl border-purple-50" accent="purple">
       <div className="flex flex-col gap-12">
         <div className="text-center space-y-4">
-          <h3 className="text-4xl font-bold font-display text-slate-900 uppercase tracking-tighter">Media_Synthesis.</h3>
-          <p className="text-slate-500 font-medium tracking-tight uppercase text-xs border-t border-slate-50 pt-4 inline-block">Neural Narrative Construction Module</p>
+          <h3 className="text-4xl font-bold font-display text-slate-900 uppercase tracking-tighter">AI Studio.</h3>
+          <p className="text-slate-500 font-medium tracking-tight uppercase text-xs border-t border-slate-50 pt-4 inline-block">Generate Images & Videos with Google AI</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16">
@@ -73,7 +73,7 @@ const AIPlayground: React.FC = () => {
                   <div className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center">
                     <span className="text-slate-300 text-2xl font-bold">+</span>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.4em]">Awaiting_Input</span>
+                  <span className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.4em]">No Media Selected</span>
                 </div>
               )}
               
@@ -97,17 +97,17 @@ const AIPlayground: React.FC = () => {
               className="w-full py-4"
               onClick={() => fileInputRef.current?.click()}
             >
-              Upload_Asset
+              Upload Reference Image
             </GlassButton>
           </div>
 
           <div className="flex flex-col justify-between py-2">
             <div className="space-y-6">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em]">Neural_Prompt_Matrix</label>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em]">Describe Your Idea</label>
               <textarea 
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Describe the desired synthesis. e.g. 'Add cinematic motion blur' or 'Render as 1970s film stock'"
+                placeholder="Describe what you want to see. e.g. 'A futuristic city in Swiss minimalist style' or 'Cinematic mountain landscape with purple sunset'"
                 className="w-full h-48 p-6 rounded-[24px] bg-slate-50 border border-slate-100 text-slate-700 font-medium text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none resize-none transition-all shadow-inner placeholder:text-slate-300"
               />
             </div>
@@ -119,7 +119,7 @@ const AIPlayground: React.FC = () => {
                 onClick={handleEditImage} 
                 disabled={loading || !prompt}
               >
-                Synthesize_Img
+                Create Image
               </GlassButton>
               <GlassButton 
                 accent="orange" 
@@ -127,11 +127,11 @@ const AIPlayground: React.FC = () => {
                 onClick={handleAnimate} 
                 disabled={loading}
               >
-                Animate_Veo
+                Create Video
               </GlassButton>
             </div>
             <p className="text-[9px] font-bold text-slate-200 uppercase tracking-[0.8em] text-center mt-10">
-              CORE_SYS_GEMINI_VEO_3.1
+              Powered by Google Gemini & Veo
             </p>
           </div>
         </div>

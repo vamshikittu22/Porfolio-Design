@@ -93,7 +93,7 @@ export const TicTacToe: React.FC = () => {
 
   const winner = calculateWinner(board);
   const isDraw = !winner && board.every(square => square !== null);
-  const status = winner ? `Result: ${winner === 'O' ? 'User_Win' : 'CPU_Win'}` : isDraw ? "State: Draw" : isCpuThinking ? "Syncing..." : "Your Turn";
+  const status = winner ? `Winner: ${winner === 'O' ? 'You!' : 'AI'}` : isDraw ? "Game Tied" : isCpuThinking ? "AI is thinking..." : "Your Turn";
 
   const reset = () => {
     setBoard(Array(9).fill(null));
@@ -106,8 +106,8 @@ export const TicTacToe: React.FC = () => {
       <div className="space-y-6">
         <div className="flex justify-between items-end border-b border-purple-100 pb-3">
           <div className="space-y-1">
-            <h4 className="text-[8px] font-bold uppercase tracking-[0.4em] text-purple-400">GAME_UNIT_01</h4>
-            <p className="text-lg font-bold text-slate-900 uppercase tracking-tighter leading-none">TIC-TAC-TOE.</p>
+            <h4 className="text-[8px] font-bold uppercase tracking-[0.4em] text-purple-400">Level 1</h4>
+            <p className="text-lg font-bold text-slate-900 uppercase tracking-tighter leading-none">Tic-Tac-Toe.</p>
           </div>
           <span className={`text-[8px] font-bold uppercase tracking-[0.2em] ${winner || isDraw ? 'text-orange-500' : 'text-purple-400'}`}>
             {status}
@@ -115,7 +115,7 @@ export const TicTacToe: React.FC = () => {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 items-start">
-          {/* Left Column: Board - Reduced size for better containment */}
+          {/* Left Column: Board */}
           <div className="w-full md:w-[240px] flex-shrink-0 mx-auto md:mx-0">
             <div className="grid grid-cols-3 gap-1.5 bg-purple-50 p-1.5 rounded-xl overflow-hidden border border-purple-100 shadow-inner w-full aspect-square">
               {board.map((square, i) => (
@@ -136,24 +136,24 @@ export const TicTacToe: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Hint and Controls - Using flex-1 and min-w-0 to prevent overflow */}
+          {/* Right Column: AI Hint Panel */}
           <div className="flex-1 w-full min-w-0 flex flex-col justify-between self-stretch gap-4">
             <div className="space-y-3 flex-1">
-              <label className="text-[7px] font-bold text-purple-300 uppercase tracking-[0.4em] block border-b border-purple-50 pb-1">NEURAL_STATUS_PANEL</label>
+              <label className="text-[7px] font-bold text-purple-300 uppercase tracking-[0.4em] block border-b border-purple-50 pb-1">AI Hint System</label>
               
               <div className="min-h-[100px] flex items-center w-full">
                 {hint ? (
                   <div className="bg-purple-50 p-4 rounded-xl border border-purple-100 animate-in fade-in slide-in-from-right-2 duration-500 w-full overflow-hidden">
                     <div className="flex items-center gap-1.5 mb-1.5">
                        <div className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse flex-shrink-0" />
-                       <p className="text-[8px] text-purple-600 font-extrabold uppercase tracking-widest leading-none truncate">STRATEGY_OUTPUT</p>
+                       <p className="text-[8px] text-purple-600 font-extrabold uppercase tracking-widest leading-none truncate">Strategy Advice</p>
                     </div>
                     <p className="text-[10px] text-slate-700 font-medium leading-relaxed italic break-words">"{hint.reason}"</p>
                   </div>
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center border border-dashed border-purple-100 rounded-xl p-3 text-center">
-                     <p className="text-[8px] font-bold text-purple-200 uppercase tracking-[0.2em] mb-0.5">SYSTEM IDLE</p>
-                     <p className="text-[9px] text-purple-200 font-medium italic">Request a hint to activate logic synthesis</p>
+                     <p className="text-[8px] font-bold text-purple-200 uppercase tracking-[0.2em] mb-0.5">AI Standby</p>
+                     <p className="text-[9px] text-purple-200 font-medium italic">Ask for a hint to see the best move</p>
                   </div>
                 )}
               </div>
@@ -167,20 +167,20 @@ export const TicTacToe: React.FC = () => {
                 onClick={getAiHint} 
                 disabled={loadingHint || !!winner || isDraw || xIsNext}
               >
-                {loadingHint ? 'PROCESSING...' : 'REQUEST AI STRATEGY'}
+                {loadingHint ? 'Thinking...' : 'Get AI Hint'}
               </GlassButton>
               <button 
                 onClick={reset}
                 className="text-[8px] font-bold uppercase text-purple-300 hover:text-purple-600 transition-all tracking-[0.5em] py-1"
               >
-                REINITIALIZE_GRID
+                Reset Game
               </button>
             </div>
           </div>
         </div>
         
         <div className="pt-2 border-t border-purple-50 flex justify-between items-center opacity-30">
-           <span className="text-[6px] font-bold text-purple-300 uppercase tracking-widest leading-none truncate">ENCRYPTED_SIGNAL_STABLE</span>
+           <span className="text-[6px] font-bold text-purple-300 uppercase tracking-widest leading-none truncate">System Status: Online</span>
            <div className="flex gap-1 flex-shrink-0">
               <div className="w-0.5 h-0.5 rounded-full bg-purple-300" />
               <div className="w-0.5 h-0.5 rounded-full bg-purple-300" />
