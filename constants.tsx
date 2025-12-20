@@ -1,4 +1,3 @@
-
 import { Project, ProjectCategory, BlogPost, SocialPost } from './types';
 
 export const FULL_NAME = 'Vamshi Krishna Pullaiahgari';
@@ -126,7 +125,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2019',
     tag: 'Adventure',
     url: 'https://travelsofvk.blogspot.com/2019/09/my-travel-story-rishikesh.html',
-    imageUrl: 'https://images.unsplash.com/photo-1590766940554-634a7ed41450?q=80&w=1200&auto=format&fit=crop', // STATIC Ganga Aarti
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e1/Ganga_Aarti_Rishikesh.jpg', // STATIC Ganga Aarti Landmark
   },
   {
     id: 'coorg-story',
@@ -135,7 +134,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2020',
     tag: 'Road Trip',
     url: 'https://travelsofvk.blogspot.com/2020/04/coorg-3-year-old-dream.html',
-    imageUrl: 'https://images.unsplash.com/photo-1581446337188-71e98f01b7a2?q=80&w=1200&auto=format&fit=crop', // STATIC Elephant Camp
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Elephant_at_Dubare_Elephant_Camp%2C_Coorg.jpg', // STATIC Elephant Camp Landmark
   }
 ];
 
