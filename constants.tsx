@@ -1,9 +1,12 @@
+
 import { Project, ProjectCategory, BlogPost, SocialPost } from './types';
 
 export const FULL_NAME = 'Vamshi Krishna Pullaiahgari';
 export const GITHUB_USERNAME = 'vamshikittu22';
 export const INSTAGRAM_HANDLE = 'vamshi._.ki22u';
+export const INSTAGRAM_URL = `https://www.instagram.com/vamshi._.ki22u/`;
 export const X_HANDLE = 'ki22u__';
+export const X_URL = `https://x.com/ki22u__`;
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/vamshi-krishna-pullaiahgari/';
 export const BLOG_URL = 'https://travelsofvk.blogspot.com';
 export const RESUME_URL = '#'; // Placeholder for resume link
@@ -117,25 +120,22 @@ export const PROJECTS: Project[] = [
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    id: 'b1',
-    title: 'Swiss Minimalism in Web Architecture',
-    summary: 'Exploring how intentional whitespace and typographic grid systems define modern engineering.',
-    date: 'Feb 15, 2025',
-    tag: 'Design',
+    id: 'rishikesh-story',
+    title: 'Rishikesh – The Holy Thrill',
+    summary: 'Spiritual Ganga Aarti on the sacred river banks mixed with the roar of white water rafting.',
+    date: '2019',
+    tag: 'Adventure',
+    url: 'https://travelsofvk.blogspot.com/2019/09/my-travel-story-rishikesh.html',
+    imageUrl: 'https://images.unsplash.com/photo-1590766940554-634a7ed41450?q=80&w=1200&auto=format&fit=crop', // STATIC Ganga Aarti
   },
   {
-    id: 'b2',
-    title: 'The Evolution of Gemini 2.5',
-    summary: 'A technical deep-dive into utilizing Flash models for high-performance generative UI.',
-    date: 'Jan 28, 2025',
-    tag: 'AI',
-  },
-  {
-    id: 'b3',
-    title: 'Architecture over Hype',
-    summary: 'Why foundational system design outlasts the rapid cycle of JavaScript frameworks.',
-    date: 'Jan 10, 2025',
-    tag: 'Engineering',
+    id: 'coorg-story',
+    title: 'Coorg – Coffee & Elephants',
+    summary: 'A journey through coffee estates to find the elephants of Dubare and the peace of Tibetan temples.',
+    date: '2020',
+    tag: 'Road Trip',
+    url: 'https://travelsofvk.blogspot.com/2020/04/coorg-3-year-old-dream.html',
+    imageUrl: 'https://images.unsplash.com/photo-1581446337188-71e98f01b7a2?q=80&w=1200&auto=format&fit=crop', // STATIC Elephant Camp
   }
 ];
 
@@ -143,24 +143,16 @@ export const SOCIAL_POSTS: SocialPost[] = [
   {
     id: 's1',
     platform: 'instagram',
-    content: 'Exploring the intersection of Swiss typography and modern frontend architectures. Minimalist design is a language of its own.',
+    content: 'Exploring the intersection of travel and technology. Every destination is a new dataset.',
     imageUrl: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=800',
     date: 'Feb 10, 2025',
-    link: 'https://instagram.com'
+    link: INSTAGRAM_URL
   },
   {
     id: 's2',
     platform: 'x',
     content: 'Just deployed the new Synthesis Lab module. Gemini 2.5 Flash is incredibly fast for multi-modal reasoning. #AI #GenAI #TypeScript',
     date: 'Feb 12, 2025',
-    link: 'https://x.com'
-  },
-  {
-    id: 's3',
-    platform: 'instagram',
-    content: 'Neural networks are the new brushes. Coding is the new canvas. Architecture is the frame.',
-    imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800',
-    date: 'Feb 05, 2025',
-    link: 'https://instagram.com'
+    link: X_URL
   }
 ];

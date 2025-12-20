@@ -14,7 +14,7 @@ export class GeminiService {
     return this.instance;
   }
 
-  async generateImage(prompt: string, baseImageBase64?: string): Promise<string> {
+  async generateImage(prompt: string, baseImageBase64?: string, aspectRatio: "1:1" | "16:9" | "9:16" | "4:3" | "3:4" = "1:1"): Promise<string> {
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const parts: any[] = [{ text: prompt }];
     
@@ -30,6 +30,11 @@ export class GeminiService {
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash-image',
       contents: { parts },
+      config: {
+        imageConfig: {
+          aspectRatio: aspectRatio
+        }
+      }
     });
 
     for (const part of response.candidates?.[0]?.content?.parts || []) {

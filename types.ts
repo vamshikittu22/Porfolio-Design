@@ -28,9 +28,14 @@ export interface BlogPost {
   id: string;
   title: string;
   summary: string;
+  narrative?: string;
   date: string;
   tag: string;
   location?: string;
+  url: string;
+  imageUrl?: string;
+  illustrationUrl?: string;
+  isPlaceholder?: boolean;
 }
 
 export interface SocialPost {
