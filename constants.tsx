@@ -125,7 +125,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2019',
     tag: 'Adventure',
     url: 'https://travelsofvk.blogspot.com/2019/09/my-travel-story-rishikesh.html',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e1/Ganga_Aarti_Rishikesh.jpg', // STATIC Ganga Aarti Landmark
+    imageUrl: 'images/ganga_aarti.jpg',
   },
   {
     id: 'coorg-story',
@@ -134,7 +134,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2020',
     tag: 'Road Trip',
     url: 'https://travelsofvk.blogspot.com/2020/04/coorg-3-year-old-dream.html',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Elephant_at_Dubare_Elephant_Camp%2C_Coorg.jpg', // STATIC Elephant Camp Landmark
+    imageUrl: 'images/elephant_camp.jpg',
   }
 ];
 

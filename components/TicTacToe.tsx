@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { GlassCard, GlassButton } from './GlassUI';
 import { GeminiService } from '../services/geminiService';
@@ -101,30 +102,29 @@ export const TicTacToe: React.FC = () => {
   };
 
   return (
-    <GlassCard className="p-6 w-full max-w-2xl mx-auto shadow-2xl border-2 border-purple-400 bg-white overflow-hidden" accent="purple">
+    <GlassCard className="p-8 w-full max-w-[800px] mx-auto shadow-2xl border-2 border-purple-400 bg-white overflow-hidden" accent="purple">
       <div className="space-y-6">
-        <div className="flex justify-between items-end border-b border-purple-100 pb-3">
+        <div className="flex justify-between items-end border-b border-purple-100 pb-4">
           <div className="space-y-1">
-            <h4 className="text-[8px] font-bold uppercase tracking-[0.4em] text-purple-400">Strategy Challenge</h4>
-            <p className="text-lg font-bold text-slate-900 uppercase tracking-tighter leading-none">Tic-Tac-Toe.</p>
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-purple-400">Strategy Challenge</h4>
+            <p className="text-xl font-black text-slate-900 uppercase tracking-tighter leading-none">Tic-Tac-Toe.</p>
           </div>
-          <span className={`text-[8px] font-bold uppercase tracking-[0.2em] ${winner || isDraw ? 'text-orange-500' : 'text-purple-400'}`}>
+          <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${winner || isDraw ? 'text-orange-500' : 'text-purple-400'}`}>
             {status}
           </span>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6 items-start">
-          <div className="w-full md:w-[240px] flex-shrink-0 mx-auto md:mx-0">
-            <div className="grid grid-cols-3 gap-1.5 bg-purple-50 p-1.5 rounded-xl overflow-hidden border border-purple-100 shadow-inner w-full aspect-square">
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-8 items-stretch">
+          <div className="flex-1">
+            <div className="grid grid-cols-3 gap-3 bg-purple-50 p-3 rounded-3xl overflow-hidden border border-purple-100 shadow-inner w-full aspect-square">
               {board.map((square, i) => (
                 <button
                   key={i}
                   onClick={() => handleUserClick(i)}
-                  className={`aspect-square flex items-center justify-center text-3xl font-bold transition-all duration-300 rounded-lg
-                    ${hint?.index === i ? 'bg-purple-100 ring-2 ring-purple-600 ring-inset' : 'bg-white'}
+                  className={`aspect-square flex items-center justify-center text-4xl font-black transition-all duration-300 rounded-2xl
+                    ${hint?.index === i ? 'bg-purple-100 ring-4 ring-purple-600 ring-inset' : 'bg-white'}
                     ${square === 'O' ? 'text-purple-600' : 'text-orange-500'}
-                    ${!square && !xIsNext && !isCpuThinking ? 'hover:bg-purple-50' : ''}
-                    ${xIsNext || isCpuThinking ? 'cursor-wait' : 'cursor-pointer'}
+                    ${!square && !xIsNext && !isCpuThinking ? 'hover:bg-purple-50 active:scale-95' : ''}
                     shadow-sm
                   `}
                 >
@@ -134,32 +134,26 @@ export const TicTacToe: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex-1 w-full min-w-0 flex flex-col justify-between self-stretch gap-4">
-            <div className="space-y-3 flex-1">
-              <label className="text-[7px] font-bold text-purple-300 uppercase tracking-[0.4em] block border-b border-purple-50 pb-1">AI Hint System</label>
-              <div className="min-h-[100px] flex items-center w-full">
-                {hint ? (
-                  <div className="bg-purple-50 p-4 rounded-xl border border-purple-100 animate-in fade-in slide-in-from-right-2 duration-500 w-full overflow-hidden">
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                       <div className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse flex-shrink-0" />
-                       <p className="text-[8px] text-purple-600 font-extrabold uppercase tracking-widest leading-none truncate">AI Strategy</p>
-                    </div>
-                    <p className="text-[10px] text-slate-700 font-medium leading-relaxed italic break-words">"{hint.reason}"</p>
-                  </div>
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center border border-dashed border-purple-100 rounded-xl p-3 text-center">
-                     <p className="text-[8px] font-bold text-purple-200 uppercase tracking-[0.2em] mb-0.5">Ready to assist</p>
-                     <p className="text-[9px] text-purple-200 font-medium italic">Ask for a move hint to activate AI logic</p>
-                  </div>
-                )}
-              </div>
+          <div className="flex flex-col justify-between gap-6">
+            <div className="space-y-4">
+              <label className="text-[9px] font-bold text-purple-300 uppercase tracking-[0.4em] block border-b border-purple-50 pb-1">AI Hint System</label>
+              {hint ? (
+                <div className="bg-purple-50 p-5 rounded-2xl border border-purple-100 animate-in fade-in slide-in-from-right-2 duration-500">
+                  <p className="text-[10px] text-purple-600 font-extrabold uppercase tracking-widest mb-2">AI Strategy</p>
+                  <p className="text-xs text-slate-700 font-bold leading-relaxed italic">"{hint.reason}"</p>
+                </div>
+              ) : (
+                <div className="w-full h-32 flex flex-col items-center justify-center border border-dashed border-purple-100 rounded-2xl p-6 text-center">
+                   <p className="text-[10px] font-bold text-purple-200 uppercase tracking-[0.2em]">Ready to assist</p>
+                </div>
+              )}
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3">
               <GlassButton 
                 accent="purple" 
                 primary 
-                className="w-full py-2.5 rounded-lg shadow-md text-[9px]" 
+                className="w-full py-3" 
                 onClick={getAiHint} 
                 disabled={loadingHint || !!winner || isDraw || xIsNext}
               >
@@ -167,7 +161,7 @@ export const TicTacToe: React.FC = () => {
               </GlassButton>
               <button 
                 onClick={reset}
-                className="text-[8px] font-bold uppercase text-purple-300 hover:text-purple-600 transition-all tracking-[0.5em] py-1"
+                className="text-[9px] font-black uppercase text-purple-300 hover:text-purple-600 transition-all tracking-[0.5em]"
               >
                 Reset Game
               </button>
