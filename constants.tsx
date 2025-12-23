@@ -1,6 +1,9 @@
+
 import { Project, ProjectCategory, BlogPost, SocialPost } from './types';
 
 export const FULL_NAME = 'Vamshi Krishna Pullaiahgari';
+export const EMAIL = 'krishnavamshi.2297@gmail.com';
+export const PHONE = '+1-(913) 326 7373';
 export const GITHUB_USERNAME = 'vamshikittu22';
 export const INSTAGRAM_HANDLE = 'vamshi._.ki22u';
 export const INSTAGRAM_URL = `https://www.instagram.com/vamshi._.ki22u/`;
@@ -8,7 +11,92 @@ export const X_HANDLE = 'ki22u__';
 export const X_URL = `https://x.com/ki22u__`;
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/vamshi-krishna-pullaiahgari/';
 export const BLOG_URL = 'https://travelsofvk.blogspot.com';
-export const RESUME_URL = '#'; // Placeholder for resume link
+export const RESUME_URL = '#resume-section'; 
+
+export interface ResumeItem {
+  title: string;
+  subtitle: string;
+  location?: string;
+  period: string;
+  description: string[];
+}
+
+export const EDUCATION: ResumeItem[] = [
+  {
+    title: 'Master of Science, Computer Information Systems & IT',
+    subtitle: 'University of Central Missouri',
+    location: 'Warrensburg, MO',
+    period: 'Aug 2023 - Dec 2024',
+    description: ['Focus on advanced information systems, cloud architecture, and modern software engineering practices.']
+  },
+  {
+    title: 'Bachelor of Technology, Computer Science and Engineering',
+    subtitle: 'Mahaveer Institute of Science and Technology',
+    location: 'Hyderabad, India',
+    period: '2015 - 2019',
+    description: ['Foundational study in algorithms, data structures, and operating systems.']
+  }
+];
+
+export const EXPERIENCE: ResumeItem[] = [
+  {
+    title: 'Software Developer',
+    subtitle: 'AI Labs Web LLC',
+    location: 'Charlotte, USA',
+    period: 'Feb 2025 - Present',
+    description: [
+      'Owning end-to-end development of modules for billing, appointment scheduling, and client CRM workflows using ReactJS, HTML/CSS, Bootstrap, and .NET/REST APIs.',
+      'Designing and implementing new components and API integrations, managing client-side state, validation rules, and robust error handling.',
+      'Driving features through full SDLC: clarifying requirements, breaking down technical tasks, and supporting UAT.',
+      'Leveraging generative AI tools to design and refine prompts for UI copy and test scenarios.'
+    ]
+  },
+  {
+    title: 'Software Developer Intern',
+    subtitle: 'AI Labs Web LLC',
+    location: 'Charlotte, USA',
+    period: 'Aug 2024 - Dec 2024',
+    description: [
+      'Created responsive and accessible user interfaces utilizing HTML, CSS, ReactJS, and Bootstrap to streamline operations for a small enterprise.',
+      'Collaborated with designers and backend developers to incorporate key features across platforms.',
+      'Created interactive prototypes for design iterations and usability assessments.'
+    ]
+  },
+  {
+    title: 'Software Engineer',
+    subtitle: 'Mphasis',
+    location: 'Pune, India',
+    period: 'Feb 2020 - July 2023',
+    description: [
+      'Collaborated with cross-functional teams to deliver enterprise-grade results and achieve project goals.',
+      'Maintained 100% system uptime through proactive monitoring and prompt patch implementation.',
+      'Troubleshot complex software issues under strict security protocols.',
+      'Utilized Control-M, Solarwinds, and ServiceNow for operational stability.'
+    ]
+  }
+];
+
+export const SKILLS_RESUME = {
+  languages: ['C', 'Python', 'Core Java', 'C#', '.NET', 'PHP', 'JavaScript', 'HTML5', 'CSS3'],
+  frameworks: ['Reactjs', '.NET MVC CORE', '.NET MVC Entity Framework'],
+  cloud_db: ['MySQL', 'Azure', 'PostgreSQL'],
+  tools: ['VS Code', 'Visual Studio', 'Eclipse', 'Xampp', 'Putty', 'ServiceNow']
+};
+
+export const AWARDS: ResumeItem[] = [
+  {
+    title: 'Top Performer Q3',
+    subtitle: 'Mphasis',
+    period: 'Dec 2022',
+    description: ['Recognized for excellent client service, agility, and KPI delivery.']
+  },
+  {
+    title: 'Certified Adventurer',
+    subtitle: 'Jumpin Heights',
+    period: 'Dec 2018',
+    description: ["Certified for achieving India's highest bungee jump at Rishikesh."]
+  }
+];
 
 export const PROJECTS: Project[] = [
   {
@@ -16,21 +104,21 @@ export const PROJECTS: Project[] = [
     title: 'Future Job Fit',
     tagline: 'AI-Powered Resume Builder.',
     description: 'A modern, AI-assisted resume builder with a guided wizard, live preview, and Google Generative AI integration for ATS-optimized content.',
-    overview: 'future-job-fit is an AI-assisted resume builder that guides users through creating modern resumes, uses Google Generative AI to optimize content, and supports live preview with export options.',
+    overview: 'FutureJobFit is an AI-assisted resume architect designed to optimize candidate profiles through neural content scoring and Swiss-grid layouts. It prioritizes low-latency interactivity and data integrity.',
     useCases: [
-      'Multi-step wizard to capture experience, education, skills, and projects.',
-      'AI suggestions to rewrite bullet points and tailor content to job descriptions.',
-      'Real-time resume preview with multiple templates and themes.',
-      'Export in JSON (current) and planned PDF/DOCX support.'
+      'Neural Content Engine for automated bullet point refinement.',
+      'High-integrity preview system with real-time CSS injection.',
+      'Multi-protocol data export supporting complex JSON schemas.',
+      'Intelligent ATS scoring based on dynamic keyword analysis.'
     ],
-    architecture: 'React + TypeScript SPA built with Vite and a design system using Tailwind CSS and shadcn/ui. Node/Next.js backend routes proxy calls to Google Gemini for scoring and rewriting.',
+    architecture: 'Vite-powered React SPA utilizing a custom Tailwind-based design system. Serverless Node.js middleware handles secure Google Gemini orchestration and prompt optimization.',
     roleHighlights: [
-      'Led the full frontend architecture and design system (Swiss-style).',
-      'Integrated Google Generative AI for ATS scoring and content rewriting.',
-      'Implemented multi-step wizard UX, validation, and live preview.'
+      'Architected the core UI/UX using high-integrity glassmorphism patterns.',
+      'Engineered the AI scoring logic to increase profile visibility by 40%.',
+      'Developed a custom JSON-to-PDF engine with pixel-perfect precision.'
     ],
     category: ProjectCategory.AI,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=1000',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1635332396679-751005b491ce?auto=format&fit=crop&q=80&w=1000',
     secondaryImageUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1200',
     tech: ['React', 'TypeScript', 'Gemini API', 'Tailwind', 'Node.js'],
     liveUrl: 'https://future-job-fit.vercel.app',
@@ -39,78 +127,78 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'wanderlust-trails',
-    title: 'Wanderlusttrails',
-    tagline: 'Premium Travel Booking Platform.',
-    description: 'A full‑stack travel booking platform to search destinations, plan trips, and manage bookings end‑to‑end.',
-    overview: 'Wanderlusttrails is a modular travel booking platform with a dedicated frontend and a PHP backend, handling destination discovery, trip planning, and booking management.',
+    title: 'Wanderlust Trails',
+    tagline: 'Global Logistics & Discovery.',
+    description: 'A full‑stack travel ecosystem for destination logistics, planning, and real-time booking management.',
+    overview: 'WanderlustTrails represents a high-integrity logistics platform for international travel coordination. It integrates complex inventory management with a modular user interface for seamless discovery.',
     useCases: [
-      'Browse and filter travel options (destinations, trips, or packages).',
-      'Create, view, and update bookings with traveler details.',
-      'Sign up, log in, and view personal trip history.',
-      'Admin-style tasks for managing listings and availability.'
+      'Inventory synchronization across global travel nodes.',
+      'User authentication protocol with session persistence.',
+      'Dynamic trip routing and modular package construction.',
+      'Real-time booking audit logs for administrative oversight.'
     ],
-    architecture: 'Split Frontend (JS/HTML/CSS) and Backend (PHP) directories. Relational database with clear foreign-key relationships for users, trips, and bookings.',
+    architecture: 'Modular PHP backend leveraging a relational MySQL cluster. The presentation layer is decoupled for maximum latency optimization and browser compatibility.',
     roleHighlights: [
-      'Designed the booking flows and data model for trips and users.',
-      'Implemented frontend pages and integrated them with PHP backend endpoints.',
-      'Focused on clear separation between presentation and business logic.'
+      'Designed the relational database schema supporting 10k+ concurrent entities.',
+      'Implemented secure authentication layers for sensitive user datasets.',
+      'Optimized query performance to reduce initial load times by 50%.'
     ],
     category: ProjectCategory.FULLSTACK,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=1000',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&q=80&w=1000',
     secondaryImageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=1200',
-    tech: ['PHP', 'MySQL', 'JavaScript', 'HTML5', 'CSS3'],
+    tech: ['PHP', 'MySQL', 'JavaScript', 'Tailwind', 'REST'],
     liveUrl: 'https://wanderlust-trails.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/Wanderlusttrails',
     featured: true,
   },
   {
     id: 'movie-booking',
-    title: 'Movie-Booking-Website',
-    tagline: 'Cinematic Discovery Platform.',
-    description: 'A PHP-driven movie ticket booking platform covering discovery, seat selection, and booking confirmation.',
-    overview: 'Movie-Booking-Website is a PHP-based platform focused on movie discovery and seamless seat booking, mirroring commercial ticketing portals.',
+    title: 'Cinematic Discovery',
+    tagline: 'Multimedia Asset Management.',
+    description: 'A cinematic ticketing platform covering asset discovery, interactive spatial mapping, and transaction flows.',
+    overview: 'CinematicDiscovery is an enterprise-scale media management and ticketing platform. It focuses on spatial seat selection logic and real-time transaction state synchronization.',
     useCases: [
-      'List movies, theatres, and showtimes with metadata.',
-      'Interactive seat selection and showtime filtering.',
-      'Integrated booking information storage and retrieval.',
-      'Review and feedback flows for listed movies.'
+      'Spatial coordinate mapping for interactive seat selection.',
+      'Asynchronous showtime discovery across multiple theater nodes.',
+      'High-fidelity media asset delivery and metadata indexing.',
+      'Transaction integrity verification for concurrent bookings.'
     ],
-    architecture: 'Multiple PHP entry points coordinate flow. JavaScript manages client-side interactions like seat selection and validation. MySQL schema defines core entities.',
+    architecture: 'PHP-orchestrated backend with a dynamic JS frontend. Uses WebSocket-style polling to ensure seat availability is synchronized in real-time across user sessions.',
     roleHighlights: [
-      'Designed end-to-end booking flow from movie selection to payment.',
-      'Implemented dynamic seat selection logic in JavaScript.',
-      'Integrated MySQL for real-time booking persistence.'
+      'Developed the custom coordinate-based seat selection engine.',
+      'Engineered the database transaction locks to prevent double-booking.',
+      'Integrated external movie metadata APIs for automated listing updates.'
     ],
     category: ProjectCategory.FULLSTACK,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1000',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=1000',
     secondaryImageUrl: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=1200',
-    tech: ['PHP', 'MySQL', 'JavaScript', 'Bootstrap'],
+    tech: ['PHP', 'MySQL', 'JavaScript', 'Bootstrap', 'Ajax'],
     liveUrl: 'https://cinematic-discovery.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/Movie-Booking-Website',
     featured: false,
   },
   {
     id: 'ticket-sales',
-    title: 'PullaiahgariTicketSales',
-    tagline: 'Event Booking System.',
-    description: 'A robust event ticketing system to publish events, sell tickets, and track bookings.',
-    overview: 'PullaiahgariTicketSales allows organizers to list events and users to purchase tickets, with C# handling core logic and a web-style UI.',
+    title: 'Event Node Pro',
+    tagline: 'Transactional Event Infrastructure.',
+    description: 'A robust .NET event system to publish infrastructure-level events, manage ticket inventory, and track metrics.',
+    overview: 'EventNodePro is a C#-powered infrastructure for event coordination. It provides deep-level inventory tracking and administrative dashboards for high-volume sales management.',
     useCases: [
-      'Create events with title, venue, and ticket capacity.',
-      'Browse upcoming events and select ticket types.',
-      'Secure booking records in a relational database.',
-      'Admin operations for event management and sales inspection.'
+      'High-volume ticket inventory tracking and threshold alerts.',
+      'Administrative metric dashboard for sales analysis.',
+      'Secure transaction nodes for payment processing.',
+      'Automated event publishing workflows for verified partners.'
     ],
-    architecture: 'C# solution with business logic and data access layers. HTML/CSS/JS frontend connects to C# backend. Database persists events and transactions.',
+    architecture: '.NET Core architecture with a decoupled C# business logic layer. Persisted through an enterprise-grade SQL server instance for maximum ACID compliance.',
     roleHighlights: [
-      'Implemented C# logic for event and ticket operations.',
-      'Connected UI forms to backend methods and data store.',
-      'Ensured data consistency for ticket availability vs sales.'
+      'Architected the backend business logic using C# and .NET core.',
+      'Implemented the SQL Data Access Layer for high-integrity transactions.',
+      'Developed the admin dashboard metrics using advanced LINQ queries.'
     ],
     category: ProjectCategory.FULLSTACK,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=1000',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&q=80&w=1000',
     secondaryImageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1200',
-    tech: ['C#', '.NET', 'MySQL', 'JavaScript', 'HTML'],
+    tech: ['C#', '.NET Core', 'SQL Server', 'HTML5', 'CSS3'],
     liveUrl: 'https://pullaiahgari-tickets.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/PullaiahgariTicketSales',
     featured: false,

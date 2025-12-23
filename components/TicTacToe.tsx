@@ -11,8 +11,10 @@ export const TicTacToe: React.FC = () => {
   const [hint, setHint] = useState<{ index: number; reason: string } | null>(null);
   const [loadingHint, setLoadingHint] = useState(false);
   const [isCpuThinking, setIsCpuThinking] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [winningLine, setWinningLine] = useState<number[] | null>(null);
 
-  const calculateWinner = (squares: Player[]): Player => {
+  const calculateWinner = (squares: Player[]): { player: Player; line: number[] | null } => {
     const lines = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8],
       [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -20,10 +22,10 @@ export const TicTacToe: React.FC = () => {
     ];
     for (const [a, b, c] of lines) {
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
+        return { player: squares[a], line: [a, b, c] };
       }
     }
-    return null;
+    return { player: null, line: null };
   };
 
   const getBestCpuMove = (squares: Player[]): number => {
@@ -53,7 +55,13 @@ export const TicTacToe: React.FC = () => {
   };
 
   useEffect(() => {
-    if (xIsNext && !calculateWinner(board) && board.some(s => s === null)) {
+    const { player, line } = calculateWinner(board);
+    if (player) {
+      setWinningLine(line);
+      return;
+    }
+
+    if (xIsNext && board.some(s => s === null)) {
       setIsCpuThinking(true);
       const timer = setTimeout(() => {
         const move = getBestCpuMove(board);
@@ -64,111 +72,192 @@ export const TicTacToe: React.FC = () => {
           setXIsNext(false);
         }
         setIsCpuThinking(false);
-      }, 1000);
+      }, 800);
       return () => clearTimeout(timer);
     }
   }, [xIsNext, board]);
 
   const handleUserClick = (i: number) => {
-    if (calculateWinner(board) || board[i] || xIsNext || isCpuThinking) return;
+    if (calculateWinner(board).player || board[i] || xIsNext || isCpuThinking) return;
     const nextBoard = board.slice();
     nextBoard[i] = 'O';
     setBoard(nextBoard);
     setXIsNext(true);
     setHint(null);
+    setError(null);
   };
 
   const getAiHint = async () => {
     setLoadingHint(true);
+    setError(null);
     try {
       const gemini = GeminiService.getInstance();
       const result = await gemini.getTicTacToeHint(board);
       setHint({ index: result.recommendedIndex, reason: result.reason });
-    } catch (err) {
+    } catch (err: any) {
       console.error("Hint failed", err);
+      setError(err.message);
     } finally {
       setLoadingHint(false);
     }
   };
 
-  const winner = calculateWinner(board);
+  const { player: winner } = calculateWinner(board);
   const isDraw = !winner && board.every(square => square !== null);
-  const status = winner ? `Winner: ${winner === 'O' ? 'You!' : 'AI'}` : isDraw ? "Game Tied" : isCpuThinking ? "AI is thinking..." : "Your Turn";
+  const status = winner 
+    ? (winner === 'O' ? 'You Won!' : 'AI Won!') 
+    : isDraw ? "Game Tied" 
+    : isCpuThinking ? "AI is thinking..." 
+    : "Your Turn";
 
   const reset = () => {
     setBoard(Array(9).fill(null));
     setXIsNext(false);
     setHint(null);
+    setError(null);
+    setWinningLine(null);
   };
 
   return (
-    <GlassCard className="p-8 w-full max-w-[800px] mx-auto shadow-2xl border-2 border-purple-400 bg-white overflow-hidden" accent="purple">
-      <div className="space-y-6">
-        <div className="flex justify-between items-end border-b border-purple-100 pb-4">
-          <div className="space-y-1">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-purple-400">Strategy Challenge</h4>
-            <p className="text-xl font-black text-slate-900 uppercase tracking-tighter leading-none">Tic-Tac-Toe.</p>
+    <div className="w-full max-w-[540px] mx-auto group perspective-1000">
+      <style>{`
+        @keyframes soft-glow {
+          0%, 100% { box-shadow: 0 0 15px -5px var(--color-accent); }
+          50% { box-shadow: 0 0 25px -2px var(--color-accent); }
+        }
+        .animate-soft-glow { animation: soft-glow 3s infinite ease-in-out; }
+        .win-glow { box-shadow: 0 0 40px -10px var(--color-accent) !important; border-color: var(--color-accent) !important; }
+        .perspective-1000 { perspective: 1000px; }
+      `}</style>
+      
+      <GlassCard className={`p-10 lg:p-14 overflow-hidden border-t-accent/30 transition-all duration-700 animate-soft-glow ${winner ? 'scale-[1.02] win-glow' : ''}`} accent="theme">
+        <div className="space-y-12">
+          {/* Header Section */}
+          <div className="flex justify-between items-start border-b border-t-border pb-10">
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className={`w-2 h-2 rounded-full ${winner || isDraw ? 'bg-rose-500' : 'bg-emerald-500 animate-pulse'}`} />
+                <h4 className="text-[10px] font-black uppercase tracking-[1em] text-t-accent">Match Progress</h4>
+              </div>
+              <p className={`text-2xl font-black text-t-fg tracking-tighter uppercase leading-tight ${winner === 'X' ? 'text-rose-500' : winner === 'O' ? 'text-t-accent' : ''}`}>
+                {status}
+              </p>
+            </div>
+            <button 
+              onClick={reset} 
+              className="w-12 h-12 rounded-full border border-t-border flex items-center justify-center hover:bg-t-accent hover:text-t-bg hover:border-t-accent transition-all group/btn shadow-lg"
+              title="Restart Game"
+            >
+              <svg className="w-5 h-5 group-hover/btn:rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m0 0H15" /></svg>
+            </button>
           </div>
-          <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${winner || isDraw ? 'text-orange-500' : 'text-purple-400'}`}>
-            {status}
-          </span>
-        </div>
 
-        <div className="flex flex-col md:grid md:grid-cols-2 gap-8 items-stretch">
-          <div className="flex-1">
-            <div className="grid grid-cols-3 gap-3 bg-purple-50 p-3 rounded-3xl overflow-hidden border border-purple-100 shadow-inner w-full aspect-square">
-              {board.map((square, i) => (
+          {/* Game Board with Monochrome Effect and Visible Borders */}
+          <div className="grid grid-cols-3 gap-0 bg-t-accent/40 rounded-2xl overflow-hidden shadow-inner backdrop-blur-sm border border-t-accent/30">
+            {board.map((square, i) => {
+              const isWinningSquare = winningLine?.includes(i);
+              const isHinted = hint?.index === i;
+              
+              return (
                 <button
                   key={i}
                   onClick={() => handleUserClick(i)}
-                  className={`aspect-square flex items-center justify-center text-4xl font-black transition-all duration-300 rounded-2xl
-                    ${hint?.index === i ? 'bg-purple-100 ring-4 ring-purple-600 ring-inset' : 'bg-white'}
-                    ${square === 'O' ? 'text-purple-600' : 'text-orange-500'}
-                    ${!square && !xIsNext && !isCpuThinking ? 'hover:bg-purple-50 active:scale-95' : ''}
-                    shadow-sm
+                  className={`
+                    relative aspect-square flex items-center justify-center transition-all duration-500
+                    bg-white/5 dark:bg-black/5 hover:bg-white/10 dark:hover:bg-white/5
+                    border border-t-accent/20
+                    ${square === 'O' ? 'bg-t-accent/10' : ''}
+                    ${square === 'X' ? 'bg-t-accent/5' : ''}
+                    ${isWinningSquare ? 'bg-t-accent/20 z-10' : ''}
+                    ${isHinted && !square ? 'bg-t-accent/20 animate-pulse' : ''}
+                    ${!square && !xIsNext && !isCpuThinking && !winner ? 'cursor-pointer group/tile' : 'cursor-default'}
                   `}
                 >
-                  {square}
+                  {/* Subtle Border Glow for Individual Tiles on Hover */}
+                  <div className={`absolute inset-0 border border-transparent transition-colors duration-300 ${!square && !winner ? 'group-hover/tile:border-t-accent/50' : ''} ${isWinningSquare ? 'border-t-accent animate-pulse' : ''}`} />
+
+                  {square && (
+                    <div className={`
+                      text-4xl lg:text-5xl font-black font-display tracking-tighter transition-all duration-700
+                      ${square === 'O' ? 'text-t-accent drop-shadow-[0_0_8px_var(--color-accent)]' : 'text-t-fg/30'}
+                      ${isWinningSquare ? 'scale-125' : 'scale-100'}
+                      animate-in fade-in zoom-in-75
+                    `}>
+                      {square}
+                    </div>
+                  )}
+                  
+                  {/* Local Coordinates (Subtle UI Decor) */}
+                  <span className="absolute bottom-1 right-2 text-[6px] font-black text-t-accent opacity-10 uppercase select-none">
+                    {Math.floor(i / 3)}:{i % 3}
+                  </span>
                 </button>
-              ))}
-            </div>
+              );
+            })}
           </div>
 
-          <div className="flex flex-col justify-between gap-6">
-            <div className="space-y-4">
-              <label className="text-[9px] font-bold text-purple-300 uppercase tracking-[0.4em] block border-b border-purple-50 pb-1">AI Hint System</label>
-              {hint ? (
-                <div className="bg-purple-50 p-5 rounded-2xl border border-purple-100 animate-in fade-in slide-in-from-right-2 duration-500">
-                  <p className="text-[10px] text-purple-600 font-extrabold uppercase tracking-widest mb-2">AI Strategy</p>
-                  <p className="text-xs text-slate-700 font-bold leading-relaxed italic">"{hint.reason}"</p>
-                </div>
-              ) : (
-                <div className="w-full h-32 flex flex-col items-center justify-center border border-dashed border-purple-100 rounded-2xl p-6 text-center">
-                   <p className="text-[10px] font-bold text-purple-200 uppercase tracking-[0.2em]">Ready to assist</p>
-                </div>
-              )}
-            </div>
+          {/* AI Advisor & Interaction Section */}
+          <div className="space-y-6">
+            {error && (
+              <div className="bg-rose-500/10 p-8 rounded-3xl border border-rose-500/20 animate-in fade-in slide-in-from-top-4 duration-500">
+                 <div className="flex items-center gap-4 mb-3">
+                   <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+                   <p className="text-[9px] font-black text-rose-500 uppercase tracking-[0.5em]">AI Link Interrupted</p>
+                 </div>
+                 <p className="text-sm font-bold text-t-fg-m leading-snug">{error}</p>
+              </div>
+            )}
 
-            <div className="flex flex-col gap-3">
+            {hint && !error && (
+              <div className="bg-t-accent/5 p-8 rounded-[32px] border border-t-accent/10 animate-in slide-in-from-bottom-4 duration-700 relative overflow-hidden group/hint shadow-inner">
+                 <div className="absolute top-0 right-0 p-4 opacity-10">
+                   <svg className="w-12 h-12 text-t-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.989-2.386l-.548-.547z" /></svg>
+                 </div>
+                 <div className="flex items-center gap-4 mb-4">
+                   <div className="w-2 h-2 rounded-full bg-t-accent animate-pulse" />
+                   <p className="text-[9px] font-black text-t-accent uppercase tracking-[0.8em]">AI Move Suggestion</p>
+                 </div>
+                 <p className="text-sm font-medium text-t-fg-m leading-relaxed italic pr-10">"{hint.reason}"</p>
+              </div>
+            )}
+
+            <div className="grid grid-cols-2 gap-4">
               <GlassButton 
-                accent="purple" 
+                accent="theme" 
                 primary 
-                className="w-full py-3" 
+                className="w-full !py-6 text-[10px] shadow-[0_0_20px_-10px_var(--color-accent)] hover:shadow-[0_0_25px_-5px_var(--color-accent)]"
                 onClick={getAiHint} 
                 disabled={loadingHint || !!winner || isDraw || xIsNext}
               >
-                {loadingHint ? 'Thinking...' : 'Get Hint'}
+                {loadingHint ? (
+                  <span className="flex items-center gap-3">
+                    <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v2m0 12v2m8-8h-2M6 12H4m15.364 4.364l-1.414-1.414M7.05 7.05L5.636 5.636m12.728 0l-1.414 1.414M7.05 16.95l-1.414 1.414" /></svg>
+                    Syncing...
+                  </span>
+                ) : 'Ask AI Hint'}
               </GlassButton>
-              <button 
+              
+              <GlassButton 
+                accent="theme" 
+                className="w-full !py-6 text-[10px]"
                 onClick={reset}
-                className="text-[9px] font-black uppercase text-purple-300 hover:text-purple-600 transition-all tracking-[0.5em]"
               >
-                Reset Game
-              </button>
+                Reset Match
+              </GlassButton>
             </div>
           </div>
         </div>
+      </GlassCard>
+      
+      {/* Footer Info */}
+      <div className="mt-8 px-10 flex justify-between items-center opacity-30">
+        <div className="flex gap-4">
+          <div className="w-1.5 h-1.5 rounded-full bg-t-accent" />
+          <div className="w-1.5 h-1.5 rounded-full bg-t-accent/40" />
+          <div className="w-1.5 h-1.5 rounded-full bg-t-accent/20" />
+        </div>
+        <span className="text-[8px] font-black uppercase tracking-[1em] text-t-fg">Interactive Logic Session // 0xAF</span>
       </div>
-    </GlassCard>
+    </div>
   );
 };

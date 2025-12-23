@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,14 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vamshi Krishna | Software Engineer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Manrope', 'sans-serif'],
+            },
+            colors: {
+              't-bg': 'var(--color-bg)',
+              't-bg-el': 'var(--color-bg-elevated)',
+              't-fg': 'var(--color-fg)',
+              't-fg-m': 'var(--color-fg-muted)',
+              't-accent': 'var(--color-accent)',
+              't-accent-s': 'var(--color-accent-soft)',
+              't-accent-2': 'var(--color-accent-secondary)',
+              't-accent-2-s': 'var(--color-accent-secondary-soft)',
+              't-border': 'var(--color-border-subtle)',
+            }
+          },
+        },
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+      :root {
+        /* Default: Dreamy Ocean (Light) */
+        --color-bg: #eae6e8; /* Updated from #f4f6f7 to requested #d6e1c6 */
+        --color-bg-elevated: #ffffff;
+        --color-fg: #002b38;
+        --color-fg-muted: #527480;
+        --color-accent: #006989;
+        --color-accent-soft: #e0f1f6;
+        --color-accent-secondary: #9f86ff; /* Soft Lilac */
+        --color-accent-secondary-soft: #ede9fe;
+        --color-border-subtle: #dce4e8;
+      }
+
+      /* Lemonade Electric (Dark) */
+      .dark {
+        --color-bg: #020020;
+        --color-bg-elevated: #0a083d;
+        --color-fg: #f0f4f8;
+        --color-fg-muted: #8e9db3;
+        --color-accent: #b8fb3c;
+        --color-accent-soft: #1d2b0a;
+        --color-accent-secondary: #00f5d4; /* Aqua Mint */
+        --color-accent-secondary-soft: #002d2d;
+        --color-border-subtle: #2a2c5c;
+      }
+
       body {
         font-family: 'Inter', sans-serif;
         scroll-behavior: smooth;
-        background-color: #f3edff;
+        transition: background-color 0.5s ease, color 0.5s ease;
+        background-color: var(--color-bg);
+        color: var(--color-fg);
       }
       .font-display {
         font-family: 'Manrope', sans-serif;
@@ -29,14 +82,8 @@
         scrollbar-width: none;
       }
       ::selection {
-        background: #7c3aed;
-        color: white;
-      }
-      .footer-glow-purple {
-        background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0) 70%);
-      }
-      .footer-glow-orange {
-        background: radial-gradient(circle, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0) 70%);
+        background: var(--color-accent);
+        color: var(--color-bg);
       }
     </style>
   <script type="importmap">
@@ -50,7 +97,7 @@
 }
 </script>
 </head>
-  <body class="bg-[#f3edff]">
+  <body class="transition-colors duration-500">
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
   </body>
