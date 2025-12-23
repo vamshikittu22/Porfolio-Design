@@ -1,70 +1,146 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { GlassCard, GlassButton } from './GlassUI';
-import { GeminiService } from '../services/geminiService';
 
 type Player = 'X' | 'O' | null;
+type Difficulty = 'Easy' | 'Medium' | 'Hard';
 
 export const TicTacToe: React.FC = () => {
   const [board, setBoard] = useState<Player[]>(Array(9).fill(null));
-  const [xIsNext, setXIsNext] = useState(false); 
-  const [hint, setHint] = useState<{ index: number; reason: string } | null>(null);
-  const [loadingHint, setLoadingHint] = useState(false);
+  const [xIsNext, setXIsNext] = useState(false);
+  const [difficulty, setDifficulty] = useState<Difficulty>('Medium');
+  const [scores, setScores] = useState({ user: 0, system: 0 });
+  const [hintIndex, setHintIndex] = useState<number | null>(null);
   const [isCpuThinking, setIsCpuThinking] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [winningLine, setWinningLine] = useState<number[] | null>(null);
+  const [gameStatus, setGameStatus] = useState<'playing' | 'won' | 'draw'>('playing');
 
-  const calculateWinner = (squares: Player[]): { player: Player; line: number[] | null } => {
-    const lines = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8],
-      [0, 3, 6], [1, 4, 7], [2, 5, 8],
-      [0, 4, 8], [2, 4, 6],
-    ];
+  // Win patterns
+  const lines = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6],
+  ];
+
+  const calculateWinner = useCallback((squares: Player[]): { player: Player; line: number[] | null } => {
     for (const [a, b, c] of lines) {
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
         return { player: squares[a], line: [a, b, c] };
       }
     }
     return { player: null, line: null };
+  }, [lines]);
+
+  // Difficulty Logic: Easy
+  const getEasyMove = (squares: Player[]): number => {
+    const available = squares.map((s, i) => (s === null ? i : null)).filter(val => val !== null) as number[];
+    return available[Math.floor(Math.random() * available.length)];
   };
 
-  const getBestCpuMove = (squares: Player[]): number => {
-    const lines = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8],
-      [0, 3, 6], [1, 4, 7], [2, 5, 8],
-      [0, 4, 8], [2, 4, 6],
-    ];
+  // Difficulty Logic: Medium
+  const getMediumMove = (squares: Player[]): number => {
+    // 1. Can System win?
     for (const [a, b, c] of lines) {
       const line = [squares[a], squares[b], squares[c]];
       if (line.filter(s => s === 'X').length === 2 && line.filter(s => s === null).length === 1) {
         return [a, b, c][line.indexOf(null)];
       }
     }
+    // 2. Must System block?
     for (const [a, b, c] of lines) {
       const line = [squares[a], squares[b], squares[c]];
       if (line.filter(s => s === 'O').length === 2 && line.filter(s => s === null).length === 1) {
         return [a, b, c][line.indexOf(null)];
       }
     }
-    if (squares[4] === null) return 4;
-    const corners = [0, 2, 6, 8].filter(i => squares[i] === null);
-    if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
-    const sides = [1, 3, 5, 7].filter(i => squares[i] === null);
-    if (sides.length > 0) return sides[Math.floor(Math.random() * sides.length)];
-    return -1;
+    // 3. Random
+    return getEasyMove(squares);
+  };
+
+  // Difficulty Logic: Hard (Minimax)
+  const getHardMove = (squares: Player[]): number => {
+    const minimax = (tempBoard: Player[], depth: number, isMaximizing: boolean): number => {
+      const winner = calculateWinner(tempBoard).player;
+      if (winner === 'X') return 10 - depth;
+      if (winner === 'O') return depth - 10;
+      if (tempBoard.every(s => s !== null)) return 0;
+
+      if (isMaximizing) {
+        let bestScore = -Infinity;
+        tempBoard.forEach((s, i) => {
+          if (s === null) {
+            tempBoard[i] = 'X';
+            const score = minimax(tempBoard, depth + 1, false);
+            tempBoard[i] = null;
+            bestScore = Math.max(score, bestScore);
+          }
+        });
+        return bestScore;
+      } else {
+        let bestScore = Infinity;
+        tempBoard.forEach((s, i) => {
+          if (s === null) {
+            tempBoard[i] = 'O';
+            const score = minimax(tempBoard, depth + 1, true);
+            tempBoard[i] = null;
+            bestScore = Math.min(score, bestScore);
+          }
+        });
+        return bestScore;
+      }
+    };
+
+    let bestMove = -1;
+    let bestScore = -Infinity;
+    squares.forEach((s, i) => {
+      if (s === null) {
+        squares[i] = 'X';
+        const score = minimax(squares, 0, false);
+        squares[i] = null;
+        if (score > bestScore) {
+          bestScore = score;
+          bestMove = i;
+        }
+      }
+    });
+    return bestMove;
+  };
+
+  const showHint = () => {
+    if (gameStatus !== 'playing' || xIsNext) return;
+    const move = getHardMove([...board]);
+    if (move !== -1) {
+      setHintIndex(move);
+      setTimeout(() => setHintIndex(null), 800);
+    }
   };
 
   useEffect(() => {
     const { player, line } = calculateWinner(board);
     if (player) {
       setWinningLine(line);
+      setGameStatus('won');
+      if (player === 'O') setScores(s => ({ ...s, user: s.user + 1 }));
+      else setScores(s => ({ ...s, system: s.system + 1 }));
       return;
     }
 
-    if (xIsNext && board.some(s => s === null)) {
+    if (board.every(s => s !== null)) {
+      setGameStatus('draw');
+      return;
+    }
+
+    if (xIsNext && gameStatus === 'playing') {
       setIsCpuThinking(true);
       const timer = setTimeout(() => {
-        const move = getBestCpuMove(board);
+        let move: number;
+        switch (difficulty) {
+          case 'Easy': move = getEasyMove(board); break;
+          case 'Medium': move = getMediumMove(board); break;
+          case 'Hard': move = getHardMove([...board]); break;
+          default: move = getMediumMove(board);
+        }
+
         if (move !== -1) {
           const nextBoard = board.slice();
           nextBoard[move] = 'X';
@@ -72,178 +148,148 @@ export const TicTacToe: React.FC = () => {
           setXIsNext(false);
         }
         setIsCpuThinking(false);
-      }, 800);
+      }, 600);
       return () => clearTimeout(timer);
     }
-  }, [xIsNext, board]);
+  }, [xIsNext, board, difficulty, calculateWinner, gameStatus]);
 
   const handleUserClick = (i: number) => {
-    if (calculateWinner(board).player || board[i] || xIsNext || isCpuThinking) return;
+    if (gameStatus !== 'playing' || board[i] || xIsNext || isCpuThinking) return;
     const nextBoard = board.slice();
     nextBoard[i] = 'O';
     setBoard(nextBoard);
     setXIsNext(true);
-    setHint(null);
-    setError(null);
+    setHintIndex(null);
   };
 
-  const getAiHint = async () => {
-    setLoadingHint(true);
-    setError(null);
-    try {
-      const gemini = GeminiService.getInstance();
-      const result = await gemini.getTicTacToeHint(board);
-      setHint({ index: result.recommendedIndex, reason: result.reason });
-    } catch (err: any) {
-      console.error("Hint failed", err);
-      setError(err.message);
-    } finally {
-      setLoadingHint(false);
-    }
-  };
-
-  const { player: winner } = calculateWinner(board);
-  const isDraw = !winner && board.every(square => square !== null);
-  const status = winner 
-    ? (winner === 'O' ? 'You Won!' : 'AI Won!') 
-    : isDraw ? "Game Tied" 
-    : isCpuThinking ? "AI is thinking..." 
-    : "Your Turn";
-
-  const reset = () => {
+  const resetGame = () => {
     setBoard(Array(9).fill(null));
     setXIsNext(false);
-    setHint(null);
-    setError(null);
+    setGameStatus('playing');
     setWinningLine(null);
+    setHintIndex(null);
+  };
+
+  const resetScores = () => {
+    setScores({ user: 0, system: 0 });
+    resetGame();
   };
 
   return (
-    <div className="w-full max-w-[540px] mx-auto group perspective-1000">
+    <div className="w-full max-w-[540px] mx-auto group">
       <style>{`
-        @keyframes soft-glow {
-          0%, 100% { box-shadow: 0 0 15px -5px var(--color-accent); }
-          50% { box-shadow: 0 0 25px -2px var(--color-accent); }
+        @keyframes win-pulse {
+          0%, 100% { background-color: rgba(var(--color-accent-rgb, 0, 105, 137), 0.1); }
+          50% { background-color: rgba(var(--color-accent-rgb, 0, 105, 137), 0.4); transform: scale(1.05); }
         }
-        .animate-soft-glow { animation: soft-glow 3s infinite ease-in-out; }
-        .win-glow { box-shadow: 0 0 40px -10px var(--color-accent) !important; border-color: var(--color-accent) !important; }
-        .perspective-1000 { perspective: 1000px; }
+        .animate-win { animation: win-pulse 1.5s infinite ease-in-out; }
+        .tile-hover:hover { transform: scale(1.03); background-color: rgba(var(--color-accent-rgb, 0, 105, 137), 0.05); }
       `}</style>
       
-      <GlassCard className={`p-10 lg:p-14 overflow-hidden border-t-accent/30 transition-all duration-700 animate-soft-glow ${winner ? 'scale-[1.02] win-glow' : ''}`} accent="theme">
-        <div className="space-y-12">
-          {/* Header Section */}
-          <div className="flex justify-between items-start border-b border-t-border pb-10">
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className={`w-2 h-2 rounded-full ${winner || isDraw ? 'bg-rose-500' : 'bg-emerald-500 animate-pulse'}`} />
-                <h4 className="text-[10px] font-black uppercase tracking-[1em] text-t-accent">Match Progress</h4>
-              </div>
-              <p className={`text-2xl font-black text-t-fg tracking-tighter uppercase leading-tight ${winner === 'X' ? 'text-rose-500' : winner === 'O' ? 'text-t-accent' : ''}`}>
-                {status}
-              </p>
+      <GlassCard className="p-8 lg:p-12 border-t-accent/20 transition-all duration-700 shadow-2xl" accent="theme">
+        <div className="space-y-10">
+          
+          {/* Score Bar */}
+          <div className="flex justify-between items-center px-4 py-3 rounded-2xl bg-t-accent/5 border border-t-accent/10">
+            <div className="flex items-center gap-4">
+              <span className="text-[9px] font-black uppercase tracking-widest text-t-fg-m">You (O)</span>
+              <span className="text-xl font-black text-t-accent">{scores.user}</span>
             </div>
-            <button 
-              onClick={reset} 
-              className="w-12 h-12 rounded-full border border-t-border flex items-center justify-center hover:bg-t-accent hover:text-t-bg hover:border-t-accent transition-all group/btn shadow-lg"
-              title="Restart Game"
-            >
-              <svg className="w-5 h-5 group-hover/btn:rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m0 0H15" /></svg>
-            </button>
+            <div className="w-px h-6 bg-t-border" />
+            <div className="flex items-center gap-4">
+              <span className="text-xl font-black text-t-fg opacity-40">{scores.system}</span>
+              <span className="text-[9px] font-black uppercase tracking-widest text-t-fg-m">System (X)</span>
+            </div>
           </div>
 
-          {/* Game Board with Monochrome Effect and Visible Borders */}
-          <div className="grid grid-cols-3 gap-0 bg-t-accent/40 rounded-2xl overflow-hidden shadow-inner backdrop-blur-sm border border-t-accent/30">
+          {/* Difficulty Selector */}
+          <div className="flex justify-center gap-2">
+            {(['Easy', 'Medium', 'Hard'] as Difficulty[]).map(d => (
+              <button
+                key={d}
+                onClick={() => { setDifficulty(d); resetGame(); }}
+                className={`px-6 py-2 rounded-full text-[8px] font-black uppercase tracking-widest transition-all duration-300 border ${
+                  difficulty === d 
+                  ? 'bg-t-accent text-t-bg border-t-accent' 
+                  : 'bg-white/5 border-t-border text-t-fg-m hover:border-t-accent/40'
+                }`}
+              >
+                {d}
+              </button>
+            ))}
+          </div>
+
+          {/* Game Board */}
+          <div className="grid grid-cols-3 gap-3">
             {board.map((square, i) => {
-              const isWinningSquare = winningLine?.includes(i);
-              const isHinted = hint?.index === i;
-              
+              const isWinning = winningLine?.includes(i);
+              const isHint = hintIndex === i;
+              const isEmpty = square === null;
+              const canHover = isEmpty && gameStatus === 'playing' && !xIsNext;
+
               return (
                 <button
                   key={i}
                   onClick={() => handleUserClick(i)}
                   className={`
-                    relative aspect-square flex items-center justify-center transition-all duration-500
-                    bg-white/5 dark:bg-black/5 hover:bg-white/10 dark:hover:bg-white/5
-                    border border-t-accent/20
-                    ${square === 'O' ? 'bg-t-accent/10' : ''}
-                    ${square === 'X' ? 'bg-t-accent/5' : ''}
-                    ${isWinningSquare ? 'bg-t-accent/20 z-10' : ''}
-                    ${isHinted && !square ? 'bg-t-accent/20 animate-pulse' : ''}
-                    ${!square && !xIsNext && !isCpuThinking && !winner ? 'cursor-pointer group/tile' : 'cursor-default'}
+                    relative aspect-square flex items-center justify-center rounded-2xl transition-all duration-300
+                    bg-white/5 dark:bg-black/10 border border-t-accent/10
+                    ${isWinning ? 'animate-win z-10 border-t-accent shadow-lg' : ''}
+                    ${isHint ? 'bg-t-accent/20 border-t-accent' : ''}
+                    ${canHover ? 'tile-hover cursor-pointer' : 'cursor-default'}
                   `}
                 >
-                  {/* Subtle Border Glow for Individual Tiles on Hover */}
-                  <div className={`absolute inset-0 border border-transparent transition-colors duration-300 ${!square && !winner ? 'group-hover/tile:border-t-accent/50' : ''} ${isWinningSquare ? 'border-t-accent animate-pulse' : ''}`} />
-
                   {square && (
-                    <div className={`
-                      text-4xl lg:text-5xl font-black font-display tracking-tighter transition-all duration-700
-                      ${square === 'O' ? 'text-t-accent drop-shadow-[0_0_8px_var(--color-accent)]' : 'text-t-fg/30'}
-                      ${isWinningSquare ? 'scale-125' : 'scale-100'}
+                    <span className={`
+                      text-4xl lg:text-5xl font-black font-display tracking-tighter transition-all duration-500
+                      ${square === 'O' ? 'text-t-accent drop-shadow-sm' : 'text-t-fg/30'}
+                      ${isWinning ? 'scale-110' : ''}
                       animate-in fade-in zoom-in-75
                     `}>
                       {square}
-                    </div>
+                    </span>
                   )}
-                  
-                  {/* Local Coordinates (Subtle UI Decor) */}
-                  <span className="absolute bottom-1 right-2 text-[6px] font-black text-t-accent opacity-10 uppercase select-none">
-                    {Math.floor(i / 3)}:{i % 3}
-                  </span>
                 </button>
               );
             })}
           </div>
 
-          {/* AI Advisor & Interaction Section */}
-          <div className="space-y-6">
-            {error && (
-              <div className="bg-rose-500/10 p-8 rounded-3xl border border-rose-500/20 animate-in fade-in slide-in-from-top-4 duration-500">
-                 <div className="flex items-center gap-4 mb-3">
-                   <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-                   <p className="text-[9px] font-black text-rose-500 uppercase tracking-[0.5em]">AI Link Interrupted</p>
-                 </div>
-                 <p className="text-sm font-bold text-t-fg-m leading-snug">{error}</p>
-              </div>
-            )}
-
-            {hint && !error && (
-              <div className="bg-t-accent/5 p-8 rounded-[32px] border border-t-accent/10 animate-in slide-in-from-bottom-4 duration-700 relative overflow-hidden group/hint shadow-inner">
-                 <div className="absolute top-0 right-0 p-4 opacity-10">
-                   <svg className="w-12 h-12 text-t-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.989-2.386l-.548-.547z" /></svg>
-                 </div>
-                 <div className="flex items-center gap-4 mb-4">
-                   <div className="w-2 h-2 rounded-full bg-t-accent animate-pulse" />
-                   <p className="text-[9px] font-black text-t-accent uppercase tracking-[0.8em]">AI Move Suggestion</p>
-                 </div>
-                 <p className="text-sm font-medium text-t-fg-m leading-relaxed italic pr-10">"{hint.reason}"</p>
-              </div>
-            )}
-
-            <div className="grid grid-cols-2 gap-4">
-              <GlassButton 
-                accent="theme" 
-                primary 
-                className="w-full !py-6 text-[10px] shadow-[0_0_20px_-10px_var(--color-accent)] hover:shadow-[0_0_25px_-5px_var(--color-accent)]"
-                onClick={getAiHint} 
-                disabled={loadingHint || !!winner || isDraw || xIsNext}
-              >
-                {loadingHint ? (
-                  <span className="flex items-center gap-3">
-                    <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v2m0 12v2m8-8h-2M6 12H4m15.364 4.364l-1.414-1.414M7.05 7.05L5.636 5.636m12.728 0l-1.414 1.414M7.05 16.95l-1.414 1.414" /></svg>
-                    Syncing...
-                  </span>
-                ) : 'Ask AI Hint'}
-              </GlassButton>
+          {/* Game Status & Controls */}
+          <div className="space-y-6 pt-4 border-t border-t-border">
+            <div className="flex justify-between items-center h-12">
+              <p className="text-sm font-black text-t-fg uppercase tracking-widest">
+                {gameStatus === 'won' ? (calculateWinner(board).player === 'O' ? 'You Victory' : 'System Defeat') : 
+                 gameStatus === 'draw' ? 'Stalemate' : 
+                 isCpuThinking ? 'Syncing...' : 'Your Input Required'}
+              </p>
               
-              <GlassButton 
-                accent="theme" 
-                className="w-full !py-6 text-[10px]"
-                onClick={reset}
+              <div className="flex gap-4">
+                <GlassButton 
+                  accent="theme" 
+                  className="!px-6 !py-3 !text-[8px]" 
+                  onClick={showHint}
+                  disabled={gameStatus !== 'playing' || xIsNext}
+                >
+                  Hint
+                </GlassButton>
+                <GlassButton 
+                  accent="theme" 
+                  primary 
+                  className="!px-8 !py-3 !text-[8px]" 
+                  onClick={resetGame}
+                >
+                  New Round
+                </GlassButton>
+              </div>
+            </div>
+            
+            <div className="flex justify-center">
+              <button 
+                onClick={resetScores}
+                className="text-[7px] font-black uppercase tracking-[0.5em] text-t-fg-m hover:text-t-accent transition-colors"
               >
-                Reset Match
-              </GlassButton>
+                Reset Session & Scores
+              </button>
             </div>
           </div>
         </div>
@@ -252,11 +298,11 @@ export const TicTacToe: React.FC = () => {
       {/* Footer Info */}
       <div className="mt-8 px-10 flex justify-between items-center opacity-30">
         <div className="flex gap-4">
-          <div className="w-1.5 h-1.5 rounded-full bg-t-accent" />
-          <div className="w-1.5 h-1.5 rounded-full bg-t-accent/40" />
-          <div className="w-1.5 h-1.5 rounded-full bg-t-accent/20" />
+          <div className={`w-1.5 h-1.5 rounded-full ${difficulty === 'Hard' ? 'bg-t-accent' : 'bg-t-accent/40'}`} />
+          <div className={`w-1.5 h-1.5 rounded-full ${difficulty === 'Medium' ? 'bg-t-accent' : 'bg-t-accent/40'}`} />
+          <div className={`w-1.5 h-1.5 rounded-full ${difficulty === 'Easy' ? 'bg-t-accent' : 'bg-t-accent/40'}`} />
         </div>
-        <span className="text-[8px] font-black uppercase tracking-[1em] text-t-fg">Interactive Logic Session // 0xAF</span>
+        <span className="text-[8px] font-black uppercase tracking-[1em] text-t-fg">System Complexity: {difficulty}</span>
       </div>
     </div>
   );

@@ -3,10 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { GlassCard, BubbleTag, GlassButton } from './components/GlassUI';
 import { PROJECTS, GITHUB_USERNAME, LINKEDIN_URL, X_URL, FULL_NAME, BLOG_POSTS, EDUCATION, EXPERIENCE, SKILLS_RESUME, AWARDS, EMAIL, PHONE, BLOG_URL, INSTAGRAM_URL } from './constants';
 import { Project, BlogPost } from './types';
-import AIPlayground from './components/AIPlayground';
 import GitHubStats from './components/GitHubStats';
 import { GeminiService } from './services/geminiService';
 import { TicTacToe } from './components/TicTacToe';
+import AIPlayground from './components/AIPlayground';
 
 const HERO_FALLBACK_DARK = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200";
 const HERO_FALLBACK_LIGHT = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200";
@@ -57,136 +57,6 @@ const NavIcon: React.FC<{ icon: React.ReactNode; label: string; onClick: (e: any
   </button>
 );
 
-const SystemStatusHUD: React.FC = () => {
-  const [locked, setLocked] = useState(false);
-  const [remaining, setRemaining] = useState(0);
-
-  useEffect(() => {
-    const checkStatus = () => {
-      const gemini = GeminiService.getInstance();
-      const isLocked = gemini.isQuotaLocked();
-      setLocked(isLocked);
-      setRemaining(gemini.getLockTimeRemaining());
-    };
-    const interval = setInterval(checkStatus, 1000);
-    checkStatus();
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!locked) return null;
-
-  return (
-    <div className="fixed top-8 right-8 z-[1000] animate-in fade-in slide-in-from-right-4 duration-500 print:hidden">
-      <div className="bg-amber-500/10 backdrop-blur-3xl border border-amber-500/30 px-6 py-3 rounded-full flex items-center gap-4 shadow-2xl">
-        <div className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
-        <span className="text-[9px] font-black text-amber-600 uppercase tracking-widest">AI Cooling: {remaining}s</span>
-      </div>
-    </div>
-  );
-};
-
-const InteractiveContactHub: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  return (
-    <div className="flex flex-col items-center justify-center w-full relative py-12">
-      <style>{`
-        @keyframes blast {
-          0% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.4); opacity: 0.5; filter: blur(10px); }
-          100% { transform: scale(1); opacity: 1; }
-        }
-        .animate-blast { animation: blast 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-      `}</style>
-      <div className="relative group flex items-center justify-center w-full">
-        <div 
-          onClick={() => !isExpanded && setIsExpanded(true)}
-          className={`
-            relative cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]
-            ${isExpanded 
-              ? 'w-full max-w-[420px] scale-100 opacity-100' 
-              : 'w-28 h-28 rounded-full scale-100 opacity-100 hover:scale-110 active:scale-95'
-            }
-          `}
-        >
-          <GlassCard 
-            accent="theme" 
-            className={`
-              h-full w-full overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] border-white/50 bg-white/30 dark:bg-white/5 backdrop-blur-3xl transition-all duration-700
-              ${isExpanded ? 'p-10 lg:p-14 rounded-[56px]' : 'rounded-full flex items-center justify-center p-0'}
-            `}
-          >
-            {isExpanded ? (
-              <div className="space-y-12 animate-in fade-in zoom-in-95 slide-in-from-bottom-4 duration-700">
-                <div className="flex justify-between items-start">
-                  <div className="space-y-3">
-                    <span className="text-[10px] font-black uppercase tracking-[0.6em] text-t-accent">Get In Touch</span>
-                    <h3 className="text-3xl font-black text-t-fg uppercase tracking-tighter leading-none">{FULL_NAME}</h3>
-                    <p className="text-[11px] font-bold text-t-fg-m uppercase tracking-[0.2em]">Software Engineer</p>
-                  </div>
-                  <button 
-                    onClick={(e) => { e.stopPropagation(); setIsExpanded(false); }}
-                    className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center hover:bg-t-accent hover:text-t-bg text-t-fg-m transition-all"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg>
-                  </button>
-                </div>
-
-                <div className="space-y-8 pt-8 border-t border-white/20">
-                  <div className="space-y-2">
-                    <p className="text-[9px] font-black text-t-fg-m uppercase tracking-widest opacity-50">Email</p>
-                    <a href={`mailto:${EMAIL}`} className="text-base font-black text-t-fg hover:text-t-accent transition-colors truncate block lowercase">{EMAIL}</a>
-                  </div>
-
-                  <div className="space-y-4">
-                    <p className="text-[9px] font-black text-t-fg-m uppercase tracking-widest opacity-50">Social Networks</p>
-                    <div className="grid grid-cols-4 gap-4">
-                      {[
-                        { label: 'LinkedIn', url: LINKEDIN_URL, icon: <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/> },
-                        { label: 'GitHub', url: `https://github.com/${GITHUB_USERNAME}`, icon: <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" /> },
-                        { label: 'X', url: X_URL, icon: <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/> },
-                        { label: 'Instagram', url: INSTAGRAM_URL, icon: <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/> }
-                      ].map((social, i) => (
-                        <a 
-                          key={i} 
-                          href={social.url} 
-                          target="_blank" 
-                          rel="noreferrer" 
-                          className="aspect-square rounded-2xl border border-white/40 flex items-center justify-center hover:bg-t-accent hover:text-t-bg transition-all bg-white/20 dark:bg-white/5"
-                          title={social.label}
-                        >
-                          <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">{social.icon}</svg>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <GlassButton primary accent="theme" className="w-full !py-5 shadow-xl" onClick={() => window.open(`mailto:${EMAIL}`)}>
-                  Send Message
-                </GlassButton>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center gap-2 animate-in fade-in zoom-in-90 duration-500 group-active:animate-blast">
-                <div className="w-10 h-10 rounded-full bg-t-accent/10 flex items-center justify-center transition-transform group-hover:scale-110">
-                  <svg className="w-6 h-6 text-t-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
-                </div>
-                <span className="text-[9px] font-black uppercase tracking-[0.5em] text-t-accent opacity-60 group-hover:opacity-100 transition-opacity translate-x-[0.25em]">Contact</span>
-              </div>
-            )}
-          </GlassCard>
-        </div>
-
-        {isExpanded && (
-          <div className="absolute inset-0 z-[-1] animate-in fade-in zoom-in-125 duration-1000">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-t-accent-s/20 blur-[120px] rounded-full" />
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
 const ProjectItem: React.FC<{ 
   project: Project; 
   index: number; 
@@ -220,9 +90,15 @@ const ProjectItem: React.FC<{
         }
         .animate-slide-dock-right { animation: slideDockRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .animate-slide-dock-left { animation: slideDockLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .project-glow:hover {
+          box-shadow: 0 0 30px rgba(var(--color-${accent}-rgb, 159, 134, 255), 0.3);
+        }
       `}</style>
       
-      <div onClick={(e) => { e.stopPropagation(); onToggle(); }} className={`group cursor-pointer relative w-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isExpanded ? 'mb-10' : 'h-24 lg:h-28'}`}>
+      <div 
+        onClick={(e) => { e.stopPropagation(); onToggle(); }} 
+        className={`group cursor-pointer relative w-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.015] project-glow ${isExpanded ? 'mb-10' : 'h-24 lg:h-28'}`}
+      >
         <GlassCard accent={accent} className={`h-full px-8 lg:px-14 flex items-center gap-10 ${isExpanded ? `bg-t-bg border-t-accent border-[1px]` : 'border-t-border'}`}>
           <div className="relative w-12 h-12 lg:w-14 lg:h-14 flex-shrink-0">
              <img 
@@ -250,13 +126,15 @@ const ProjectItem: React.FC<{
               <div className="grid lg:grid-cols-[1.3fr_1fr] gap-20 lg:gap-32 items-start">
                 <div className="space-y-16">
                    <div className="relative aspect-[21/9] rounded-[40px] border border-white/40 bg-white/30 dark:bg-white/5 backdrop-blur-3xl overflow-hidden p-10 flex flex-col justify-between shadow-sm">
-                      <div className={`w-16 h-16 rounded-full border border-white/50 bg-white/20 flex items-center justify-center shadow-lg self-end animate-in fade-in zoom-in duration-1000 bg-${accent}-500/20`}>
-                        <img src={project.thumbnailUrl} className="w-10 h-10 object-cover rounded-full saturate-150" alt="Logo" />
+                      <div className={`absolute top-10 left-10 w-12 h-12 rounded-full border border-white/50 bg-white/20 flex items-center justify-center shadow-lg animate-in fade-in zoom-in duration-1000 bg-${accent}-500/20`}>
+                        <img src={project.thumbnailUrl} className="w-8 h-8 object-cover rounded-full saturate-150" alt="Logo" />
                       </div>
-                      
-                      <div className="space-y-2">
+                      <div className="absolute top-10 right-10 flex flex-col items-end">
+                        <span className="text-[8px] font-black uppercase tracking-widest text-t-accent opacity-50">TM</span>
+                        <h4 className="text-xl font-black text-t-fg uppercase tracking-tighter leading-none">{project.title}.</h4>
+                      </div>
+                      <div className="mt-auto space-y-2">
                         <p className={`text-[9px] font-black uppercase tracking-[0.8em] text-t-accent`}>Project Case Study</p>
-                        <h4 className="text-5xl lg:text-7xl font-black text-t-fg uppercase leading-[0.85] tracking-tighter">{project.title}.</h4>
                       </div>
                    </div>
 
@@ -294,10 +172,13 @@ const ProjectItem: React.FC<{
                 <div className="w-full flex flex-col gap-12 relative">
                    <div className="relative rounded-[40px] overflow-hidden border border-t-border bg-t-bg-el/60 aspect-[4/5] shadow-sm">
                       <img src={project.secondaryImageUrl} className="w-full h-full object-cover opacity-90 saturate-125" alt="" />
-                      <div className="absolute top-10 left-10 right-10 z-20">
+                      <div className="absolute bottom-10 left-10 right-10 z-20">
                          <div className="bg-t-bg-el/95 backdrop-blur-xl px-10 py-8 rounded-[24px] border border-t-border shadow-sm">
                             <p className={`text-[8px] font-black text-t-accent uppercase tracking-[0.6em] mb-3`}>Technical Architecture</p>
                             <p className="text-sm font-bold text-t-fg leading-relaxed">{project.description}</p>
+                            <div className="mt-8 rounded-2xl overflow-hidden border border-t-border/50 aspect-video group/inner">
+                               <img src={project.thumbnailUrl} className="w-full h-full object-cover grayscale-0 saturate-125 transition-transform duration-700 group-hover/inner:scale-110" alt="Architectural Node" />
+                            </div>
                          </div>
                       </div>
                    </div>
@@ -307,7 +188,6 @@ const ProjectItem: React.FC<{
                       <p className="text-sm font-medium text-t-fg-m leading-relaxed italic mb-8">"{project.architecture}"</p>
                    </div>
 
-                   {/* Relocated Role & Impact beside the architecture as per request */}
                    <div className="p-10 rounded-[40px] bg-t-bg-el/80 border border-t-border shadow-sm backdrop-blur-md">
                       <div className="flex items-center gap-4 mb-4">
                         <div className={`w-1.5 h-1.5 rounded-full bg-t-accent-2`} />
@@ -316,7 +196,7 @@ const ProjectItem: React.FC<{
                       <div className="space-y-4">
                          {project.roleHighlights.map((hl, i) => (
                            <div key={i} className="flex gap-4 items-start text-sm text-t-fg-m font-medium leading-relaxed">
-                              <span className="text-t-accent-2 font-black select-none mt-1">•</span>
+                              <span className="text-t-accent-2 font-black select-none">•</span>
                               <p>{hl}</p>
                            </div>
                          ))}
@@ -345,13 +225,11 @@ const TravelStoryItem: React.FC<{ post: BlogPost; index: number; accent: SwissAc
     try {
       const gemini = GeminiService.getInstance();
       let specificPrompt = `Panoramic high-fidelity watercolor illustration of ${post.title}. Professional Swiss minimalist art style. Aspect ratio 16:9.`;
-      
       if (post.id === 'rishikesh-story') {
         specificPrompt = "Panoramic hand-drawn watercolor illustration in a monochrome indigo palette. Depict the sacred Ganges river, the Ram Jhula suspension bridge, white water rafting boats, and symbolic yoga icons. Overlapping artistic elements, Swiss minimalist style, clean compositions.";
       } else if (post.id === 'coorg-story') {
         specificPrompt = "Panoramic hand-drawn watercolor illustration. Depict lush emerald coffee plantations, majestic elephants, and misty rolling hills of Coorg. Overlapping artistic elements, soft atmospheric lighting, Swiss minimalist style, serene nature.";
       }
-      
       const img = await gemini.generateImage(specificPrompt, undefined, "16:9");
       setIllustration(img);
     } catch (err: any) {
@@ -362,12 +240,8 @@ const TravelStoryItem: React.FC<{ post: BlogPost; index: number; accent: SwissAc
   };
 
   const accentBgMap = {
-    purple: 'bg-purple-600',
-    orange: 'bg-orange-600',
-    indigo: 'bg-indigo-600',
-    emerald: 'bg-emerald-600',
-    rose: 'bg-rose-600',
-    amber: 'bg-amber-600'
+    purple: 'bg-purple-600', orange: 'bg-orange-600', indigo: 'bg-indigo-600',
+    emerald: 'bg-emerald-600', rose: 'bg-rose-600', amber: 'bg-amber-600'
   };
 
   return (
@@ -376,13 +250,10 @@ const TravelStoryItem: React.FC<{ post: BlogPost; index: number; accent: SwissAc
         <div className="absolute inset-0 z-0 animate-in fade-in duration-1000 pointer-events-none">
           <img src={illustration} className="w-full h-full object-cover opacity-15 dark:opacity-10 scale-110" alt="" />
           <div className="absolute inset-0 bg-gradient-to-b from-t-bg via-transparent to-t-bg" />
-          <div className="absolute inset-0 bg-gradient-to-r from-t-bg/20 via-transparent to-t-bg/20" />
         </div>
       )}
-
       <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-t-border z-[1]" />
       <div className={`absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border border-t-bg z-10 ${accentBgMap[accent]}`} />
-
       <div className={`grid grid-cols-1 md:grid-cols-2 gap-20 lg:gap-40 w-full items-center relative z-10 ${isEven ? '' : 'md:flex-row-reverse'}`}>
         <div className={`flex ${isEven ? 'justify-end md:pr-20' : 'order-2 md:pl-20'}`}>
           <div className="max-w-xl w-full">
@@ -397,7 +268,6 @@ const TravelStoryItem: React.FC<{ post: BlogPost; index: number; accent: SwissAc
             </div>
           </div>
         </div>
-
         <div className={`flex ${isEven ? 'order-2 md:pl-20' : 'justify-end md:pr-20'}`}>
           <div className="relative group w-full max-w-2xl aspect-[16/9] rounded-[40px] overflow-hidden border border-t-border bg-t-bg-el/80 backdrop-blur-md shadow-2xl flex items-center justify-center">
              {!illustration && !loading && !error && (
@@ -568,7 +438,6 @@ const ResumeSection: React.FC = () => {
               </div>
             </main>
           </div>
-
           <div className="p-12 lg:p-16 bg-t-bg-el/40 border-t border-t-border flex flex-col sm:flex-row justify-center items-center gap-10 print:hidden">
              <div className="flex flex-col items-center sm:items-start gap-1">
                 <p className="text-[9px] font-black text-t-fg-m uppercase tracking-widest">Profile Verification</p>
@@ -593,6 +462,13 @@ const App: React.FC = () => {
     const saved = localStorage.getItem('theme');
     return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
   });
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => { setScrolled(window.scrollY > 150); };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (isDarkMode) { document.documentElement.classList.add('dark'); localStorage.setItem('theme', 'dark'); }
@@ -602,7 +478,6 @@ const App: React.FC = () => {
   const generateHero = async () => {
     const gemini = GeminiService.getInstance();
     if (gemini.isQuotaLocked()) return; 
-
     setHeroLoading(true);
     try {
       const prompt = isDarkMode 
@@ -632,57 +507,25 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen relative selection:bg-t-accent selection:text-t-bg bg-t-bg transition-colors duration-500 overflow-x-hidden">
-      <SystemStatusHUD />
-      
       <div className="fixed inset-0 pointer-events-none z-[-1] opacity-15 dark:opacity-20 print:hidden">
         <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-t-accent-s/40 blur-[200px] rounded-full" />
-        <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }} />
       </div>
 
-      <nav className="fixed top-12 left-1/2 -translate-x-1/2 z-[100] w-full max-w-fit print:hidden">
-        <div className="bg-t-bg-el/90 backdrop-blur-3xl border border-t-border px-6 lg:px-10 py-2.5 rounded-full flex items-center gap-8 shadow-sm">
+      <nav className={`fixed top-12 left-1/2 -translate-x-1/2 z-[100] w-full max-w-fit print:hidden transition-all duration-500`}>
+        <div className={`border border-t-border px-6 lg:px-10 py-2.5 rounded-full flex items-center gap-8 transition-all duration-500 shadow-xl ${scrolled ? 'bg-t-bg-el/98 backdrop-blur-[48px] scale-95 border-t-accent/30' : 'bg-t-bg-el/85 backdrop-blur-2xl'}`}>
           <button onClick={handleScrollToTop} className="flex flex-col items-start leading-none group">
             <span className="text-[10px] font-black tracking-[0.4em] text-t-fg uppercase mb-1">V.KRISHNA</span>
             <span className="text-[6px] font-mono text-t-accent opacity-50 uppercase tracking-widest group-hover:opacity-100 transition-opacity">SYS_ADMIN.v2.5</span>
           </button>
-          
           <div className="h-4 w-px bg-t-border mx-2" />
-
           <div className="flex gap-2 items-center">
-            <NavIcon 
-              label="Projects" 
-              onClick={(e) => scrollToSection(e, 'projects-section')}
-              icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>}
-            />
-            <NavIcon 
-              label="Resume" 
-              onClick={(e) => scrollToSection(e, 'resume-section')}
-              icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>}
-            />
-            <NavIcon 
-              label="AI Lab" 
-              onClick={(e) => scrollToSection(e, 'ai-lab-section')}
-              icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>}
-            />
-            <NavIcon 
-              label="Game" 
-              onClick={(e) => scrollToSection(e, 'game-section')}
-              icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>}
-            />
-            <NavIcon 
-              label="Travel" 
-              onClick={(e) => scrollToSection(e, 'travel-section')}
-              icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>}
-            />
-            <NavIcon 
-              label="Contact" 
-              onClick={(e) => scrollToSection(e, 'contact-section')}
-              icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>}
-            />
+            <NavIcon label="Projects" onClick={(e) => scrollToSection(e, 'projects-section')} icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>} />
+            <NavIcon label="Resume" onClick={(e) => scrollToSection(e, 'resume-section')} icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>} />
+            <NavIcon label="AI Lab" onClick={(e) => scrollToSection(e, 'ai-lab-section')} icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>} />
+            <NavIcon label="Game" onClick={(e) => scrollToSection(e, 'game-section')} icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 011 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>} />
+            <NavIcon label="Travel" onClick={(e) => scrollToSection(e, 'travel-section')} icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>} />
           </div>
-
           <div className="h-4 w-px bg-t-border mx-2" />
-
           <div className="flex items-center gap-3">
             <button onClick={() => setIsDarkMode(!isDarkMode)} className="p-2.5 rounded-full hover:bg-t-accent hover:text-t-bg transition-all duration-500 text-t-fg/60">
               {isDarkMode ? (<svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" /></svg>) : (<svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>)}
@@ -789,73 +632,41 @@ const App: React.FC = () => {
           <div className="relative">
              <div className="space-y-0">
                {BLOG_POSTS.map((post, i) => {
-                 // Explicit color assignment based on post ID as requested
                  let accent: SwissAccent = 'indigo';
                  if (post.id === 'rishikesh-story') accent = 'purple';
                  else if (post.id === 'coorg-story') accent = 'emerald';
                  else accent = vibrantAccents[(i + 3) % vibrantAccents.length];
-
                  return <TravelStoryItem key={post.id} post={post} index={i} accent={accent} />;
                })}
              </div>
           </div>
-        </section>
-
-        <section id="contact-section" className="mb-[40rem] scroll-mt-32 print:hidden">
-          <ScrollReveal className="flex flex-col items-center mb-24 text-center">
-             <h2 className="text-7xl lg:text-[10rem] font-black font-display text-t-fg uppercase tracking-tighter leading-none">Let's <br /> Connect.</h2>
-             <div className="w-40 h-px bg-t-accent-2 mt-16 opacity-20" />
-          </ScrollReveal>
-          <ScrollReveal>
-            <InteractiveContactHub />
-          </ScrollReveal>
         </section>
       </main>
 
       <footer className="relative py-28 overflow-hidden print:hidden">
         <div className="absolute inset-0 bg-white/[0.03] dark:bg-white/[0.02] backdrop-blur-3xl z-0" />
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-t-accent-2 via-t-accent to-t-accent-2 opacity-90 shadow-[0_0_20px_rgba(159,134,255,0.3)]" />
-        
         <div className="max-w-[1440px] mx-auto px-12 lg:px-32 flex flex-col md:flex-row justify-between items-center gap-16 relative z-10">
           <div className="flex flex-col items-center md:items-start space-y-4">
-             <h4 
-               onClick={handleScrollToTop} 
-               className="text-4xl lg:text-5xl font-black text-t-fg uppercase tracking-tighter cursor-pointer transition-all hover:text-t-accent active:scale-95 origin-left"
-             >
+             <h4 onClick={handleScrollToTop} className="text-4xl lg:text-5xl font-black text-t-fg uppercase tracking-tighter cursor-pointer transition-all hover:text-t-accent active:scale-95 origin-left">
                {FULL_NAME}.
              </h4>
-             <div className="flex items-center gap-6">
-               <p className="text-[10px] font-black text-t-fg uppercase tracking-[1.4em] opacity-80">
-                 Software Engineering // 2025
-               </p>
-               <div className="h-px w-12 bg-t-accent-2 opacity-40 hidden lg:block" />
-             </div>
+             <p className="text-[10px] font-black text-t-fg uppercase tracking-[1.4em] opacity-80">Software Engineering // 2025</p>
           </div>
-
           <div className="flex flex-col items-center md:items-end gap-12">
             <div className="flex flex-wrap justify-center gap-4 lg:gap-8">
               {[
                 { url: LINKEDIN_URL, label: 'LinkedIn', color: 'hover:text-blue-500', icon: <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/> },
                 { url: `https://github.com/${GITHUB_USERNAME}`, label: 'GitHub', color: 'hover:text-purple-400', icon: <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/> },
                 { url: X_URL, label: 'X', color: 'hover:text-orange-400', icon: <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/> },
-                { url: INSTAGRAM_URL, label: 'Instagram', color: 'hover:text-rose-500', icon: <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.058-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/> }
+                { url: INSTAGRAM_URL, label: 'Instagram', color: 'hover:text-rose-500', icon: <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/> }
               ].map((link, i) => (
-                <a 
-                  key={i} 
-                  href={link.url} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className={`w-14 h-14 rounded-full border border-white/20 bg-white/5 flex items-center justify-center ${link.color} hover:bg-white/10 hover:scale-110 active:scale-95 transition-all shadow-xl text-t-fg`}
-                  title={link.label}
-                >
+                <a key={i} href={link.url} target="_blank" rel="noreferrer" className={`w-14 h-14 rounded-full border border-white/20 bg-white/5 flex items-center justify-center ${link.color} hover:bg-white/10 hover:scale-110 active:scale-95 transition-all shadow-xl text-t-fg`} title={link.label}>
                   <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">{link.icon}</svg>
                 </a>
               ))}
             </div>
-            
-            <p className="text-[9px] font-black text-t-fg uppercase tracking-[0.8em] opacity-40">
-              Clean Code // Performance // Design
-            </p>
+            <p className="text-[9px] font-black text-t-fg uppercase tracking-[0.8em] opacity-40">Clean Code // Performance // Design</p>
           </div>
         </div>
       </footer>

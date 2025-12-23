@@ -118,8 +118,8 @@ export const PROJECTS: Project[] = [
       'Developed a custom JSON-to-PDF engine with pixel-perfect precision.'
     ],
     category: ProjectCategory.AI,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1635332396679-751005b491ce?auto=format&fit=crop&q=80&w=1000',
-    secondaryImageUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1200',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=1000',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=1200',
     tech: ['React', 'TypeScript', 'Gemini API', 'Tailwind', 'Node.js'],
     liveUrl: 'https://future-job-fit.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/future-job-fit',
