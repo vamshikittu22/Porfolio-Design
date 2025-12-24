@@ -1,6 +1,6 @@
 {
-  "name": "Personal Portfolio: Swiss-AI Edition",
-  "description": "A premium, Swiss-style portfolio featuring glassmorphism UI, integrated AI image editing with Nano Banana, and video generation with Veo.",
+  "name": "Personal Portfolio: Swiss Edition",
+  "description": "A premium, Swiss-style portfolio featuring glassmorphism UI and integrated engineering showcases.",
   "requestFramePermissions": [
     "camera",
     "microphone"
