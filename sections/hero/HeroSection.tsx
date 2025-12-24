@@ -1,0 +1,80 @@
+
+import React from 'react';
+import { GlassButton } from '../ui/GlassButton';
+import { HeroTitle } from './HeroTitle';
+
+interface HeroProps {
+  image: string | null;
+  loading: boolean;
+  onScroll: (id: string) => void;
+}
+
+export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) => {
+  return (
+    <section id="hero-section" className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center mb-[40rem] min-h-[85vh] print:hidden relative">
+      <div className="space-y-12 animate-in fade-in slide-in-from-left duration-1000 z-20">
+        {/* Top Header Label */}
+        <div className="flex flex-col space-y-2">
+           <div className="flex items-center gap-3">
+             <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.6em] text-t-accent">Software Engineer</span>
+             <span className="text-[10px] lg:text-[12px] font-black uppercase text-t-accent opacity-40">//</span>
+             <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.6em] text-t-accent opacity-40">::</span>
+           </div>
+           <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.8em] text-white/40">2025 Portfolio</span>
+        </div>
+
+        {/* Staggered Title */}
+        <HeroTitle />
+        
+        {/* Subtext description */}
+        <div className="max-w-xl">
+          <p className="text-xl lg:text-2xl text-t-fg-m font-medium leading-relaxed opacity-80">
+            Building scalable web applications with a focus on high-performance architecture and elegant user experiences.
+          </p>
+        </div>
+
+        {/* Action Buttons - Refined to Lime Green theme */}
+        <div className="flex flex-wrap gap-6 pt-4">
+          <GlassButton 
+            primary 
+            accent="theme" 
+            className="!px-10 !py-5 !text-[11px] !bg-t-accent !text-black !border-none !rounded-full hover:brightness-110" 
+            onClick={() => onScroll('projects-section')}
+          >
+            View My Projects
+          </GlassButton>
+          <GlassButton 
+            accent="theme" 
+            className="!px-10 !py-5 !text-[11px] !bg-transparent !text-t-accent !border !border-t-accent !rounded-full hover:bg-t-accent/10" 
+            onClick={() => onScroll('resume-section')}
+          >
+            Open Resume
+          </GlassButton>
+        </div>
+      </div>
+      
+      {/* Hero Image Container - Squircle style */}
+      <div className="relative aspect-square lg:aspect-[4/5] w-full rounded-[100px] bg-t-bg-el overflow-hidden border border-t-border shadow-2xl group transition-all duration-1000 z-10">
+          {loading ? (
+            <div className="w-full h-full bg-t-accent-s/20 animate-pulse flex items-center justify-center">
+              <div className="w-12 h-12 border-4 border-t-accent border-r-transparent rounded-full animate-spin" />
+            </div>
+          ) : (
+            <>
+              <img 
+                src={image || ''} 
+                alt="Architecture and Tech" 
+                className="w-full h-full object-cover transition-all duration-[5000ms] group-hover:scale-110 mix-blend-luminosity dark:mix-blend-normal brightness-90 contrast-125" 
+              />
+              {/* Duotone Overlay Effect */}
+              <div className="absolute inset-0 bg-t-accent/20 dark:bg-t-bg/40 mix-blend-overlay pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-t-bg via-transparent to-transparent opacity-80 pointer-events-none" />
+            </>
+          )}
+          
+          {/* Decorative Corner Element */}
+          <div className="absolute inset-0 border-[40px] border-white/5 pointer-events-none rounded-[100px]" />
+      </div>
+    </section>
+  );
+};
