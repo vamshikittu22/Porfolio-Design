@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ScrollReveal } from '../../App';
+// Fixed: ScrollReveal is exported from its own component file, not from App
+import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { PROJECTS_CONFIG } from '../../config/projects';
 import ProjectList from './ProjectList';
 
