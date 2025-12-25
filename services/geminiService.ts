@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 
 /**
@@ -111,7 +110,7 @@ export class GeminiService {
       throw new Error("QUOTA_EXCEEDED: API limit reached. Cooling down system.");
     }
     
-    throw new Error(message || "Neural synchronization error.");
+    throw new Error(message || "Service connection error.");
   }
 
   async generateImage(prompt: string, baseImageBase64?: string, aspectRatio: "1:1" | "16:9" | "9:16" | "4:3" | "3:4" = "1:1"): Promise<string> {
@@ -157,7 +156,7 @@ export class GeminiService {
         return result;
       }
       
-      throw new Error('Empty visualization payload.');
+      throw new Error('Image generation failed.');
     } catch (error) {
       this.handleError(error);
     }
@@ -198,7 +197,7 @@ export class GeminiService {
         operation = await pollAi.operations.getVideosOperation({ operation: operation });
       }
       const downloadLink = operation.response?.generatedVideos?.[0]?.video?.uri;
-      if (!downloadLink) throw new Error("Temporal synthesis failed.");
+      if (!downloadLink) throw new Error("Video synthesis failed.");
       const response = await fetch(`${downloadLink}&key=${process.env.API_KEY}`);
       if (!response.ok) throw new Error(`Stream interrupted: ${response.statusText}`);
       const blob = await response.blob();
@@ -252,17 +251,17 @@ export class GeminiService {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: "Write a 15-word hyper-sophisticated, minimalist greeting for a senior engineer's portfolio contact section. Theme: Swiss Precision meets Neural Networks. Do not use generic words like 'Welcome'.",
+        contents: "Write a 15-word professional, clear, and welcoming greeting for a software engineer's portfolio contact section. Theme: Professionalism, collaboration, and technical excellence. Do not use robotic jargon like 'neural handshake' or 'uplink'.",
         config: {
           thinkingConfig: { thinkingBudget: 0 }
         }
       });
 
-      const result = response.text || "Link established. Systems optimized for cross-sector architectural collaboration.";
+      const result = response.text || "Connection established. Open for professional collaboration and engineering opportunities.";
       this.setCache(cacheKey, result);
       return result;
     } catch {
-      return "Link established. Systems optimized for cross-sector architectural collaboration.";
+      return "Connection established. Open for professional collaboration and engineering opportunities.";
     }
   }
 }

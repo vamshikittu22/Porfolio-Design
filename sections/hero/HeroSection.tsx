@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { GlassButton } from '../../components/GlassUI';
 import { HeroTitle } from './HeroTitle';
@@ -18,13 +17,19 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
            <div className="flex items-center gap-3">
              <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.6em] text-t-accent">Software Engineer</span>
              <span className="text-[10px] lg:text-[12px] font-black uppercase text-t-accent opacity-40">//</span>
-             <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.6em] text-t-accent opacity-40">::</span>
+             <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.6em] text-t-accent opacity-40">2025</span>
            </div>
-           <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.8em] text-white/40">2025 Portfolio</span>
+           <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.8em] text-t-fg opacity-40">Portfolio Collection</span>
         </div>
 
-        {/* Staggered Title */}
-        <HeroTitle />
+        {/* Name Title with Individual Hover Effects */}
+        <div className="space-y-6">
+          <HeroTitle />
+          {/* Key Info Line - Styled for visibility in both modes */}
+          <p className="text-[11px] lg:text-[13px] font-bold text-t-fg-m uppercase tracking-[0.2em] opacity-90">
+            Charlotte, NC · Open to Remote · Work Auth: STEM OPT
+          </p>
+        </div>
         
         {/* Subtext description */}
         <div className="max-w-xl">
@@ -33,22 +38,22 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
           </p>
         </div>
 
-        {/* Action Buttons - Refined to Lime Green theme */}
+        {/* Action Buttons - Primary and Secondary CTAs */}
         <div className="flex flex-wrap gap-6 pt-4">
           <GlassButton 
             primary 
             accent="theme" 
             className="!px-10 !py-5 !text-[11px] !bg-t-accent !text-black !border-none !rounded-full hover:brightness-110" 
-            onClick={() => onScroll('projects-section')}
+            onClick={() => onScroll('contact-section')}
           >
-            View My Projects
+            Contact Me
           </GlassButton>
           <GlassButton 
             accent="theme" 
             className="!px-10 !py-5 !text-[11px] !bg-transparent !text-t-accent !border !border-t-accent !rounded-full hover:bg-t-accent/10" 
-            onClick={() => onScroll('resume-section')}
+            onClick={() => window.print()}
           >
-            Open Resume
+            Download Resume (PDF)
           </GlassButton>
         </div>
       </div>
@@ -63,7 +68,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
             <>
               <img 
                 src={image || ''} 
-                alt="Architecture and Tech" 
+                alt="Software Engineering" 
                 className="w-full h-full object-cover transition-all duration-[5000ms] group-hover:scale-110 mix-blend-luminosity dark:mix-blend-normal brightness-90 contrast-125" 
               />
               {/* Duotone Overlay Effect */}

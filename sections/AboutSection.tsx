@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ScrollReveal } from '../App';
 import { BubbleTag } from '../components/GlassUI';
@@ -12,9 +11,9 @@ export const AboutSection: React.FC = () => {
         <div className="space-y-12">
           <div className="flex flex-col gap-4">
             <div className="h-px w-20 bg-t-accent" />
-            <span className="text-[10px] font-black uppercase tracking-[1em] text-t-accent">Profile // 01</span>
+            <span className="text-[10px] font-black uppercase tracking-[1em] text-t-accent">About Me</span>
             <h2 className="text-6xl lg:text-8xl font-black font-display text-t-fg uppercase tracking-tighter leading-none">
-              The <br /> Engineer.
+              Professional <br /> Summary.
             </h2>
           </div>
           
@@ -36,8 +35,8 @@ export const AboutSection: React.FC = () => {
 
           <div className="relative z-10 space-y-16">
             <div className="flex justify-between items-end">
-              <h3 className="text-[10px] font-black uppercase tracking-[1em] text-t-fg-m opacity-50">System Capabilities</h3>
-              <span className="text-[8px] font-mono text-t-accent">READY_FOR_DEPLOYMENT_V2.5</span>
+              <h3 className="text-[10px] font-black uppercase tracking-[1em] text-t-fg-m opacity-50">Technical Expertise</h3>
+              <span className="text-[8px] font-mono text-t-accent uppercase">Open for Full-Time Roles</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -45,7 +44,7 @@ export const AboutSection: React.FC = () => {
               <div className="space-y-6">
                 <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-t-fg flex items-center gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-t-accent" />
-                  Languages
+                  Programming Languages
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {SKILLS_RESUME.languages.map(lang => (
@@ -58,7 +57,7 @@ export const AboutSection: React.FC = () => {
               <div className="space-y-6">
                 <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-t-fg flex items-center gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-t-accent-2" />
-                  Frontend & Systems
+                  Frontend & System Frameworks
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {SKILLS_RESUME.frameworks.map(fw => (
@@ -84,14 +83,14 @@ export const AboutSection: React.FC = () => {
               <div className="space-y-6">
                 <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-t-fg flex items-center gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                  AI & Developer Tools
+                  AI & Productivity Tools
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {SKILLS_RESUME.tools.map(tool => (
                     <BubbleTag key={tool} accent="amber" className="!px-4 !py-1.5 !text-[8px]">{tool}</BubbleTag>
                   ))}
                   <BubbleTag accent="purple" className="!px-4 !py-1.5 !text-[8px]">Gemini AI</BubbleTag>
-                  <BubbleTag accent="purple" className="!px-4 !py-1.5 !text-[8px]">Prompt Eng.</BubbleTag>
+                  <BubbleTag accent="purple" className="!px-4 !py-1.5 !text-[8px]">Prompt Engineering</BubbleTag>
                 </div>
               </div>
             </div>
