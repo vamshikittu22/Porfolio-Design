@@ -6,13 +6,15 @@ import { Project, BlogPost } from './types';
 import GitHubStats from './components/GitHubStats';
 import { GeminiService } from './services/geminiService';
 import { TicTacToe } from './components/TicTacToe';
+import { HeroSection } from './sections/hero/HeroSection';
+import { AboutSection } from './sections/AboutSection';
 
 const HERO_FALLBACK_DARK = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200";
 const HERO_FALLBACK_LIGHT = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200";
 
 type SwissAccent = 'indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange';
 
-const ScrollReveal: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ children, className = '', delay = 0 }) => {
+export const ScrollReveal: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ children, className = '', delay = 0 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -305,7 +307,7 @@ const ContactSection: React.FC = () => {
                <div className="relative z-10 flex flex-col items-center gap-4 text-center">
                  <div className="w-14 h-14 rounded-full bg-t-accent-2/10 border border-t-accent-2/40 text-t-accent-2 flex items-center justify-center shadow-sm transition-all group-hover:bg-t-accent-2 group-hover:text-t-bg">
                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z" />
                    </svg>
                  </div>
                  <div className="space-y-0.5">
@@ -596,7 +598,7 @@ const TravelStoryItem: React.FC<{ post: BlogPost; index: number; accent: SwissAc
             >
                <div className="flex items-center gap-6 mb-8">
                   <span className="px-5 py-2 rounded-full text-[8px] font-black uppercase tracking-[0.4em] bg-white/20 text-white border border-white/10">{post.date}</span>
-                  <span className="text-[8px] font-black text-white/50 uppercase tracking-[0.6em]">{post.tag}</span>
+                  <span className="text-[8px] font-black text-white/50 uppercase tracking-raw-60.6em]">{post.tag}</span>
                </div>
                <h3 className="text-5xl lg:text-8xl font-black uppercase tracking-tighter mb-10 leading-[0.75]">{post.title}.</h3>
                <p className="text-xl lg:text-2xl text-white/80 font-medium leading-relaxed italic mb-12">"{post.summary}"</p>
@@ -686,8 +688,8 @@ const App: React.FC = () => {
 
   const vibrantAccents: SwissAccent[] = ['purple', 'orange', 'indigo', 'emerald', 'rose', 'amber'];
   const toggleProject = (id: string) => setExpandedProjectId(prev => prev === id ? null : id);
-  const scrollToSection = (e: React.MouseEvent, id: string) => { 
-    e.preventDefault(); 
+  const scrollToSection = (e: React.MouseEvent | null, id: string) => { 
+    if (e) e.preventDefault(); 
     const element = document.getElementById(id); 
     if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
   };
@@ -709,7 +711,7 @@ const App: React.FC = () => {
           </button>
           <div className="h-4 w-px bg-t-border mx-2" />
           <div className="flex gap-2 items-center">
-            <NavIcon label="About" onClick={(e) => scrollToSection(e, 'hero-section')} icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>} />
+            <NavIcon label="About" onClick={(e) => scrollToSection(e, 'about-section')} icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>} />
             <NavIcon label="Projects" onClick={(e) => scrollToSection(e, 'projects-section')} icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>} />
             <NavIcon label="Resume" onClick={(e) => scrollToSection(e, 'resume-section')} icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>} />
             <NavIcon label="Game" onClick={(e) => scrollToSection(e, 'game-section')} icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 011 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>} />
@@ -729,76 +731,9 @@ const App: React.FC = () => {
       </nav>
 
       <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60 print:p-0">
-        <section id="hero-section" className="grid lg:grid-cols-[1.4fr_1fr] gap-12 lg:gap-20 items-center mb-[40rem] min-h-[75vh] print:hidden relative">
-          <div className="space-y-16 animate-in fade-in slide-in-from-left duration-1000 z-20 overflow-visible">
-            <div className="space-y-10">
-              <div className="flex items-center gap-6">
-                 <div className="h-[3px] w-16 bg-t-accent" />
-                 <span className="text-[12px] font-black uppercase tracking-[2em] text-t-accent pl-[2em]">Architect // Engineer</span>
-              </div>
-              
-              <div className="flex flex-col space-y-4 lg:space-y-6">
-                <div className="relative overflow-visible">
-                   <h1 className="text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg tracking-tighter leading-none uppercase whitespace-nowrap overflow-visible select-none transition-all duration-700 hover:tracking-tight">
-                     Vamshi Krishna
-                   </h1>
-                </div>
-                
-                <div className="relative overflow-visible">
-                   <h2 className="text-6xl md:text-8xl lg:text-[11rem] font-black font-display text-t-fg tracking-tighter leading-none uppercase flex items-center whitespace-nowrap overflow-visible select-none opacity-20 transition-all duration-1000 hover:opacity-100">
-                     Pullaiahgari.
-                   </h2>
-                </div>
-              </div>
-            </div>
-            
-            <div className="space-y-10 max-w-3xl border-l-[6px] border-t-accent/30 pl-16 py-8 bg-t-bg-el/10 rounded-r-[40px] backdrop-blur-md shadow-sm">
-              <p className="text-2xl lg:text-3xl text-t-fg font-medium leading-[1.6] italic">
-                Developing high-performance digital solutions with a focus on intuitive interfaces, clean code, and advanced technology integration.<br />
-                Bridging enterprise scalability with fluid, AI-integrated user experiences.<br />
-              </p>
-              <div className="flex items-center gap-8">
-                 <div className="w-16 h-16 rounded-full border-2 border-t-border flex items-center justify-center animate-bounce shadow-xl bg-t-bg-el group cursor-pointer hover:border-t-accent transition-colors">
-                    <svg className="w-8 h-8 text-t-accent group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7-7-7m14-8l-7 7-7-7" /></svg>
-                 </div>
-                 <div className="flex flex-col">
-                   <span className="text-[10px] font-black uppercase tracking-[0.8em] text-t-fg opacity-40 mb-1">Architecture Node 01</span>
-                   <span className="text-[14px] font-black text-t-fg uppercase tracking-widest">Scroll for Dossier</span>
-                 </div>
-              </div>
-            </div>
+        <HeroSection image={activeHeroImage} loading={heroLoading} onScroll={(id) => scrollToSection(null, id)} />
 
-            <div className="flex gap-10 pt-4">
-              <GlassCard accent="theme" className="overflow-hidden p-1 rounded-full group/btn cursor-pointer shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)]" onClick={(e: any) => scrollToSection(e, 'projects-section')}>
-                <div className="px-16 py-8 font-black text-[14px] uppercase tracking-[0.8em] bg-t-accent text-t-bg rounded-full transition-all group-hover/btn:bg-t-fg group-hover/btn:scale-95 group-hover/btn:text-white flex items-center gap-4">
-                  Case Studies
-                </div>
-              </GlassCard>
-              <GlassButton accent="theme" className="!px-16 !py-8 !text-[14px]" onClick={(e: any) => scrollToSection(e, 'resume-section')}>Full Resume</GlassButton>
-            </div>
-          </div>
-          
-          <div className="relative aspect-[4/5] w-full rounded-[140px_40px_140px_40px] bg-t-bg-el overflow-hidden border border-t-border shadow-[0_100px_200px_-50px_rgba(0,0,0,0.3)] group transition-all duration-1000 z-10 mx-auto lg:scale-110 hover:scale-125 hover:-rotate-1">
-              {heroLoading ? (
-                <div className="w-full h-full bg-t-accent-s/20 animate-pulse flex items-center justify-center">
-                  <div className="flex flex-col items-center gap-6">
-                    <div className="w-16 h-16 border-4 border-t-accent border-r-transparent rounded-full animate-spin" />
-                    <p className="text-[11px] font-black uppercase tracking-[1.5em] text-t-accent">Calibrating Visuals...</p>
-                  </div>
-                </div>
-              ) : (
-                <img src={activeHeroImage} alt="Vamshi Krishna Pullaiahgari" className="w-full h-full object-cover transition-all duration-[5000ms] group-hover:scale-110 saturate-[1.3] contrast-[1.05]" />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-t-bg/80 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute top-16 right-16 flex flex-col items-end opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-x-12 group-hover:translate-x-0">
-                <span className="text-[11px] font-black text-white bg-t-accent-2 px-10 py-4 rounded-full tracking-[0.8em] uppercase shadow-2xl border border-white/30 backdrop-blur-xl">V.K.P // 2025</span>
-              </div>
-              <div className="absolute bottom-16 left-16 opacity-0 group-hover:opacity-100 transition-all duration-1000 -translate-y-12 group-hover:translate-y-0">
-                 <p className="text-[14px] font-black text-white uppercase tracking-[1.2em] drop-shadow-2xl border-l-8 border-t-accent pl-10 py-2">Core Entity Rendering</p>
-              </div>
-              <div className="absolute inset-0 border-[30px] border-white/5 pointer-events-none group-hover:border-white/15 transition-all duration-1000" />
-          </div>
-        </section>
+        <AboutSection />
 
         <section id="projects-section" className="mb-[40rem] scroll-mt-32 print:hidden">
           <ScrollReveal className="flex flex-col items-center mb-48 text-center">

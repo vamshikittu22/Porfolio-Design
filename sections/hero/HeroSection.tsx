@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { GlassButton } from '../ui/GlassButton';
+import { GlassButton } from '../../components/GlassUI';
 import { HeroTitle } from './HeroTitle';
 
 interface HeroProps {
