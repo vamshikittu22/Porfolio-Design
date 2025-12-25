@@ -1,6 +1,6 @@
 import React from 'react';
-import { GlassCard } from '../../components/GlassUI';
-import { Project } from '../../types';
+import { GlassCard } from '../../components/ui/GlassUI';
+import { Project } from '../../config/types';
 import ProjectTechPills from './ProjectTechPills';
 import ProjectActions from './ProjectActions';
 

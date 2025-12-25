@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
-import { GlassCard, GlassButton } from '../../components/GlassUI';
-import { FULL_NAME, EMAIL, LINKEDIN_URL, GITHUB_USERNAME } from '../../constants';
+import { GlassCard, GlassButton } from '../../components/ui/GlassUI';
+import { FULL_NAME, EMAIL, LINKEDIN_URL, GITHUB_USERNAME } from '../../config/constants';
 import { GeminiService } from '../../services/geminiService';
 
 export const ContactSection: React.FC = () => {

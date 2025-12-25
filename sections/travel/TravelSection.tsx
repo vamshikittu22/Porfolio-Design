@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
-import { BLOG_POSTS } from '../../constants';
+import { BLOG_POSTS } from '../../config/constants';
 import TravelStoryItem from './TravelStoryItem';
 
 const VIBRANT_ACCENTS: ('indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange')[] = ['purple', 'orange', 'indigo', 'emerald', 'rose', 'amber'];

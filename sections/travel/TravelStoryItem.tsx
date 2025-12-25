@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
-import { GlassButton } from '../../components/GlassUI';
-import { BlogPost } from '../../types';
+import { GlassButton } from '../../components/ui/GlassUI';
+import { BlogPost } from '../../config/types';
 import { GeminiService } from '../../services/geminiService';
 
 type SwissAccent = 'indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange';

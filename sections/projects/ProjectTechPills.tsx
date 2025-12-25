@@ -1,5 +1,5 @@
 import React from 'react';
-import { BubbleTag } from '../../components/GlassUI';
+import { BubbleTag } from '../../components/ui/GlassUI';
 
 interface ProjectTechPillsProps {
   tech: string[];

@@ -1,8 +1,5 @@
 {
   "name": "Personal Portfolio: Swiss Edition",
   "description": "A premium, Swiss-style portfolio featuring glassmorphism UI and integrated engineering showcases.",
-  "requestFramePermissions": [
-    "camera",
-    "microphone"
-  ]
+  "requestFramePermissions": []
 }

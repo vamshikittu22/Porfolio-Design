@@ -1,5 +1,5 @@
 import React from 'react';
-import { Project } from '../../types';
+import { Project } from '../../config/types';
 import ProjectCard from './ProjectCard';
 import ProjectDetails from './ProjectDetails';
 

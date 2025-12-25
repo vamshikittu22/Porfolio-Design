@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
-import { TicTacToe } from '../../components/TicTacToe';
+import { TicTacToe } from './TicTacToe';
 
 export const GameSection: React.FC = () => {
   return (

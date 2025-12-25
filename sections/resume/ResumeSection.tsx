@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
-import { GlassButton } from '../../components/GlassUI';
-import { FULL_NAME, EDUCATION, EXPERIENCE, AWARDS } from '../../constants';
+import { GlassButton } from '../../components/ui/GlassUI';
+import { FULL_NAME, EDUCATION, EXPERIENCE, AWARDS } from '../../config/constants';
 import TimelineNode from './TimelineNode';
 import SkillProgress from './SkillProgress';
 

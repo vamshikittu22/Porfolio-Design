@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { GlassCard } from '../../components/GlassUI';
-import { Project } from '../../types';
+import { GlassCard } from '../../components/ui/GlassUI';
+import { Project } from '../../config/types';
 
 interface ProjectCardProps {
   project: Project;

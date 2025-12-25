@@ -1,5 +1,5 @@
 import React from 'react';
-import { GITHUB_USERNAME, LINKEDIN_URL, X_URL, INSTAGRAM_URL } from '../../constants';
+import { GITHUB_USERNAME, LINKEDIN_URL, X_URL, INSTAGRAM_URL } from '../../config/constants';
 
 interface FooterBarProps {
   onScrollToTop: () => void;

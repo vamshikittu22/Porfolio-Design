@@ -1,5 +1,5 @@
 import React from 'react';
-import { GlassButton } from '../../components/GlassUI';
+import { GlassButton } from '../../components/ui/GlassUI';
 
 interface ProjectActionsProps {
   liveUrl?: string;
