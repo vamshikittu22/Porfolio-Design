@@ -17,6 +17,7 @@ This portfolio is built on a modular "Section-First" architecture. Each major ar
 ## 🚀 Key Features
 
 ### 🤖 AI-Driven Modules (Gemini 2.5/3)
+- **Portfolio Assistant:** A real-time chat interface (powered by Gemini 3 Flash) that helps recruiters query my projects, technical skills, and work history.
 - **Neural Greeting:** A dynamic, context-aware greeting generated via AI on the contact page.
 - **Generative Postcards:** Travel stories feature an "AI Render" capability that generates high-fidelity watercolor illustrations based on trip descriptions.
 - **Strategy Engine:** The Tic-Tac-Toe "Playlab" includes a hint system powered by Gemini's reasoning capabilities.
@@ -49,7 +50,7 @@ This portfolio is built on a modular "Section-First" architecture. Each major ar
 src/
 ├── app/                # Main Application entry and orchestrator
 ├── components/
-│   ├── layout/         # Header, Footer, and Nav components
+│   ├── layout/         # Header, Footer, Nav, and ChatAssistant
 │   └── ui/             # Reusable Atomic UI primitives (GlassCard, BubbleTag)
 ├── config/             # Static constants, project lists, and global types
 ├── sections/           # Feature-based modular sections
@@ -61,7 +62,7 @@ src/
 │   ├── projects/       # Case Study explorer
 │   ├── resume/         # Credentials & Timeline
 │   └── travel/         # Travel stories & AI postcard generation
-└── services/           # External API wrappers (Gemini, Social)
+└── services/           # External API wrappers (Gemini, Chat, Social)
 ```
 
 ---
