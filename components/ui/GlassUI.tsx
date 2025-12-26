@@ -22,7 +22,7 @@ export const GlassCard: React.FC<GlassProps> = ({ children, className = '', acce
     secondary: 'hover:border-t-accent-2'
   };
 
-  const baseClasses = 'bg-t-bg-el/80 border-t-border text-t-fg backdrop-blur-xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]';
+  const baseClasses = 'bg-t-bg-el/85 border-t-border text-t-fg backdrop-blur-xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]';
 
   return (
     <div 
@@ -79,47 +79,47 @@ export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: 
   const themes = {
     indigo: {
       primary: 'bg-indigo-600 dark:bg-indigo-500 text-white border-indigo-700 dark:border-indigo-600',
-      outline: 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 border-indigo-100 dark:border-indigo-900/50 hover:border-indigo-300 dark:hover:border-indigo-500/50'
+      outline: 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-900/50 hover:border-indigo-400 dark:hover:border-indigo-500/50'
     },
     emerald: {
       primary: 'bg-emerald-600 dark:bg-emerald-500 text-white border-emerald-700 dark:border-emerald-600',
-      outline: 'bg-white dark:bg-slate-900 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-900/50 hover:border-emerald-300 dark:hover:border-emerald-500/50'
+      outline: 'bg-white dark:bg-slate-900 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-900/50 hover:border-emerald-400 dark:hover:border-emerald-500/50'
     },
     rose: {
       primary: 'bg-rose-600 dark:bg-rose-500 text-white border-rose-700 dark:border-rose-600',
-      outline: 'bg-white dark:bg-slate-900 text-rose-600 dark:text-rose-400 border-rose-100 dark:border-rose-900/50 hover:border-rose-300 dark:hover:border-rose-500/50'
+      outline: 'bg-white dark:bg-slate-900 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-900/50 hover:border-rose-400 dark:hover:border-rose-500/50'
     },
     amber: {
       primary: 'bg-amber-600 dark:bg-amber-500 text-white border-amber-700 dark:border-amber-600',
-      outline: 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 border-amber-100 dark:border-amber-900/50 hover:border-amber-300 dark:hover:border-amber-500/50'
+      outline: 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-900/50 hover:border-amber-400 dark:hover:border-amber-500/50'
     },
     purple: {
       primary: 'bg-purple-600 dark:bg-purple-500 text-white border-purple-700 dark:border-purple-600',
-      outline: 'bg-white dark:bg-slate-900 text-purple-600 dark:text-purple-400 border-purple-100 dark:border-purple-900/50 hover:border-purple-300 dark:hover:border-purple-500/50'
+      outline: 'bg-white dark:bg-slate-900 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-900/50 hover:border-purple-400 dark:hover:border-purple-500/50'
     },
     orange: {
       primary: 'bg-orange-600 dark:bg-orange-500 text-white border-orange-700 dark:border-orange-600',
-      outline: 'bg-white dark:bg-slate-900 text-orange-600 dark:text-orange-400 border-orange-100 dark:border-orange-900/50 hover:border-orange-300 dark:hover:border-orange-500/50'
+      outline: 'bg-white dark:bg-slate-900 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-900/50 hover:border-orange-400 dark:hover:border-orange-500/50'
     },
     slate: {
       primary: 'bg-slate-950 dark:bg-slate-100 text-white dark:text-slate-950 border-slate-800 dark:border-slate-300',
-      outline: 'bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-200 border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-600'
+      outline: 'bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-200 border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600'
     },
     dark: {
       primary: 'bg-slate-950 dark:bg-white text-white dark:text-slate-950 border-slate-800 dark:border-slate-200',
-      outline: 'bg-white/10 dark:bg-white/5 text-slate-900 dark:text-white border-slate-200 dark:border-white/20 hover:border-slate-400 dark:hover:border-white/40'
+      outline: 'bg-white/10 dark:bg-white/5 text-slate-900 dark:text-white border-slate-300 dark:border-white/20 hover:border-slate-500 dark:hover:border-white/40'
     },
     white: {
       primary: 'bg-white dark:bg-slate-100 text-slate-950 dark:text-slate-950 border-slate-50 dark:border-slate-200',
-      outline: 'bg-transparent text-white dark:text-white border-white/20 dark:border-white/10 hover:border-white dark:hover:border-white/30'
+      outline: 'bg-transparent text-white dark:text-white border-white/30 dark:border-white/10 hover:border-white dark:hover:border-white/40'
     },
     theme: {
       primary: 'bg-t-accent text-t-bg border-t-accent/80',
-      outline: 'bg-t-accent-s/30 text-t-accent border-t-accent/20 hover:border-t-accent/50'
+      outline: 'bg-t-accent-s/30 text-t-accent border-t-accent/40 hover:border-t-accent'
     },
     secondary: {
       primary: 'bg-t-accent-2 text-t-bg border-t-accent-2/80',
-      outline: 'bg-t-accent-2-s/30 text-t-accent-2 border-t-accent-2/20 hover:border-t-accent-2/50'
+      outline: 'bg-t-accent-2-s/30 text-t-accent-2 border-t-accent-2/40 hover:border-t-accent-2'
     }
   };
 
@@ -131,7 +131,7 @@ export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: 
       onClick={onClick}
       disabled={disabled}
       className={`
-        px-10 py-4 font-black text-[9px] uppercase tracking-[0.5em] border-b-[2px]
+        px-10 py-4 font-black text-[9px] uppercase tracking-[0.5em] border-2
         transition-all duration-500 rounded-full
         flex items-center justify-center gap-4
         ${styleClass}

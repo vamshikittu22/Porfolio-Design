@@ -61,7 +61,7 @@ const ResumeSection: React.FC = () => {
           <aside className="space-y-16 sticky top-32 h-fit print:relative print:top-0">
             <div className="space-y-12">
               <div className="space-y-4">
-                <h3 className="text-t-accent font-black text-[10px] uppercase tracking-[1em] opacity-40">Identity.</h3>
+                <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">Identity.</h3>
                 <div className="space-y-1">
                   <h4 className="text-3xl font-black text-t-fg uppercase tracking-tighter leading-none">{FULL_NAME}</h4>
                   <p className="text-[10px] font-bold text-t-fg-m uppercase tracking-[0.2em]">Engineer / Developer</p>
@@ -69,7 +69,7 @@ const ResumeSection: React.FC = () => {
               </div>
 
               <div className="space-y-12 pt-12 border-t border-t-border">
-                <h3 className="text-t-accent font-black text-[10px] uppercase tracking-[1em] opacity-40">Matrix.</h3>
+                <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">Matrix.</h3>
                 <div className="space-y-8">
                    <div className="space-y-5">
                       <p className="text-[9px] font-black text-t-fg-m uppercase tracking-[0.3em] opacity-50">Languages</p>
@@ -87,7 +87,7 @@ const ResumeSection: React.FC = () => {
               </div>
 
               <div className="space-y-10 pt-12 border-t border-t-border">
-                <h3 className="text-t-accent font-black text-[10px] uppercase tracking-[1em] opacity-40">Recognition.</h3>
+                <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">Recognition.</h3>
                 <div className="space-y-8">
                   {AWARDS.map((award, idx) => (
                     <div key={idx} className="group/award space-y-2 p-6 border border-t-border rounded-2xl hover:border-t-accent transition-all bg-t-bg-el/20">
@@ -103,14 +103,14 @@ const ResumeSection: React.FC = () => {
 
           <main className="space-y-20">
             <div className="space-y-8 border-b border-t-border pb-12">
-               <h3 className="text-t-accent font-black text-[10px] uppercase tracking-[1em] opacity-40">01 // Profile Summary.</h3>
+               <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">01 // Profile Summary.</h3>
                <p className="text-xl lg:text-2xl font-medium text-t-fg leading-relaxed italic max-w-3xl">
                  "Architecting robust enterprise solutions with a focus on scalable design and intelligent automation. Committed to high-integrity engineering across the C# and React ecosystems."
                </p>
             </div>
 
             <div className="space-y-10">
-              <h3 className="text-t-accent font-black text-[10px] uppercase tracking-[1em] opacity-40">02 // Experience.</h3>
+              <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">02 // Experience.</h3>
               <div className="space-y-4">
                 {EXPERIENCE.map((exp, idx) => (
                   <TimelineNode 
@@ -126,7 +126,7 @@ const ResumeSection: React.FC = () => {
             </div>
 
             <div className="space-y-10">
-              <h3 className="text-t-accent font-black text-[10px] uppercase tracking-[1em] opacity-40">03 // Education.</h3>
+              <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">03 // Education.</h3>
               <div className="space-y-4">
                 {EDUCATION.map((edu, idx) => (
                   <TimelineNode 

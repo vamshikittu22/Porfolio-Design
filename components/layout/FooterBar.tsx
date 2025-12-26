@@ -7,7 +7,7 @@ interface FooterBarProps {
 
 export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
   return (
-    <footer className="relative py-12 lg:py-16 overflow-hidden print:hidden bg-t-accent-2-s dark:bg-t-accent-2/10 transition-colors duration-500">
+    <footer className="relative py-12 lg:py-16 overflow-hidden print:hidden bg-t-bg-el dark:bg-t-bg-el transition-colors duration-500">
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-t-accent via-t-accent-2 to-t-accent opacity-60" />
       <div className="max-w-[1440px] mx-auto px-10 lg:px-32 relative z-10">
         <div className="grid md:grid-cols-[1fr_auto] items-end gap-12 lg:gap-24">
@@ -49,7 +49,7 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
                   href={link.url} 
                   target="_blank" 
                   rel="noreferrer" 
-                  className="w-11 h-11 rounded-full border border-t-border bg-t-bg/40 flex items-center justify-center text-t-fg transition-all duration-500 hover:bg-t-accent hover:text-t-bg hover:border-t-accent hover:scale-110 active:scale-95 shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-t-accent"
+                  className="w-11 h-11 rounded-full border border-t-border bg-t-bg/40 flex items-center justify-center text-t-fg transition-all duration-500 hover:text-t-accent hover:border-t-accent hover:scale-110 active:scale-95 shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-t-accent"
                   title={link.label}
                 >
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">{link.icon}</svg>
