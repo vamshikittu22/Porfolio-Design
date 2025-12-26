@@ -40,7 +40,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isExpanded, o
           <span className="text-[8px] font-black uppercase tracking-[0.6em] text-t-accent opacity-70 mb-1 block">Project // 0{index + 1}</span>
           <h3 className="text-2xl lg:text-3xl font-black text-t-fg uppercase tracking-tighter transition-all duration-500 group-hover:translate-x-2">{project.title}.</h3>
         </div>
-        <div className={`hidden md:flex w-10 h-10 rounded-full border border-t-border items-center justify-center transition-all duration-500 group-hover:bg-t-accent group-hover:text-t-bg ${isExpanded ? `rotate-45 bg-t-accent text-t-bg` : ''}`}>
+        <div className={`hidden md:flex w-10 h-10 rounded-full border border-t-border items-center justify-center transition-all duration-300 hover:rotate-90 hover:bg-white/10 group-hover:bg-t-accent group-hover:text-t-bg ${isExpanded ? `rotate-45 bg-t-accent text-t-bg` : ''}`}>
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" /></svg>
         </div>
       </GlassCard>

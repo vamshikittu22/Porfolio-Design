@@ -49,7 +49,7 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
                   href={link.url} 
                   target="_blank" 
                   rel="noreferrer" 
-                  className="w-11 h-11 rounded-full border border-t-border bg-t-bg/40 flex items-center justify-center text-t-fg transition-all duration-500 hover:text-t-accent hover:border-t-accent hover:scale-110 active:scale-95 shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-t-accent"
+                  className="w-11 h-11 rounded-full border border-t-border bg-t-bg/40 flex items-center justify-center text-t-fg transition-all duration-200 hover:text-lime-600 dark:hover:text-lime-400 hover:scale-110 active:scale-95 shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-t-accent"
                   title={link.label}
                 >
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">{link.icon}</svg>

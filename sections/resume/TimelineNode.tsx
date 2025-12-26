@@ -37,7 +37,7 @@ export const TimelineNode: React.FC<TimelineNodeProps> = ({ item, index, isExpan
       </div>
 
       <div className="flex items-center gap-4 flex-shrink-0">
-        <button className={`flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.4em] transition-all ${isExpanded ? 'text-t-accent' : 'text-t-fg opacity-30 group-hover/node:opacity-100'}`}>
+        <button className={`flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.4em] transition-all hover:underline underline-offset-4 decoration-lime-500 ${isExpanded ? 'text-t-accent' : 'text-t-fg opacity-30 group-hover/node:opacity-100'}`}>
           {isExpanded ? 'Close Details' : 'View Details'}
           <svg className={`w-3 h-3 transition-transform duration-500 ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />

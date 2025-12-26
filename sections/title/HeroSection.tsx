@@ -18,7 +18,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
              <span className="text-[10px] lg:text-[12px] font-black uppercase text-t-accent opacity-40">//</span>
              <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.6em] text-t-accent opacity-40">2025</span>
            </div>
-           <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.8em] text-t-fg opacity-40">Portfolio Collection</span>
+           <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.8em] text-gray-500 dark:text-gray-400 opacity-60">Portfolio Collection</span>
         </div>
 
         <div className="space-y-6">
@@ -63,7 +63,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
               <img 
                 src={image || ''} 
                 alt="Software Engineering" 
-                className="w-full h-full object-cover transition-all duration-[5000ms] group-hover:scale-110 mix-blend-luminosity dark:mix-blend-normal brightness-90 contrast-125" 
+                className="w-full h-full object-cover transition-all duration-5000 group-hover:scale-110 mix-blend-luminosity dark:mix-blend-normal brightness-90 contrast-125" 
               />
               <div className="absolute inset-0 bg-t-accent/20 dark:bg-t-bg/40 mix-blend-overlay pointer-events-none" />
               <div className="absolute inset-0 bg-gradient-to-t from-t-bg via-transparent to-transparent opacity-80 pointer-events-none" />
