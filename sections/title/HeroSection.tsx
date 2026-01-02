@@ -18,7 +18,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
              <span className="text-[10px] lg:text-[12px] font-black uppercase text-t-accent opacity-40">//</span>
              <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.6em] text-t-accent opacity-40">2025</span>
            </div>
-           <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.8em] text-gray-500 dark:text-gray-400 opacity-60">Portfolio Collection</span>
+           <span className="text-[10px] lg:text-[12px] font-black uppercase tracking-[0.8em] text-t-fg-m opacity-60">Portfolio Collection</span>
         </div>
 
         <div className="space-y-6">
@@ -37,15 +37,15 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
         <div className="flex flex-wrap gap-6 pt-4">
           <GlassButton 
             primary 
-            accent="theme" 
-            className="!px-10 !py-5 !text-[11px] !bg-t-accent !text-black !border-none !rounded-full hover:brightness-110" 
+            accent="secondary" 
+            className="!px-10 !py-5 !text-[11px] hover:brightness-110" 
             onClick={() => onScroll('contact-section')}
           >
             Contact Me
           </GlassButton>
           <GlassButton 
-            accent="theme" 
-            className="!px-10 !py-5 !text-[11px] !bg-transparent !text-t-accent !border !border-t-accent !rounded-full hover:bg-t-accent/10" 
+            accent="secondary" 
+            className="!px-10 !py-5 !text-[11px] hover:bg-t-accent-2/10" 
             onClick={() => window.print()}
           >
             Download Resume (PDF)

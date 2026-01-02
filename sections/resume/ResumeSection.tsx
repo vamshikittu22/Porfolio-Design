@@ -7,24 +7,45 @@ import SkillProgress from './SkillProgress';
 
 const ResumeSection: React.FC = () => {
   const [expandedIds, setExpandedIds] = useState<string[]>(['exp-0']);
+  const [expandedAwards, setExpandedAwards] = useState<number[]>([]);
+
   const toggleId = (id: string) => {
     setExpandedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
   };
 
-  const skillsWithProgress = {
-    languages: [
-      { name: 'C# / .NET', p: 95 },
-      { name: 'JavaScript / TypeScript', p: 92 },
-      { name: 'Python', p: 85 },
-      { name: 'PHP', p: 88 },
-      { name: 'SQL', p: 90 },
-    ],
-    frameworks: [
-      { name: 'React', p: 95 },
-      { name: 'Node.js', p: 88 },
-      { name: 'ASP.NET Core', p: 92 },
-    ]
+  const toggleAward = (index: number) => {
+    setExpandedAwards(prev => prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]);
   };
+
+  const skillProficiency = [
+    {
+      category: 'Languages',
+      items: [
+        { name: 'C# / .NET', p: 95 },
+        { name: 'JavaScript / TS', p: 92 },
+        { name: 'Python', p: 85 },
+        { name: 'PHP', p: 88 },
+        { name: 'SQL', p: 90 },
+      ]
+    },
+    {
+      category: 'Frameworks',
+      items: [
+        { name: 'React', p: 95 },
+        { name: 'Node.js', p: 88 },
+        { name: 'ASP.NET Core', p: 92 },
+        { name: 'Tailwind CSS', p: 90 },
+      ]
+    },
+    {
+      category: 'Cloud & DB',
+      items: [
+        { name: 'Azure / Cloud', p: 82 },
+        { name: 'PostgreSQL', p: 85 },
+        { name: 'MySQL', p: 88 },
+      ]
+    }
+  ];
 
   const scrollToContact = () => {
     const el = document.getElementById('contact-section');
@@ -36,10 +57,10 @@ const ResumeSection: React.FC = () => {
       <ScrollReveal className="max-w-[1440px] mx-auto px-6 lg:px-20 mb-12">
         <div className="relative aspect-[21/9] rounded-[40px] border border-white/40 bg-white/30 dark:bg-white/5 backdrop-blur-3xl overflow-hidden p-10 lg:p-14 flex flex-col justify-end shadow-sm group">
             <div className="absolute top-10 right-10 flex gap-4 print:hidden">
-              <GlassButton accent="theme" className="!px-6 !py-3 !text-[8px]" onClick={scrollToContact}>
+              <GlassButton accent="secondary" className="!px-6 !py-3 !text-[8px]" onClick={scrollToContact}>
                 Contact Me
               </GlassButton>
-              <GlassButton primary accent="theme" className="!px-6 !py-3 !text-[8px]" onClick={() => window.print()}>
+              <GlassButton primary accent="secondary" className="!px-6 !py-3 !text-[8px]" onClick={() => window.print()}>
                 Download
               </GlassButton>
             </div>
@@ -48,7 +69,7 @@ const ResumeSection: React.FC = () => {
               <p className="text-[9px] font-black uppercase tracking-[1em] text-t-accent opacity-80">Professional Credentials</p>
               <h2 className="text-7xl lg:text-[9rem] font-black font-display text-t-fg uppercase tracking-tighter leading-none">Resume.</h2>
               <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8 border-t border-t-border/50 pt-4 max-w-4xl">
-                <p className="text-[10px] lg:text-sm font-bold text-t-fg-m uppercase tracking-[0.3em] opacity-80">
+                <p className="text-[10px] lg:text-sm font-bold text-t-accent-2 uppercase tracking-[0.3em] opacity-80">
                   Full‑stack Software Engineer · C# / .NET · React · AI‑driven systems
                 </p>
               </div>
@@ -64,38 +85,58 @@ const ResumeSection: React.FC = () => {
                 <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">Identity.</h3>
                 <div className="space-y-1">
                   <h4 className="text-3xl font-black text-t-fg uppercase tracking-tighter leading-none">{FULL_NAME}</h4>
-                  <p className="text-[10px] font-bold text-t-fg-m uppercase tracking-[0.2em]">Engineer / Developer</p>
+                  <p className="text-[10px] font-bold text-t-accent-2 uppercase tracking-[0.2em]">Engineer / Developer</p>
                 </div>
               </div>
 
               <div className="space-y-12 pt-12 border-t border-t-border">
-                <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">Matrix.</h3>
-                <div className="space-y-8">
-                   <div className="space-y-5">
-                      <p className="text-[9px] font-black text-t-fg-m uppercase tracking-[0.3em] opacity-50">Languages</p>
-                      <div className="space-y-4">
-                        {skillsWithProgress.languages.map(s => <SkillProgress key={s.name} label={s.name} percentage={s.p} />)}
-                      </div>
-                   </div>
-                   <div className="space-y-5">
-                      <p className="text-[9px] font-black text-t-fg-m uppercase tracking-[0.3em] opacity-50">Frameworks</p>
-                      <div className="space-y-4">
-                        {skillsWithProgress.frameworks.map(s => <SkillProgress key={s.name} label={s.name} percentage={s.p} />)}
-                      </div>
-                   </div>
+                <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">Technical Proficiency.</h3>
+                <div className="space-y-10">
+                   {skillProficiency.map((cat, idx) => (
+                     <div key={idx} className="space-y-4">
+                        <p className="text-[9px] font-black text-t-accent uppercase tracking-[0.3em] opacity-60">{cat.category}</p>
+                        <div className="space-y-1">
+                          {cat.items.map(s => <SkillProgress key={s.name} label={s.name} percentage={s.p} />)}
+                        </div>
+                     </div>
+                   ))}
                 </div>
               </div>
 
               <div className="space-y-10 pt-12 border-t border-t-border">
                 <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">Recognition.</h3>
-                <div className="space-y-8">
-                  {AWARDS.map((award, idx) => (
-                    <div key={idx} className="group/award space-y-2 p-6 border border-t-border rounded-2xl hover:border-t-accent transition-all bg-t-bg-el/20">
-                      <p className="text-[8px] font-black text-t-accent uppercase tracking-widest">{award.period}</p>
-                      <h4 className="text-lg font-black text-t-fg leading-tight uppercase tracking-tight group-hover/award:text-t-accent transition-colors">{award.title}</h4>
-                      <p className="text-[9px] font-bold text-t-fg-m uppercase tracking-widest opacity-60">{award.subtitle}</p>
-                    </div>
-                  ))}
+                <div className="space-y-4">
+                  {AWARDS.map((award, idx) => {
+                    const isExpanded = expandedAwards.includes(idx);
+                    return (
+                      <div 
+                        key={idx} 
+                        onClick={() => toggleAward(idx)}
+                        className={`group/award relative p-6 border rounded-2xl transition-all duration-500 cursor-pointer overflow-hidden 
+                          ${isExpanded ? 'border-t-accent-2 bg-t-accent-2-s/20 shadow-sm' : 'border-t-accent-2/30 bg-t-bg-el/20 hover:border-t-accent-2 hover:bg-t-accent-2-s/10'}`}
+                      >
+                        <div className="flex justify-between items-start">
+                          <div className="space-y-1.5 flex-1">
+                            <p className="text-[8px] font-black text-t-accent uppercase tracking-widest">{award.period}</p>
+                            <h4 className={`text-lg font-black text-t-fg leading-tight uppercase tracking-tight transition-colors duration-300 
+                              ${isExpanded ? 'text-t-accent/60' : 'group-hover/award:text-t-accent'}`}>
+                              {award.title}
+                            </h4>
+                            <p className="text-[9px] font-bold text-t-accent-2 uppercase tracking-widest opacity-80">{award.subtitle}</p>
+                          </div>
+                          <div className={`mt-1 transition-transform duration-500 ${isExpanded ? 'rotate-180 text-t-accent' : 'text-t-fg opacity-20 group-hover/award:opacity-100'}`}>
+                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" /></svg>
+                          </div>
+                        </div>
+                        
+                        <div className={`transition-all duration-700 overflow-hidden ${isExpanded ? 'max-h-40 opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
+                          <p className="text-xs font-medium text-t-fg-m leading-relaxed border-t border-t-accent-2/10 pt-4">
+                            {award.description[0]}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -110,7 +151,7 @@ const ResumeSection: React.FC = () => {
             </div>
 
             <div className="space-y-10">
-              <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">02 // Experience.</h3>
+              <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">02 // Professional Experience.</h3>
               <div className="space-y-4">
                 {EXPERIENCE.map((exp, idx) => (
                   <TimelineNode 
@@ -126,7 +167,7 @@ const ResumeSection: React.FC = () => {
             </div>
 
             <div className="space-y-10">
-              <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">03 // Education.</h3>
+              <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">03 // Academic Credentials.</h3>
               <div className="space-y-4">
                 {EDUCATION.map((edu, idx) => (
                   <TimelineNode 
@@ -144,9 +185,9 @@ const ResumeSection: React.FC = () => {
             <div className="pt-12 border-t border-t-border flex justify-between items-center opacity-40">
                <div className="flex gap-4">
                  <div className="w-1.5 h-1.5 rounded-full bg-t-accent" />
-                 <p className="text-[8px] font-black text-t-fg uppercase tracking-widest">Document version 2.5</p>
+                 <p className="text-[8px] font-black text-t-fg uppercase tracking-widest">Digital Ledger Node v2.5</p>
                </div>
-               <span className="text-[8px] font-black uppercase tracking-[0.5em] text-t-fg italic">Synchronized Portfolio Ledger</span>
+               <span className="text-[8px] font-black uppercase tracking-[0.5em] text-t-fg italic">Synchronized Professional Data</span>
             </div>
           </main>
         </div>

@@ -18,6 +18,7 @@ export interface ResumeItem {
   location?: string;
   period: string;
   description: string[];
+  coursework?: string[];
 }
 
 export const EDUCATION: ResumeItem[] = [
@@ -26,14 +27,16 @@ export const EDUCATION: ResumeItem[] = [
     subtitle: 'University of Central Missouri',
     location: 'Warrensburg, MO',
     period: 'Aug 2023 - Dec 2024',
-    description: ['Focus on advanced information systems, cloud architecture, and modern software engineering practices.']
+    description: ['Focus on advanced information systems, cloud architecture, and modern software engineering practices.'],
+    coursework: ['Advanced Systems Analysis', 'Cloud Computing', 'Enterprise Architecture', 'Big Data Analytics']
   },
   {
     title: 'Bachelor of Technology, Computer Science and Engineering',
     subtitle: 'Mahaveer Institute of Science and Technology',
     location: 'Hyderabad, India',
     period: '2015 - 2019',
-    description: ['Foundational study in algorithms, data structures, and operating systems.']
+    description: ['Foundational study in algorithms, data structures, and operating systems.'],
+    coursework: ['Data Structures', 'Algorithms', 'DBMS', 'Operating Systems', 'Web Tech']
   }
 ];
 

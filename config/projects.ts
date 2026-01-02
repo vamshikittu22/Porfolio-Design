@@ -2,6 +2,32 @@ import { Project, ProjectCategory } from '../types';
 
 export const PROJECTS_CONFIG: Project[] = [
   {
+    id: 'mini-metro-simulator',
+    title: 'Mini Metro Simulator',
+    tagline: 'Swiss Minimalist Transit Simulation.',
+    description: 'A high-performance transit engine built with React 19 and HTML5 Canvas, featuring hybrid greedy pathfinding and Gemini-powered strategic optimization.',
+    overview: 'Engineers a full-stack web transit simulation replicating Mini Metro mechanics. Leverages a sophisticated routing system with 3-phase passenger decision logic and Gemini 3 Pro for real-time network optimization.',
+    useCases: [
+      '3-Phase Pathfinding: Recursive search with reachability and transfer evaluation.',
+      'Resource Management: Difficulty-scaled inventory with weekly reward cycles.',
+      'Multi-City Engine: 8 real-world mapped cities with weighted station spawning.',
+      'AI Strategist: Gemini 3 Pro contextual analysis and performance reporting.'
+    ],
+    architecture: 'Decoupled three-tier architecture separating React UI, a 60Hz TypeScript engine, and a specialized Canvas pipeline with geometry caching and 10Hz UI state sync.',
+    roleHighlights: [
+      'Engineered a 60Hz core loop supporting 50+ concurrent stations with caching.',
+      'Implemented a modular 8-service architecture for strict separation of concerns.',
+      'Developed a graph-based router with automated reachability and cost optimization.'
+    ],
+    category: ProjectCategory.AI,
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Tube_map_standard.svg/800px-Tube_map_standard.svg.png',
+    secondaryImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Track_map_of_New_York_City_Subway.svg/1000px-Track_map_of_New_York_City_Subway.svg.png',
+    tech: ['React 19', 'TypeScript 5.8', 'Vite', 'HTML5 Canvas', 'Gemini 3 Pro', 'TailwindCSS'],
+    liveUrl: 'https://mini-metro-tau.vercel.app/',
+    repoUrl: 'https://github.com/vamshikittu22/mini-metro',
+    featured: true,
+  },
+  {
     id: 'future-job-fit',
     title: 'Future Job Fit',
     tagline: 'AI-Powered Resume Builder.',
