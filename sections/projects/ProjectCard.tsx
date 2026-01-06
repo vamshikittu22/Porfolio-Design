@@ -1,50 +1,80 @@
-import React, { useRef, useState, useEffect } from 'react';
+
+import React from 'react';
 import { GlassCard } from '../../components/ui/GlassUI';
 import { Project } from '../../config/types';
 
 interface ProjectCardProps {
   project: Project;
   index: number;
-  isExpanded: boolean;
+  isActive: boolean;
+  isInactive: boolean;
   onToggle: () => void;
   accent: 'indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange';
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isExpanded, onToggle, accent }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isInactive, onToggle, accent }) => {
+  const accentColors = {
+    indigo: 'text-indigo-400',
+    emerald: 'text-emerald-400',
+    rose: 'text-rose-400',
+    amber: 'text-amber-400',
+    purple: 'text-purple-400',
+    orange: 'text-orange-400',
+  };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => { 
-      if (entry.isIntersecting) setIsVisible(true); 
-    }, { threshold: 0.1 });
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const activeColor = accentColors[accent] || 'text-t-accent';
 
   return (
-    <div 
-      ref={cardRef}
-      onClick={(e) => { e.stopPropagation(); onToggle(); }} 
-      className={`group cursor-pointer relative w-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.015] project-glow ${isExpanded ? 'mb-10' : 'h-24 lg:h-28'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+    <button
+      onClick={(e) => { e.stopPropagation(); onToggle(); }}
+      className={`
+        group relative w-full text-left transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] outline-none
+        ${isActive ? 'scale-[1.02] z-10' : ''}
+        ${isInactive ? 'opacity-60 hover:opacity-100 hover:scale-[1.01]' : 'hover:scale-[1.02]'}
+      `}
     >
-      <GlassCard accent={accent} className={`h-full px-8 lg:px-14 flex items-center gap-10 ${isExpanded ? `bg-t-bg border-t-accent border-[1px]` : 'border-t-border'}`}>
-        <div className="relative w-12 h-12 lg:w-14 lg:h-14 flex-shrink-0">
-           <img 
-             src={project.thumbnailUrl} 
-             className={`w-full h-full object-cover rounded-full border border-t-border transition-all duration-1000 shadow-sm ${isVisible ? 'grayscale-0 saturate-150 scale-100' : 'grayscale saturate-50 scale-95 opacity-50'}`} 
-             alt="" 
-           />
+      <GlassCard
+        accent={accent}
+        className={`
+          relative overflow-hidden p-6 lg:p-8 flex items-center justify-between min-h-[100px]
+          transition-all duration-500
+          ${isActive 
+            ? 'bg-t-bg-el border-t-accent shadow-[0_0_40px_-10px_rgba(var(--color-accent-rgb),0.4)]' 
+            : 'hover:bg-t-bg-el/80 bg-t-bg-el/40'}
+        `}
+      >
+        <div className="flex items-center gap-6 lg:gap-8">
+          <span className={`text-[10px] font-black uppercase tracking-[0.2em] transition-colors ${isActive ? activeColor : 'text-t-fg-m opacity-50'}`}>
+            0{index + 1}
+          </span>
+
+          <div className="flex flex-col gap-1">
+            <h3 className={`text-lg lg:text-xl font-black font-display uppercase tracking-tight transition-colors ${isActive ? 'text-t-fg' : 'text-t-fg/80 group-hover:text-t-fg'}`}>
+              {project.title}
+            </h3>
+            <span className={`text-[8px] font-bold uppercase tracking-widest ${isActive ? activeColor : 'text-t-fg-m opacity-60'}`}>
+              {project.category}
+            </span>
+          </div>
         </div>
-        <div className="flex-1 min-w-0">
-          <span className="text-[8px] font-black uppercase tracking-[0.6em] text-t-accent opacity-70 mb-1 block">Project // 0{index + 1}</span>
-          <h3 className="text-2xl lg:text-3xl font-black text-t-fg uppercase tracking-tighter transition-all duration-500 group-hover:translate-x-2">{project.title}.</h3>
-        </div>
-        <div className={`hidden md:flex w-10 h-10 rounded-full border border-t-border items-center justify-center transition-all duration-300 hover:rotate-90 hover:bg-white/10 group-hover:bg-t-accent group-hover:text-t-bg ${isExpanded ? `rotate-45 bg-t-accent text-t-bg` : ''}`}>
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" /></svg>
+
+        {/* Toggle Icon */}
+        <div className={`
+          w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-500
+          ${isActive 
+            ? 'border-t-accent bg-t-accent text-t-bg rotate-180' 
+            : 'border-t-border text-t-fg-m opacity-40 group-hover:opacity-100 group-hover:border-t-accent group-hover:text-t-accent group-hover:rotate-90'}
+        `}>
+          {isActive ? (
+             // Minus / Close icon
+             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M20 12H4" /></svg>
+          ) : (
+             // Plus / Open icon
+             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" /></svg>
+          )}
         </div>
       </GlassCard>
-    </div>
+    </button>
   );
 };
 

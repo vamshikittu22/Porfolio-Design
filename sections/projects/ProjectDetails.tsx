@@ -8,108 +8,116 @@ import ProjectActions from './ProjectActions';
 interface ProjectDetailsProps {
   project: Project;
   accent: 'indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange';
+  onClose: () => void;
 }
 
-const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, accent }) => {
+const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, accent, onClose }) => {
   return (
-    <GlassCard accent={accent} className="relative w-full overflow-hidden flex flex-col shadow-sm border-t-border bg-t-accent-s/5 backdrop-blur-3xl">
-      <div className="absolute inset-0 bg-t-accent/5 pointer-events-none" />
-      
-      <div className="max-h-[85vh] overflow-y-auto scrollbar-hide p-8 lg:p-20 space-y-32 relative z-10">
-        <div className="grid lg:grid-cols-[1.3fr_1fr] gap-20 lg:gap-32 items-start">
-          <div className="space-y-16">
-             {/* Header Card with Background Image 1 */}
-             <div className="relative aspect-[21/9] rounded-[40px] border border-white/40 bg-white/30 dark:bg-white/5 backdrop-blur-3xl overflow-hidden p-10 flex flex-col justify-between shadow-sm group/card">
-                {/* Background Image Fix */}
-                <div className="absolute inset-0 z-[-1]">
-                   <img 
-                     src={project.secondaryImageUrl} 
-                     className="w-full h-full object-cover opacity-80 mix-blend-overlay transition-transform duration-[2000ms] group-hover/card:scale-105" 
-                     alt="Project Background" 
-                   />
-                   <div className="absolute inset-0 bg-gradient-to-t from-t-bg-el/90 via-t-bg-el/40 to-transparent" />
-                </div>
+    <div className="w-full pt-8 pb-4">
+      <GlassCard accent={accent} className="relative w-full overflow-hidden flex flex-col shadow-2xl border-t-border bg-t-bg-el/95 backdrop-blur-3xl">
+        <div className="absolute inset-0 bg-t-accent/5 pointer-events-none" />
+        
+        {/* Floating Close Button */}
+        <div className="absolute top-6 right-6 lg:top-10 lg:right-10 z-50">
+          <button 
+            onClick={onClose}
+            className="group flex items-center gap-3 px-5 py-2.5 lg:px-6 lg:py-3 rounded-full bg-t-bg/80 backdrop-blur-md border border-t-border hover:border-t-accent transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-t-accent"
+            aria-label="Close project details"
+          >
+            <span className="text-[9px] lg:text-[10px] font-black uppercase tracking-[0.2em] text-t-fg-m group-hover:text-t-accent transition-colors">Close View</span>
+            <div className="w-6 h-6 rounded-full bg-t-fg/5 flex items-center justify-center group-hover:bg-t-accent group-hover:text-t-bg transition-colors">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg>
+            </div>
+          </button>
+        </div>
 
-                <div className={`absolute top-10 left-10 w-12 h-12 rounded-full border border-white/50 bg-white/20 flex items-center justify-center shadow-lg animate-in fade-in zoom-in duration-1000`}>
-                  <img src={project.thumbnailUrl} className="w-8 h-8 object-cover rounded-full saturate-150" alt="Logo" />
-                </div>
-                <div className="absolute top-10 right-10 flex flex-col items-end">
-                  <span className="text-[8px] font-black uppercase tracking-widest text-t-accent opacity-50">TM</span>
-                  <h4 className="text-xl font-black text-t-fg uppercase tracking-tighter leading-none">{project.title}.</h4>
-                </div>
-                <div className="mt-auto space-y-2 relative z-10">
-                  <p className="text-[9px] font-black uppercase tracking-[0.8em] text-t-accent">Project Case Study</p>
-                </div>
-             </div>
-
-             <div className="space-y-8 px-2">
-                <p className="text-xl lg:text-2xl text-t-fg-m font-medium leading-relaxed max-w-2xl italic">"{project.tagline}"</p>
-                <p className="text-base text-t-fg leading-relaxed opacity-80">{project.overview}</p>
-                
-                {/* Image 2: Small Detail Square */}
-                <div className="w-32 h-32 rounded-3xl overflow-hidden border border-t-border mt-4 shadow-lg rotate-3 hover:rotate-0 transition-transform duration-500">
-                  <img src={project.tertiaryImageUrl || project.secondaryImageUrl} className="w-full h-full object-cover saturate-125 hover:scale-110 transition-transform duration-700" alt="Detail View" />
-                </div>
-             </div>
-             
-             <div className="space-y-6">
-                <h5 className="text-[9px] font-black uppercase tracking-[0.6em] text-t-fg-m opacity-50 px-2">Technology Stack</h5>
-                <ProjectTechPills tech={project.tech} accent={accent} />
-             </div>
-             
-             <div className="pt-16 border-t border-t-border space-y-12 px-2">
-                <h5 className="text-[9px] font-black uppercase tracking-[0.6em] text-t-fg-m opacity-50">Core Features</h5>
-                <div className="grid sm:grid-cols-2 gap-10">
-                  {project.useCases.map((use, idx) => (
-                    <div key={idx} className="space-y-3 group/use">
-                      <span className="text-t-accent-2 font-black text-[10px] tracking-widest">Feature 0{idx + 1}</span>
-                      <p className="text-t-fg font-bold uppercase text-xs leading-snug transition-transform group-hover/use:translate-x-1">{use}</p>
-                    </div>
-                  ))}
-                </div>
-             </div>
-
-             <ProjectActions liveUrl={project.liveUrl} repoUrl={project.repoUrl} />
-          </div>
+        <div className="p-8 lg:p-20 space-y-20 relative z-10">
           
-          <div className="w-full flex flex-col gap-12 relative">
-             {/* Right Column Image 1 */}
-             <div className="relative rounded-[40px] overflow-hidden border border-t-border bg-t-bg-el/60 aspect-[4/5] shadow-sm group/image">
-                <img src={project.secondaryImageUrl} className="w-full h-full object-cover opacity-90 saturate-125 transition-transform duration-[2000ms] group-hover/image:scale-105" alt="Main View" />
-                <div className="absolute bottom-10 left-10 right-10 z-20">
-                   <div className="bg-t-bg-el/95 backdrop-blur-xl px-10 py-8 rounded-[24px] border border-t-border shadow-sm">
-                      <p className="text-[8px] font-black text-t-accent uppercase tracking-[0.6em] mb-3">Technology Overview</p>
-                      <p className="text-sm font-bold text-t-fg leading-relaxed">{project.description}</p>
-                      <div className="mt-8 rounded-2xl overflow-hidden border border-t-border/50 aspect-video group/inner">
-                         <img src={project.thumbnailUrl} className="w-full h-full object-cover grayscale-0 saturate-125 transition-transform duration-700 group-hover/inner:scale-110" alt="Detail Node" />
+          {/* Top Section: Hero & Overview */}
+          <div className="grid lg:grid-cols-[1.5fr_1fr] gap-16 lg:gap-24 items-start">
+            <div className="space-y-12">
+               {/* Hero Image */}
+               <div className="relative aspect-[16/9] rounded-[40px] border border-white/40 bg-white/30 dark:bg-white/5 backdrop-blur-3xl overflow-hidden p-10 flex flex-col justify-between shadow-lg group/card">
+                  <div className="absolute inset-0 z-[-1]">
+                     <img 
+                       src={project.secondaryImageUrl} 
+                       className="w-full h-full object-cover opacity-90 mix-blend-overlay transition-transform duration-[3000ms] group-hover/card:scale-105" 
+                       alt="Project Background" 
+                     />
+                     <div className="absolute inset-0 bg-gradient-to-t from-t-bg-el/90 via-t-bg-el/20 to-transparent" />
+                  </div>
+
+                  <div className="flex justify-between items-start">
+                    <div className="w-14 h-14 rounded-2xl border border-white/50 bg-white/20 flex items-center justify-center shadow-lg backdrop-blur-md">
+                      <img src={project.thumbnailUrl} className="w-8 h-8 object-cover rounded-full" alt="Logo" />
+                    </div>
+                  </div>
+                  
+                  <div className="mt-auto space-y-4 relative z-10">
+                    <h4 className="text-4xl lg:text-6xl font-black text-t-fg uppercase tracking-tighter leading-none">{project.title}.</h4>
+                    <p className="text-sm font-bold uppercase tracking-[0.2em] text-t-accent">{project.tagline}</p>
+                  </div>
+               </div>
+
+               <div className="space-y-8 px-2">
+                  <p className="text-xl lg:text-2xl text-t-fg font-medium leading-relaxed italic border-l-4 border-t-accent pl-8">
+                    "{project.overview}"
+                  </p>
+                  <p className="text-base text-t-fg-m leading-relaxed opacity-90">
+                    {project.description}
+                  </p>
+               </div>
+
+               <div className="pt-8">
+                 <ProjectActions liveUrl={project.liveUrl} repoUrl={project.repoUrl} />
+               </div>
+            </div>
+
+            {/* Right Column: Features & Tech */}
+            <div className="space-y-12">
+               {/* Features List */}
+               <div className="space-y-6">
+                  <h5 className="text-[9px] font-black uppercase tracking-[0.6em] text-t-fg-m opacity-50">Core Features</h5>
+                  <div className="space-y-4">
+                    {project.useCases.map((use, idx) => (
+                      <div key={idx} className="flex gap-4 items-start group/feat">
+                        <span className="text-t-accent font-black text-xs mt-1">0{idx + 1}</span>
+                        <p className="text-t-fg font-bold text-sm leading-snug transition-transform group-hover/feat:translate-x-1">{use}</p>
                       </div>
-                   </div>
-                </div>
-             </div>
+                    ))}
+                  </div>
+               </div>
 
-             <div className="p-10 rounded-[40px] bg-t-bg-el/80 border border-t-border shadow-sm backdrop-blur-md">
-                <div className="flex items-center gap-4 mb-4"><div className="w-1.5 h-1.5 rounded-full bg-t-accent-2" /><p className="text-[9px] font-black text-t-accent-2 uppercase tracking-[0.5em]">Technical Approach</p></div>
-                <p className="text-sm font-medium text-t-fg-m leading-relaxed italic mb-8">"{project.architecture}"</p>
-             </div>
+               {/* Tech Stack */}
+               <div className="p-8 rounded-[32px] bg-t-fg/[0.02] border border-t-border">
+                  <h5 className="text-[9px] font-black uppercase tracking-[0.6em] text-t-fg-m opacity-50 mb-6">Architecture Stack</h5>
+                  <ProjectTechPills tech={project.tech} accent={accent} />
+               </div>
 
-             <div className="p-10 rounded-[40px] bg-t-bg-el/80 border border-t-border shadow-sm backdrop-blur-md">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-1.5 h-1.5 rounded-full bg-t-accent-2" />
-                  <h5 className="text-[9px] font-black uppercase tracking-[0.6em] text-t-accent-2">Role & Impact</h5>
-                </div>
-                <div className="space-y-4">
-                   {project.roleHighlights.map((hl, i) => (
-                     <div key={i} className="flex gap-4 items-start text-sm text-t-fg-m font-medium leading-relaxed">
-                        <span className="text-t-accent-2 font-black select-none">•</span>
-                        <p>{hl}</p>
-                     </div>
-                   ))}
-                </div>
-             </div>
+               {/* Architecture & Role */}
+               <div className="space-y-8">
+                  <div>
+                    <h5 className="text-[9px] font-black uppercase tracking-[0.6em] text-t-accent-2 mb-3">System Architecture</h5>
+                    <p className="text-sm font-medium text-t-fg-m leading-relaxed">
+                      {project.architecture}
+                    </p>
+                  </div>
+                  <div>
+                    <h5 className="text-[9px] font-black uppercase tracking-[0.6em] text-t-accent-2 mb-3">Role & Impact</h5>
+                    <ul className="space-y-2">
+                      {project.roleHighlights.map((hl, i) => (
+                        <li key={i} className="text-sm font-medium text-t-fg-m flex gap-2">
+                          <span className="text-t-accent">•</span> {hl}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+               </div>
+            </div>
           </div>
         </div>
-      </div>
-    </GlassCard>
+      </GlassCard>
+    </div>
   );
 };
 
