@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { GeminiService } from '../services/geminiService';
-import HeaderNav from '../components/layout/HeaderNav';
+import { HeaderNav } from '../components/layout/HeaderNav';
 import FooterBar from '../components/layout/FooterBar';
-import HeroSection from '../sections/title/HeroSection';
-import AboutSection from '../sections/about/AboutSection';
+import { HeroSection } from '../sections/hero/HeroSection';
+import { AboutSection } from '../sections/about/AboutSection';
 import ProjectsSection from '../sections/projects/ProjectsSection';
 import GithubSection from '../sections/github/GithubSection';
 import ResumeSection from '../sections/resume/ResumeSection';

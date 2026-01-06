@@ -1,5 +1,6 @@
+
 import { GoogleGenAI } from "@google/genai";
-import { FULL_NAME, EDUCATION, EXPERIENCE, SKILLS_RESUME } from "../constants";
+import { FULL_NAME, EDUCATION, EXPERIENCE, SKILLS_RESUME } from "../config/constants";
 import { PROJECTS_CONFIG } from "../config/projects";
 
 export interface ChatMessage {
@@ -34,6 +35,11 @@ export class ChatService {
       Highlights: ${e.description.join('; ')}
     `).join('\n');
 
+    const languages = SKILLS_RESUME.languages.map(s => s.name).join(', ');
+    const frameworks = SKILLS_RESUME.frameworks.map(s => s.name).join(', ');
+    const cloud = SKILLS_RESUME.cloud_db.map(s => s.name).join(', ');
+    const tools = SKILLS_RESUME.tools.map(s => s.name).join(', ');
+
     return `
       You are an AI assistant embedded in ${FULL_NAME}'s developer portfolio.
       
@@ -44,10 +50,10 @@ export class ChatService {
       Target Roles: Software Engineer, Full-stack Developer, .NET/React Developer.
       
       SKILLS:
-      Languages: ${SKILLS_RESUME.languages.join(', ')}
-      Frameworks: ${SKILLS_RESUME.frameworks.join(', ')}
-      Cloud/DB: ${SKILLS_RESUME.cloud_db.join(', ')}
-      Tools: ${SKILLS_RESUME.tools.join(', ')}
+      Languages: ${languages}
+      Frameworks: ${frameworks}
+      Cloud/DB: ${cloud}
+      Tools: ${tools}
       
       EXPERIENCE:
       ${expCtx}

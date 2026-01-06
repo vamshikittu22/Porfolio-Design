@@ -34,7 +34,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, accent }) => {
                 <p className="text-xl lg:text-2xl text-t-fg-m font-medium leading-relaxed max-w-2xl italic">"{project.tagline}"</p>
                 <p className="text-base text-t-fg leading-relaxed opacity-80">{project.overview}</p>
                 <div className="w-32 h-32 rounded-2xl overflow-hidden border border-t-border mt-4">
-                  <img src={project.secondaryImageUrl} className="w-full h-full object-cover saturate-125" alt="Detail View" />
+                  <img src={project.tertiaryImageUrl || project.secondaryImageUrl} className="w-full h-full object-cover saturate-125" alt="Detail View" />
                 </div>
              </div>
              

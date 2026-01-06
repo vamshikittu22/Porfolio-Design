@@ -1,3 +1,4 @@
+
 export enum ProjectCategory {
   FRONTEND = 'Frontend',
   FULLSTACK = 'Full-stack',
@@ -17,6 +18,7 @@ export interface Project {
   category: ProjectCategory;
   thumbnailUrl: string;
   secondaryImageUrl: string;
+  tertiaryImageUrl?: string;
   tech: string[];
   liveUrl?: string;
   repoUrl?: string;

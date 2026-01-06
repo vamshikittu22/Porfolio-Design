@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GeminiService } from './services/geminiService';
-import HeaderNav from './components/layout/HeaderNav';
+import { HeaderNav } from './components/layout/HeaderNav';
 import FooterBar from './components/layout/FooterBar';
 import { HeroSection } from './sections/hero/HeroSection';
 import { AboutSection } from './sections/AboutSection';

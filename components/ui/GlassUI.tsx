@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface GlassProps {
   children: React.ReactNode;
@@ -127,19 +128,22 @@ export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: 
   const styleClass = primary ? themeSet.primary : themeSet.outline;
 
   return (
-    <button 
+    <motion.button 
       onClick={onClick}
       disabled={disabled}
+      whileHover={{ y: -3, scale: 1.02, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.15)" }}
+      whileTap={{ scale: 0.98, y: 0 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
       className={`
-        px-10 py-4 font-black text-[9px] uppercase tracking-[0.5em] border-2
-        transition-all duration-500 rounded-full
+        px-10 py-4 font-black text-[9px] uppercase tracking-[0.5em] border-b-[2px]
+        rounded-full
         flex items-center justify-center gap-4
         ${styleClass}
-        ${disabled ? 'opacity-30 cursor-not-allowed grayscale' : 'hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-0'}
+        ${disabled ? 'opacity-30 cursor-not-allowed grayscale' : 'cursor-pointer'}
         ${className}
       `}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface NavIconProps {
   icon: React.ReactNode;
@@ -8,10 +9,12 @@ interface NavIconProps {
 }
 
 const NavIcon: React.FC<NavIconProps> = ({ icon, label, isActive, onClick }) => (
-  <button 
+  <motion.button 
     onClick={onClick}
     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick(e); }}
-    className={`group relative flex items-center justify-center p-2.5 rounded-full transition-all duration-500 active:scale-90 outline-none focus-visible:ring-2 focus-visible:ring-t-accent ${isActive ? 'bg-t-accent text-t-bg' : 'hover:text-t-accent-2 hover:scale-110'}`}
+    whileHover={{ scale: 1.15, y: -2 }}
+    whileTap={{ scale: 0.9 }}
+    className={`group relative flex items-center justify-center p-2.5 rounded-full transition-colors duration-300 outline-none focus-visible:ring-2 focus-visible:ring-t-accent ${isActive ? 'bg-t-accent text-t-bg' : 'hover:text-t-accent-2'}`}
     aria-label={label}
   >
     <div className="w-5 h-5">{icon}</div>
@@ -22,7 +25,7 @@ const NavIcon: React.FC<NavIconProps> = ({ icon, label, isActive, onClick }) => 
       <div className="w-2 h-2 bg-t-fg rotate-45 -translate-y-[8px]" />
       <span className="-translate-y-1">{label}</span>
     </div>
-  </button>
+  </motion.button>
 );
 
 interface HeaderNavProps {
@@ -44,7 +47,10 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
 }) => {
   return (
     <nav className={`fixed top-12 left-1/2 -translate-x-1/2 z-[100] w-full max-w-fit print:hidden transition-all duration-500`}>
-      <div className={`border border-t-border px-6 lg:px-10 py-2.5 rounded-full flex items-center gap-8 transition-all duration-500 shadow-xl ${scrolled ? 'bg-t-bg-el/98 backdrop-blur-[48px] scale-95 border-t-accent/30' : 'bg-t-bg-el/85 backdrop-blur-2xl'}`}>
+      <motion.div 
+        layout
+        className={`border border-t-border px-6 lg:px-10 py-2.5 rounded-full flex items-center gap-8 transition-all duration-500 shadow-xl ${scrolled ? 'bg-t-bg-el/98 backdrop-blur-[48px] scale-95 border-t-accent/30' : 'bg-t-bg-el/85 backdrop-blur-2xl'}`}
+      >
         <button onClick={onScrollToTop} className="flex flex-col items-start leading-none group text-left">
           <span className="text-[10px] font-black tracking-[0.4em] text-t-fg uppercase mb-1">Vamshi Krishna</span>
           <span className="text-[6px] font-mono text-t-accent opacity-50 uppercase tracking-widest group-hover:opacity-100 transition-opacity">Portfolio v2.5</span>
@@ -61,16 +67,24 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
         </div>
         <div className="h-4 w-px bg-t-border mx-2" />
         <div className="flex items-center gap-3">
-          <button onClick={onToggleTheme} className="p-2.5 rounded-full hover:text-t-accent-2 hover:scale-110 transition-all duration-500 text-t-fg/60 outline-none focus-visible:ring-2 focus-visible:ring-t-accent">
+          <motion.button 
+            onClick={onToggleTheme} 
+            whileHover={{ scale: 1.15, rotate: 15 }}
+            whileTap={{ scale: 0.9 }}
+            className="p-2.5 rounded-full hover:text-t-accent-2 transition-colors duration-300 text-t-fg/60 outline-none focus-visible:ring-2 focus-visible:ring-t-accent"
+          >
             {isDarkMode ? (<svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" /></svg>) : (<svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>)}
-          </button>
-          <button onClick={() => window.print()} className="bg-t-accent-2 text-t-bg p-2.5 rounded-full hover:scale-110 active:scale-90 transition-all outline-none focus-visible:ring-2 focus-visible:ring-t-accent-2">
+          </motion.button>
+          <motion.button 
+            onClick={() => window.print()} 
+            whileHover={{ scale: 1.15, y: -2 }}
+            whileTap={{ scale: 0.9 }}
+            className="bg-t-accent-2 text-t-bg p-2.5 rounded-full transition-all outline-none focus-visible:ring-2 focus-visible:ring-t-accent-2"
+          >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-          </button>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
     </nav>
   );
 };
-
-export default HeaderNav;

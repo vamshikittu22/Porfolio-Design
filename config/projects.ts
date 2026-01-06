@@ -1,4 +1,4 @@
-import { Project, ProjectCategory } from '../types';
+import { Project, ProjectCategory } from './types';
 
 export const PROJECTS_CONFIG: Project[] = [
   {
@@ -20,8 +20,9 @@ export const PROJECTS_CONFIG: Project[] = [
       'Developed a graph-based router with automated reachability and cost optimization.'
     ],
     category: ProjectCategory.AI,
-    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Tube_map_standard.svg/800px-Tube_map_standard.svg.png',
-    secondaryImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Track_map_of_New_York_City_Subway.svg/1000px-Track_map_of_New_York_City_Subway.svg.png',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1621571212456-42d45c697843?auto=format&fit=crop&q=80&w=200',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1554672408-730436b60dde?auto=format&fit=crop&q=80&w=1200',
+    tertiaryImageUrl: 'https://images.unsplash.com/photo-1529303906282-704dd2b4618d?auto=format&fit=crop&q=80&w=1200',
     tech: ['React 19', 'TypeScript 5.8', 'Vite', 'HTML5 Canvas', 'Gemini 3 Pro', 'TailwindCSS'],
     liveUrl: 'https://mini-metro-tau.vercel.app/',
     repoUrl: 'https://github.com/vamshikittu22/mini-metro',
