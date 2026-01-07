@@ -194,7 +194,7 @@ const ResumeSection: React.FC = () => {
               <footer className="pt-12 border-t border-t-border print:hidden">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
                   <p className="text-xs font-bold text-t-fg-m uppercase tracking-widest opacity-60">
-                    Official Professional Record // 2025 Synchronized Data
+                    Professional Record
                   </p>
                   <div className="flex gap-4">
                     <GlassButton 

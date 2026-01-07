@@ -190,7 +190,7 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
               className="text-[7px] font-black text-t-fg-m uppercase tracking-[0.5em] mt-1 relative"
               animate={isTitleHovered ? { opacity: 0.9, x: 4 } : { opacity: 0.5, x: 0 }}
             >
-              Synchronized Portfolio Ledger v2.5
+              Fullstack software developer
               <motion.span 
                 className="absolute -bottom-1 left-0 h-[1.5px] bg-t-accent-2"
                 initial={{ width: 0 }}

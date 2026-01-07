@@ -53,8 +53,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
         className={`border border-t-border px-6 lg:px-10 py-2.5 rounded-full flex items-center gap-8 transition-all duration-500 shadow-xl ${scrolled ? 'bg-t-bg-el/98 backdrop-blur-[48px] scale-95 border-t-accent/30' : 'bg-t-bg-el/85 backdrop-blur-2xl'}`}
       >
         <button onClick={onScrollToTop} className="flex flex-col items-start leading-none group text-left">
-          <span className="text-[10px] font-black tracking-[0.4em] text-t-fg uppercase mb-1">Vamshi Krishna</span>
-          <span className="text-[6px] font-mono text-t-accent opacity-50 uppercase tracking-widest group-hover:opacity-100 transition-opacity">Portfolio v2.5</span>
+          <span className="text-[10px] font-black tracking-[0.4em] text-t-fg uppercase">Vamshi Krishna</span>
         </button>
         <div className="h-4 w-px bg-t-border mx-2" />
         <div className="flex gap-2 items-center">

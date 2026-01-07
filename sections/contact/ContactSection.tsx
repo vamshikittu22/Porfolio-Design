@@ -79,7 +79,7 @@ export const ContactSection: React.FC = () => {
               <div className="px-6 py-4 flex justify-between items-center bg-white/5 border-b border-white/10">
                 <div className="flex items-center gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-t-accent-2 shadow-[0_0_8px_rgba(249,115,22,0.5)]" />
-                  <span className="text-[8px] font-black uppercase tracking-[0.5em] text-t-fg-m opacity-60">Contact Center</span>
+                  <span className="text-[8px] font-black uppercase tracking-[0.5em] text-t-fg-m opacity-60">Reach Out</span>
                 </div>
                 <button onClick={handleToggle} className="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all text-t-fg bg-white/5">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -110,7 +110,6 @@ export const ContactSection: React.FC = () => {
                   
                   <div className="space-y-8">
                     <div>
-                      <span className="text-[8px] font-black uppercase tracking-[0.4em] text-t-accent-2 mb-3 block opacity-60">Personal Profile</span>
                       <h2 className="text-3xl lg:text-4xl font-black font-display text-t-fg uppercase tracking-tighter leading-[0.85] mb-1">VAMSHI KRISHNA</h2>
                       <h2 className="text-3xl lg:text-4xl font-black font-display text-t-accent uppercase tracking-tighter leading-[0.85]">PULLAIAHGARI</h2>
                       <div className="mt-4 flex flex-col gap-1 text-[9px] font-bold text-t-fg-m opacity-50 uppercase tracking-widest">
@@ -174,7 +173,6 @@ export const ContactSection: React.FC = () => {
                               </motion.div>
                             ) : (
                               <form onSubmit={handleSubmit} className="space-y-4">
-                                <p className="text-[9px] font-black uppercase tracking-[0.4em] text-t-accent-2 mb-2">Inquiry Form</p>
                                 <div className="space-y-1">
                                   <label className="text-[8px] font-black uppercase tracking-widest text-t-accent ml-1">Your Name</label>
                                   <input required name="name" placeholder="John Doe" value={formData.name} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-t-fg text-xs focus:border-t-accent-2 outline-none transition-all" />
@@ -201,7 +199,7 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <div className="px-8 py-4 bg-white/5 border-t border-white/10 text-center">
-                <p className="text-[7px] font-black uppercase tracking-[1em] text-t-fg-m opacity-30">Vamshi Krishna Pullaiahgari // Portfolio v2.5</p>
+                <p className="text-[7px] font-black uppercase tracking-[1em] text-t-fg-m opacity-30">Vamshi Krishna Pullaiahgari</p>
               </div>
             </GlassCard>
           </motion.div>
