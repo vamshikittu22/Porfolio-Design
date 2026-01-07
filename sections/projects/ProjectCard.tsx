@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { GlassCard } from '../../components/ui/GlassUI';
 import { Project } from '../../config/types';
 
@@ -58,21 +59,34 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isI
           </div>
         </div>
 
-        {/* Toggle Icon */}
-        <div className={`
-          w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-500
-          ${isActive 
-            ? 'border-t-accent bg-t-accent text-t-bg rotate-180' 
-            : 'border-t-border text-t-fg-m opacity-40 group-hover:opacity-100 group-hover:border-t-accent group-hover:text-t-accent group-hover:rotate-90'}
-        `}>
-          {isActive ? (
-             // Minus / Close icon
-             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M20 12H4" /></svg>
-          ) : (
-             // Plus / Open icon
-             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" /></svg>
-          )}
-        </div>
+        {/* Morphing Toggle Icon */}
+        <motion.div 
+          animate={{ 
+            rotate: isActive ? 180 : 0,
+            backgroundColor: isActive ? 'var(--color-accent)' : 'rgba(0,0,0,0)',
+            borderColor: isActive ? 'var(--color-accent)' : 'var(--color-border-subtle)'
+          }}
+          className={`
+            w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-500
+            ${isActive ? 'text-t-bg' : 'text-t-fg-m opacity-40 group-hover:opacity-100 group-hover:border-t-accent group-hover:text-t-accent'}
+          `}
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {isActive ? (
+               <motion.path 
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M20 12H4" 
+               />
+            ) : (
+               <motion.path 
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" 
+               />
+            )}
+          </svg>
+        </motion.div>
       </GlassCard>
     </button>
   );

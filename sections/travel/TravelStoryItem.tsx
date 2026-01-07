@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { GlassButton } from '../../components/ui/GlassUI';
 import { BlogPost } from '../../config/types';
@@ -86,9 +88,19 @@ export const TravelStoryItem: React.FC<TravelStoryItemProps> = ({ post, index, a
                <div className="flex flex-col items-center gap-4 px-6 text-center">
                  <p className="text-[7px] lg:text-[8px] font-black text-t-fg-m uppercase tracking-[0.2em] opacity-40 leading-relaxed max-w-xs">Generate an AI illustration of this trip.</p>
                  <button onClick={generateIllustration} className="flex flex-col items-center gap-4 group/gen">
-                   <div className={`w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-t-border flex items-center justify-center hover:text-t-bg transition-all hover:${style.bg} shadow-lg`}>
-                      <svg className="w-6 h-6 lg:w-8 lg:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                   </div>
+                   <motion.div 
+                    whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+                    whileTap={{ scale: 0.9 }}
+                    className={`w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-t-border flex items-center justify-center hover:text-t-bg transition-all hover:${style.bg} shadow-lg`}
+                   >
+                      <motion.svg 
+                        animate={{ opacity: [0.6, 1, 0.6] }}
+                        transition={{ repeat: Infinity, duration: 2 }}
+                        className="w-6 h-6 lg:w-8 lg:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </motion.svg>
+                   </motion.div>
                    <span className="text-[8px] lg:text-[9px] font-black uppercase tracking-[0.3em] text-t-fg-m">Render AI Postcard</span>
                  </button>
                </div>

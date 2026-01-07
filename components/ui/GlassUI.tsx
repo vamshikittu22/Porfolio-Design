@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -26,8 +27,9 @@ export const GlassCard: React.FC<GlassProps> = ({ children, className = '', acce
   const baseClasses = 'bg-t-bg-el/85 border-t-border text-t-fg backdrop-blur-xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]';
 
   return (
-    <div 
+    <motion.div 
       onClick={onClick}
+      whileHover={{ y: -4, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.1)" }}
       className={`
       relative group
       border
@@ -37,7 +39,7 @@ export const GlassCard: React.FC<GlassProps> = ({ children, className = '', acce
       ${className}
     `}>
       {children}
-    </div>
+    </motion.div>
   );
 };
 
@@ -57,15 +59,17 @@ export const BubbleTag: React.FC<GlassProps> = ({ children, className = '', acce
   };
 
   return (
-    <span className={`
+    <motion.span 
+      whileHover={{ scale: 1.08, rotate: [0, -1, 1, 0] }}
+      className={`
       px-5 py-2.5
       text-[10px] font-black uppercase tracking-[0.3em] border
-      rounded-full transition-all duration-500 hover:scale-105 select-none
+      rounded-full transition-all duration-500 select-none
       ${themes[accent as keyof typeof themes] || themes.theme}
       ${className}
     `}>
       {children}
-    </span>
+    </motion.span>
   );
 };
 
@@ -96,11 +100,11 @@ export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: 
     },
     purple: {
       primary: 'bg-purple-600 dark:bg-purple-500 text-white border-purple-700 dark:border-purple-600',
-      outline: 'bg-white dark:bg-slate-900 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-900/50 hover:border-purple-400 dark:hover:border-purple-500/50'
+      outline: 'bg-white dark:bg-slate-900 text-purple-600 dark:text-purple-400 border-purple-100 dark:border-purple-900/50 hover:border-purple-300 dark:hover:border-purple-500/50'
     },
     orange: {
       primary: 'bg-orange-600 dark:bg-orange-500 text-white border-orange-700 dark:border-orange-600',
-      outline: 'bg-white dark:bg-slate-900 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-900/50 hover:border-orange-400 dark:hover:border-orange-500/50'
+      outline: 'bg-white dark:bg-slate-900 text-orange-600 dark:text-orange-400 border-orange-100 dark:border-orange-900/50 hover:border-orange-300 dark:hover:border-orange-500/50'
     },
     slate: {
       primary: 'bg-slate-950 dark:bg-slate-100 text-white dark:text-slate-950 border-slate-800 dark:border-slate-300',
@@ -132,8 +136,8 @@ export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: 
       onClick={onClick}
       disabled={disabled}
       whileHover={{ y: -3, scale: 1.02, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.15)" }}
-      whileTap={{ scale: 0.98, y: 0 }}
-      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+      whileTap={{ scale: 0.96 }}
+      transition={{ type: "spring", stiffness: 500, damping: 15 }}
       className={`
         px-10 py-4 font-black text-[9px] uppercase tracking-[0.5em] border-b-[2px]
         rounded-full
@@ -143,7 +147,9 @@ export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: 
         ${className}
       `}
     >
-      {children}
+      <span className="relative z-10 flex items-center gap-3">
+        {children}
+      </span>
     </motion.button>
   );
 };
