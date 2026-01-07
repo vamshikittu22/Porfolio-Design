@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 import { 
@@ -142,7 +141,7 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
         className="max-w-7xl mx-auto bg-t-bg-el/40 backdrop-blur-[32px] border border-t-border rounded-[48px] p-6 lg:p-12 relative z-10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)]"
       >
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 lg:gap-12 mb-10">
-          {/* Identity Block - Fixed Visibility for Light Mode */}
+          {/* Identity Block - Optimized to prevent layout shift */}
           <motion.div 
             className="group cursor-pointer flex flex-col items-center md:items-start text-center md:text-left relative" 
             onClick={onScrollToTop}
@@ -164,8 +163,8 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
                <div className="relative">
                  <motion.h4 
                    className="text-2xl lg:text-3xl font-black font-display text-t-fg uppercase tracking-tighter leading-none relative z-20"
-                   // Fix: Replaced invalid 'tracking' property with 'letterSpacing'
-                   animate={isTitleHovered ? { letterSpacing: '0.05em', color: 'var(--color-accent)' } : { letterSpacing: '-0.05em', color: 'var(--color-fg)' }}
+                   // Layout fix: Removed letterSpacing animation which caused width changes and reflow
+                   animate={isTitleHovered ? { color: 'var(--color-accent)', y: -2 } : { color: 'var(--color-fg)', y: 0 }}
                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                  >
                   {FULL_NAME}.
@@ -178,8 +177,6 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
                        animate={{ opacity: 0.25, x: 5, y: 3 }}
                        exit={{ opacity: 0, x: 0, y: 0 }}
                        className="absolute inset-0 text-2xl lg:text-3xl font-black font-display text-t-accent uppercase tracking-tighter leading-none z-10 select-none pointer-events-none"
-                       // Fix: Replaced invalid 'tracking' property with 'letterSpacing'
-                       style={{ letterSpacing: '0.05em' }}
                      >
                       {FULL_NAME}.
                      </motion.h4>
