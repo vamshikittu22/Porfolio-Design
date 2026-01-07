@@ -1,13 +1,15 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 import { 
   FULL_NAME, 
   GITHUB_USERNAME, 
   LINKEDIN_URL, 
   X_URL, 
   INSTAGRAM_URL, 
-  EMAIL 
+  EMAIL,
+  X_HANDLE,
+  INSTAGRAM_HANDLE
 } from '../../config/constants';
 
 interface SocialOrbData {
@@ -15,7 +17,7 @@ interface SocialOrbData {
   label: string;
   handle: string;
   url: string;
-  icon: string;
+  icon: React.ReactNode;
   gradient: [string, string, string];
   shadows: { light: string; dark: string };
 }
@@ -26,45 +28,65 @@ const SOCIAL_PLATFORMS: SocialOrbData[] = [
     label: 'GitHub',
     handle: GITHUB_USERNAME,
     url: `https://github.com/${GITHUB_USERNAME}`,
-    icon: '⚡',
-    gradient: ['#4B5563', '#1F2937', '#111827'],
-    shadows: { light: 'rgba(255,255,255,0.1)', dark: 'rgba(0,0,0,0.4)' }
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-full h-full fill-current">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.362.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+    ),
+    gradient: ['#24292e', '#1a1e22', '#010409'],
+    shadows: { light: 'rgba(255,255,255,0.1)', dark: 'rgba(0,0,0,0.9)' }
   },
   {
     id: 'linkedin',
     label: 'LinkedIn',
-    handle: 'vamshi-krishna',
+    handle: 'v-pullaiahgari',
     url: LINKEDIN_URL,
-    icon: '◆',
-    gradient: ['#3B82F6', '#2563EB', '#1E40AF'],
-    shadows: { light: 'rgba(59,130,246,0.3)', dark: 'rgba(0,0,0,0.5)' }
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-full h-full fill-current">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+    ),
+    gradient: ['#0A66C2', '#004182', '#002c59'],
+    shadows: { light: 'rgba(10,102,194,0.4)', dark: 'rgba(0,0,0,0.8)' }
   },
   {
     id: 'x',
     label: 'X',
-    handle: 'ki22u__',
+    handle: X_HANDLE,
     url: X_URL,
-    icon: '✕',
-    gradient: ['#334155', '#1E293B', '#020617'],
-    shadows: { light: 'rgba(255,255,255,0.05)', dark: 'rgba(0,0,0,0.7)' }
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-full h-full fill-current">
+        <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.292 19.49h2.039L6.486 3.24H4.298l13.311 17.403z"/>
+      </svg>
+    ),
+    gradient: ['#14171A', '#000000', '#000000'],
+    shadows: { light: 'rgba(255,255,255,0.05)', dark: 'rgba(0,0,0,0.95)' }
   },
   {
     id: 'instagram',
     label: 'Instagram',
-    handle: 'vamshi._.ki22u',
+    handle: INSTAGRAM_HANDLE,
     url: INSTAGRAM_URL,
-    icon: '◉',
-    gradient: ['#F43F5E', '#D946EF', '#FB923C'],
-    shadows: { light: 'rgba(244,63,94,0.3)', dark: 'rgba(0,0,0,0.5)' }
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-full h-full fill-current">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.058-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+    ),
+    gradient: ['#833ab4', '#fd1d1d', '#fcb045'],
+    shadows: { light: 'rgba(253,29,29,0.4)', dark: 'rgba(0,0,0,0.8)' }
   },
   {
     id: 'email',
     label: 'Email',
-    handle: EMAIL,
+    handle: 'hello@vamshi',
     url: `mailto:${EMAIL}`,
-    icon: '✉',
-    gradient: ['#EF4444', '#DC2626', '#991B1B'],
-    shadows: { light: 'rgba(239,68,68,0.3)', dark: 'rgba(0,0,0,0.5)' }
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-full h-full fill-current">
+        <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L12 9.573l8.073-6.08c1.618-1.214 3.927-.059 3.927 1.964z"/>
+      </svg>
+    ),
+    gradient: ['#EA4335', '#C5221F', '#B31412'],
+    shadows: { light: 'rgba(234,67,53,0.4)', dark: 'rgba(0,0,0,0.8)' }
   }
 ];
 
@@ -75,8 +97,8 @@ interface FooterBarProps {
 export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [flippedId, setFlippedId] = useState<string | null>(null);
+  const [isTitleHovered, setIsTitleHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const flipTimerRef = useRef<number | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -96,61 +118,90 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
   const handleOrbClick = (id: string, url: string) => {
     if (flippedId === id) {
       window.open(url, '_blank');
-      return;
-    }
-
-    setFlippedId(id);
-    if (flipTimerRef.current) clearTimeout(flipTimerRef.current);
-    flipTimerRef.current = window.setTimeout(() => {
       setFlippedId(null);
-    }, 3000);
-  };
-
-  const handleMouseLeave = () => {
-    setFlippedId(null);
-    if (flipTimerRef.current) clearTimeout(flipTimerRef.current);
+    } else {
+      setFlippedId(id);
+      setTimeout(() => setFlippedId(null), 8000);
+    }
   };
 
   return (
-    <footer 
-      className="relative py-12 px-6 lg:px-20 print:hidden overflow-hidden"
-      onMouseLeave={handleMouseLeave}
-    >
-      {/* Ambient Glows */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute top-[20%] left-[10%] w-48 h-48 bg-t-accent/10 blur-[80px] rounded-full" />
-        <div className="absolute bottom-[20%] right-[10%] w-48 h-48 bg-t-accent-2/10 blur-[80px] rounded-full" />
+    <footer className="relative py-12 px-6 lg:px-20 print:hidden overflow-hidden">
+      <div className="absolute top-0 left-1/4 w-[50%] h-px bg-gradient-to-r from-transparent via-t-accent/20 to-transparent" />
+      <div className="absolute inset-0 pointer-events-none opacity-50">
+        <div className="absolute -bottom-24 left-0 w-96 h-96 bg-t-accent/5 blur-[120px] rounded-full" />
+        <div className="absolute -bottom-24 right-0 w-96 h-96 bg-t-accent-2/5 blur-[120px] rounded-full" />
       </div>
 
       <motion.div 
         ref={containerRef}
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="relative z-10 max-w-7xl mx-auto bg-t-bg-el/40 backdrop-blur-3xl border border-t-border rounded-[32px] overflow-hidden shadow-2xl p-6 lg:p-10"
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-7xl mx-auto bg-t-bg-el/40 backdrop-blur-[32px] border border-t-border rounded-[48px] p-6 lg:p-12 relative z-10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)]"
       >
-        {/* Compact Header & Socials Row */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
-          {/* Left Side: Clickable Name */}
-          <div 
-            className="group cursor-pointer flex flex-col items-center md:items-start" 
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 lg:gap-12 mb-10">
+          {/* Identity Block - Fixed Visibility for Light Mode */}
+          <motion.div 
+            className="group cursor-pointer flex flex-col items-center md:items-start text-center md:text-left relative" 
             onClick={onScrollToTop}
+            onMouseEnter={() => setIsTitleHovered(true)}
+            onMouseLeave={() => setIsTitleHovered(false)}
             role="button"
-            aria-label="Scroll to top of page"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && onScrollToTop()}
+            aria-label="Scroll to top"
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <h4 className="text-xl lg:text-2xl font-black font-display text-t-fg uppercase tracking-tighter leading-none transition-colors group-hover:text-t-accent">
-              {FULL_NAME}.
-            </h4>
-            <div className="h-0.5 w-0 bg-t-accent transition-all duration-500 group-hover:w-full mt-1" />
-          </div>
+            <div className="flex items-center gap-4 mb-2 relative">
+               <motion.div 
+                className="w-8 h-8 rounded-xl bg-t-accent flex items-center justify-center text-white font-black text-xs shadow-md z-10"
+                animate={isTitleHovered ? { rotate: 12, scale: 1.1, backgroundColor: 'var(--color-accent-secondary)' } : { rotate: 0, scale: 1 }}
+               >
+                 VK
+               </motion.div>
 
-          {/* Right Side: Social Icons Row */}
-          <div 
-            className="flex flex-wrap justify-center md:justify-end gap-5 lg:gap-6 perspective-[2000px]"
-            style={{ transformStyle: 'preserve-3d' }}
-          >
+               <div className="relative">
+                 <motion.h4 
+                   className="text-2xl lg:text-3xl font-black font-display text-t-fg uppercase tracking-tighter leading-none relative z-20"
+                   animate={isTitleHovered ? { tracking: '0.05em', color: 'var(--color-accent)' } : { tracking: '-0.05em', color: 'var(--color-fg)' }}
+                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                 >
+                  {FULL_NAME}.
+                 </motion.h4>
+                 
+                 <AnimatePresence>
+                   {isTitleHovered && (
+                     <motion.h4 
+                       initial={{ opacity: 0, x: 0, y: 0 }}
+                       animate={{ opacity: 0.25, x: 5, y: 3 }}
+                       exit={{ opacity: 0, x: 0, y: 0 }}
+                       className="absolute inset-0 text-2xl lg:text-3xl font-black font-display text-t-accent uppercase tracking-tighter leading-none z-10 select-none pointer-events-none"
+                       style={{ tracking: '0.05em' }}
+                     >
+                      {FULL_NAME}.
+                     </motion.h4>
+                   )}
+                 </AnimatePresence>
+               </div>
+            </div>
+
+            <motion.p 
+              className="text-[7px] font-black text-t-fg-m uppercase tracking-[0.5em] mt-1 relative"
+              animate={isTitleHovered ? { opacity: 0.9, x: 4 } : { opacity: 0.5, x: 0 }}
+            >
+              Synchronized Portfolio Ledger v2.5
+              <motion.span 
+                className="absolute -bottom-1 left-0 h-[1.5px] bg-t-accent-2"
+                initial={{ width: 0 }}
+                animate={isTitleHovered ? { width: '100%' } : { width: 0 }}
+                transition={{ duration: 0.6 }}
+              />
+            </motion.p>
+          </motion.div>
+
+          {/* 3D Social Nodes */}
+          <div className="flex flex-wrap justify-center md:justify-end gap-6 lg:gap-10 perspective-[1500px]">
             {SOCIAL_PLATFORMS.map((orb, index) => (
               <SocialOrb 
                 key={orb.id} 
@@ -166,14 +217,19 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
           </div>
         </div>
 
-        {/* Bottom Meta Section */}
-        <div className="pt-6 mt-6 border-t border-t-border/30 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-[9px] font-black uppercase tracking-[0.2em] text-t-fg-m opacity-50">
-            © 2026 <span className="text-t-fg font-bold ml-1">{FULL_NAME}</span>
+        {/* Footer Meta Row */}
+        <div className="pt-8 border-t border-t-border/20 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-3">
+             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+             <div className="text-[9px] font-black uppercase tracking-[0.2em] text-t-fg-m opacity-60">
+                © 2025 <span className="text-t-fg font-bold tracking-widest">{FULL_NAME}</span>
+             </div>
           </div>
           
-          <div className="text-[9px] font-black uppercase tracking-[0.2em] text-t-fg-m opacity-50">
-            Built with <span className="text-t-accent">React 19</span> + <span className="text-t-accent-2">Gemini AI</span>
+          <div className="flex items-center gap-4 text-[8px] font-black uppercase tracking-[0.2em] text-t-fg-m opacity-50">
+            <span className="hover:text-t-accent transition-colors cursor-help">Built with Precision</span>
+            <div className="w-0.5 h-0.5 rounded-full bg-t-border" />
+            <span className="hover:text-t-accent-2 transition-colors cursor-help">Gemini Integrated</span>
           </div>
         </div>
       </motion.div>
@@ -194,9 +250,9 @@ const SocialOrb: React.FC<{
   const [magneticPos, setMagneticPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (reducedMotion || window.innerWidth < 768 || !orbRef.current) return;
+    if (reducedMotion || window.innerWidth < 768 || !orbRef.current || !containerRef.current) return;
 
-    const calculateMagnetic = () => {
+    const updateMagnetic = () => {
       const rect = orbRef.current!.getBoundingClientRect();
       const parentRect = containerRef.current!.getBoundingClientRect();
       
@@ -209,96 +265,84 @@ const SocialOrb: React.FC<{
       const dy = mousePos.y - orbCenter.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
-      if (distance < 150) {
-        const power = 1 - distance / 150;
+      if (distance < 200) {
+        const power = Math.pow(1 - distance / 200, 1.5);
         setMagneticPos({
-          x: (dx / distance) * power * 12,
-          y: (dy / distance) * power * 12
+          x: (dx / distance) * power * 25,
+          y: (dy / distance) * power * 25
         });
       } else {
         setMagneticPos({ x: 0, y: 0 });
       }
     };
 
-    calculateMagnetic();
+    const frameId = requestAnimationFrame(updateMagnetic);
+    return () => cancelAnimationFrame(frameId);
   }, [mousePos, containerRef, reducedMotion]);
 
   return (
-    <div className="flex flex-col items-center gap-2 group">
+    <div className="flex flex-col items-center gap-4 group">
       <motion.div
         ref={orbRef}
-        className="relative w-10 h-10 lg:w-14 lg:h-14 cursor-pointer outline-none perspective-[1000px]"
-        tabIndex={0}
+        className="relative w-12 h-12 lg:w-16 lg:h-16 cursor-pointer perspective-[1200px]"
         onClick={onClick}
-        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick()}
-        aria-label={`Visit my ${data.label} profile`}
         animate={{
           x: magneticPos.x,
           y: magneticPos.y,
-          scale: isFlipped ? 1.05 : 1
+          scale: isFlipped ? 1.1 : 1
         }}
-        transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.8 }}
+        transition={{ type: "spring", stiffness: 220, damping: 15, mass: 0.6 }}
       >
         <motion.div
-          className="w-full h-full relative transition-transform duration-700"
+          className="w-full h-full relative transition-transform duration-[1000ms]"
           animate={{ rotateY: isFlipped ? 180 : 0 }}
           style={{ transformStyle: 'preserve-3d' }}
         >
-          {/* Front Face */}
-          <motion.div
-            className="absolute inset-0 rounded-full flex items-center justify-center overflow-hidden"
+          <div
+            className="absolute inset-0 rounded-full flex items-center justify-center overflow-hidden p-3 lg:p-4"
             style={{ 
-              background: `linear-gradient(135deg, ${data.gradient[0]}, ${data.gradient[1]}, ${data.gradient[2]})`,
+              background: `radial-gradient(circle at 30% 30%, ${data.gradient[0]}, ${data.gradient[1]} 60%, ${data.gradient[2]})`,
               boxShadow: `
-                inset 2px 2px 4px ${data.shadows.light},
-                inset -2px -2px 4px ${data.shadows.dark},
-                4px 8px 16px -4px ${data.shadows.dark}
+                inset 8px 8px 16px -4px rgba(255,255,255,0.15),
+                inset -8px -8px 24px -4px rgba(0,0,0,0.5),
+                0 15px 30px -8px ${data.shadows.dark}
               `,
-              backfaceVisibility: 'hidden'
-            }}
-            animate={reducedMotion ? {} : {
-              y: [0, -6, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: index * 0.2
-            }}
-            whileHover={{ 
-              scale: 1.1,
-              rotateX: 10,
-              rotateZ: -5,
-              boxShadow: `0 10px 20px -5px ${data.shadows.dark}`
+              backfaceVisibility: 'hidden',
+              transform: 'translateZ(15px)',
+              color: 'white'
             }}
           >
-            <div className="absolute top-2 left-2 w-1/3 h-1/3 rounded-full bg-white/20 blur-lg pointer-events-none" />
-            <span className="text-lg lg:text-2xl text-white drop-shadow-md z-10 select-none">
+            <div className="absolute top-1.5 left-3 w-1/2 h-1/3 bg-white/20 blur-xl rounded-full pointer-events-none" />
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none" />
+            
+            <div className="w-full h-full drop-shadow-[0_3px_6px_rgba(0,0,0,0.4)] z-10">
               {data.icon}
-            </span>
-          </motion.div>
+            </div>
+          </div>
 
-          {/* Back Face */}
-          <motion.div
-            className="absolute inset-0 rounded-full bg-t-bg-el/90 backdrop-blur-xl border border-t-accent/40 flex flex-col items-center justify-center p-2 text-center shadow-inner"
+          <div
+            className="absolute inset-0 rounded-full bg-t-bg-el/98 backdrop-blur-2xl border-2 border-t-accent/60 flex flex-col items-center justify-center p-3 text-center shadow-inner overflow-hidden"
             style={{ 
-              transform: 'rotateY(180deg)',
+              transform: 'rotateY(180deg) translateZ(15px)',
               backfaceVisibility: 'hidden'
             }}
           >
-            <span className="text-[6px] font-black uppercase tracking-[0.1em] text-t-fg-m mb-0.5 truncate w-full">
+            <div className="absolute inset-0 bg-gradient-to-tr from-t-accent/10 to-transparent pointer-events-none" />
+            <span className="text-[5px] font-black uppercase tracking-[0.1em] text-t-accent-2 mb-0.5 relative z-10">
               {data.label}
             </span>
-            <span className="text-[8px] font-bold text-t-fg truncate w-full mb-1">
-              {data.handle.split('.')[0]}
+            <span className="text-[8px] font-bold text-t-fg break-all leading-tight w-full px-0.5 relative z-10 tracking-tight">
+              @{data.handle}
             </span>
-            <span className="text-t-accent text-xs">→</span>
-          </motion.div>
+            <div className="mt-1.5 w-3.5 h-3.5 rounded-full bg-t-accent/20 flex items-center justify-center">
+              <svg className="w-2 h-2 text-t-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7M5 12h16" /></svg>
+            </div>
+          </div>
         </motion.div>
       </motion.div>
       
-      <span className="text-[7px] font-black uppercase tracking-[0.2em] text-t-fg-m opacity-30 group-hover:opacity-100 transition-opacity">
-        {data.label}
+      <span className="text-[7px] font-black uppercase tracking-[0.3em] text-t-fg-m opacity-60 group-hover:opacity-100 group-hover:text-t-accent transition-all duration-500 group-hover:translate-y-1">
+        {data.handle}
       </span>
     </div>
   );
