@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import { GeminiService } from '../services/geminiService';
 import { HeaderNav } from '../components/layout/HeaderNav';
 import FooterBar from '../components/layout/FooterBar';
 import { HeroSection } from '../sections/hero/HeroSection';
 import { AboutSection } from '../sections/about/AboutSection';
+import CareerSnapshot from '../sections/career/CareerSnapshot';
 import ProjectsSection from '../sections/projects/ProjectsSection';
 import GithubSection from '../sections/github/GithubSection';
 import ResumeSection from '../sections/resume/ResumeSection';
@@ -32,7 +34,7 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const sections = ['about-section', 'projects-section', 'github-section', 'resume-section', 'game-section', 'travel-section', 'contact-section'];
+    const sections = ['about-section', 'career-snapshot-section', 'projects-section', 'github-section', 'resume-section', 'game-section', 'travel-section', 'contact-section'];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -110,6 +112,7 @@ const App: React.FC = () => {
       <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60 print:p-0">
         <HeroSection image={activeHeroImage} loading={heroLoading} onScroll={scrollToSection} />
         <AboutSection />
+        <CareerSnapshot />
         <ProjectsSection />
         <GithubSection />
         <ResumeSection />
