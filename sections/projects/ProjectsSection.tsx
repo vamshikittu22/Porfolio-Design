@@ -1,10 +1,9 @@
 
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { PROJECTS_CONFIG } from '../../config/projects';
 import { ProjectCategory } from '../../config/types';
 import ProjectList from './ProjectList';
-import ProjectDetails from './ProjectDetails';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const VIBRANT_ACCENTS: ('indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange')[] = ['purple', 'orange', 'indigo', 'emerald', 'rose', 'amber'];
@@ -14,16 +13,11 @@ const CATEGORIES = ['All', ...Object.values(ProjectCategory)];
 const ProjectsSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [openProjectId, setOpenProjectId] = useState<string | null>(null);
-  const detailsRef = useRef<HTMLDivElement>(null);
 
   const filteredProjects = useMemo(() => {
     if (selectedCategory === 'All') return PROJECTS_CONFIG;
     return PROJECTS_CONFIG.filter(p => p.category === selectedCategory);
   }, [selectedCategory]);
-
-  const activeProject = useMemo(() => 
-    PROJECTS_CONFIG.find(p => p.id === openProjectId), 
-  [openProjectId]);
 
   // Close details if the active project is filtered out
   useEffect(() => {
@@ -34,12 +28,6 @@ const ProjectsSection: React.FC = () => {
 
   const handleToggleProject = (id: string) => {
     setOpenProjectId(prev => prev === id ? null : id);
-    // Optional: Scroll to details if opening
-    if (openProjectId !== id) {
-      setTimeout(() => {
-        detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 300);
-    }
   };
 
   return (
@@ -54,7 +42,10 @@ const ProjectsSection: React.FC = () => {
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => {
+                  setSelectedCategory(cat);
+                  setOpenProjectId(null); // Reset open project on category change for better UX
+                }}
                 className={`
                   px-8 py-3 rounded-full text-[9px] font-black uppercase tracking-[0.4em] transition-all duration-500 border
                   ${selectedCategory === cat 
@@ -71,8 +62,8 @@ const ProjectsSection: React.FC = () => {
          <div className="w-48 h-px bg-t-accent-2 mt-20 opacity-30 shadow-[0_0_20px_rgba(var(--color-accent-secondary-rgb),0.5)]" />
       </ScrollReveal>
 
-      <div className="flex flex-col gap-12 lg:gap-20 transition-all duration-700 min-h-[400px]">
-        {/* 1. PROJECT TILES (Navigator) */}
+      <div className="flex flex-col gap-12 lg:gap-20 transition-all duration-700">
+        {/* 1. PROJECT TILES (Navigator) with Integrated Details */}
         {filteredProjects.length > 0 ? (
           <ProjectList 
             projects={filteredProjects} 
@@ -85,28 +76,6 @@ const ProjectsSection: React.FC = () => {
              <p className="text-[10px] font-black uppercase tracking-[1em] text-t-fg-m opacity-60">No projects found in this category.</p>
           </div>
         )}
-
-        {/* 2. DETAIL PANEL (Full Width) */}
-        <div ref={detailsRef} className="scroll-mt-32">
-          <AnimatePresence mode="wait">
-            {activeProject && (
-              <motion.div
-                key={activeProject.id}
-                initial={{ opacity: 0, y: 40, height: 0 }}
-                animate={{ opacity: 1, y: 0, height: 'auto' }}
-                exit={{ opacity: 0, y: 40, height: 0 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="overflow-hidden"
-              >
-                 <ProjectDetails 
-                    project={activeProject} 
-                    accent={VIBRANT_ACCENTS[PROJECTS_CONFIG.findIndex(p => p.id === activeProject.id) % VIBRANT_ACCENTS.length]} 
-                    onClose={() => setOpenProjectId(null)}
-                 />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
       </div>
     </section>
   );
