@@ -45,7 +45,8 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, activeProjectId, on
         return (
           <React.Fragment key={project.id}>
             <motion.div 
-              ref={el => cardRefs.current[project.id] = el}
+              // Fix: Added block braces to avoid returning the assigned element to the ref callback
+              ref={el => { cardRefs.current[project.id] = el; }}
               layout 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

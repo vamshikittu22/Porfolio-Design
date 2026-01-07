@@ -163,7 +163,8 @@ const CareerSnapshot: React.FC = () => {
                 return (
                   <div 
                     key={item.id} 
-                    ref={el => itemRefs.current[idx] = el}
+                    // Fix: Added block braces to avoid returning the assigned element to the ref callback
+                    ref={el => { itemRefs.current[idx] = el; }}
                     className="snap-center py-4"
                   >
                     <motion.div

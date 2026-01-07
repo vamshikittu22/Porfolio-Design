@@ -164,7 +164,8 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
                <div className="relative">
                  <motion.h4 
                    className="text-2xl lg:text-3xl font-black font-display text-t-fg uppercase tracking-tighter leading-none relative z-20"
-                   animate={isTitleHovered ? { tracking: '0.05em', color: 'var(--color-accent)' } : { tracking: '-0.05em', color: 'var(--color-fg)' }}
+                   // Fix: Replaced invalid 'tracking' property with 'letterSpacing'
+                   animate={isTitleHovered ? { letterSpacing: '0.05em', color: 'var(--color-accent)' } : { letterSpacing: '-0.05em', color: 'var(--color-fg)' }}
                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                  >
                   {FULL_NAME}.
@@ -177,7 +178,8 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
                        animate={{ opacity: 0.25, x: 5, y: 3 }}
                        exit={{ opacity: 0, x: 0, y: 0 }}
                        className="absolute inset-0 text-2xl lg:text-3xl font-black font-display text-t-accent uppercase tracking-tighter leading-none z-10 select-none pointer-events-none"
-                       style={{ tracking: '0.05em' }}
+                       // Fix: Replaced invalid 'tracking' property with 'letterSpacing'
+                       style={{ letterSpacing: '0.05em' }}
                      >
                       {FULL_NAME}.
                      </motion.h4>

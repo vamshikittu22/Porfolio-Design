@@ -12,8 +12,8 @@ export const ContactSection: React.FC = () => {
   const [isBlasted, setIsBlasted] = useState(false);
   const [activeTab, setActiveTab] = useState<ContactTab>('contact');
   const [greeting, setGreeting] = useState("Open for professional collaboration.");
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
-  const [formData, setFormData] = useState({ name: '', contact: '', details: '' });
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   useEffect(() => {
     const fetchGreeting = async () => {
@@ -35,15 +35,50 @@ export const ContactSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setStatus('success');
-    setFormData({ name: '', contact: '', details: '' });
-    setTimeout(() => setStatus('idle'), 4000);
+
+    try {
+      const submissionData = new FormData();
+      submissionData.append("access_key", "b3cbc30f-4913-4d50-9c2c-1816e0dca271");
+      submissionData.append("name", formData.name);
+      submissionData.append("email", formData.email);
+      submissionData.append("message", formData.message);
+      submissionData.append("subject", `New Inquiry from ${formData.name}`);
+      submissionData.append("from_name", "Portfolio Contact Form");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: submissionData
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        // Return to idle after 5 seconds to allow fresh submission if needed
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (err) {
+      console.error("Submission Error:", err);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 4000);
+    }
   };
 
-  const containerVariants = {
+  // Fix: Explicitly typed the easing array as any to satisfy Framer Motion Variants type inference
+  const containerVariants: any = {
     hidden: { opacity: 0, scale: 0.98, y: 15 },
-    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.5, 
+        ease: [0.16, 1, 0.3, 1] 
+      } 
+    }
   };
 
   return (
@@ -69,7 +104,8 @@ export const ContactSection: React.FC = () => {
                <div className="absolute inset-[-80px] border-[1.5px] border-black/50 dark:border-t-accent-2/30 rounded-full animate-[spin_30s_linear_infinite_reverse]" />
                <div className="absolute inset-[-120px] border-[1px] border-black/30 dark:border-t-accent-2/15 rounded-full animate-[spin_45s_linear_infinite]" />
             </div>
-            <p className="mt-32 text-[9px] font-black uppercase tracking-[1.5em] text-t-fg opacity-40 group-hover:opacity-100 transition-opacity animate-bounce pl-[1.5em]">Click to Contact</p>
+            {/* Minimalistic CTA instead of redundant version text */}
+            <p className="mt-32 text-[9px] font-black uppercase tracking-[1.5em] text-t-fg opacity-40 group-hover:opacity-100 transition-opacity animate-bounce pl-[1.5em]">Click to Engage</p>
           </div>
         ) : (
           <motion.div variants={containerVariants} initial="hidden" animate="visible" className="w-full max-w-[800px] z-50">
@@ -99,7 +135,7 @@ export const ContactSection: React.FC = () => {
                     onClick={() => setActiveTab('schedule')}
                     className={`px-6 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${activeTab === 'schedule' ? 'bg-t-accent-2 text-t-bg shadow-lg' : 'text-t-fg-m hover:text-t-fg hover:bg-white/5'}`}
                   >
-                    Request Call
+                    Direct Message
                   </button>
                 </div>
               </div>
@@ -170,20 +206,29 @@ export const ContactSection: React.FC = () => {
                                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                                 </div>
                                 <p className="text-[10px] font-black uppercase tracking-widest text-t-fg">Request Sent</p>
+                                <p className="text-[8px] text-t-fg-m opacity-60">I will review and respond shortly.</p>
+                              </motion.div>
+                            ) : status === 'error' ? (
+                              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex-1 flex flex-col items-center justify-center text-center space-y-4">
+                                <div className="w-12 h-12 rounded-full bg-rose-500/20 text-rose-500 flex items-center justify-center border border-rose-500/40">
+                                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6" /></svg>
+                                </div>
+                                <p className="text-[10px] font-black uppercase tracking-widest text-rose-500">Service Interrupted</p>
+                                <button onClick={() => setStatus('idle')} className="text-[8px] font-bold uppercase tracking-widest underline opacity-60 hover:opacity-100">Try Again</button>
                               </motion.div>
                             ) : (
                               <form onSubmit={handleSubmit} className="space-y-4">
                                 <div className="space-y-1">
-                                  <label className="text-[8px] font-black uppercase tracking-widest text-t-accent ml-1">Your Name</label>
-                                  <input required name="name" placeholder="John Doe" value={formData.name} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-t-fg text-xs focus:border-t-accent-2 outline-none transition-all" />
+                                  <label className="text-[8px] font-black uppercase tracking-widest text-t-accent ml-1">Identity</label>
+                                  <input required name="name" placeholder="Name or Organization" value={formData.name} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-t-fg text-xs focus:border-t-accent-2 outline-none transition-all" />
                                 </div>
                                 <div className="space-y-1">
-                                  <label className="text-[8px] font-black uppercase tracking-widest text-t-accent ml-1">Contact Details</label>
-                                  <input required name="contact" placeholder="Email or Phone" value={formData.contact} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-t-fg text-xs focus:border-t-accent-2 outline-none transition-all" />
+                                  <label className="text-[8px] font-black uppercase tracking-widest text-t-accent ml-1">Callback Path</label>
+                                  <input required type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-t-fg text-xs focus:border-t-accent-2 outline-none transition-all" />
                                 </div>
                                 <div className="space-y-1">
-                                  <label className="text-[8px] font-black uppercase tracking-widest text-t-accent ml-1">Message</label>
-                                  <textarea required name="details" rows={2} placeholder="Brief description of your project..." value={formData.details} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-t-fg text-xs focus:border-t-accent-2 outline-none transition-all resize-none" />
+                                  <label className="text-[8px] font-black uppercase tracking-widest text-t-accent ml-1">Inquiry Specs</label>
+                                  <textarea required name="message" rows={2} placeholder="Message body..." value={formData.message} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-t-fg text-xs focus:border-t-accent-2 outline-none transition-all resize-none" />
                                 </div>
                                 <GlassButton primary accent="secondary" className="w-full !py-3 !rounded-xl !text-[10px]" disabled={status === 'submitting'}>
                                   {status === 'submitting' ? 'SENDING...' : 'SUBMIT REQUEST'}
