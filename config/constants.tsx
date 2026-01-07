@@ -1,4 +1,5 @@
 
+
 import { BlogPost } from './types';
 
 export const FULL_NAME = 'Vamshi Krishna Pullaiahgari';
@@ -128,7 +129,7 @@ export const SKILLS_RESUME = {
   frameworks: ['Reactjs', '.NET MVC CORE Framework', '.NET MVC Entity Framework'],
   cloud_db: ['MySQL', 'Azure'],
   tools: ['Visual Studio', 'Eclipse', 'VSCode', 'Tomcat', 'Xampp', 'Putty', 'Git', 'Github'],
-  coursework: ['Software Engineering', 'Advance Analysis & Design', 'Internet for Enterprise', 'Datacom and Distributed Data Processing', 'Serverside Internet Resource', 'Data Structures & Algorithms', 'Object Oriented Programming', 'Operating Systems'],
+  coursework: ['Software Engineering', 'Advance Analysis & Design', 'Internet for Enterprise', 'Datacom and Distributed Data Processing', 'Serverside Internet Resource', 'Data Structures & Algorithms', 'Object Oriented Programming', 'Operating Systems', 'Advance Systems Project'],
   interests: ['Web Design and Development'],
   soft_skills: ['Problem Solving', 'Self-learning', 'Time Management', 'Adaptability', 'Constructive-feedback']
 };
