@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 // --- RICH SKILL DATA & ICON MAPPING ---
 const ICON_MAP: Record<string, string> = {
-  // Languages
   'C#': 'csharp',
   'Core Java': 'java',
   '.NET': 'dotnetcore',
@@ -17,18 +16,12 @@ const ICON_MAP: Record<string, string> = {
   'C': 'c',
   'PHP': 'php',
   'JavaScript': 'javascript',
-  
-  // Databases & Cloud
   'SQL Server': 'microsoftsqlserver',
   'PostgreSQL': 'postgresql',
   'MySQL': 'mysql',
   'Azure': 'azure',
-
-  // Frameworks
   '.NET MVC CORE Framework': 'dotnetcore',
   '.NET MVC Entity Framework': 'dotnetcore',
-
-  // Tools
   'VSCode': 'vscode',
   'Visual Studio': 'visualstudio',
   'Xampp': 'php',
@@ -38,12 +31,8 @@ const ICON_MAP: Record<string, string> = {
   'Tomcat': 'tomcat',
   'Eclipse': 'eclipse',
   'ServiceNow': 'visualstudio',
-
-  // AI
   'Gemini AI': 'googlecloud',
   'Prompt Engineering': 'googlecloud',
-
-  // Coursework - Specialized Unique Mappings
   'Data Structures & Algorithms': 'codepen',
   'Software Engineering': 'visualstudio',
   'Advance Analysis & Design': 'github',
@@ -56,7 +45,6 @@ const ICON_MAP: Record<string, string> = {
 };
 
 const SKILL_DETAILS: Record<string, { role: string; usedIn: string; exp: string; desc: string; strength: string }> = {
-  // Languages
   'C#': { role: 'Core Language', usedIn: 'Event Node Pro, Enterprise ERP', exp: 'Expert · 5+ Years', desc: 'Primary language for high-performance backend architecture.', strength: 'Memory management & Async patterns' },
   'Python': { role: 'Scripting', usedIn: 'Data Analysis, AI Pipelines', exp: 'Intermediate · 3 Years', desc: 'Automation scripting and data processing.', strength: 'Data libraries & Scripting' },
   'Core Java': { role: 'Language', usedIn: 'Legacy Systems', exp: 'Proficient · 4 Years', desc: 'Object-oriented enterprise application development.', strength: 'Strong typing & OOP' },
@@ -64,21 +52,15 @@ const SKILL_DETAILS: Record<string, { role: string; usedIn: string; exp: string;
   'PHP': { role: 'Backend', usedIn: 'Wanderlust Trails', exp: 'Advanced · 4 Years', desc: 'Server-side logic for dynamic web applications.', strength: 'CMS & API integration' },
   'HTML5': { role: 'Markup', usedIn: 'All Web Projects', exp: 'Expert · 7+ Years', desc: 'Semantic structure for modern web accessibility.', strength: 'Semantic Tags & SEO' },
   'CSS3': { role: 'Styling', usedIn: 'All Web Projects', exp: 'Expert · 7+ Years', desc: 'Responsive design and animation systems.', strength: 'Flexbox, Grid & Animations' },
-
-  // Frameworks
   'Reactjs': { role: 'UI Library', usedIn: 'Mini Metro, Future Job Fit', exp: 'Expert · 5+ Years', desc: 'Component-driven architecture and state management.', strength: 'Hooks & Custom Reusability' },
   '.NET MVC CORE Framework': { role: 'Framework', usedIn: 'Event Node Pro', exp: 'Expert · 5+ Years', desc: 'Cross-platform high-performance backend framework.', strength: 'Dependency Injection & Middleware' },
   'Azure': { role: 'Cloud', usedIn: 'Enterprise Deployments', exp: 'Intermediate · 3 Years', desc: 'Cloud computing services for building and managing apps.', strength: 'App Services & CI/CD' },
   'MySQL': { role: 'Database', usedIn: 'Wanderlust Trails', exp: 'Advanced · 4 Years', desc: 'Open-source relational database management.', strength: 'Schema Design' },
-
-  // Tools
   'VSCode': { role: 'IDE', usedIn: 'Daily Driver', exp: 'Expert', desc: 'Extensible code editor for modern web development.', strength: 'Extensions & Debugging' },
   'Visual Studio': { role: 'IDE', usedIn: '.NET Development', exp: 'Expert', desc: 'Integrated development environment for .NET.', strength: 'Profiling & Memory Tools' },
   'Git': { role: 'Version Control', usedIn: 'All Projects', exp: 'Expert', desc: 'Distributed version control for team collaboration.', strength: 'Branching & Merging strategies' },
   'Github': { role: 'Platform', usedIn: 'Social Dev', exp: 'Expert', desc: 'Central repository management and collaboration.', strength: 'Pull Requests & Actions' },
   'ServiceNow': { role: 'ITSM', usedIn: 'Mphasis Ops', exp: 'Advanced', desc: 'Enterprise service management and automation.', strength: 'Workflow Orchestration' },
-  
-  // Coursework - Specific Details from User
   'Data Structures & Algorithms': { role: 'Core Theory', usedIn: 'Logic Optimization', exp: 'UCM Coursework', desc: 'Learnt the basics of DSA including complexity analysis and memory optimization.', strength: 'Algorithmic Reasoning' },
   'Software Engineering': { role: 'Methodology', usedIn: 'SDLC Management', exp: 'UCM Coursework', desc: 'Learnt Software Engineering related coursework including Agile and testing.', strength: 'SDLC Lifecycle' },
   'Advance Analysis & Design': { role: 'Architecture', usedIn: 'System Modeling', exp: 'UCM Coursework', desc: 'Learnt design patterns and software architecture principles.', strength: 'Architectural Design' },
@@ -88,8 +70,6 @@ const SKILL_DETAILS: Record<string, { role: string; usedIn: string; exp: string;
   'Object Oriented Programming': { role: 'Foundational', usedIn: 'Code Structure', exp: 'MIST Coursework', desc: 'Core OOPS principles like inheritance, polymorphism, and abstraction.', strength: 'Modular Code' },
   'Operating Systems': { role: 'Systems', usedIn: 'Resource Control', exp: 'MIST Coursework', desc: 'Memory management, process scheduling, and kernel abstractions.', strength: 'System Internals' },
   'Advance Systems Project': { role: 'Capstone', usedIn: 'Wanderlust Trails', exp: 'UCM Coursework', desc: 'Built Wanderlust Trails using coursework learning and technical research.', strength: 'Full Stack Delivery' },
-
-  // AI
   'Gemini AI': { role: 'GenAI', usedIn: 'Portfolio Assistant', exp: 'Intermediate', desc: 'Integrating LLMs for content synthesis and reasoning.', strength: 'Prompt Engineering' },
 };
 
@@ -108,8 +88,8 @@ const CATEGORY_DESCRIPTIONS: Record<string, string> = {
   'Languages': 'The core syntax and logic layers driving my applications. From low-level systems to high-level scripting.',
   'Frameworks': 'Structural foundations that accelerate development, focusing on React and .NET Core architectures.',
   'Cloud': 'Infrastructure and data persistence layers including Azure and relational database management.',
-  'Tools': 'Development environments and operational utilities used to ensure system stability and performance.',
-  'AI': 'Advanced intelligence integration using Google Gemini for multi-modal reasoning and automation.',
+  'Tools': 'Development environments and operational utilities used to ensure high performance and reliability.',
+  'AI': 'Advanced intelligence integration using Google Gemini for content reasoning and automation.',
   'Coursework': 'Theoretical academic foundation in Distributed Systems, Algorithms, and Software Design.'
 };
 
@@ -177,11 +157,11 @@ export const AboutSection: React.FC = () => {
       <ScrollReveal>
         <div className="flex flex-col gap-6 mb-16 px-4 lg:px-0">
             <h2 className="text-6xl lg:text-8xl font-black font-display text-t-fg uppercase tracking-tighter leading-[0.85]">
-              Signal <br/> <span className="text-t-fg-m opacity-40">Matrix.</span>
+              Skills & <br/> <span className="text-t-fg-m opacity-40">Expertise.</span>
             </h2>
             <div className="h-1 w-24 bg-t-accent" />
             <p className="text-lg lg:text-xl text-t-fg font-medium leading-relaxed max-w-2xl">
-              Mapping a multifaceted technical ecosystem across backend systems, creative interfaces, and AI orchestration.
+              Mapping my technical landscape across backend systems, user interfaces, and AI automation.
             </p>
         </div>
 
@@ -189,7 +169,7 @@ export const AboutSection: React.FC = () => {
            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(124,58,237,0.05)_0%,rgba(5,5,5,1)_100%)] pointer-events-none z-10" />
            <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay z-0" />
 
-           {/* LEFT: FLOATING SIGNAL MATRIX */}
+           {/* LEFT: INTERACTIVE SKILL CLOUD */}
            <div 
              className="relative w-full lg:w-[65%] h-[450px] lg:h-full overflow-hidden group/matrix cursor-pointer"
              onClick={() => {
@@ -269,7 +249,6 @@ export const AboutSection: React.FC = () => {
                        alt={item.name} 
                        className={`relative w-[60%] h-[60%] object-contain drop-shadow-lg transition-transform duration-300 ${isHovered ? 'scale-110' : ''}`}
                        onError={(e) => {
-                          // Fallback for missing icons
                           (e.target as HTMLImageElement).src = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg';
                        }}
                      />
@@ -333,14 +312,14 @@ export const AboutSection: React.FC = () => {
                       <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 flex items-center gap-4">
                          <div className="w-1 h-1 rounded-full bg-t-accent" />
                          <div>
-                           <span className="text-[8px] font-black text-white/30 uppercase tracking-widest block mb-0.5">Focus Case</span>
+                           <span className="text-[8px] font-black text-white/30 uppercase tracking-widest block mb-0.5">Application</span>
                            <span className="text-xs text-white/80 font-bold">{activeDetail.usedIn}</span>
                          </div>
                       </div>
                       <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 flex items-center gap-4">
                          <div className="w-1 h-1 rounded-full bg-t-accent-2" />
                          <div>
-                           <span className="text-[8px] font-black text-white/30 uppercase tracking-widest block mb-0.5">Strength Segue</span>
+                           <span className="text-[8px] font-black text-white/30 uppercase tracking-widest block mb-0.5">Core Strength</span>
                            <span className="text-xs text-white/80 font-bold">{activeDetail.strength}</span>
                          </div>
                       </div>
@@ -362,7 +341,7 @@ export const AboutSection: React.FC = () => {
                          {selectedCategory}.
                        </h3>
                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">
-                         Filtered Protocol Segment
+                         Category Breakdown
                        </p>
                      </div>
                      <p className="text-sm text-white/60 leading-relaxed pl-4 border-l-2 border-white/5">
@@ -381,11 +360,10 @@ export const AboutSection: React.FC = () => {
                         <div className="w-10 h-10 rounded-full bg-white/[0.02] animate-pulse" />
                      </div>
                      <h4 className="text-xl font-black text-white uppercase tracking-widest mb-4 opacity-40">
-                        System Standby
+                        Skill Insights
                      </h4>
                      <p className="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] max-w-[240px] leading-loose">
-                       Analyzing tech stack... <br/>
-                       Select a node or category to inspect technical properties.
+                       Hover over a tech node or select a category to view proficiency and experience details.
                      </p>
                   </motion.div>
                 )}
@@ -393,7 +371,7 @@ export const AboutSection: React.FC = () => {
 
               <div className="mt-8 pt-6 border-t border-white/5 opacity-40">
                 <p className="text-[8px] font-mono text-white/50 uppercase tracking-[0.3em]">
-                  <span className="text-t-accent font-black">Sync:</span> C# · .NET · React · SQL · Azure · Gemini
+                  <span className="text-t-accent font-black">Core:</span> C# · .NET · React · SQL · Azure · Gemini
                 </p>
               </div>
            </div>

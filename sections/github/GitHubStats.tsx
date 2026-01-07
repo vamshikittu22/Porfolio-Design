@@ -33,7 +33,7 @@ interface FeaturedRepo {
 const FOCUS_REPOS: FeaturedRepo[] = [
   {
     name: 'Mini Metro Simulator',
-    tagline: 'Featured Highlight',
+    tagline: 'Technical Highlight',
     desc: 'A high-performance transit engine with hybrid pathfinding & Gemini AI optimization.',
     stars: 12,
     forks: 4,
@@ -42,7 +42,7 @@ const FOCUS_REPOS: FeaturedRepo[] = [
   },
   {
     name: 'Future Job Fit',
-    tagline: 'Most Recent',
+    tagline: 'Latest Work',
     desc: 'AI-assisted resume architect with neural content scoring and Swiss-grid layouts.',
     stars: 8,
     forks: 2,
@@ -61,13 +61,12 @@ const FOCUS_REPOS: FeaturedRepo[] = [
 ];
 
 const YEAR_NARRATIVES: Record<number, string> = {
-  2026: "Future Cycle: Early prototyping for next-gen AI architectures and Gemini 3.0 integration experiments.",
-  2025: "Prime Cycle: Shipped 3 major features, achieved 200+ contributions, and integrated Gemini 2.5 Flash.",
-  2024: "Foundation Cycle: Completed Master's degree and architected the core Event Node Pro system.",
-  2023: "Expansion Cycle: Scaled backend services for Mphasis enterprise clients and optimized SQL layers."
+  2026: "Future: Planning next-gen AI architectures and Gemini 3.0 integration experiments.",
+  2025: "Active: Shipped 3 major features, achieved 200+ contributions, and integrated Gemini 2.5 Flash.",
+  2024: "Academic: Completed Master's degree and architected the core Event Node Pro system.",
+  2023: "Enterprise: Scaled backend services for Mphasis enterprise clients and optimized SQL layers."
 };
 
-// Fallback data matching your specific request
 const FALLBACK_STATS: YearStats[] = [
   { year: 2026, count: 32 },
   { year: 2025, count: 228 },
@@ -94,7 +93,6 @@ const GitHubStats: React.FC = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // Resolve Token from various env possibilities
         const token = process.env.GITHUB_TOKEN || 
                       process.env.VITE_GITHUB_TOKEN || 
                       process.env.REACT_APP_GITHUB_TOKEN;
@@ -106,18 +104,14 @@ const GitHubStats: React.FC = () => {
         if (token) {
           headers['Authorization'] = `bearer ${token}`;
         } else {
-          console.warn("No GitHub Token found. Using fallback data.");
           throw new Error("No Token");
         }
 
-        // 1. User Profile (REST)
         const userRes = await fetch(`https://api.github.com/users/${username}`, { headers });
         if (!userRes.ok) throw new Error('GitHub API Error: Profile');
         const userData = await userRes.json();
         setUser(userData);
 
-        // 2. Yearly Contributions (GraphQL)
-        // We use GraphQL because 'search/commits' REST API is inaccurate for total contributions (PRs, Issues, etc.)
         const query = {
           query: `
             query {
@@ -162,7 +156,6 @@ const GitHubStats: React.FC = () => {
           throw new Error("Invalid GraphQL Data");
         }
 
-        // 3. Latest Activity (REST)
         const eventsRes = await fetch(`https://api.github.com/users/${username}/events/public`, { headers });
         if (eventsRes.ok) {
           const events = await eventsRes.json();
@@ -174,9 +167,6 @@ const GitHubStats: React.FC = () => {
           }
         }
       } catch (error) {
-        console.warn("GitHub API Access Failed or Token Missing. Switching to cached/fallback data.", error);
-        
-        // Accurate Fallback
         setUser({
           avatar_url: `https://github.com/${username}.png`,
           login: username,
@@ -195,7 +185,6 @@ const GitHubStats: React.FC = () => {
     fetchData();
   }, [username]);
 
-  // --- HANDLERS ---
   const cycleRepo = (direction: 'next' | 'prev') => {
     setCurrentRepoIndex(prev => {
       if (direction === 'next') return (prev + 1) % FOCUS_REPOS.length;
@@ -214,13 +203,12 @@ const GitHubStats: React.FC = () => {
       >
         <GlassCard className="p-0 overflow-hidden border-t-border bg-t-bg-el/40 backdrop-blur-3xl shadow-2xl relative flex flex-col" accent="theme">
           
-          {/* 1) HEADER STRIP – Identity & Status */}
+          {/* HEADER STRIP */}
           <div 
             className="flex flex-col md:flex-row items-start md:items-center justify-between px-6 py-5 border-b border-t-border/50 bg-t-bg/40 gap-4"
             onMouseEnter={() => setHoveringHeader(true)}
             onMouseLeave={() => setHoveringHeader(false)}
           >
-            {/* Identity */}
             <div className="flex items-center gap-4">
                <div className="relative group/avatar">
                  <div className="absolute -inset-1 rounded-xl bg-t-accent opacity-0 group-hover/avatar:opacity-30 transition-opacity blur-md" />
@@ -234,54 +222,51 @@ const GitHubStats: React.FC = () => {
                  <div className="flex items-center gap-2">
                     <h3 className="text-sm font-black text-t-fg tracking-tight">@{user?.login || username}</h3>
                     <span className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase border ${usingLiveData ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border-amber-500/20'}`}>
-                      {usingLiveData ? 'Live Connection' : 'Simulation Mode'}
+                      {usingLiveData ? 'Live Data' : 'Cached Data'}
                     </span>
                  </div>
                  <p className="text-[9px] font-bold text-t-fg-m uppercase tracking-widest opacity-60">
-                   {usingLiveData ? 'Syncing via GraphQL' : 'Using Fallback Dataset'}
+                   {usingLiveData ? 'Open Source Profile' : 'Historical Data Overview'}
                  </p>
                </div>
             </div>
 
-            {/* Quick Stats Badges */}
             <div className="flex flex-wrap gap-x-6 gap-y-2 items-center">
                <div className="flex flex-col items-end">
-                 <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Repos</span>
+                 <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Projects</span>
                  <span className="text-xs font-black text-t-fg">{user?.public_repos || 0}</span>
                </div>
                <div className="w-px h-6 bg-t-border opacity-50 hidden md:block" />
                <div className="flex flex-col items-end">
-                 <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Since</span>
+                 <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Joined</span>
                  <span className="text-xs font-black text-t-fg">{new Date(user?.created_at || Date.now()).getFullYear()}</span>
                </div>
                <div className="w-px h-6 bg-t-border opacity-50 hidden md:block" />
                <div className="flex flex-col items-end">
-                 <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Last Commit</span>
+                 <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Latest Activity</span>
                  <span className="text-xs font-black text-t-fg">{latestActivityDate}</span>
                </div>
             </div>
           </div>
 
-          {/* 2) ACTIVITY PULSE ROW – Immediate Activity Snapshot */}
+          {/* ACTIVITY ROW */}
           <div className="px-6 py-4 border-b border-t-border/50 bg-t-bg-el/20 flex flex-col md:flex-row gap-6 items-center">
              <div className="flex items-center gap-3 min-w-fit">
                <div className="w-1.5 h-1.5 rounded-full bg-t-accent animate-ping" />
                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-t-accent">
-                 Activity Pulse (Recent)
+                 Recent Contributions
                </span>
              </div>
              
-             {/* The Equalizer Visual */}
              <div className="flex items-end gap-1.5 h-8 flex-1 w-full justify-start md:justify-center overflow-hidden mask-linear-fade relative">
                 <div className="absolute inset-0 z-10 hover:bg-transparent" title="Recent activity intensity" />
                 
                 {Array.from({ length: 24 }).map((_, i) => {
-                   // Generate pseudo-random heights for the "alive" look
                    const heightBase = 20 + Math.random() * 60;
                    const isHigh = heightBase > 70;
                    const isMedium = heightBase > 40 && heightBase <= 70;
                    
-                   let colorClass = 'bg-t-fg-m/20'; // Low
+                   let colorClass = 'bg-t-fg-m/20';
                    if (isMedium) colorClass = 'bg-t-accent/60';
                    if (isHigh) colorClass = 'bg-t-accent-2 shadow-[0_0_8px_rgba(var(--color-accent-secondary-rgb),0.5)]';
 
@@ -305,24 +290,20 @@ const GitHubStats: React.FC = () => {
              </div>
           </div>
 
-          {/* 3) FOCUS REPO ROW – Featured Project Panel */}
+          {/* FEATURED PROJECT ROW */}
           <div className="relative p-8 md:p-10 min-h-[260px] flex items-center bg-gradient-to-b from-transparent to-t-bg/10">
-             {/* Background Glow */}
              <div className="absolute inset-0 z-0 pointer-events-none">
                 <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-t-accent/10 blur-[80px] rounded-full" />
              </div>
 
              <div className="w-full relative z-10 flex items-center gap-4 md:gap-8">
-                {/* Prev Arrow */}
                 <button 
                   onClick={() => cycleRepo('prev')} 
                   className="hidden md:flex w-10 h-10 rounded-full border border-t-border bg-t-bg-el/50 items-center justify-center hover:bg-t-accent hover:text-t-bg transition-all"
-                  aria-label="Previous repo"
                 >
                    <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
                 </button>
 
-                {/* Repo Content */}
                 <div className="flex-1 overflow-hidden">
                    <AnimatePresence mode="wait">
                      <motion.div
@@ -335,7 +316,7 @@ const GitHubStats: React.FC = () => {
                      >
                         <div className="flex flex-wrap items-center gap-3">
                            <span className="px-2 py-1 rounded text-[8px] font-black uppercase bg-t-accent/10 text-t-accent border border-t-accent/20">
-                             Focus Repo: {currentRepo.tagline}
+                             Featured Project: {currentRepo.tagline}
                            </span>
                            <span className="text-[8px] font-bold uppercase text-t-fg-m tracking-widest">
                              {currentRepo.tech}
@@ -375,24 +356,16 @@ const GitHubStats: React.FC = () => {
                    </AnimatePresence>
                 </div>
 
-                {/* Next Arrow */}
                 <button 
                   onClick={() => cycleRepo('next')} 
                   className="hidden md:flex w-10 h-10 rounded-full border border-t-border bg-t-bg-el/50 items-center justify-center hover:bg-t-accent hover:text-t-bg transition-all"
-                  aria-label="Next repo"
                 >
                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
                 </button>
              </div>
-             
-             {/* Mobile Nav */}
-             <div className="absolute bottom-4 right-4 md:hidden flex gap-2">
-                <button onClick={() => cycleRepo('prev')} className="p-2 bg-t-bg-el border border-t-border rounded-full"><svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg></button>
-                <button onClick={() => cycleRepo('next')} className="p-2 bg-t-bg-el border border-t-border rounded-full"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg></button>
-             </div>
           </div>
 
-          {/* 4) TIMELINE CHIPS ROW – Commit Years */}
+          {/* TIMELINE ROW */}
           <div className="px-6 py-8 border-y border-t-border/50 bg-t-bg-el/30 flex flex-col items-center gap-6">
              <div className="flex flex-wrap justify-center gap-3">
                 {loading ? (
@@ -418,7 +391,6 @@ const GitHubStats: React.FC = () => {
                 )}
              </div>
              
-             {/* Dynamic Context Text */}
              <AnimatePresence mode="wait">
                <motion.div 
                  key={selectedYear}
@@ -428,37 +400,37 @@ const GitHubStats: React.FC = () => {
                  className="text-center max-w-3xl px-4"
                >
                   <p className="text-[10px] md:text-xs font-bold text-t-fg-m uppercase tracking-[0.15em] leading-relaxed">
-                    {YEAR_NARRATIVES[selectedYear] || "Archived data for this period."}
+                    {YEAR_NARRATIVES[selectedYear] || "View activity for this year."}
                   </p>
                </motion.div>
              </AnimatePresence>
           </div>
 
-          {/* 5) CTA ROW – Actions */}
+          {/* CTA ROW */}
           <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-t-border/50">
              <button 
                 onClick={() => window.open(`https://github.com/${username}`, '_blank')}
-                className="group relative p-6 hover:bg-t-bg-el/60 transition-colors flex flex-col items-center justify-center gap-2 outline-none focus-visible:bg-t-bg-el/60"
+                className="group relative p-6 hover:bg-t-bg-el/60 transition-colors flex flex-col items-center justify-center gap-2"
              >
                 <div className="transform group-hover:scale-105 transition-transform duration-300 flex items-center gap-3">
-                  <span className="text-lg font-black font-display text-t-fg uppercase">View GitHub Profile</span>
+                  <span className="text-lg font-black font-display text-t-fg uppercase">Open Source Profile</span>
                   <svg className="w-5 h-5 text-t-fg group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7-7 7M5 12h16" /></svg>
                 </div>
-                <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-t-fg-m opacity-50 group-hover:opacity-100 transition-opacity">
-                  Full Source Access
+                <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-t-fg-m opacity-50">
+                  Full Project List
                 </span>
              </button>
 
              <button 
                 onClick={() => window.open(`https://github.com/${username}?tab=repositories`, '_blank')}
-                className="group relative p-6 hover:bg-t-bg-el/60 transition-colors flex flex-col items-center justify-center gap-2 outline-none focus-visible:bg-t-bg-el/60"
+                className="group relative p-6 hover:bg-t-bg-el/60 transition-colors flex flex-col items-center justify-center gap-2"
              >
                 <div className="transform group-hover:scale-105 transition-transform duration-300 flex items-center gap-3">
-                  <span className="text-lg font-black font-display text-t-fg uppercase">Open Activity Graph</span>
+                  <span className="text-lg font-black font-display text-t-fg uppercase">Activity Dashboard</span>
                   <svg className="w-5 h-5 text-t-fg group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7-7 7M5 12h16" /></svg>
                 </div>
-                <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-t-fg-m opacity-50 group-hover:opacity-100 transition-opacity">
-                  Visual Data Analysis
+                <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-t-fg-m opacity-50">
+                  Detailed contribution stats
                 </span>
              </button>
           </div>

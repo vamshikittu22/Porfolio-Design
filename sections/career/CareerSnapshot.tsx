@@ -79,7 +79,6 @@ const CareerSnapshot: React.FC = () => {
     };
 
     container.addEventListener('scroll', handleInternalScroll);
-    // Initial check
     handleInternalScroll();
     
     return () => container.removeEventListener('scroll', handleInternalScroll);
@@ -92,23 +91,23 @@ const CareerSnapshot: React.FC = () => {
       <ScrollReveal>
         <GlassCard className="p-8 lg:p-12 overflow-hidden bg-t-bg-el/60 border-t-accent/10" accent="theme">
           
-          {/* 1) HEADER AREA - STAT BOXES (UNCHANGED) */}
+          {/* 1) HEADER AREA */}
           <div className="flex flex-col gap-8 mb-12">
             <div>
               <h2 className="text-4xl lg:text-6xl font-black font-display text-t-fg uppercase tracking-tighter leading-none mb-3">
-                Career <br /> <span className="text-t-accent">Snapshot.</span>
+                Work & <br /> <span className="text-t-accent">Education.</span>
               </h2>
               <p className="text-[9px] font-black uppercase tracking-[0.5em] text-t-fg-m opacity-50">
-                Professional journey at a glance
+                A timeline of my professional experience
               </p>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
-                { val: "5+", label: "Years", accent: "purple" },
-                { val: "3", label: "Roles", accent: "orange" },
+                { val: "5+", label: "Years Exp", accent: "purple" },
+                { val: "3", label: "Companies", accent: "orange" },
                 { val: "2", label: "Degrees", accent: "indigo" },
-                { val: "10+", label: "Tech", accent: "emerald" }
+                { val: "10+", label: "Tech Stack", accent: "emerald" }
               ].map((stat, i) => (
                 <GlassCard key={i} className="p-4 flex flex-col items-center justify-center text-center transition-transform hover:-translate-y-1" accent={stat.accent as any}>
                   <span className="text-2xl font-black text-t-accent mb-0.5">{stat.val}</span>
@@ -118,10 +117,10 @@ const CareerSnapshot: React.FC = () => {
             </div>
           </div>
 
-          {/* 2) CONSTRAINED VIEWPORT AREA */}
+          {/* 2) VIEWPORT AREA */}
           <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-8 items-stretch h-[500px] lg:h-[600px] overflow-hidden border-t border-t-border/20 pt-8">
             
-            {/* LEFT COLUMN: STICKY YEAR & PILL */}
+            {/* LEFT COLUMN: STICKY YEAR */}
             <div className="flex flex-col items-center justify-center text-center relative z-20">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -141,23 +140,21 @@ const CareerSnapshot: React.FC = () => {
                       ? 'bg-purple-500/10 text-purple-500 border-purple-500/30' 
                       : 'bg-indigo-500/10 text-indigo-500 border-indigo-500/30'}
                   `}>
-                    {activeItem.type === 'work' ? 'Professional' : 'Education'}
+                    {activeItem.type === 'work' ? 'Experience' : 'Academic'}
                   </div>
                 </motion.div>
               </AnimatePresence>
               
-              {/* Decorative timeline segment */}
               <div className="absolute left-1/2 -translate-x-1/2 bottom-0 h-12 w-px bg-gradient-to-t from-t-accent/40 to-transparent" />
               <div className="absolute left-1/2 -translate-x-1/2 top-0 h-12 w-px bg-gradient-to-b from-t-accent/40 to-transparent" />
             </div>
 
-            {/* RIGHT COLUMN: INTERNAL SCROLLABLE LIST */}
+            {/* RIGHT COLUMN: SCROLLABLE LIST */}
             <div 
               ref={scrollContainerRef}
               className="w-full overflow-y-auto pr-4 scrollbar-hide space-y-8 snap-y snap-mandatory"
               style={{ scrollBehavior: 'smooth' }}
             >
-              {/* Padding top and bottom for center alignment */}
               <div className="h-[200px] flex-shrink-0" />
               
               {combinedData.map((item, idx) => {
@@ -213,16 +210,6 @@ const CareerSnapshot: React.FC = () => {
                               </li>
                             ))}
                           </ul>
-
-                          {item.type === 'work' && (
-                             <div className="flex flex-wrap gap-1.5 mt-2 pt-4 border-t border-t-border/10">
-                               {['React', '.NET', 'SQL', 'Azure', 'C#'].map(tag => (
-                                 <span key={tag} className="px-2 py-0.5 rounded-md bg-white/5 text-[8px] font-black text-t-fg-m uppercase tracking-widest border border-t-border/20">
-                                   {tag}
-                                 </span>
-                               ))}
-                             </div>
-                          )}
                         </div>
                       </GlassCard>
                     </motion.div>
@@ -234,7 +221,6 @@ const CareerSnapshot: React.FC = () => {
             </div>
           </div>
 
-          {/* BACKGROUND DECORATIVE GLOWS */}
           <div className="absolute top-1/2 left-0 w-48 h-48 bg-t-accent/5 blur-[100px] rounded-full pointer-events-none" />
         </GlassCard>
       </ScrollReveal>
