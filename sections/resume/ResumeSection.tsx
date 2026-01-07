@@ -1,51 +1,22 @@
-import React, { useState } from 'react';
+
+import React from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
-import { GlassButton } from '../../components/ui/GlassUI';
-import { FULL_NAME, EDUCATION, EXPERIENCE, AWARDS } from '../../config/constants';
-import TimelineNode from './TimelineNode';
-import SkillProgress from './SkillProgress';
+import { GlassButton, GlassCard } from '../../components/ui/GlassUI';
+import { 
+  FULL_NAME, 
+  EMAIL, 
+  PHONE, 
+  EDUCATION, 
+  EXPERIENCE, 
+  PERSONAL_PROJECTS, 
+  SKILLS_RESUME, 
+  AWARDS 
+} from '../../config/constants';
 
 const ResumeSection: React.FC = () => {
-  const [expandedIds, setExpandedIds] = useState<string[]>(['exp-0']);
-  const [expandedAwards, setExpandedAwards] = useState<number[]>([]);
-
-  const toggleId = (id: string) => {
-    setExpandedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+  const handleDownload = () => {
+    window.print();
   };
-
-  const toggleAward = (index: number) => {
-    setExpandedAwards(prev => prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]);
-  };
-
-  const skillProficiency = [
-    {
-      category: 'Languages',
-      items: [
-        { name: 'C# / .NET', p: 95 },
-        { name: 'JavaScript / TS', p: 92 },
-        { name: 'Python', p: 85 },
-        { name: 'PHP', p: 88 },
-        { name: 'SQL', p: 90 },
-      ]
-    },
-    {
-      category: 'Frameworks',
-      items: [
-        { name: 'React', p: 95 },
-        { name: 'Node.js', p: 88 },
-        { name: 'ASP.NET Core', p: 92 },
-        { name: 'Tailwind CSS', p: 90 },
-      ]
-    },
-    {
-      category: 'Cloud & DB',
-      items: [
-        { name: 'Azure / Cloud', p: 82 },
-        { name: 'PostgreSQL', p: 85 },
-        { name: 'MySQL', p: 88 },
-      ]
-    }
-  ];
 
   const scrollToContact = () => {
     const el = document.getElementById('contact-section');
@@ -53,144 +24,200 @@ const ResumeSection: React.FC = () => {
   };
 
   return (
-    <section id="resume-section" className="mb-[20rem] scroll-mt-32 print:block print:m-0 print:p-0">
-      <ScrollReveal className="max-w-[1440px] mx-auto px-6 lg:px-20 mb-12">
-        <div className="relative aspect-[21/9] rounded-[40px] border border-white/40 bg-white/30 dark:bg-white/5 backdrop-blur-3xl overflow-hidden p-10 lg:p-14 flex flex-col justify-end shadow-sm group">
-            <div className="absolute top-10 right-10 flex gap-4 print:hidden">
-              <GlassButton accent="secondary" className="!px-6 !py-3 !text-[8px]" onClick={scrollToContact}>
-                Contact Me
-              </GlassButton>
-              <GlassButton primary accent="secondary" className="!px-6 !py-3 !text-[8px]" onClick={() => window.print()}>
-                Download
-              </GlassButton>
-            </div>
-            
-            <div className="space-y-3">
-              <p className="text-[9px] font-black uppercase tracking-[1em] text-t-accent opacity-80">Professional Credentials</p>
-              <h2 className="text-7xl lg:text-[9rem] font-black font-display text-t-fg uppercase tracking-tighter leading-none">Resume.</h2>
-              <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8 border-t border-t-border/50 pt-4 max-w-4xl">
-                <p className="text-[10px] lg:text-sm font-bold text-t-accent-2 uppercase tracking-[0.3em] opacity-80">
-                  Full‑stack Software Engineer · C# / .NET · React · AI‑driven systems
+    <section id="resume-section" className="mb-[15rem] lg:mb-[20rem] scroll-mt-32">
+      <ScrollReveal className="max-w-7xl mx-auto px-6 lg:px-20">
+        <GlassCard 
+          className="max-w-4xl lg:max-w-5xl mx-auto px-6 lg:px-16 py-10 lg:py-20 rounded-[32px] bg-t-bg-el/80 border border-t-border shadow-2xl print:shadow-none print:border-0 print:bg-white print:max-w-none print:px-0 print:py-0 print:text-black"
+          accent="theme"
+        >
+          {/* Official Document Style Print Overrides */}
+          <style>{`
+            @media print {
+              body * { visibility: hidden; }
+              #resume-section, #resume-section * { visibility: visible; }
+              #resume-section { position: absolute; left: 0; top: 0; width: 100%; }
+              .print-only-resume { font-family: 'Times New Roman', Times, serif !important; color: black !important; }
+              .section-line { border-bottom: 1.5px solid black !important; margin-bottom: 8px !important; }
+              .resume-bullet { list-style-type: none !important; }
+              .resume-bullet li::before { content: "– "; font-weight: bold; }
+            }
+          `}</style>
+
+          <div className="print-only-resume">
+            {/* Header: Name and Contact Info */}
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-t-border pb-10 print:border-black print:mb-6">
+              <div className="space-y-4 print:space-y-1">
+                <h2 className="text-4xl lg:text-6xl font-black font-display tracking-tight text-t-fg print:text-3xl print:font-bold">
+                  {FULL_NAME}
+                </h2>
+                <div className="hidden print:block text-sm">
+                   Master of Science<br/>
+                   University of Central Missouri
+                </div>
+              </div>
+              
+              <div className="mt-6 md:mt-0 text-right space-y-1 text-xs lg:text-sm font-bold text-t-fg-m print:text-black print:font-normal print:text-[11px] print:mt-0">
+                <p className="flex items-center md:justify-end gap-2">
+                  <span>{PHONE}</span>
+                  <svg className="w-3.5 h-3.5 opacity-50 print:hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                 </p>
-              </div>
-            </div>
-        </div>
-      </ScrollReveal>
-
-      <ScrollReveal className="max-w-[1440px] mx-auto px-6 lg:px-20">
-        <div className="grid lg:grid-cols-[1fr_2.5fr] gap-12 lg:gap-20 min-h-[600px] print:grid-cols-1">
-          <aside className="space-y-16 sticky top-32 h-fit print:relative print:top-0">
-            <div className="space-y-12">
-              <div className="space-y-4">
-                <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">Identity.</h3>
-                <div className="space-y-1">
-                  <h4 className="text-3xl font-black text-t-fg uppercase tracking-tighter leading-none">{FULL_NAME}</h4>
-                  <p className="text-[10px] font-bold text-t-accent-2 uppercase tracking-[0.2em]">Engineer / Developer</p>
+                <p className="flex items-center md:justify-end gap-2">
+                  <span>{EMAIL}</span>
+                  <svg className="w-3.5 h-3.5 opacity-50 print:hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </p>
+                <p className="print:block">GitHub Profile</p>
+                <p className="print:block">LinkedIn Profile</p>
+                <div className="pt-4 print:hidden">
+                  <GlassButton 
+                    primary 
+                    accent="theme" 
+                    className="!px-6 !py-3 !text-[10px] !bg-t-accent !text-black !rounded-full"
+                    onClick={handleDownload}
+                  >
+                    Download PDF
+                  </GlassButton>
                 </div>
               </div>
+            </header>
 
-              <div className="space-y-12 pt-12 border-t border-t-border">
-                <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">Technical Proficiency.</h3>
-                <div className="space-y-10">
-                   {skillProficiency.map((cat, idx) => (
-                     <div key={idx} className="space-y-4">
-                        <p className="text-[9px] font-black text-t-accent uppercase tracking-[0.3em] opacity-60">{cat.category}</p>
-                        <div className="space-y-1">
-                          {cat.items.map(s => <SkillProgress key={s.name} label={s.name} percentage={s.p} />)}
-                        </div>
-                     </div>
-                   ))}
-                </div>
-              </div>
-
-              <div className="space-y-10 pt-12 border-t border-t-border">
-                <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">Recognition.</h3>
-                <div className="space-y-4">
-                  {AWARDS.map((award, idx) => {
-                    const isExpanded = expandedAwards.includes(idx);
-                    return (
-                      <div 
-                        key={idx} 
-                        onClick={() => toggleAward(idx)}
-                        className={`group/award relative p-6 border rounded-2xl transition-all duration-500 cursor-pointer overflow-hidden 
-                          ${isExpanded ? 'border-t-accent-2 bg-t-accent-2-s/20 shadow-sm' : 'border-t-accent-2/30 bg-t-bg-el/20 hover:border-t-accent-2 hover:bg-t-accent-2-s/10'}`}
-                      >
-                        <div className="flex justify-between items-start">
-                          <div className="space-y-1.5 flex-1">
-                            <p className="text-[8px] font-black text-t-accent uppercase tracking-widest">{award.period}</p>
-                            <h4 className={`text-lg font-black text-t-fg leading-tight uppercase tracking-tight transition-colors duration-300 
-                              ${isExpanded ? 'text-t-accent/60' : 'group-hover/award:text-t-accent'}`}>
-                              {award.title}
-                            </h4>
-                            <p className="text-[9px] font-bold text-t-accent-2 uppercase tracking-widest opacity-80">{award.subtitle}</p>
-                          </div>
-                          <div className={`mt-1 transition-transform duration-500 ${isExpanded ? 'rotate-180 text-t-accent' : 'text-t-fg opacity-20 group-hover/award:opacity-100'}`}>
-                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" /></svg>
-                          </div>
-                        </div>
-                        
-                        <div className={`transition-all duration-700 overflow-hidden ${isExpanded ? 'max-h-40 opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
-                          <p className="text-xs font-medium text-t-fg-m leading-relaxed border-t border-t-accent-2/10 pt-4">
-                            {award.description[0]}
-                          </p>
-                        </div>
+            <div className="space-y-10 print:space-y-4">
+              {/* EDUCATION */}
+              <section>
+                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:text-sm print:font-bold print:tracking-normal print:mb-1">
+                  Education
+                </h3>
+                <div className="print:section-line border-b border-t-border mb-6" />
+                <div className="space-y-6 print:space-y-2">
+                  {EDUCATION.map((edu, idx) => (
+                    <div key={idx} className="flex flex-col gap-1">
+                      <div className="flex justify-between items-baseline">
+                        <h4 className="text-base font-black text-t-fg print:text-[12px] print:font-bold">• {edu.title}</h4>
+                        <span className="text-[10px] font-bold text-t-accent print:text-[11px] print:text-black italic">{edu.period}</span>
                       </div>
-                    );
-                  })}
+                      <p className="text-sm italic text-t-fg-m print:text-[11px] print:text-black">{edu.subtitle}</p>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            </div>
-          </aside>
+              </section>
 
-          <main className="space-y-20">
-            <div className="space-y-8 border-b border-t-border pb-12">
-               <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">01 // Profile Summary.</h3>
-               <p className="text-xl lg:text-2xl font-medium text-t-fg leading-relaxed italic max-w-3xl">
-                 "Architecting robust enterprise solutions with a focus on scalable design and intelligent automation. Committed to high-integrity engineering across the C# and React ecosystems."
-               </p>
-            </div>
+              {/* EXPERIENCE */}
+              <section>
+                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:text-sm print:font-bold print:tracking-normal print:mb-1">
+                  Experience
+                </h3>
+                <div className="print:section-line border-b border-t-border mb-6" />
+                <div className="space-y-8 print:space-y-4">
+                  {EXPERIENCE.map((exp, idx) => (
+                    <div key={idx} className="space-y-3 print:space-y-0.5">
+                      <div className="flex justify-between items-baseline">
+                        <h4 className="text-base font-black text-t-fg print:text-[12px] print:font-bold">• {exp.subtitle}</h4>
+                        <span className="text-[10px] font-bold text-t-accent print:text-[11px] print:text-black italic">{exp.location}</span>
+                      </div>
+                      <div className="flex justify-between items-baseline">
+                        <p className="text-sm italic text-t-fg-m print:text-[11px] print:text-black">{exp.title}</p>
+                        <span className="text-[10px] font-medium opacity-60 print:text-[11px] print:text-black print:opacity-100">{exp.period}</span>
+                      </div>
+                      <ul className="mt-3 space-y-2 list-none print:mt-1 print:space-y-0.5 resume-bullet">
+                        {exp.description.map((bullet, bIdx) => (
+                          <li key={bIdx} className="text-sm text-t-fg leading-relaxed flex items-start gap-3 print:text-[11px] print:leading-tight">
+                            <span className="w-1.5 h-1.5 rounded-full bg-t-accent mt-2 flex-shrink-0 print:hidden" />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
-            <div className="space-y-10">
-              <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">02 // Professional Experience.</h3>
-              <div className="space-y-4">
-                {EXPERIENCE.map((exp, idx) => (
-                  <TimelineNode 
-                    key={`exp-${idx}`} 
-                    item={exp} 
-                    index={idx} 
-                    type="exp"
-                    isExpanded={expandedIds.includes(`exp-${idx}`)} 
-                    onToggle={() => toggleId(`exp-${idx}`)} 
-                  />
-                ))}
-              </div>
-            </div>
+              {/* PERSONAL PROJECTS */}
+              <section>
+                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:text-sm print:font-bold print:tracking-normal print:mb-1">
+                  Personal Projects
+                </h3>
+                <div className="print:section-line border-b border-t-border mb-6" />
+                <div className="space-y-8 print:space-y-4">
+                  {PERSONAL_PROJECTS.map((proj, idx) => (
+                    <div key={idx} className="space-y-2 print:space-y-0.5">
+                      <div className="flex justify-between items-baseline">
+                        <h4 className="text-base font-black text-t-fg print:text-[12px] print:font-bold">• {proj.title}</h4>
+                        <span className="text-[10px] font-bold text-t-accent print:text-[11px] print:text-black italic">{proj.period}</span>
+                      </div>
+                      <p className="text-sm italic text-t-fg-m print:text-[11px] print:text-black">{proj.subtitle}</p>
+                      <ul className="mt-2 space-y-2 list-none print:mt-1 print:space-y-0.5 resume-bullet">
+                        {proj.description.map((bullet, bIdx) => (
+                          <li key={bIdx} className="text-sm text-t-fg leading-relaxed flex items-start gap-3 print:text-[11px] print:leading-tight">
+                            <span className="w-1.5 h-1.5 rounded-full bg-t-accent mt-2 flex-shrink-0 print:hidden" />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
-            <div className="space-y-10">
-              <h3 className="text-t-fg-m font-black text-[10px] uppercase tracking-[1em]">03 // Academic Credentials.</h3>
-              <div className="space-y-4">
-                {EDUCATION.map((edu, idx) => (
-                  <TimelineNode 
-                    key={`edu-${idx}`} 
-                    item={edu} 
-                    index={idx} 
-                    type="edu"
-                    isExpanded={expandedIds.includes(`edu-${idx}`)} 
-                    onToggle={() => toggleId(`edu-${idx}`)} 
-                  />
-                ))}
-              </div>
-            </div>
+              {/* TECHNICAL SKILLS AND INTERESTS */}
+              <section className="print:break-before-page">
+                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:text-sm print:font-bold print:tracking-normal print:mb-1">
+                  Technical Skills and Interests
+                </h3>
+                <div className="print:section-line border-b border-t-border mb-6" />
+                <div className="space-y-3 print:space-y-0.5 text-sm print:text-[11px]">
+                  <p><span className="font-bold">Languages:</span> {SKILLS_RESUME.languages.join(', ')}.</p>
+                  <p><span className="font-bold">Frameworks:</span> {SKILLS_RESUME.frameworks.join(', ')}.</p>
+                  <p><span className="font-bold">Cloud/Databases:</span> {SKILLS_RESUME.cloud_db.join(', ')}.</p>
+                  <p><span className="font-bold">Development Tools / Environment:</span> {SKILLS_RESUME.tools.join(', ')}.</p>
+                  <p><span className="font-bold">Relevant Coursework:</span> {SKILLS_RESUME.coursework.join(', ')}.</p>
+                  <p><span className="font-bold">Areas of Interest:</span> {SKILLS_RESUME.interests.join(', ')}.</p>
+                  <p><span className="font-bold">Soft Skills:</span> {SKILLS_RESUME.soft_skills.join(', ')}.</p>
+                </div>
+              </section>
 
-            <div className="pt-12 border-t border-t-border flex justify-between items-center opacity-40">
-               <div className="flex gap-4">
-                 <div className="w-1.5 h-1.5 rounded-full bg-t-accent" />
-                 <p className="text-[8px] font-black text-t-fg uppercase tracking-widest">Digital Ledger Node v2.5</p>
-               </div>
-               <span className="text-[8px] font-black uppercase tracking-[0.5em] text-t-fg italic">Synchronized Professional Data</span>
+              {/* AWARDS & CERTIFICATIONS */}
+              <section>
+                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:text-sm print:font-bold print:tracking-normal print:mb-1">
+                  Awards & Certifications
+                </h3>
+                <div className="print:section-line border-b border-t-border mb-6" />
+                <div className="space-y-3 print:space-y-1">
+                  {AWARDS.map((award, idx) => (
+                    <div key={idx} className="flex justify-between items-baseline text-sm print:text-[11px]">
+                      <p>• <span className="font-bold">{award.title}</span> {award.subtitle}</p>
+                      <span className="text-[10px] italic print:text-[11px]">{award.period}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Bottom Footer Area */}
+              <footer className="pt-12 border-t border-t-border print:hidden">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
+                  <p className="text-xs font-bold text-t-fg-m uppercase tracking-widest opacity-60">
+                    Official Professional Record // 2025 Synchronized Data
+                  </p>
+                  <div className="flex gap-4">
+                    <GlassButton 
+                      accent="theme" 
+                      className="!px-8 !py-3 !text-[10px] !rounded-full"
+                      onClick={handleDownload}
+                    >
+                      Download PDF
+                    </GlassButton>
+                    <GlassButton 
+                      primary 
+                      accent="secondary" 
+                      className="!px-8 !py-3 !text-[10px] !bg-t-accent-2 !text-black !border-none !rounded-full"
+                      onClick={scrollToContact}
+                    >
+                      Contact Me →
+                    </GlassButton>
+                  </div>
+                </div>
+              </footer>
             </div>
-          </main>
-        </div>
+          </div>
+        </GlassCard>
       </ScrollReveal>
     </section>
   );

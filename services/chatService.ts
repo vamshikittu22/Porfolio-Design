@@ -35,10 +35,11 @@ export class ChatService {
       Highlights: ${e.description.join('; ')}
     `).join('\n');
 
-    const languages = SKILLS_RESUME.languages.map(s => s.name).join(', ');
-    const frameworks = SKILLS_RESUME.frameworks.map(s => s.name).join(', ');
-    const cloud = SKILLS_RESUME.cloud_db.map(s => s.name).join(', ');
-    const tools = SKILLS_RESUME.tools.map(s => s.name).join(', ');
+    // Fix: skill arrays contain strings, not objects with a .name property
+    const languages = SKILLS_RESUME.languages.join(', ');
+    const frameworks = SKILLS_RESUME.frameworks.join(', ');
+    const cloud = SKILLS_RESUME.cloud_db.join(', ');
+    const tools = SKILLS_RESUME.tools.join(', ');
 
     return `
       You are an AI assistant embedded in ${FULL_NAME}'s developer portfolio.

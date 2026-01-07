@@ -63,11 +63,18 @@ export const AboutSection: React.FC = () => {
 
   // Prepare Floating Bubble Data
   const bubbleData = useMemo(() => {
+    // Helper to resolve icon URLs for string-based skill identifiers
+    const getIconUrl = (name: string) => {
+      const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+      return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${slug}/${slug}-original.svg`;
+    };
+
+    // Fix: create structured objects from strings instead of spreading them (which caused spread type errors)
     const items = [
-      ...SKILLS_RESUME.languages.map(s => ({ ...s, cat: 'Languages' })),
-      ...SKILLS_RESUME.frameworks.map(s => ({ ...s, cat: 'Frameworks' })),
-      ...SKILLS_RESUME.cloud_db.map(s => ({ ...s, cat: 'Cloud' })),
-      ...SKILLS_RESUME.tools.map(s => ({ ...s, cat: 'AI' })),
+      ...SKILLS_RESUME.languages.map(s => ({ name: s, cat: 'Languages', icon: getIconUrl(s) })),
+      ...SKILLS_RESUME.frameworks.map(s => ({ name: s, cat: 'Frameworks', icon: getIconUrl(s) })),
+      ...SKILLS_RESUME.cloud_db.map(s => ({ name: s, cat: 'Cloud', icon: getIconUrl(s) })),
+      ...SKILLS_RESUME.tools.map(s => ({ name: s, cat: 'AI', icon: getIconUrl(s) })),
     ];
 
     // Shuffle for layout variety
