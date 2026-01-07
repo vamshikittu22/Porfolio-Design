@@ -1,12 +1,9 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 
-/**
- * GeminiService handles interactions with Google's GenAI models.
- * Optimized for Free Tier stability using persistent caching and strict global throttling.
- */
 export class GeminiService {
   private static instance: GeminiService;
-  private cachePrefix = "gemini_v6_";
+  private cachePrefix = "gemini_v7_";
   private lastRequestTime = 0;
   private minRequestInterval = 8000; 
   
@@ -88,28 +85,12 @@ export class GeminiService {
     }
   }
 
-  private setCachedImage(key: string, value: string) {
-    try {
-      localStorage.setItem(this.getCacheKey(key), value);
-    } catch (e) {
-      Object.keys(localStorage).forEach(k => {
-        if (k.startsWith(this.cachePrefix)) localStorage.removeItem(k);
-      });
-      try {
-        localStorage.setItem(this.getCacheKey(key), value);
-      } catch {}
-    }
-  }
-
   private handleError(error: any): never {
-    const status = error?.status || error?.error?.code;
     const message = error?.message || "";
-
-    if (status === 429 || message.includes("429") || message.includes("quota") || message.includes("RESOURCE_EXHAUSTED")) {
+    if (message.includes("429") || message.includes("quota") || message.includes("RESOURCE_EXHAUSTED")) {
       this.setQuotaLock(120000); 
       throw new Error("QUOTA_EXCEEDED: API limit reached. Cooling down system.");
     }
-    
     throw new Error(message || "Service connection error.");
   }
 
@@ -152,7 +133,7 @@ export class GeminiService {
       }
 
       if (result) {
-        this.setCachedImage(cacheKey, result);
+        localStorage.setItem(this.getCacheKey(cacheKey), result);
         return result;
       }
       
@@ -162,18 +143,23 @@ export class GeminiService {
     }
   }
 
-  async generateVideo(prompt: string, imageBase64?: string): Promise<string> {
-    // @ts-ignore
-    if (window.aistudio && !(await window.aistudio.hasSelectedApiKey())) {
-      // @ts-ignore
-      await window.aistudio.openSelectKey();
+  // Fix: Added generateVideo implementation to satisfy AIPlayground requirements
+  async generateVideo(prompt: string, baseImageBase64?: string): Promise<string> {
+    await this.throttle();
+    
+    // Check for API key selection for Veo models as per mandatory requirements
+    if (typeof window !== 'undefined' && (window as any).aistudio) {
+      const hasKey = await (window as any).aistudio.hasSelectedApiKey();
+      if (!hasKey) {
+        await (window as any).aistudio.openSelectKey();
+      }
     }
 
-    await this.throttle();
-
     try {
+      // Create a new instance right before making an API call to ensure latest key is used
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      const params: any = {
+      
+      const payload: any = {
         model: 'veo-3.1-fast-generate-preview',
         prompt: prompt,
         config: {
@@ -183,31 +169,39 @@ export class GeminiService {
         }
       };
 
-      if (imageBase64) {
-        params.image = {
-          imageBytes: imageBase64.split(',')[1] || imageBase64,
-          mimeType: 'image/png'
+      if (baseImageBase64) {
+        payload.image = {
+          imageBytes: baseImageBase64.split(',')[1] || baseImageBase64,
+          mimeType: 'image/png',
         };
       }
 
-      let operation = await ai.models.generateVideos(params);
+      let operation = await ai.models.generateVideos(payload);
+
+      // Long-running operation polling
       while (!operation.done) {
         await new Promise(resolve => setTimeout(resolve, 10000));
-        const pollAi = new GoogleGenAI({ apiKey: process.env.API_KEY });
-        operation = await pollAi.operations.getVideosOperation({ operation: operation });
+        operation = await ai.operations.getVideosOperation({ operation: operation });
       }
+
       const downloadLink = operation.response?.generatedVideos?.[0]?.video?.uri;
-      if (!downloadLink) throw new Error("Video synthesis failed.");
+      if (!downloadLink) throw new Error("Video generation failed: Link unavailable.");
+
+      // Fetch from download link appending the API key
       const response = await fetch(`${downloadLink}&key=${process.env.API_KEY}`);
-      if (!response.ok) throw new Error(`Stream interrupted: ${response.statusText}`);
+      if (!response.ok) {
+        const errorText = await response.text();
+        if (errorText.includes("Requested entity was not found.")) {
+           if (typeof window !== 'undefined' && (window as any).aistudio) {
+             await (window as any).aistudio.openSelectKey();
+           }
+        }
+        throw new Error("Failed to fetch generated video media.");
+      }
+
       const blob = await response.blob();
       return URL.createObjectURL(blob);
-    } catch (error: any) {
-      // @ts-ignore
-      if (error.message?.includes("Requested entity was not found.") && window.aistudio) {
-        // @ts-ignore
-        await window.aistudio.openSelectKey();
-      }
+    } catch (error) {
       this.handleError(error);
     }
   }
@@ -228,8 +222,7 @@ export class GeminiService {
             type: Type.OBJECT,
             properties: {
               recommendedIndex: { type: Type.INTEGER },
-              reason: { type: Type.STRING },
-              priority: { type: Type.STRING }
+              reason: { type: Type.STRING }
             },
             required: ["recommendedIndex", "reason"],
           }
@@ -251,10 +244,7 @@ export class GeminiService {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: "Write a 15-word professional, clear, and welcoming greeting for a software engineer's portfolio contact section. Theme: Professionalism, collaboration, and technical excellence. Do not use robotic jargon like 'neural handshake' or 'uplink'.",
-        config: {
-          thinkingConfig: { thinkingBudget: 0 }
-        }
+        contents: "Write a 15-word professional, welcoming greeting for a software engineer's portfolio. Focus on collaboration and engineering excellence. No jargon.",
       });
 
       const result = response.text || "Connection established. Open for professional collaboration and engineering opportunities.";

@@ -34,7 +34,17 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const sections = ['about-section', 'career-snapshot-section', 'projects-section', 'github-section', 'resume-section', 'game-section', 'travel-section', 'contact-section'];
+    const sections = [
+      'hero-section',
+      'about-section', 
+      'career-snapshot-section', 
+      'projects-section', 
+      'github-section', 
+      'resume-section', 
+      'game-section', 
+      'travel-section', 
+      'contact-section'
+    ];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -55,8 +65,13 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (isDarkMode) { document.documentElement.classList.add('dark'); localStorage.setItem('theme', 'dark'); }
-    else { document.documentElement.classList.remove('dark'); localStorage.setItem('theme', 'light'); }
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   }, [isDarkMode]);
 
   const generateHero = async () => {
@@ -66,17 +81,19 @@ const App: React.FC = () => {
     try {
       const prompt = isDarkMode 
         ? "Hyper-clean architectural workspace, deep navy midnight atmosphere, electric aqua mint accents, high-end Swiss minimalist design."
-        : "Hyper-clean architectural workspace, vibrant clear sky daylight, airy cloud atmosphere, soft azure and sunny gold tones, high-end Swiss minimalist design.";
+        : "Hyper-clean architectural workspace, dreamy daylight atmosphere, soft lilac and pale grey tones, high-end Swiss minimalist design.";
       const img = await gemini.generateImage(prompt);
       setHeroImage(img);
     } catch (err) {
-      console.warn("Hero image generation paused.");
+      console.warn("Hero image generation paused or failed.");
     } finally {
       setHeroLoading(false);
     }
   };
 
-  useEffect(() => { generateHero(); }, []);
+  useEffect(() => {
+    generateHero();
+  }, [isDarkMode]);
 
   const scrollToSection = (id: string) => { 
     const element = document.getElementById(id); 
@@ -89,11 +106,8 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen relative selection:bg-t-accent selection:text-t-bg bg-t-bg transition-colors duration-500 overflow-x-hidden">
-      <div className="fixed inset-0 pointer-events-none z-[-1] opacity-20 dark:opacity-20 print:hidden">
-        <div className="absolute top-[-10%] right-[-10%] w-[70%] h-[70%] bg-t-accent-s/50 blur-[200px] rounded-full" />
-        {!isDarkMode && (
-          <div className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-t-accent-2-s/60 blur-[250px] rounded-full" />
-        )}
+      <div className="fixed inset-0 pointer-events-none z-[-1] opacity-15 dark:opacity-20 print:hidden">
+        <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-t-accent-s/40 blur-[200px] rounded-full" />
       </div>
 
       <HeaderNav 
@@ -107,14 +121,17 @@ const App: React.FC = () => {
 
       <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60 print:p-0">
         <HeroSection image={activeHeroImage} loading={heroLoading} onScroll={scrollToSection} />
-        <AboutSection />
-        <CareerSnapshot />
-        <ProjectsSection />
-        <GithubSection />
-        <ResumeSection />
-        <GameSection />
-        <TravelSection />
-        <ContactSection />
+        
+        <div className="space-y-[30rem] lg:space-y-[40rem]">
+          <AboutSection />
+          <CareerSnapshot />
+          <ProjectsSection />
+          <GithubSection />
+          <ResumeSection />
+          <GameSection />
+          <TravelSection />
+          <ContactSection />
+        </div>
       </main>
 
       <FooterBar onScrollToTop={handleScrollToTop} />
