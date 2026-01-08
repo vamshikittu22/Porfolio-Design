@@ -55,8 +55,8 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
           {/* Header Row: Title and Tagline */}
           <div className="space-y-4">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-[2px] bg-t-accent" />
-              <span className="text-[10px] font-black uppercase tracking-[1em] text-t-accent">Systems Architect</span>
+              <div className="w-12 h-1 bg-t-accent" />
+              <span className="text-[12px] font-black uppercase tracking-[1em] text-t-accent">Systems Architect</span>
             </div>
             <HeroTitle />
           </div>
@@ -65,18 +65,18 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
             {/* Description Column */}
             <div className="max-w-xl space-y-8">
               <p className="text-xl lg:text-3xl text-t-fg font-medium leading-tight tracking-tight text-balance">
-                Architecting <span className="text-t-accent">high-performance</span> digital ecosystems with Swiss precision and AI integration.
+                Architecting <span className="text-t-accent font-black">high-performance</span> digital ecosystems with Swiss precision and AI integration.
               </p>
             </div>
             
             {/* CTA Column */}
             <div className="flex flex-col gap-6 relative">
-              {/* STAGGERED BUTTONS (Steps Design) */}
+              {/* STAGGERED BUTTONS */}
               <motion.div whileHover={{ x: 5 }}>
                 <GlassButton 
                   primary 
                   accent="theme" 
-                  className="!px-8 !py-4 !text-[10px] group shadow-2xl w-full" 
+                  className="!px-8 !py-5 !text-[10px] group shadow-xl dark:shadow-2xl w-full" 
                   onClick={() => onScroll('projects-section')}
                 >
                   Launch Projects
@@ -89,7 +89,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
               <motion.div whileHover={{ x: 5 }} className="lg:ml-10">
                 <GlassButton 
                   accent="secondary" 
-                  className="!px-8 !py-4 !text-[10px] hover:bg-t-accent-2/5 w-full whitespace-nowrap" 
+                  className="!px-8 !py-5 !text-[10px] hover:bg-t-accent-2/10 w-full whitespace-nowrap border-t-accent-2/40" 
                   onClick={() => window.print()}
                 >
                   Technical CV
@@ -99,7 +99,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
               <motion.div whileHover={{ x: 5 }} className="lg:ml-20">
                 <GlassButton 
                   accent="theme" 
-                  className="!px-8 !py-4 !text-[10px] hover:bg-t-accent/5 w-full whitespace-nowrap" 
+                  className="!px-8 !py-5 !text-[10px] hover:bg-t-accent/10 w-full whitespace-nowrap border-t-accent/40" 
                   onClick={() => onScroll('contact-section')}
                 >
                   Contact Me
@@ -112,18 +112,18 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
         {/* HERO IMAGE PORTAL (RIGHT COLUMN) */}
         <div className="relative flex flex-col gap-10 items-center lg:items-end justify-center perspective-[2000px]">
           
-          {/* HUD METADATA */}
-          <div className="w-full max-w-sm space-y-4 animate-in fade-in slide-in-from-right duration-1000 delay-300">
-            <div className="h-[1.5px] w-full bg-t-accent/30" />
+          {/* HUD METADATA - Adjusted for extreme visibility in light mode */}
+          <div className="w-full max-w-sm space-y-5 animate-in fade-in slide-in-from-right duration-1000 delay-300">
+            <div className="h-[2px] w-full bg-t-accent/40 dark:bg-t-accent/30" />
             <div className="flex justify-between items-start gap-6">
               {[
                 { label: 'Location', val: 'Charlotte, USA' },
                 { label: 'Status', val: 'Active // STEM OPT' },
                 { label: 'Target Roles', val: 'Software Engineer' }
               ].map((meta, i) => (
-                <div key={i} className="flex flex-col gap-1">
-                  <span className="text-[7px] font-black uppercase tracking-widest text-t-accent opacity-60 whitespace-nowrap">{meta.label}</span>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-t-fg whitespace-nowrap">{meta.val}</span>
+                <div key={i} className="flex flex-col gap-1.5">
+                  <span className="text-[8px] font-black uppercase tracking-widest text-t-accent whitespace-nowrap">{meta.label}</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-t-fg whitespace-nowrap">{meta.val}</span>
                 </div>
               ))}
             </div>
@@ -131,7 +131,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
 
           <motion.div 
             style={{ rotateX, rotateY }}
-            className="relative aspect-[4/5] w-full max-w-sm rounded-[60px] bg-t-bg-el border border-t-border shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] group transition-all duration-1000 z-10 overflow-hidden"
+            className="relative aspect-[4/5] w-full max-w-sm rounded-[60px] bg-t-bg-el border border-t-border shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] group transition-all duration-1000 z-10 overflow-hidden"
           >
               {loading ? (
                 <div className="w-full h-full bg-t-accent-s/20 animate-pulse flex items-center justify-center">
@@ -139,7 +139,6 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                 </div>
               ) : (
                 <div className="relative w-full h-full">
-                  {/* Image with Parallax Internal Move - Uses absolute positioning and oversized dimensions to hide edges */}
                   <motion.div
                     style={{ x: imageTranslateX, y: imageTranslateY }}
                     className="absolute inset-[-15%] z-0"
@@ -147,7 +146,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                     <img 
                       src={image || ''} 
                       alt="Vamshi Krishna Portfolio Hero" 
-                      className="w-full h-full object-cover transition-all duration-300 group-hover:saturate-[1.2]" 
+                      className="w-full h-full object-cover transition-all duration-300 group-hover:saturate-[1.1] brightness-[0.9] dark:brightness-100" 
                     />
                   </motion.div>
                   
@@ -159,22 +158,22 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                   {/* HUD OVERLAY ELEMENTS */}
                   <div className="absolute top-8 left-8 right-8 flex justify-between items-start z-20">
                     <div className="flex flex-col gap-1">
-                      <div className="w-8 h-1 bg-t-accent-2" />
-                      <p className="text-[7px] font-black text-white/40 uppercase tracking-widest">Visual Input // 01</p>
+                      <div className="w-8 h-1.5 bg-t-accent-2 shadow-[0_0_15px_rgba(var(--color-accent-secondary-rgb),0.6)]" />
+                      <p className="text-[8px] font-black text-white uppercase tracking-widest bg-black/40 backdrop-blur-md px-2 py-0.5 rounded">Visual Input // 01</p>
                     </div>
-                    <div className="px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-[8px] font-black text-white uppercase tracking-widest">
+                    <div className="px-4 py-1.5 rounded-full border border-white/40 bg-black/50 backdrop-blur-lg text-[9px] font-black text-white uppercase tracking-widest shadow-xl">
                       Live Render
                     </div>
                   </div>
 
                   <div className="absolute bottom-10 left-10 right-10 z-20">
                     <div className="flex justify-between items-end">
-                       <div className="space-y-1">
-                         <p className="text-[10px] font-black text-white uppercase tracking-[0.4em]">VK-PULLAIAHGARI</p>
-                         <p className="text-[7px] font-black text-white/40 uppercase tracking-[0.2em]">Engineering Specification</p>
+                       <div className="space-y-1.5">
+                         <p className="text-[11px] font-black text-white uppercase tracking-[0.4em] drop-shadow-lg">VK-PULLAIAHGARI</p>
+                         <p className="text-[8px] font-black text-white/90 uppercase tracking-[0.2em] drop-shadow-md">Engineering Specification</p>
                        </div>
-                       <div className="w-8 h-8 rounded-lg border border-white/20 flex items-center justify-center">
-                          <div className="w-1 h-1 bg-t-accent-2 animate-ping" />
+                       <div className="w-10 h-10 rounded-xl border border-white/30 bg-black/40 backdrop-blur-md flex items-center justify-center">
+                          <div className="w-2 h-2 bg-t-accent-2 animate-ping rounded-full" />
                        </div>
                     </div>
                   </div>
@@ -185,17 +184,17 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
           {/* AMBIENT BACKGROUND GLOWS */}
           <motion.div 
             animate={{ 
-              scale: [1, 1.2, 1],
+              scale: [1, 1.15, 1],
               opacity: [0.1, 0.2, 0.1]
             }}
             transition={{ duration: 5, repeat: Infinity }}
-            className="absolute -inset-20 bg-t-accent/30 blur-[120px] rounded-full -z-10" 
+            className="absolute -inset-20 bg-t-accent/40 dark:bg-t-accent/30 blur-[120px] rounded-full -z-10" 
           />
         </div>
       </div>
 
       {/* DECORATIVE GRID LINES */}
-      <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] dark:opacity-[0.07]">
+      <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.1] dark:opacity-[0.07]">
         <div className="absolute top-0 bottom-0 left-1/4 w-px bg-t-fg" />
         <div className="absolute top-0 bottom-0 left-2/4 w-px bg-t-fg" />
         <div className="absolute top-0 bottom-0 left-3/4 w-px bg-t-fg" />

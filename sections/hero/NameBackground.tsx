@@ -1,20 +1,14 @@
-
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-
-/**
- * Procedural Typographic Background: Swiss High-Visibility Edition
- * Optimized for architectural structure and depth.
- */
 
 const VOCABULARY = [
   "Vamshi Krishna", "Pullaiahgari", "Software Engineer", "AI Native", "Senior Developer",
   "React 19", "C#", ".NET Core", "TypeScript", "MS CIS", "UCM", "MIST", "B.Tech CSE",
-  "Charlotte", "Missouri", "Warrensburg", "Hyderabad", "Pune", "India", "USA", "STEM OPT",
+  "Charlotte", "Missouri", "Warrensburg","Utah", "Utah", "Hyderabad", "Pune", "India", "USA", "STEM OPT",
   "Mini Metro", "Future Job Fit", "Wanderlust Trails", "Event Node Pro", "Cinematic Discovery",
   "MySQL", "Azure", "PostgreSQL", "SQL Server", "MongoDB", "Redis", "GraphQL",
   "Vite", "REST API", "CRM", "SDLC", "Agile", "Scrum", "Sprint", "UAT", "Deployment",
-  "Mphasis", "AI Labs Web LLC", "DevOps", "ITSM", "ServiceNow", "Control-M", "Solarwinds",
+  "Mphasis", "Zions Bank", "AI Labs Web LLC", "DevOps", "ITSM", "ServiceNow", "Control-M", "Solarwinds",
   "Clean Code", "Unit Testing", "Architecture", "Scalability", "Performance", "Optimization",
   "Swiss Design", "Minimalism", "Bauhaus", "Modernism", "Grid System", "Typography",
   "Logic", "Algorithm", "Data Structures", "Big O", "Complexity", "Recursion",
@@ -31,14 +25,12 @@ const VOCABULARY = [
 ];
 
 const COLORS = [
-  "var(--color-fg)",
   "var(--color-accent)",
   "var(--color-accent-secondary)",
-  "#6366f1",
-  "#10b981",
-  "#f43f5e",
-  "#06b6d4",
-  "#f59e0b",
+  "var(--ink-1)",
+  "var(--ink-2)",
+  "var(--ink-3)",
+  "var(--ink-4)",
 ];
 
 const FONTS = ["font-display", "font-sans", "font-mono"];
@@ -63,7 +55,7 @@ interface WordItem {
 export const NameBackground: React.FC = () => {
   const items = useMemo(() => {
     const tempItems: WordItem[] = [];
-    const count = 280; 
+    const count = 550; // Increased density
 
     for (let i = 0; i < count; i++) {
       const text = VOCABULARY[Math.floor(Math.random() * VOCABULARY.length)];
@@ -72,21 +64,25 @@ export const NameBackground: React.FC = () => {
       let opacityBase: number;
       let blurValue: string;
 
-      if (roll < 0.08) {
-        sizeValue = Math.random() * 5 + 6; 
-        opacityBase = 0.1;
-        blurValue = "blur(4px)";
-      } else if (roll < 0.25) {
+      if (roll < 0.05) {
+        sizeValue = Math.random() * 6 + 5; 
+        opacityBase = 0.08; 
+        blurValue = "blur(3px)";
+      } else if (roll < 0.2) {
         sizeValue = Math.random() * 2 + 1.2; 
-        opacityBase = 0.15;
+        opacityBase = 0.18;
+        blurValue = "blur(0px)";
+      } else if (roll < 0.6) {
+        sizeValue = Math.random() * 0.7 + 0.6; 
+        opacityBase = 0.28;
         blurValue = "blur(0px)";
       } else {
-        sizeValue = Math.random() * 0.6 + 0.35; 
-        opacityBase = 0.25;
+        sizeValue = Math.random() * 0.4 + 0.3; 
+        opacityBase = 0.35;
         blurValue = "blur(0px)";
       }
       
-      const rotations = [0, 0, 0, 90, -90, 0, 0];
+      const rotations = [0, 0, 0, 90, -90, 0];
       const rotate = rotations[Math.floor(Math.random() * rotations.length)];
       const trackingOptions = ["tracking-tighter", "tracking-tight", "tracking-normal", "tracking-widest"];
 
@@ -100,9 +96,9 @@ export const NameBackground: React.FC = () => {
         weight: WEIGHTS[Math.floor(Math.random() * WEIGHTS.length)],
         font: FONTS[Math.floor(Math.random() * FONTS.length)],
         opacity: opacityBase,
-        isOutline: Math.random() > 0.9, 
+        isOutline: Math.random() > 0.85, 
         tracking: trackingOptions[Math.floor(Math.random() * trackingOptions.length)],
-        italic: Math.random() > 0.92,
+        italic: Math.random() > 0.95,
         idleBlur: blurValue
       });
     }
@@ -111,7 +107,7 @@ export const NameBackground: React.FC = () => {
 
   return (
     <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
-      <div className="w-full h-full relative opacity-60 dark:opacity-40">
+      <div className="w-full h-full relative opacity-100">
         {items.map((item, i) => (
           <motion.span
             key={`${item.text}-${i}`}
@@ -121,13 +117,13 @@ export const NameBackground: React.FC = () => {
               filter: item.idleBlur 
             }}
             whileHover={{ 
-              opacity: 1, 
+              opacity: 1,
               filter: 'blur(0px)',
               scale: 1.15,
               zIndex: 100,
               transition: { duration: 0.15 }
             }}
-            className={`absolute uppercase whitespace-nowrap cursor-default pointer-events-auto transition-all duration-300 will-change-[opacity,transform,filter] ${item.font} ${item.weight} ${item.tracking} ${item.italic ? 'italic' : ''}`}
+            className={`absolute uppercase whitespace-nowrap cursor-default pointer-events-auto transition-all duration-500 will-change-[opacity,transform,filter] ${item.font} ${item.weight} ${item.tracking} ${item.italic ? 'italic' : ''}`}
             style={{ 
               top: item.top, 
               left: item.left, 
@@ -143,9 +139,9 @@ export const NameBackground: React.FC = () => {
         ))}
       </div>
       
-      <div className="absolute inset-0 bg-gradient-to-b from-t-bg via-transparent to-t-bg opacity-80 pointer-events-none z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-t-bg via-transparent to-t-bg opacity-80 pointer-events-none z-10" />
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+      <div className="absolute inset-0 bg-gradient-to-b from-t-bg via-transparent to-t-bg opacity-80 dark:opacity-70 pointer-events-none z-10 transition-colors duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-r from-t-bg via-transparent to-t-bg opacity-80 dark:opacity-70 pointer-events-none z-10 transition-colors duration-500" />
+      <div className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
     </div>
   );
 };

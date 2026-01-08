@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 import { 
@@ -11,6 +10,7 @@ import {
   X_HANDLE,
   INSTAGRAM_HANDLE
 } from '../../config/constants';
+import { GlassButton } from '../ui/GlassUI';
 
 interface SocialOrbData {
   id: string;
@@ -92,11 +92,9 @@ const SOCIAL_PLATFORMS: SocialOrbData[] = [
 
 interface FooterBarProps {
   onScrollToTop: () => void;
+  onOpenCaseStudy?: () => void;
 }
 
-/**
- * AnimatedName splits the name into characters and adds a minimal "live" drift.
- */
 const AnimatedName: React.FC<{ name: string; isHovered: boolean }> = ({ name, isHovered }) => {
   const characters = name.split('');
   return (
@@ -127,7 +125,7 @@ const AnimatedName: React.FC<{ name: string; isHovered: boolean }> = ({ name, is
   );
 };
 
-export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
+export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop, onOpenCaseStudy }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [flippedId, setFlippedId] = useState<string | null>(null);
   const [isTitleHovered, setIsTitleHovered] = useState(false);
@@ -175,7 +173,6 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
         className="max-w-7xl mx-auto bg-t-bg-el/40 backdrop-blur-[32px] border border-t-border rounded-[48px] p-6 lg:p-12 relative z-10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)]"
       >
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 lg:gap-12 mb-10">
-          {/* Identity Block - Optimized for minimal live interaction */}
           <motion.div 
             className="group cursor-pointer flex flex-col items-center md:items-start text-center md:text-left relative" 
             onClick={onScrollToTop}
@@ -237,7 +234,6 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
             </motion.p>
           </motion.div>
 
-          {/* 3D Social Nodes */}
           <div className="flex flex-wrap justify-center md:justify-end gap-6 lg:gap-10 perspective-[1500px]">
             {SOCIAL_PLATFORMS.map((orb, index) => (
               <SocialOrb 
@@ -254,13 +250,25 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
           </div>
         </div>
 
-        {/* Footer Meta Row */}
         <div className="pt-8 border-t border-t-border/20 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-3">
-             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-             <div className="text-[9px] font-black uppercase tracking-[0.2em] text-t-fg-m opacity-60">
-                © 2025 <span className="text-t-fg font-bold tracking-widest">{FULL_NAME}</span>
+          <div className="flex flex-col md:flex-row items-center gap-6">
+             <div className="flex items-center gap-3">
+               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+               <div className="text-[9px] font-black uppercase tracking-[0.2em] text-t-fg-m opacity-60">
+                  © 2025 <span className="text-t-fg font-bold tracking-widest">{FULL_NAME}</span>
+               </div>
              </div>
+             {onOpenCaseStudy && (
+               <button 
+                 onClick={onOpenCaseStudy}
+                 className="flex items-center gap-2 group outline-none"
+               >
+                 <div className="w-8 h-8 rounded-lg bg-t-accent/10 border border-t-accent/20 flex items-center justify-center text-t-accent transition-all group-hover:bg-t-accent group-hover:text-t-bg">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                 </div>
+                 <span className="text-[8px] font-black uppercase tracking-[0.4em] text-t-fg-m hover:text-t-accent transition-colors">Engineering Blueprint</span>
+               </button>
+             )}
           </div>
           
           <div className="flex items-center gap-4 text-[8px] font-black uppercase tracking-[0.2em] text-t-fg-m opacity-50">

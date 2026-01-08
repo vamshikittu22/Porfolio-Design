@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { GeminiService } from '../services/geminiService';
 import { HeaderNav } from '../components/layout/HeaderNav';
@@ -13,11 +12,13 @@ import GameSection from '../sections/game/GameSection';
 import TravelSection from '../sections/travel/TravelSection';
 import ContactSection from '../sections/contact/ContactSection';
 import ChatAssistant from '../components/layout/ChatAssistant/ChatAssistant';
+import PortfolioCaseStudy from '../sections/case-study/PortfolioCaseStudy';
 
 const HERO_FALLBACK_DARK = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200";
 const HERO_FALLBACK_LIGHT = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200";
 
 const App: React.FC = () => {
+  const [view, setView] = useState<'portfolio' | 'case-study'>('portfolio');
   const [heroImage, setHeroImage] = useState<string | null>(null);
   const [heroLoading, setHeroLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -34,6 +35,7 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (view !== 'portfolio') return;
     const sections = [
       'hero-section',
       'about-section', 
@@ -62,7 +64,7 @@ const App: React.FC = () => {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [view]);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -79,13 +81,11 @@ const App: React.FC = () => {
     if (gemini.isQuotaLocked()) return; 
     setHeroLoading(true);
     try {
-      // Updated prompt for Nano Banana image as per the new design concept
-      const prompt = `Abstract professional software engineering desk scene. A modern laptop displaying a sleek UI with cards and graphs. Floating glass panels with glowing code snippets, neural network nodes, and data visualizations. High-end Swiss minimalist design, clean grid structure. ${isDarkMode ? 'Deep navy midnight atmosphere with electric purple and orange accents.' : 'Dreamy daylight atmosphere with soft lilac and pale grey tones.'}`;
-      
+      const prompt = `Abstract professional software engineering desk scene. Modern minimalist setup, high resolution, Swiss architectural style. ${isDarkMode ? 'Deep navy midnight atmosphere with electric purple and orange accents.' : 'Dreamy daylight atmosphere with soft grey tones and blue accents.'}`;
       const img = await gemini.generateImage(prompt);
       setHeroImage(img);
     } catch (err) {
-      console.warn("Hero image generation paused or failed.");
+      console.warn("Hero image generation paused.");
     } finally {
       setHeroLoading(false);
     }
@@ -96,6 +96,14 @@ const App: React.FC = () => {
   }, [isDarkMode]);
 
   const scrollToSection = (id: string) => { 
+    if (view !== 'portfolio') {
+      setView('portfolio');
+      setTimeout(() => {
+        const element = document.getElementById(id); 
+        if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+      }, 100);
+      return;
+    }
     const element = document.getElementById(id); 
     if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
   };
@@ -116,25 +124,32 @@ const App: React.FC = () => {
         isDarkMode={isDarkMode} 
         onScrollToSection={scrollToSection} 
         onScrollToTop={handleScrollToTop} 
-        onToggleTheme={() => setIsDarkMode(!isDarkMode)} 
+        onToggleTheme={() => setIsDarkMode(!isDarkMode)}
+        onGoHome={() => setView('portfolio')}
+        isCaseStudyView={view === 'case-study'}
       />
 
       <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-8 pb-60 print:p-0">
-        <HeroSection image={activeHeroImage} loading={heroLoading} onScroll={scrollToSection} />
-        
-        <div className="space-y-[30rem] lg:space-y-[40rem]">
-          <AboutSection />
-          <CareerSnapshot />
-          <ProjectsSection />
-          <GithubSection />
-          <ResumeSection />
-          <GameSection />
-          <TravelSection />
-          <ContactSection />
-        </div>
+        {view === 'portfolio' ? (
+          <>
+            <HeroSection image={activeHeroImage} loading={heroLoading} onScroll={scrollToSection} />
+            <div className="space-y-[30rem] lg:space-y-[40rem]">
+              <AboutSection />
+              <CareerSnapshot />
+              <ProjectsSection />
+              <GithubSection />
+              <ResumeSection />
+              <GameSection />
+              <TravelSection />
+              <ContactSection />
+            </div>
+          </>
+        ) : (
+          <PortfolioCaseStudy onBack={() => setView('portfolio')} />
+        )}
       </main>
 
-      <FooterBar onScrollToTop={handleScrollToTop} />
+      <FooterBar onScrollToTop={handleScrollToTop} onOpenCaseStudy={() => setView('case-study')} />
       <ChatAssistant />
     </div>
   );

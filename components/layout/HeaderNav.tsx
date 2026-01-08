@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 
@@ -14,7 +13,6 @@ interface CrazyNavIconProps {
 const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean }) => {
   return (
     <div className="relative w-10 h-10 flex items-center justify-center overflow-visible perspective-[1000px]">
-      {/* Idle Scanline Effect */}
       <motion.div 
         className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-gradient-to-b from-transparent via-t-accent to-transparent"
         animate={{
@@ -27,7 +25,6 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
         }}
       />
 
-      {/* Main Container with 3D Float */}
       <motion.div
         animate={{
           y: isHovered ? -2 : [0, -2, 0],
@@ -39,9 +36,7 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
         }}
         className="relative z-10 font-black text-sm tracking-[0.2em] flex items-center justify-center"
       >
-        {/* Layered Letters for Chromatic Aberration */}
         <div className="relative">
-          {/* Cyan Layer (Offset) */}
           <motion.span 
             className="absolute inset-0 text-[#00FFFF] mix-blend-screen opacity-50"
             animate={isHovered ? {
@@ -53,7 +48,6 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
             }}
           >VK</motion.span>
           
-          {/* Red/Magenta Layer (Offset) */}
           <motion.span 
             className="absolute inset-0 text-[#FF00FF] mix-blend-screen opacity-50"
             animate={isHovered ? {
@@ -65,12 +59,10 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
             }}
           >VK</motion.span>
 
-          {/* Primary White/FG Layer */}
           <span className="relative text-t-fg">VK</span>
         </div>
       </motion.div>
 
-      {/* Background Pulse Glow */}
       <motion.div 
         initial={false}
         animate={{
@@ -82,7 +74,6 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
         className={`absolute inset-0 rounded-xl border-2 ${isActive ? 'bg-t-accent-2 border-t-accent-2' : 'bg-t-accent border-t-accent'}`}
       />
 
-      {/* Orbital Shard on Hover */}
       <AnimatePresence>
         {isHovered && (
           <motion.div 
@@ -100,8 +91,6 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
   );
 };
 
-// --- UPGRADED KINETIC ICONS ---
-
 const AboutIcon = ({ isHovered }: { isHovered: boolean }) => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <motion.circle 
@@ -115,7 +104,6 @@ const AboutIcon = ({ isHovered }: { isHovered: boolean }) => (
 
 const CareerIcon = ({ isHovered }: { isHovered: boolean }) => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2" style={{ perspective: '500px' }}>
-    {/* 3D Briefcase Body */}
     <motion.rect 
       x="2" y="7" width="20" height="13" rx="2"
       animate={isHovered ? { 
@@ -123,7 +111,6 @@ const CareerIcon = ({ isHovered }: { isHovered: boolean }) => (
         scale: [1, 1.05, 1],
       } : { rotateX: 0, scale: 1 }}
     />
-    {/* Briefcase Handle - Moves Independently */}
     <motion.path 
       d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"
       animate={isHovered ? { 
@@ -132,7 +119,6 @@ const CareerIcon = ({ isHovered }: { isHovered: boolean }) => (
         scale: 1.1 
       } : { y: 0, rotate: 0, scale: 1 }}
     />
-    {/* "Flying Achievements" from inside */}
     <AnimatePresence>
       {isHovered && [0, 1, 2].map(i => (
         <motion.path 
@@ -155,7 +141,6 @@ const CareerIcon = ({ isHovered }: { isHovered: boolean }) => (
 
 const ProjectsIcon = ({ isHovered }: { isHovered: boolean }) => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2">
-    {/* Explosion/Implosion Grid */}
     {[
       { x: 3, y: 3, r: 0 }, { x: 13, y: 3, r: 90 },
       { x: 3, y: 13, r: -90 }, { x: 13, y: 13, r: 180 }
@@ -172,7 +157,6 @@ const ProjectsIcon = ({ isHovered }: { isHovered: boolean }) => (
         transition={{ duration: 1, delay: i * 0.05, ease: "backOut" }}
       />
     ))}
-    {/* Central core that appears on hover */}
     <motion.circle 
       cx="12" cy="12" r="2" 
       fill="currentColor" stroke="none"
@@ -243,7 +227,6 @@ const PlaylabIcon = ({ isHovered }: { isHovered: boolean }) => (
 
 const TravelIcon = ({ isHovered }: { isHovered: boolean }) => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2">
-    {/* Pulsing Base Map Pin */}
     <motion.path 
       d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
       animate={isHovered ? { 
@@ -252,7 +235,6 @@ const TravelIcon = ({ isHovered }: { isHovered: boolean }) => (
       } : { y: 0 }}
       fillOpacity={0.1}
     />
-    {/* Floating core point */}
     <motion.circle 
       cx="12" cy="10" r="3"
       animate={isHovered ? { 
@@ -260,7 +242,6 @@ const TravelIcon = ({ isHovered }: { isHovered: boolean }) => (
         y: [0, -2, 2, 0]
       } : { scale: 1 }}
     />
-    {/* Elliptical Planet-style Orbit */}
     <AnimatePresence>
       {isHovered && (
         <motion.ellipse 
@@ -279,7 +260,6 @@ const TravelIcon = ({ isHovered }: { isHovered: boolean }) => (
 
 const ResumeIcon = ({ isHovered }: { isHovered: boolean }) => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2">
-    {/* Page flipping/shaking */}
     <motion.path 
       d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
       animate={isHovered ? {
@@ -288,7 +268,6 @@ const ResumeIcon = ({ isHovered }: { isHovered: boolean }) => (
       } : { rotateY: 0 }}
       transition={{ duration: 0.6 }}
     />
-    {/* Folded Corner animation */}
     <motion.path 
       d="M14 2v6h6"
       animate={isHovered ? { 
@@ -296,7 +275,6 @@ const ResumeIcon = ({ isHovered }: { isHovered: boolean }) => (
         rotate: [0, 15, 0]
       } : { scale: 1 }}
     />
-    {/* Scrolling lines inside */}
     {[13, 17].map((y, i) => (
       <motion.line 
         key={y} x1="8" y1={y} x2="16" y2={y}
@@ -327,6 +305,16 @@ const ContactIcon = ({ isHovered }: { isHovered: boolean }) => (
   </svg>
 );
 
+const HomeIcon = ({ isHovered }: { isHovered: boolean }) => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2">
+    <motion.path 
+      d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" 
+      animate={isHovered ? { y: [-2, 0, -2], scale: [1, 1.05, 1] } : { y: 0, scale: 1 }}
+    />
+    <motion.polyline points="9 22 9 12 15 12 15 22" animate={isHovered ? { y: [0, -1, 0] } : { y: 0 }} />
+  </svg>
+);
+
 const CrazyNavIcon = ({ name, isActive, isHovered }: CrazyNavIconProps) => {
   const iconProps = { isHovered, isActive };
   switch (name) {
@@ -338,6 +326,7 @@ const CrazyNavIcon = ({ name, isActive, isHovered }: CrazyNavIconProps) => {
     case 'Travel': return <TravelIcon {...iconProps} />;
     case 'Resume': return <ResumeIcon {...iconProps} />;
     case 'Contact': return <ContactIcon {...iconProps} />;
+    case 'Home': return <HomeIcon {...iconProps} />;
     default: return null;
   }
 };
@@ -383,7 +372,6 @@ const NavItem: React.FC<NavItemProps> = ({ name, label, isActive, onClick }) => 
         </AnimatePresence>
       </motion.button>
 
-      {/* Tooltip: Only on Hover */}
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -397,7 +385,6 @@ const NavItem: React.FC<NavItemProps> = ({ name, label, isActive, onClick }) => 
                 {label}
               </span>
             </div>
-            {/* Small arrow */}
             <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 w-2 h-2 bg-t-fg rotate-45" />
           </motion.div>
         )}
@@ -413,10 +400,12 @@ interface HeaderNavProps {
   onScrollToSection: (id: string) => void;
   onScrollToTop: () => void;
   onToggleTheme: () => void;
+  onGoHome?: () => void;
+  isCaseStudyView?: boolean;
 }
 
 export const HeaderNav: React.FC<HeaderNavProps> = ({ 
-  scrolled, activeSection, isDarkMode, onScrollToSection, onToggleTheme 
+  scrolled, activeSection, isDarkMode, onScrollToSection, onToggleTheme, onGoHome, isCaseStudyView 
 }) => {
   const [logoHovered, setLogoHovered] = useState(false);
 
@@ -430,26 +419,32 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
             : 'bg-t-bg-el/60 dark:bg-t-bg-el/50 backdrop-blur-2xl border-t-border/30'}`}
       >
         <motion.button 
-          onClick={() => onScrollToSection('hero-section')} 
+          onClick={() => isCaseStudyView ? onGoHome?.() : onScrollToSection('hero-section')} 
           onMouseEnter={() => setLogoHovered(true)}
           onMouseLeave={() => setLogoHovered(false)}
           whileHover={{ scale: 1.05 }}
           className="flex items-center outline-none group relative overflow-visible mr-1"
         >
-          <VKIcon isHovered={logoHovered} isActive={activeSection === 'hero-section'} />
+          <VKIcon isHovered={logoHovered} isActive={activeSection === 'hero-section' && !isCaseStudyView} />
         </motion.button>
 
         <div className="h-6 w-px bg-t-border/20 mx-2" />
 
         <div className="flex items-center gap-1">
-          <NavItem name="About" label="About" isActive={activeSection === 'about-section'} onClick={() => onScrollToSection('about-section')} />
-          <NavItem name="Career" label="Career" isActive={activeSection === 'career-snapshot-section'} onClick={() => onScrollToSection('career-snapshot-section')} />
-          <NavItem name="Projects" label="Projects" isActive={activeSection === 'projects-section'} onClick={() => onScrollToSection('projects-section')} />
-          <NavItem name="GitHub" label="GitHub" isActive={activeSection === 'github-section'} onClick={() => onScrollToSection('github-section')} />
-          <NavItem name="Resume" label="Resume" isActive={activeSection === 'resume-section'} onClick={() => onScrollToSection('resume-section')} />
-          <NavItem name="Playlab" label="Playlab" isActive={activeSection === 'game-section'} onClick={() => onScrollToSection('game-section')} />
-          <NavItem name="Travel" label="Travel" isActive={activeSection === 'travel-section'} onClick={() => onScrollToSection('travel-section')} />
-          <NavItem name="Contact" label="Contact" isActive={activeSection === 'contact-section'} onClick={() => onScrollToSection('contact-section')} />
+          {isCaseStudyView ? (
+             <NavItem name="Home" label="Home" isActive={false} onClick={() => onGoHome?.()} />
+          ) : (
+            <>
+              <NavItem name="About" label="About" isActive={activeSection === 'about-section'} onClick={() => onScrollToSection('about-section')} />
+              <NavItem name="Career" label="Career" isActive={activeSection === 'career-snapshot-section'} onClick={() => onScrollToSection('career-snapshot-section')} />
+              <NavItem name="Projects" label="Projects" isActive={activeSection === 'projects-section'} onClick={() => onScrollToSection('projects-section')} />
+              <NavItem name="GitHub" label="GitHub" isActive={activeSection === 'github-section'} onClick={() => onScrollToSection('github-section')} />
+              <NavItem name="Resume" label="Resume" isActive={activeSection === 'resume-section'} onClick={() => onScrollToSection('resume-section')} />
+              <NavItem name="Playlab" label="Playlab" isActive={activeSection === 'game-section'} onClick={() => onScrollToSection('game-section')} />
+              <NavItem name="Travel" label="Travel" isActive={activeSection === 'travel-section'} onClick={() => onScrollToSection('travel-section')} />
+              <NavItem name="Contact" label="Contact" isActive={activeSection === 'contact-section'} onClick={() => onScrollToSection('contact-section')} />
+            </>
+          )}
         </div>
 
         <div className="h-6 w-px bg-t-border/20 mx-2" />

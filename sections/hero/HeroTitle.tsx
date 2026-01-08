@@ -5,7 +5,7 @@ export const HeroTitle: React.FC = () => {
   return (
     <div className="relative flex flex-col items-start leading-[0.85] select-none perspective-[2000px] z-20">
       
-      {/* Line 1: VAMSHI - Staggered Left */}
+      {/* Line 1: VAMSHI */}
       <motion.div
         className="group/line1 cursor-default relative mb-2"
         initial={{ opacity: 0, x: -50 }}
@@ -18,30 +18,29 @@ export const HeroTitle: React.FC = () => {
             rotateX: 15,
             rotateY: -10,
             z: 50,
-            color: "var(--color-accent)",
             transition: { duration: 0.3 }
           }}
-          className="text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg tracking-tighter uppercase origin-left transition-all duration-500 whitespace-nowrap relative z-20"
+          className="text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg hover:text-t-accent tracking-tighter uppercase origin-left transition-colors duration-500 whitespace-nowrap relative z-20"
         >
           Vamshi
         </motion.h1>
         
-        {/* Ghost Shadow */}
+        {/* Ghost Shadow - Strictly CSS Variable Reactive */}
         <motion.h1
           initial={{ opacity: 0 }}
           whileHover={{ 
-            opacity: 0.1, 
+            opacity: 0.15, 
             x: -20, 
             y: 10,
             transition: { duration: 0.3 }
           }}
-          className="absolute inset-0 text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg tracking-tighter uppercase whitespace-nowrap z-10 pointer-events-none select-none"
+          className="absolute inset-0 text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg tracking-tighter uppercase whitespace-nowrap z-10 pointer-events-none select-none transition-colors duration-500"
         >
           Vamshi
         </motion.h1>
       </motion.div>
 
-      {/* Line 2: KRISHNA - Shifted Right */}
+      {/* Line 2: KRISHNA */}
       <motion.div
         className="group/line2 cursor-default relative ml-12 lg:ml-24"
         initial={{ opacity: 0, x: 50 }}
@@ -51,34 +50,33 @@ export const HeroTitle: React.FC = () => {
         <motion.h1
           whileHover={{ 
             rotateX: -15, 
-            rotateY: 10,
+            rotateY: 10, 
             z: 50,
-            color: "var(--color-accent-secondary)",
             transition: { duration: 0.3 }
           }}
-          className="text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg tracking-tighter uppercase origin-right transition-all duration-500 whitespace-nowrap relative z-20"
+          className="text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg hover:text-t-accent-2 tracking-tighter uppercase origin-right transition-colors duration-500 whitespace-nowrap relative z-20"
         >
           Krishna
         </motion.h1>
 
-        {/* Scanline Effect on Hover */}
+        {/* Scanline Effect */}
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none opacity-0 group-hover/line2:opacity-100 z-30"
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-t-accent/20 to-transparent pointer-events-none opacity-0 group-hover/line2:opacity-100 z-30"
           animate={{ x: ['-100%', '200%'] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
         />
       </motion.div>
 
-      {/* Role Label - Staggered Bottom (Removed // v2.5) */}
+      {/* Role Label */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.8 }}
-        className="mt-4 flex items-center gap-6"
+        className="mt-8 flex items-center gap-6"
       >
-        <div className="w-12 h-0.5 bg-t-accent-2" />
-        <p className="text-[12px] lg:text-[16px] font-black text-t-fg-m uppercase tracking-[0.8em]">
-          Software <span className="text-t-fg">Engineer</span>
+        <div className="w-16 h-1 bg-t-accent-2 transition-colors duration-500" />
+        <p className="text-[14px] lg:text-[18px] font-black text-t-fg uppercase tracking-[0.8em] transition-colors duration-500">
+          Software <span className="text-t-accent">Engineer</span>
         </p>
       </motion.div>
     </div>
