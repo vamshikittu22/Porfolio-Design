@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -51,7 +50,7 @@ export const HeroTitle: React.FC = () => {
       >
         <motion.h1
           whileHover={{ 
-            rotateX: -15,
+            rotateX: -15, 
             rotateY: 10,
             z: 50,
             color: "var(--color-accent-secondary)",
@@ -70,16 +69,16 @@ export const HeroTitle: React.FC = () => {
         />
       </motion.div>
 
-      {/* Role Label - Staggered Bottom */}
+      {/* Role Label - Staggered Bottom (Removed // v2.5) */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.8 }}
-        className="mt-8 flex items-center gap-6"
+        className="mt-4 flex items-center gap-6"
       >
         <div className="w-12 h-0.5 bg-t-accent-2" />
         <p className="text-[12px] lg:text-[16px] font-black text-t-fg-m uppercase tracking-[0.8em]">
-          Software <span className="text-t-fg">Engineer</span> // v2.5
+          Software <span className="text-t-fg">Engineer</span>
         </p>
       </motion.div>
     </div>
