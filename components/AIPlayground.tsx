@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { GlassCard, GlassButton } from './GlassUI';
 import { GeminiService } from '../services/geminiService';
@@ -21,6 +20,8 @@ const AIPlayground: React.FC = () => {
       timer = window.setInterval(() => {
         setCooldown(prev => Math.max(0, prev - 1));
       }, 1000);
+    } else if (gemini.isQuotaLocked()) {
+      setCooldown(gemini.getLockTimeRemaining());
     }
     return () => clearInterval(timer);
   }, [cooldown]);
@@ -46,7 +47,7 @@ const AIPlayground: React.FC = () => {
     } catch (err: any) {
       setError(err.message);
       if (err.message.includes("QUOTA_EXCEEDED")) {
-        setCooldown(45);
+        setCooldown(gemini.getLockTimeRemaining() || 60);
       }
       setStatus('');
     } finally {
@@ -66,7 +67,7 @@ const AIPlayground: React.FC = () => {
     } catch (err: any) {
       setError(err.message);
       if (err.message.includes("QUOTA_EXCEEDED")) {
-        setCooldown(60);
+        setCooldown(gemini.getLockTimeRemaining() || 120);
       }
       setStatus('');
     } finally {
@@ -74,7 +75,7 @@ const AIPlayground: React.FC = () => {
     }
   };
 
-  const isQuotaError = error?.includes("QUOTA_EXCEEDED");
+  const isQuotaError = error?.includes("QUOTA_EXCEEDED") || cooldown > 0;
 
   return (
     <GlassCard className="p-10 max-w-5xl mx-auto shadow-2xl border-t-accent-2/20" accent="secondary">
@@ -85,16 +86,16 @@ const AIPlayground: React.FC = () => {
         </div>
 
         {error && (
-          <div className={`p-6 rounded-2xl border ${isQuotaError ? 'bg-amber-500/10 border-amber-500/30' : 'bg-rose-500/10 border-rose-500/30'} animate-in fade-in slide-in-from-top-4 duration-500`}>
+          <div className={`p-6 rounded-2xl border ${error.includes("QUOTA_EXCEEDED") ? 'bg-amber-500/10 border-amber-500/30' : 'bg-rose-500/10 border-rose-500/30'} animate-in fade-in slide-in-from-top-4 duration-500`}>
             <div className="flex items-center gap-4">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isQuotaError ? 'bg-amber-500 text-white' : 'bg-rose-500 text-white'}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${error.includes("QUOTA_EXCEEDED") ? 'bg-amber-500 text-white' : 'bg-rose-500 text-white'}`}>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
               </div>
               <div className="flex-1">
                 <p className="text-[10px] font-black uppercase tracking-widest text-t-fg mb-1">
-                  {isQuotaError ? 'System Cooling Down' : 'Connection Error'}
+                  {error.includes("QUOTA_EXCEEDED") ? 'System Cooling Down' : 'Connection Error'}
                 </p>
-                <p className="text-sm font-bold text-t-fg-m leading-relaxed">{error}</p>
+                <p className="text-sm font-bold text-t-fg-m leading-relaxed">{error.replace("QUOTA_EXCEEDED: ", "")}</p>
               </div>
               <button onClick={() => setError(null)} className="text-t-fg-m hover:text-t-fg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -125,6 +126,14 @@ const AIPlayground: React.FC = () => {
                   <p className="text-xs font-black text-t-accent-2 uppercase tracking-[0.4em] leading-relaxed">{status}</p>
                 </div>
               )}
+
+              {cooldown > 0 && !loading && (
+                <div className="absolute inset-0 bg-t-bg-el/40 backdrop-blur-sm flex flex-col items-center justify-center p-10 text-center z-10">
+                   <div className="bg-amber-500/90 text-white px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">
+                      Limit Reached: {cooldown}s
+                   </div>
+                </div>
+              )}
             </div>
 
             <input 
@@ -138,6 +147,7 @@ const AIPlayground: React.FC = () => {
               accent="secondary" 
               className="w-full py-3"
               onClick={() => fileInputRef.current?.click()}
+              disabled={cooldown > 0}
             >
               Upload Reference Image
             </GlassButton>
@@ -149,8 +159,9 @@ const AIPlayground: React.FC = () => {
               <textarea 
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Describe what you want to generate... e.g. 'A futuristic sustainable city in high resolution'"
-                className="w-full h-48 p-6 rounded-3xl bg-t-bg-el border border-t-border text-t-fg font-bold text-sm focus:ring-4 focus:ring-t-accent-2/20 focus:border-t-accent-2 outline-none resize-none transition-all shadow-inner"
+                disabled={cooldown > 0}
+                placeholder={cooldown > 0 ? "System is cooling down..." : "Describe what you want to generate... e.g. 'A futuristic sustainable city in high resolution'"}
+                className="w-full h-48 p-6 rounded-3xl bg-t-bg-el border border-t-border text-t-fg font-bold text-sm focus:ring-4 focus:ring-t-accent-2/20 focus:border-t-accent-2 outline-none resize-none transition-all shadow-inner disabled:opacity-50"
               />
             </div>
 
@@ -161,7 +172,7 @@ const AIPlayground: React.FC = () => {
                 onClick={handleEditImage} 
                 disabled={loading || !prompt || cooldown > 0}
               >
-                {cooldown > 0 ? `Wait ${cooldown}s` : 'Generate Image'}
+                {cooldown > 0 ? `Backoff ${cooldown}s` : 'Generate Image'}
               </GlassButton>
               <GlassButton 
                 accent="secondary" 
@@ -169,7 +180,7 @@ const AIPlayground: React.FC = () => {
                 onClick={handleAnimate} 
                 disabled={loading || cooldown > 0}
               >
-                {cooldown > 0 ? `Wait ${cooldown}s` : 'Generate Video'}
+                {cooldown > 0 ? `Backoff ${cooldown}s` : 'Generate Video'}
               </GlassButton>
             </div>
           </div>

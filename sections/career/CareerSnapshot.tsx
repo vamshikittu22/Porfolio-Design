@@ -11,6 +11,53 @@ interface CareerItem extends ResumeItem {
   year: string;
 }
 
+const AnimatedDigit: React.FC<{ digit: string }> = ({ digit }) => (
+  <div className="relative inline-flex flex-col h-[1em] w-[0.6em] overflow-hidden items-center justify-center mx-[-0.02em]">
+    <AnimatePresence mode="popLayout" initial={false}>
+      <motion.span
+        key={digit}
+        initial={{ y: "100%", opacity: 0, filter: "blur(4px)" }}
+        animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+        exit={{ y: "-100%", opacity: 0, filter: "blur(4px)" }}
+        transition={{ type: "spring", stiffness: 200, damping: 20, mass: 0.8 }}
+        className="absolute inset-0 flex justify-center items-center"
+      >
+        {digit}
+      </motion.span>
+    </AnimatePresence>
+    {/* Invisible placeholder for width layout */}
+    <span className="invisible">{digit}</span>
+  </div>
+);
+
+const BadgeFlipper: React.FC<{ type: 'work' | 'education' }> = ({ type }) => {
+  const isWork = type === 'work';
+  return (
+    <div className="relative h-10 w-40 mx-auto perspective-[800px]">
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={type}
+          initial={{ rotateX: -90, opacity: 0, y: 5 }}
+          animate={{ rotateX: 0, opacity: 1, y: 0 }}
+          exit={{ rotateX: 90, opacity: 0, y: -5 }}
+          // Updated for faster rotation: High stiffness, low mass, short duration target
+          transition={{ duration: 0.15, type: "spring", stiffness: 400, damping: 25, mass: 0.5 }}
+          className={`
+            absolute inset-0 flex items-center justify-center
+            px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border shadow-lg backface-hidden
+            ${isWork 
+              ? 'bg-purple-500/10 text-purple-500 border-purple-500/30' 
+              : 'bg-indigo-500/10 text-indigo-500 border-indigo-500/30'}
+          `}
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          {isWork ? 'Experience' : 'Academic'}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+};
+
 const CareerSnapshot: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -117,28 +164,14 @@ const CareerSnapshot: React.FC = () => {
 
           <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-8 items-stretch h-[500px] lg:h-[600px] overflow-hidden border-t border-t-border/20 pt-8">
             <div className="flex flex-col items-center justify-center text-center relative z-20">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeItem.id}
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="flex flex-col items-center gap-4"
-                >
-                  <h3 className="text-7xl lg:text-9xl font-black font-display text-t-fg uppercase tracking-tighter leading-none">
-                    {activeItem.year}
-                  </h3>
-                  <div className={`
-                    px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border
-                    ${activeItem.type === 'work' 
-                      ? 'bg-purple-500/10 text-purple-500 border-purple-500/30' 
-                      : 'bg-indigo-500/10 text-indigo-500 border-indigo-500/30'}
-                  `}>
-                    {activeItem.type === 'work' ? 'Experience' : 'Academic'}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+              <div className="flex items-center justify-center text-7xl lg:text-9xl font-black font-display text-t-fg uppercase tracking-tighter leading-none">
+                {activeItem.year.split('').map((d, i) => (
+                  <AnimatedDigit key={i} digit={d} />
+                ))}
+              </div>
+              <div className="mt-6">
+                <BadgeFlipper type={activeItem.type} />
+              </div>
             </div>
 
             <div 

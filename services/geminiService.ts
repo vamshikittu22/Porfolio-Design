@@ -44,17 +44,17 @@ export class GeminiService {
         
         // Normalize error message for parsing
         const msg = typeof error === 'string' ? error : error?.message || JSON.stringify(error);
-        
-        // IMMEDIATE EXIT for Quota/Rate Limit issues
-        if (
-          msg.includes("429") || 
-          msg.includes("quota") || 
-          msg.includes("RESOURCE_EXHAUSTED") || 
-          msg.includes("QUOTA_EXCEEDED")
-        ) {
-          // Trigger the lock if not already set by handleError
+        const isQuotaError = 
+          msg.toLowerCase().includes("429") || 
+          msg.toLowerCase().includes("quota") || 
+          msg.toLowerCase().includes("limit") ||
+          msg.toLowerCase().includes("resource_exhausted");
+
+        if (isQuotaError) {
+          // Trigger the lock if not already set
           if (!this.isQuotaLocked()) this.setQuotaLock(120000);
-          throw error; 
+          // Don't retry on quota errors, it just wastes time and hits the server more
+          throw new Error(`QUOTA_EXCEEDED: API limit reached. Cooling down.`);
         }
 
         if (isLastAttempt) {
@@ -79,7 +79,11 @@ export class GeminiService {
     return Math.max(0, Math.ceil((GeminiService.quotaLockedUntil - Date.now()) / 1000));
   }
 
-  private setQuotaLock(durationMs: number = 120000) { 
+  /**
+   * Sets the quota lock period. 
+   * Exposed as public for infrastructure testing.
+   */
+  public setQuotaLock(durationMs: number = 120000) { 
     GeminiService.quotaLockedUntil = Date.now() + durationMs;
     localStorage.setItem('gemini_quota_lock', GeminiService.quotaLockedUntil.toString());
   }
@@ -140,7 +144,6 @@ export class GeminiService {
   }
 
   private handleError(error: any, context: string): never {
-    // Better handling of SDK error objects vs JSON strings
     let message = typeof error === 'string' ? error : error?.message || "";
     
     // If the error message is a stringified JSON (common in Gemini SDK), parse it
@@ -151,18 +154,21 @@ export class GeminiService {
       } catch (e) { /* fallback to original message */ }
     }
 
-    console.error(`[GeminiService] Error in ${context}:`, message);
+    const isQuotaError = 
+      message.toLowerCase().includes("429") || 
+      message.toLowerCase().includes("quota") || 
+      message.toLowerCase().includes("limit") ||
+      message.toLowerCase().includes("resource_exhausted");
 
-    if (
-      message.includes("429") || 
-      message.includes("quota") || 
-      message.includes("RESOURCE_EXHAUSTED") ||
-      error?.status === "RESOURCE_EXHAUSTED"
-    ) {
+    if (isQuotaError) {
       this.setQuotaLock(120000); 
+      // Log as warning to reduce red noise in console for expected free-tier behavior
+      console.warn(`[GeminiService] Quota Hit in ${context}: ${message}`);
       throw new Error(`QUOTA_EXCEEDED: API limit reached. Try again in ${this.getLockTimeRemaining()} seconds.`);
     }
     
+    console.error(`[GeminiService] Error in ${context}:`, message);
+
     if (message.includes("Failed to fetch") || message.includes("NetworkError")) {
       throw new Error("NETWORK_ISSUE: Unable to reach AI service. Check your connection.");
     }
@@ -175,7 +181,6 @@ export class GeminiService {
     const cached = localStorage.getItem(this.getCacheKey(cacheKey));
     if (cached) return cached;
 
-    // Check lock before even entering the retry loop
     if (this.isQuotaLocked()) {
       throw new Error(`QUOTA_EXCEEDED: API limit reached. Try again in ${this.getLockTimeRemaining()} seconds.`);
     }

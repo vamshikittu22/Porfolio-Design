@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
 interface GlassProps {
   children: React.ReactNode;
   className?: string;
-  accent?: 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate' | 'white' | 'dark' | 'purple' | 'orange' | 'theme' | 'secondary';
+  accent?: 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate' | 'white' | 'dark' | 'purple' | 'orange' | 'cyan' | 'theme' | 'secondary';
   onClick?: (e: React.MouseEvent) => void;
 }
 
@@ -18,6 +17,7 @@ export const GlassCard: React.FC<GlassProps> = ({ children, className = '', acce
     slate: 'hover:border-slate-400 dark:hover:border-slate-500/50',
     purple: 'hover:border-purple-400 dark:hover:border-purple-500/50',
     orange: 'hover:border-orange-400 dark:hover:border-orange-500/50',
+    cyan: 'hover:border-cyan-400 dark:hover:border-cyan-500/50',
     white: 'hover:border-slate-200 dark:hover:border-slate-700',
     dark: 'hover:border-slate-700 dark:hover:border-slate-400',
     theme: 'hover:border-t-accent',
@@ -52,6 +52,7 @@ export const BubbleTag: React.FC<GlassProps> = ({ children, className = '', acce
     slate: 'bg-slate-600/15 text-slate-700 dark:text-slate-300 border-slate-500/40 shadow-[0_4px_12px_-2px_rgba(71,85,105,0.2)]',
     purple: 'bg-purple-600/20 text-purple-700 dark:text-purple-300 border-purple-500/50 shadow-[0_4px_12px_-2px_rgba(168,85,247,0.2)]',
     orange: 'bg-orange-600/20 text-orange-700 dark:text-orange-300 border-orange-500/50 shadow-[0_4px_12px_-2px_rgba(249,115,22,0.2)]',
+    cyan: 'bg-cyan-600/20 text-cyan-700 dark:text-cyan-300 border-cyan-500/50 shadow-[0_4px_12px_-2px_rgba(6,182,212,0.2)]',
     white: 'bg-white/90 dark:bg-slate-800 text-slate-950 dark:text-white border-slate-300 shadow-sm',
     dark: 'bg-slate-950 dark:bg-white text-white dark:text-slate-950 border-slate-800 shadow-xl',
     theme: 'bg-t-accent/20 text-t-accent border-t-accent/40 shadow-[0_4px_12px_-2px_rgba(var(--color-accent-rgb),0.2)]',
@@ -106,6 +107,10 @@ export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: 
       primary: 'bg-orange-600 dark:bg-orange-500 text-white border-orange-700 dark:border-orange-600',
       outline: 'bg-white dark:bg-slate-900 text-orange-600 dark:text-orange-400 border-orange-100 dark:border-orange-900/50 hover:border-orange-300 dark:hover:border-orange-500/50'
     },
+    cyan: {
+      primary: 'bg-cyan-600 dark:bg-cyan-500 text-white border-cyan-700 dark:border-cyan-600',
+      outline: 'bg-white dark:bg-slate-900 text-cyan-600 dark:text-cyan-400 border-cyan-100 dark:border-cyan-900/50 hover:border-cyan-300 dark:hover:border-cyan-500/50'
+    },
     slate: {
       primary: 'bg-slate-950 dark:bg-slate-100 text-white dark:text-slate-950 border-slate-800 dark:border-slate-300',
       outline: 'bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-200 border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600'
@@ -140,7 +145,7 @@ export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: 
       transition={{ type: "spring", stiffness: 500, damping: 15 }}
       className={`
         px-10 py-4 font-black text-[9px] uppercase tracking-[0.5em] border-b-[2px]
-        rounded-full
+        transition-all duration-500 rounded-full
         flex items-center justify-center gap-4
         ${styleClass}
         ${disabled ? 'opacity-30 cursor-not-allowed grayscale' : 'cursor-pointer'}
