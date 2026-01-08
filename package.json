@@ -1,3 +1,4 @@
+
 {
   "name": "personal-portfolio-swiss",
   "private": true,
@@ -19,6 +20,7 @@
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.5.1",
+    "@types/node": "^20.11.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.2.1",
