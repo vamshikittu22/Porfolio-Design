@@ -1,105 +1,89 @@
-# Vamshi Krishna | Software Engineering Portfolio v2.5
+# Vamshi Krishna | AI-Native Software Portfolio v2.5
 
-An "AI-Native" high-performance digital ecosystem designed with **Swiss Minimalist** aesthetics. This project serves as a technical proof-of-concept for modern web architecture, bridging the gap between high-fidelity visual design and enterprise-grade software engineering.
+An enterprise-grade digital ecosystem designed with **Swiss Minimalist** precision. This project serves as a high-performance technical proof-of-concept, bridging the gap between high-fidelity visual design and algorithmic software engineering.
 
-## 🏛️ Architectural Philosophy
+## 🏗️ The Engineering Blueprint: "Inside the Developer's Mind"
 
-The portfolio is built on three core pillars: **Swiss Precision**, **Algorithmic Logic**, and **AI Resilience**. Unlike traditional static portfolios, this application functions as a modular shell that prioritizes performance and interactivity.
+Unique to this portfolio is the **Engineering Blueprint** mode—a dedicated architectural case study built directly into the UI. It reveals the exact logic, performance metrics, and development constraints encountered during the creation of this site.
 
-### 1. The Design System (Bauhaus x Futurism)
-- **Swiss Grid Logic:** Every element adheres to a strict architectural grid, utilizing high-contrast typography (Inter/Manrope) and glassmorphism.
-- **Kinetic Identity:** The Hero section features a **Procedural Word Constellation** of 550+ technical keywords, utilizing tiered Z-depth layers to simulate an organic, digital atmosphere.
-- **Inertia Physics:** Mouse coordinates are mapped to hardware-accelerated `rotate3d` and `translate3d` transforms, giving the UI a tactile, biological sense of weight.
+- **How to access:** Click the **"Systems Architecture"** icon in the top right or footer of the live interface.
+- **What's inside:**
+  - **Interaction State Machines:** Visualizing the magnetic vector math behind the Skill Matrix.
+  - **Performance Analytics:** Real-time dashboards showing Lighthouse scores (98+) and bundle distribution.
+  - **Recursive Logic:** A breakdown of the Minimax search tree used in the Tic-Tac-Toe engine.
+  - **Context Injection:** Documentation on the RAG (Retrieval-Augmented Generation) pipeline powering the AI Assistant.
 
-### 2. The Intelligence Layer (Gemini-Native)
+---
+
+## 🏛️ Core Architectural Pillars
+
+### 1. Intelligence Layer (Gemini-Native)
 - **RAG-Based Chat Assistant:** Integrates Gemini 3 Flash with a custom **Retrieval-Augmented Generation (RAG)** pipeline. It grounds the LLM in structured JSON resume data to ensure 95%+ factual accuracy for recruiter inquiries.
 - **Resilient AI Pipeline:** Implements a 4-tier fallback hierarchy to handle API quota locks:
-  1. **Session Cache:** Instant hydration.
-  2. **Live Inference:** Real-time synthesis via Gemini 2.5 Flash.
+  1. **Session Cache:** Instant hydration for recurring users.
+  2. **Live Inference:** Real-time synthesis via Gemini 2.5 Flash for illustrations and greetings.
   3. **Persistent Backup:** LocalStorage snapshots of previous successful generations.
   4. **Physical Fallbacks:** Curated Unsplash assets for zero-inventory scenarios.
-- **Generative Postcards:** Travel narratives are enhanced with AI-generated watercolor illustrations that react to the story's specific cultural and geographic context.
 
-### 3. Engineering Precision (Logic & Data)
-- **Unbeatable AI Engine:** A custom Tic-Tac-Toe module featuring a **Minimax recursive search tree**. It evaluates up to 549,946 nodes to guarantee a non-loss state in "Hard" mode, optimized with static "Opening Books" for sub-1ms response times.
-- **GraphQL Orchestration:** Direct integration with GitHub's GraphQL API (v4) to fetch multi-year contribution calendars and repository metadata in a single optimized request.
-- **Skill Matrix Workspace:** A physics-based interaction model where 40+ technology nodes react to pointer proximity using magnetic displacement formulas and exponential decay.
+### 2. Kinetic Design System (Bauhaus x Futurism)
+- **Swiss Precision:** Strict architectural grid utilizing high-contrast typography (Inter/Manrope) and glassmorphism.
+- **Inertia Physics:** The UI maps mouse coordinates to hardware-accelerated `rotate3d` and `translate3d` transforms, providing a tactile, biological sense of weight and depth.
+- **Procedural Identity:** The Hero features a **Constellation Engine** rendering 550+ technical keyword instances across tiered Z-depth layers.
+
+### 3. Algorithmic Logic
+- **Unbeatable AI Engine:** A custom Tic-Tac-Toe module featuring a **Minimax recursive search tree**. It evaluates up to 549,946 nodes to guarantee a non-loss state in "Hard" mode.
+- **Magnetic Skill Matrix:** A physics-based interaction model where 40+ technology nodes react to pointer proximity using magnetic displacement formulas and exponential decay.
+- **Data Orchestration:** Direct integration with GitHub's GraphQL API (v4) to fetch multi-year contribution calendars in a single optimized request.
 
 ---
 
 ## 🛠️ Technical Stack
 
-- **Framework:** React 19 (Concurrent Mode & Suspense)
-- **Language:** TypeScript 5.8 (Strict Mode / Structural Typing)
-- **Build Tool:** Vite 5.x (ESBuild sharding)
+- **Core:** React 19 (Concurrent Mode), Vite 5, TypeScript 5.8 (Strict)
 - **Animation:** Framer Motion 11 (Spring-based physics)
-- **Styling:** Tailwind CSS (Zero-runtime design tokens)
 - **Generative AI:** Google Gemini SDK (Flash 3.0 & 2.5 Image)
-- **Testing:** Vitest & React Testing Library
-- **Deployment:** Vercel Edge Network (Global CDN / TLS 1.3)
+- **Data:** GitHub GraphQL API v4
+- **Style:** Tailwind CSS (Swiss Design Tokens)
+- **QA:** Vitest & React Testing Library
 
 ---
 
 ## 📊 Performance Benchmarks
 
-The architecture is optimized for a "Base-Up" delivery, ensuring usability on low-power devices while scaling for high-performance GPUs.
-
 - **Lighthouse Performance:** 98/100
-- **Lighthouse Accessibility:** 100/100 (WCAG 2.1 Compliant)
+- **Lighthouse Accessibility:** 100/100 (WCAG 2.1 Level AA)
 - **Time to Interactive (TTI):** < 0.8s (via Section-Level Hydration)
-- **Critical JS Payload:** < 120KB (Gzipped)
-- **Layout Stability:** 0.01 CLS (via SVH units and aspect-ratio locking)
+- **Cumulative Layout Shift (CLS):** 0.01 (Stable layouts across breakpoints)
 
 ---
 
-## 📁 Repository Structure
-
-```text
-src/
-├── app/                  # Application Shell & Module Hydration
-├── components/           # Reusable Architecture
-│   ├── layout/           # Global Orchestrators (Chat, Nav, Blueprint)
-│   └── ui/               # Design Primitives (GlassUI, CodePlayground)
-├── config/               # Immutable Data (Resume JSON, Project Manifests)
-├── services/             # Singleton Logic (GeminiService, SocialService)
-├── sections/             # Feature-Specific Modules
-│   ├── case-study/       # The "Engineering Blueprint" Technical Deep-Dives
-│   ├── career/           # Mechanical-Watch Timeline & 3D Flippers
-│   ├── game/             # Minimax Algorithm Sandbox
-│   ├── hero/             # Kinetic Typography & 3D Interactivity
-│   └── travel/           # Generative AI Postcards
-└── tests/                # Vitest Logic & Component Verification
-```
-
----
-
-## 🚀 Deployment & Development
+## 🚀 Development Setup
 
 ### Environment Variables
-Required for full feature activation:
+Required for full AI and GitHub data functionality:
 - `API_KEY`: Google Gemini API Key.
 - `GITHUB_TOKEN`: GitHub Personal Access Token (for Live GraphQL stats).
 
-### Setup
+### Local Execution
 ```bash
-# Install production dependencies
+# 1. Install dependencies
 npm install
 
-# Execute development environment with HMR
+# 2. Run in development mode (with HMR)
 npm run dev
 
-# Execute unit testing suite
+# 3. Execute testing suite
 npm run test
 
-# Generate optimized production bundle
+# 4. Generate production build
 npm run build
 ```
 
 ---
 
-## 📄 Final Review Note
+## 📄 Project Review Summary
 
-This portfolio is an exercise in **Full-Stack Craftsmanship**. It demonstrates the ability to manage complex state machines, optimize network delivery, and integrate cutting-edge Generative AI within a professional, highly-accessible user interface.
+This portfolio represents a shift from "Static Document" to "Interactive System." It is a testament to managing complex state machines, optimizing network delivery, and integrating cutting-edge Generative AI within a professional, highly-accessible user interface.
 
-**Developed with precision by Vamshi Krishna Pullaiahgari**  
-USA | 2026
+**Engineered with precision by Vamshi Krishna Pullaiahgari**  
+USA | 2025
