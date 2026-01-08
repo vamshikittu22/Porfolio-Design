@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 import { 
@@ -93,6 +94,39 @@ interface FooterBarProps {
   onScrollToTop: () => void;
 }
 
+/**
+ * AnimatedName splits the name into characters and adds a minimal "live" drift.
+ */
+const AnimatedName: React.FC<{ name: string; isHovered: boolean }> = ({ name, isHovered }) => {
+  const characters = name.split('');
+  return (
+    <span className="inline-flex">
+      {characters.map((char, i) => (
+        <motion.span
+          key={i}
+          initial={false}
+          animate={{
+            y: isHovered ? [0, -3, 0] : [0, 1.5, 0],
+            color: isHovered ? 'var(--color-accent)' : 'var(--color-fg)',
+          }}
+          transition={{
+            y: {
+              duration: isHovered ? 0.6 : 3,
+              repeat: Infinity,
+              delay: i * 0.05,
+              ease: "easeInOut"
+            },
+            color: { duration: 0.3 }
+          }}
+          style={{ whiteSpace: char === ' ' ? 'pre' : 'normal' }}
+        >
+          {char}
+        </motion.span>
+      ))}
+    </span>
+  );
+};
+
 export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [flippedId, setFlippedId] = useState<string | null>(null);
@@ -141,7 +175,7 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
         className="max-w-7xl mx-auto bg-t-bg-el/40 backdrop-blur-[32px] border border-t-border rounded-[48px] p-6 lg:p-12 relative z-10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)]"
       >
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 lg:gap-12 mb-10">
-          {/* Identity Block - Optimized to prevent layout shift */}
+          {/* Identity Block - Optimized for minimal live interaction */}
           <motion.div 
             className="group cursor-pointer flex flex-col items-center md:items-start text-center md:text-left relative" 
             onClick={onScrollToTop}
@@ -149,32 +183,36 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
             onMouseLeave={() => setIsTitleHovered(false)}
             role="button"
             aria-label="Scroll to top"
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.01 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <div className="flex items-center gap-4 mb-2 relative">
                <motion.div 
                 className="w-8 h-8 rounded-xl bg-t-accent flex items-center justify-center text-white font-black text-xs shadow-md z-10"
-                animate={isTitleHovered ? { rotate: 12, scale: 1.1, backgroundColor: 'var(--color-accent-secondary)' } : { rotate: 0, scale: 1 }}
+                animate={isTitleHovered ? { 
+                  rotate: 12, 
+                  scale: 1.1, 
+                  backgroundColor: 'var(--color-accent-secondary)',
+                  boxShadow: '0 0 20px rgba(var(--color-accent-secondary-rgb), 0.4)'
+                } : { 
+                  rotate: 0, 
+                  scale: 1,
+                  boxShadow: '0 0 10px rgba(var(--color-accent-rgb), 0.2)' 
+                }}
                >
                  VK
                </motion.div>
 
                <div className="relative">
-                 <motion.h4 
-                   className="text-2xl lg:text-3xl font-black font-display text-t-fg uppercase tracking-tighter leading-none relative z-20"
-                   // Layout fix: Removed letterSpacing animation which caused width changes and reflow
-                   animate={isTitleHovered ? { color: 'var(--color-accent)', y: -2 } : { color: 'var(--color-fg)', y: 0 }}
-                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                 >
-                  {FULL_NAME}.
-                 </motion.h4>
+                 <h4 className="text-2xl lg:text-3xl font-black font-display text-t-fg uppercase tracking-tighter leading-none relative z-20">
+                    <AnimatedName name={`${FULL_NAME}.`} isHovered={isTitleHovered} />
+                 </h4>
                  
                  <AnimatePresence>
                    {isTitleHovered && (
                      <motion.h4 
                        initial={{ opacity: 0, x: 0, y: 0 }}
-                       animate={{ opacity: 0.25, x: 5, y: 3 }}
+                       animate={{ opacity: 0.15, x: 3, y: 2 }}
                        exit={{ opacity: 0, x: 0, y: 0 }}
                        className="absolute inset-0 text-2xl lg:text-3xl font-black font-display text-t-accent uppercase tracking-tighter leading-none z-10 select-none pointer-events-none"
                      >

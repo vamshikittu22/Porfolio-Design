@@ -29,33 +29,36 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isI
     <button
       onClick={(e) => { e.stopPropagation(); onToggle(); }}
       className={`
-        group relative w-full text-left transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] outline-none
-        ${isActive ? 'scale-[1.02] z-10' : ''}
-        ${isInactive ? 'opacity-60 hover:opacity-100 hover:scale-[1.01]' : 'hover:scale-[1.02]'}
+        group relative w-full text-left transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] outline-none
+        ${isActive ? 'scale-[1.03] z-10' : ''}
+        ${isInactive ? 'opacity-50 grayscale hover:grayscale-0 hover:opacity-100' : 'hover:scale-[1.01]'}
       `}
     >
       <GlassCard
         accent={accent}
         className={`
-          relative overflow-hidden p-6 lg:p-8 flex items-center justify-between min-h-[100px]
-          transition-all duration-500
+          relative overflow-hidden p-8 lg:p-10 flex items-center justify-between min-h-[120px]
+          transition-all duration-700
           ${isActive 
-            ? 'bg-t-bg-el border-t-accent shadow-[0_0_40px_-10px_rgba(var(--color-accent-rgb),0.4)]' 
-            : 'hover:bg-t-bg-el/80 bg-t-bg-el/40'}
+            ? 'bg-t-bg-el border-t-accent shadow-[0_40px_80px_-20px_rgba(var(--color-accent-rgb),0.3)]' 
+            : 'hover:bg-t-bg-el/90 bg-t-bg-el/50'}
         `}
       >
-        <div className="flex items-center gap-6 lg:gap-8">
-          <span className={`text-[10px] font-black uppercase tracking-[0.2em] transition-colors ${isActive ? activeColor : 'text-t-fg-m opacity-50'}`}>
-            0{index + 1}
+        <div className="flex items-center gap-8 lg:gap-12">
+          <span className={`text-xs font-black uppercase tracking-[0.4em] transition-colors ${isActive ? activeColor : 'text-t-fg-m opacity-30'}`}>
+            {index < 9 ? `0${index + 1}` : index + 1}
           </span>
 
-          <div className="flex flex-col gap-1">
-            <h3 className={`text-lg lg:text-xl font-black font-display uppercase tracking-tight transition-colors ${isActive ? 'text-t-fg' : 'text-t-fg/80 group-hover:text-t-fg'}`}>
+          <div className="flex flex-col gap-2">
+            <h3 className={`text-xl lg:text-2xl font-black font-display uppercase tracking-tight transition-colors ${isActive ? 'text-t-fg' : 'text-t-fg/70 group-hover:text-t-fg'}`}>
               {project.title}
             </h3>
-            <span className={`text-[8px] font-bold uppercase tracking-widest ${isActive ? activeColor : 'text-t-fg-m opacity-60'}`}>
-              {project.category}
-            </span>
+            <div className="flex items-center gap-3">
+              <div className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-t-accent animate-pulse' : 'bg-t-fg/20'}`} />
+              <span className={`text-[9px] font-bold uppercase tracking-[0.2em] ${isActive ? activeColor : 'text-t-fg-m opacity-50'}`}>
+                {project.category}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -63,15 +66,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isI
         <motion.div 
           animate={{ 
             rotate: isActive ? 180 : 0,
-            backgroundColor: isActive ? 'var(--color-accent)' : 'rgba(0,0,0,0)',
+            scale: isActive ? 1.2 : 1,
+            backgroundColor: isActive ? 'var(--color-accent)' : 'rgba(var(--color-fg-muted-rgb), 0.05)',
             borderColor: isActive ? 'var(--color-accent)' : 'var(--color-border-subtle)'
           }}
+          whileHover={{ scale: 1.1, rotate: isActive ? 180 : 90 }}
           className={`
-            w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-500
-            ${isActive ? 'text-t-bg' : 'text-t-fg-m opacity-40 group-hover:opacity-100 group-hover:border-t-accent group-hover:text-t-accent'}
+            w-14 h-14 rounded-2xl border flex items-center justify-center transition-all duration-500 shadow-lg
+            ${isActive ? 'text-t-bg shadow-t-accent/40' : 'text-t-fg-m opacity-40 group-hover:opacity-100 group-hover:border-t-accent group-hover:text-t-accent'}
           `}
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {isActive ? (
                <motion.path 
                 initial={{ pathLength: 0 }}

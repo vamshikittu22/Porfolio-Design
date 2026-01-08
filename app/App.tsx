@@ -79,9 +79,9 @@ const App: React.FC = () => {
     if (gemini.isQuotaLocked()) return; 
     setHeroLoading(true);
     try {
-      const prompt = isDarkMode 
-        ? "Hyper-clean architectural workspace, deep navy midnight atmosphere, electric aqua mint accents, high-end Swiss minimalist design."
-        : "Hyper-clean architectural workspace, dreamy daylight atmosphere, soft lilac and pale grey tones, high-end Swiss minimalist design.";
+      // Updated prompt for Nano Banana image as per the new design concept
+      const prompt = `Abstract professional software engineering desk scene. A modern laptop displaying a sleek UI with cards and graphs. Floating glass panels with glowing code snippets, neural network nodes, and data visualizations. High-end Swiss minimalist design, clean grid structure. ${isDarkMode ? 'Deep navy midnight atmosphere with electric purple and orange accents.' : 'Dreamy daylight atmosphere with soft lilac and pale grey tones.'}`;
+      
       const img = await gemini.generateImage(prompt);
       setHeroImage(img);
     } catch (err) {
@@ -119,7 +119,7 @@ const App: React.FC = () => {
         onToggleTheme={() => setIsDarkMode(!isDarkMode)} 
       />
 
-      <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60 print:p-0">
+      <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-8 pb-60 print:p-0">
         <HeroSection image={activeHeroImage} loading={heroLoading} onScroll={scrollToSection} />
         
         <div className="space-y-[30rem] lg:space-y-[40rem]">
