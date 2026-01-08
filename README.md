@@ -102,4 +102,4 @@ npm run build
 This portfolio is an exercise in **Full-Stack Craftsmanship**. It demonstrates the ability to manage complex state machines, optimize network delivery, and integrate cutting-edge Generative AI within a professional, highly-accessible user interface.
 
 **Developed with precision by Vamshi Krishna Pullaiahgari**  
-Charlotte, NC | 2025
+USA | 2026
