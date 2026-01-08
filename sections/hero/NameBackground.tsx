@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 /**
  * Procedural Typographic Background: Swiss High-Visibility Edition
- * Designed for architectural density, crisp legibility, and high-contrast interaction.
+ * Optimized for architectural structure and depth.
  */
 
 const VOCABULARY = [
@@ -30,22 +30,19 @@ const VOCABULARY = [
   "Accessibility", "A11y", "Responsive", "Mobile First", "Enterprise Ready", "Scale"
 ];
 
-// High-contrast Palette for visibility
 const COLORS = [
-  "var(--color-fg)",            // Primary Text
-  "var(--color-accent)",        // Vibrant Purple
-  "var(--color-accent-secondary)", // Vibrant Orange
-  "#6366f1", // Indigo
-  "#10b981", // Emerald
-  "#f43f5e", // Rose
-  "#06b6d4", // Cyan
-  "#f59e0b", // Amber
+  "var(--color-fg)",
+  "var(--color-accent)",
+  "var(--color-accent-secondary)",
+  "#6366f1",
+  "#10b981",
+  "#f43f5e",
+  "#06b6d4",
+  "#f59e0b",
 ];
 
 const FONTS = ["font-display", "font-sans", "font-mono"];
-const WEIGHTS = [
-  "font-medium", "font-semibold", "font-bold", "font-extrabold", "font-black"
-];
+const WEIGHTS = ["font-medium", "font-semibold", "font-bold", "font-extrabold", "font-black"];
 
 interface WordItem {
   text: string;
@@ -66,31 +63,30 @@ interface WordItem {
 export const NameBackground: React.FC = () => {
   const items = useMemo(() => {
     const tempItems: WordItem[] = [];
-    const count = 300; // Optimal density
+    const count = 280; 
 
     for (let i = 0; i < count; i++) {
       const text = VOCABULARY[Math.floor(Math.random() * VOCABULARY.length)];
-      
       const roll = Math.random();
       let sizeValue: number;
       let opacityBase: number;
       let blurValue: string;
 
-      if (roll < 0.1) {
-        sizeValue = Math.random() * 6 + 6; // Background "Slabs" (6rem - 12rem)
-        opacityBase = 0.15; // Clearly visible but background-level
-        blurValue = "blur(3px)";
-      } else if (roll < 0.3) {
-        sizeValue = Math.random() * 2 + 1.5; // Mid-size (1.5rem - 3.5rem)
-        opacityBase = 0.25;
+      if (roll < 0.08) {
+        sizeValue = Math.random() * 5 + 6; 
+        opacityBase = 0.1;
+        blurValue = "blur(4px)";
+      } else if (roll < 0.25) {
+        sizeValue = Math.random() * 2 + 1.2; 
+        opacityBase = 0.15;
         blurValue = "blur(0px)";
       } else {
-        sizeValue = Math.random() * 0.7 + 0.4; // Micro/Standard (0.4rem - 1.1rem)
-        opacityBase = 0.35; // Sharp and distinct
+        sizeValue = Math.random() * 0.6 + 0.35; 
+        opacityBase = 0.25;
         blurValue = "blur(0px)";
       }
       
-      const rotations = [0, 0, 0, 90, -90, 0, 0, 5, -5];
+      const rotations = [0, 0, 0, 90, -90, 0, 0];
       const rotate = rotations[Math.floor(Math.random() * rotations.length)];
       const trackingOptions = ["tracking-tighter", "tracking-tight", "tracking-normal", "tracking-widest"];
 
@@ -104,9 +100,9 @@ export const NameBackground: React.FC = () => {
         weight: WEIGHTS[Math.floor(Math.random() * WEIGHTS.length)],
         font: FONTS[Math.floor(Math.random() * FONTS.length)],
         opacity: opacityBase,
-        isOutline: Math.random() > 0.85, 
+        isOutline: Math.random() > 0.9, 
         tracking: trackingOptions[Math.floor(Math.random() * trackingOptions.length)],
-        italic: Math.random() > 0.9,
+        italic: Math.random() > 0.92,
         idleBlur: blurValue
       });
     }
@@ -115,8 +111,7 @@ export const NameBackground: React.FC = () => {
 
   return (
     <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
-      {/* Global Theme-based adjustments */}
-      <div className="w-full h-full relative opacity-80 dark:opacity-60">
+      <div className="w-full h-full relative opacity-60 dark:opacity-40">
         {items.map((item, i) => (
           <motion.span
             key={`${item.text}-${i}`}
@@ -128,9 +123,9 @@ export const NameBackground: React.FC = () => {
             whileHover={{ 
               opacity: 1, 
               filter: 'blur(0px)',
-              scale: 1.1,
+              scale: 1.15,
               zIndex: 100,
-              transition: { duration: 0.15, ease: "easeOut" }
+              transition: { duration: 0.15 }
             }}
             className={`absolute uppercase whitespace-nowrap cursor-default pointer-events-auto transition-all duration-300 will-change-[opacity,transform,filter] ${item.font} ${item.weight} ${item.tracking} ${item.italic ? 'italic' : ''}`}
             style={{ 
@@ -148,15 +143,9 @@ export const NameBackground: React.FC = () => {
         ))}
       </div>
       
-      {/* 
-        Refined Curtain Gradients:
-        Ensures the edges blend smoothly while keeping the center area highly textured.
-      */}
-      <div className="absolute inset-0 bg-gradient-to-b from-t-bg via-transparent to-t-bg opacity-70 pointer-events-none z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-t-bg via-transparent to-t-bg opacity-70 pointer-events-none z-10" />
-      
-      {/* High-fidelity Grain Texture */}
-      <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+      <div className="absolute inset-0 bg-gradient-to-b from-t-bg via-transparent to-t-bg opacity-80 pointer-events-none z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-t-bg via-transparent to-t-bg opacity-80 pointer-events-none z-10" />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
     </div>
   );
 };
