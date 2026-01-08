@@ -1,7 +1,16 @@
-import React from 'react';
-import { motion } from 'framer-motion';
 
-export const HeroTitle: React.FC = () => {
+import React from 'react';
+import { motion, useTransform, MotionValue } from 'framer-motion';
+
+interface HeroTitleProps {
+  mouseX: MotionValue<number>;
+  mouseY: MotionValue<number>;
+}
+
+export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
+  const ghostX = useTransform(mouseX, [-0.5, 0.5], [-15, 15]);
+  const ghostY = useTransform(mouseY, [-0.5, 0.5], [-15, 15]);
+
   return (
     <div className="relative flex flex-col items-start leading-[0.85] select-none perspective-[2000px] z-20">
       
@@ -15,9 +24,9 @@ export const HeroTitle: React.FC = () => {
       >
         <motion.h1
           whileHover={{ 
-            rotateX: 15,
-            rotateY: -10,
-            z: 50,
+            rotateX: 12,
+            rotateY: -8,
+            z: 40,
             transition: { duration: 0.3 }
           }}
           className="text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg hover:text-t-accent tracking-tighter uppercase origin-left transition-colors duration-500 whitespace-nowrap relative z-20"
@@ -25,16 +34,10 @@ export const HeroTitle: React.FC = () => {
           Vamshi
         </motion.h1>
         
-        {/* Ghost Shadow - Strictly CSS Variable Reactive */}
+        {/* Ghost Shadow - Reactive to Mouse */}
         <motion.h1
-          initial={{ opacity: 0 }}
-          whileHover={{ 
-            opacity: 0.15, 
-            x: -20, 
-            y: 10,
-            transition: { duration: 0.3 }
-          }}
-          className="absolute inset-0 text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg tracking-tighter uppercase whitespace-nowrap z-10 pointer-events-none select-none transition-colors duration-500"
+          style={{ x: ghostX, y: ghostY }}
+          className="absolute inset-0 text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg opacity-[0.03] dark:opacity-[0.05] tracking-tighter uppercase whitespace-nowrap z-10 pointer-events-none select-none transition-colors duration-500"
         >
           Vamshi
         </motion.h1>
@@ -46,12 +49,13 @@ export const HeroTitle: React.FC = () => {
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        style={{ transformStyle: 'preserve-3d' }}
       >
         <motion.h1
           whileHover={{ 
-            rotateX: -15, 
-            rotateY: 10, 
-            z: 50,
+            rotateX: -12, 
+            rotateY: 8, 
+            z: 40,
             transition: { duration: 0.3 }
           }}
           className="text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg hover:text-t-accent-2 tracking-tighter uppercase origin-right transition-colors duration-500 whitespace-nowrap relative z-20"
@@ -59,12 +63,13 @@ export const HeroTitle: React.FC = () => {
           Krishna
         </motion.h1>
 
-        {/* Scanline Effect */}
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-t-accent/20 to-transparent pointer-events-none opacity-0 group-hover/line2:opacity-100 z-30"
-          animate={{ x: ['-100%', '200%'] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-        />
+        {/* Ghost Shadow - Reactive to Mouse */}
+        <motion.h1
+          style={{ x: useTransform(mouseX, [-0.5, 0.5], [15, -15]), y: useTransform(mouseY, [-0.5, 0.5], [15, -15]) }}
+          className="absolute inset-0 text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg opacity-[0.03] dark:opacity-[0.05] tracking-tighter uppercase whitespace-nowrap z-10 pointer-events-none select-none transition-colors duration-500"
+        >
+          Krishna
+        </motion.h1>
       </motion.div>
 
       {/* Role Label */}

@@ -27,7 +27,7 @@ export const QualityAssuranceFramework: React.FC = () => {
         </div>
 
         <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-6">
-          <span className="text-[9px] font-black uppercase tracking-widest opacity-40">Automated Delivery Pipeline</span>
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40">From Code Commit to Live Production</span>
           <div className="p-6 bg-black/5 dark:bg-black/40 rounded-2xl font-mono text-[9px] leading-relaxed text-emerald-500 border border-white/5 overflow-x-auto">
             <pre>{`
   [COMMIT] ----> [BUILD] ----> [TEST] ----> [DEPLOY]
@@ -52,27 +52,21 @@ export const QualityAssuranceFramework: React.FC = () => {
           <table className="w-full text-left bg-t-bg-el">
             <thead>
               <tr className="bg-emerald-500/5 border-b border-t-border">
-                <th className="p-6 text-[9px] font-black uppercase tracking-widest text-emerald-500">Component</th>
+                <th className="p-6 text-[9px] font-black uppercase tracking-widest text-emerald-500">Component Integration Verification</th>
                 <th className="p-6 text-[9px] font-black uppercase tracking-widest text-t-fg-m">Test Type</th>
                 <th className="p-6 text-[9px] font-black uppercase tracking-widest text-emerald-500">Coverage %</th>
-                <th className="p-6 text-[9px] font-black uppercase tracking-widest text-emerald-500">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-t-border/50 text-[10px]">
               {[
-                { c: "GeminiService", t: "Unit (Logic Isolation)", v: "98%", s: "Passed" },
-                { c: "ChatAssistant", t: "Integration (UI + API)", v: "85%", s: "Passed" },
-                { c: "TicTacToeEngine", t: "Unit (Algorithm Math)", v: "100%", s: "Verified" },
-                { c: "ProjectCards", t: "Snapshot (UI Consistency)", v: "92%", s: "Passed" }
+                { c: "GeminiService", t: "Unit (Logic Isolation)", v: "98%" },
+                { c: "ChatAssistant", t: "Integration (UI + API)", v: "85%" },
+                { c: "ProjectCards", t: "Snapshot (UI Consistency)", v: "92%" }
               ].map((row, i) => (
                 <tr key={i} className="group hover:bg-emerald-500/[0.02] transition-colors">
                   <td className="p-6 font-black uppercase tracking-tight">{row.c}</td>
                   <td className="p-6 opacity-60 italic">{row.t}</td>
                   <td className="p-6 font-black text-emerald-500">{row.v}</td>
-                  <td className="p-6 font-bold flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                    {row.s}
-                  </td>
                 </tr>
               ))}
             </tbody>
@@ -80,10 +74,10 @@ export const QualityAssuranceFramework: React.FC = () => {
         </div>
 
         <div className="col-span-full p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-6">
-          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 block">Accessibility Compliance Checklist (WCAG 2.1)</span>
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 block">WCAG Standards Audit (Accessibility Checklist)</span>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { label: "Semantic HTML", desc: "Native <button> and <header> used exclusively" },
+              { label: "Semantic HTML", desc: "Native button and header tags used exclusively" },
               { label: "ARIA Patterns", desc: "Implemented aria-pressed and labels for active states" },
               { label: "Keyboard Nav", desc: "Custom focus-visible rings for all interactive nodes" },
               { label: "Color Contrast", desc: "Verified 4.5:1 ratio for all primary body text" }

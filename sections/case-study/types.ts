@@ -34,12 +34,20 @@ export interface CodeSnippet {
   sandboxUrl?: string;
 }
 
+/**
+ * Fix: Narrowed type to allowed GlassCard accent literals to resolve TypeScript 
+ * assignment errors when passing chapter.color to component props.
+ */
+export type CaseStudyColor = 'indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'cyan' | 'orange' | 'slate' | 'white' | 'dark' | 'theme' | 'secondary';
+
 export interface CaseStudyChapter {
   id: string;
   visualId: string;
   title: string;
   subtitle: string;
-  color: 'indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'cyan';
+  introLabel: string; // Added to support "PROTOCOL 01: Name" style
+  // Fix: Narrowed color from string to CaseStudyColor union to satisfy component prop requirements
+  color: CaseStudyColor;
   content: {
     purpose: string;
     visualDescription: string;

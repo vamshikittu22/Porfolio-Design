@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { GlassButton } from '../../components/ui/GlassUI';
@@ -17,11 +18,11 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
   const mouseXSpring = useSpring(x, { stiffness: 100, damping: 30 });
   const mouseYSpring = useSpring(y, { stiffness: 100, damping: 30 });
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [5, -5]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-5, 5]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [7, -7]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-7, 7]);
   
-  const imageTranslateX = useTransform(mouseXSpring, [-0.5, 0.5], [-30, 30]);
-  const imageTranslateY = useTransform(mouseYSpring, [-0.5, 0.5], [-30, 30]);
+  const imageTranslateX = useTransform(mouseXSpring, [-0.5, 0.5], [-45, 45]);
+  const imageTranslateY = useTransform(mouseYSpring, [-0.5, 0.5], [-45, 45]);
 
   const handleMouseMove = (event: React.MouseEvent) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -33,7 +34,6 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
     y.set(yPct);
   };
 
-  // OPTIMIZATION: Append WebP and balanced quality for Unsplash assets
   const getOptimizedUrl = (url: string | null) => {
     if (!url) return '';
     return url.includes('unsplash.com') ? `${url}&fm=webp&q=75` : url;
@@ -58,7 +58,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
               <span className="text-[12px] font-black uppercase tracking-[1em] text-t-accent">Systems Architect</span>
             </div>
             <div id="hero-title">
-              <HeroTitle />
+              <HeroTitle mouseX={mouseXSpring} mouseY={mouseYSpring} />
             </div>
           </div>
           
@@ -74,8 +74,8 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                 <GlassButton 
                   primary 
                   accent="theme" 
-                  aria-label="View selected software engineering projects"
-                  className="!px-8 !py-5 !text-[10px] group shadow-xl dark:shadow-2xl w-full focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:outline-none" 
+                  aria-label="View projects"
+                  className="!px-8 !py-5 !text-[10px] group shadow-xl dark:shadow-2xl w-full" 
                   onClick={() => onScroll('projects-section')}
                 >
                   Launch Projects
@@ -88,8 +88,8 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
               <motion.div whileHover={{ x: 5 }} className="lg:ml-10">
                 <GlassButton 
                   accent="secondary" 
-                  aria-label="Export technical resume as PDF"
-                  className="!px-8 !py-5 !text-[10px] hover:bg-t-accent-2/10 w-full whitespace-nowrap border-t-accent-2/40 focus-visible:ring-4 focus-visible:ring-t-accent-2 focus-visible:ring-offset-2 focus-visible:outline-none" 
+                  aria-label="Export resume"
+                  className="!px-8 !py-5 !text-[10px] hover:bg-t-accent-2/10 w-full whitespace-nowrap border-t-accent-2/40" 
                   onClick={() => window.print()}
                 >
                   Technical CV
@@ -99,8 +99,8 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
               <motion.div whileHover={{ x: 5 }} className="lg:ml-20">
                 <GlassButton 
                   accent="theme" 
-                  aria-label="Scroll to contact information section"
-                  className="!px-8 !py-5 !text-[10px] hover:bg-t-accent/10 w-full whitespace-nowrap border-t-accent/40 focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:outline-none" 
+                  aria-label="Contact me"
+                  className="!px-8 !py-5 !text-[10px] hover:bg-t-accent/10 w-full whitespace-nowrap border-t-accent/40" 
                   onClick={() => onScroll('contact-section')}
                 >
                   Contact Me
@@ -131,7 +131,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
             style={{ rotateX, rotateY }}
             className="relative aspect-[4/5] w-full max-w-sm rounded-[60px] bg-t-bg-el border border-t-border shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] group transition-all duration-1000 z-10 overflow-hidden"
           >
-              {loading ? (
+              {loading && !image ? (
                 <div className="w-full h-full bg-t-accent-s/20 animate-pulse flex items-center justify-center">
                   <div className="w-16 h-16 border-4 border-t-accent border-r-transparent rounded-full animate-spin" />
                 </div>
@@ -139,28 +139,23 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                 <div className="relative w-full h-full">
                   <motion.div
                     style={{ x: imageTranslateX, y: imageTranslateY }}
-                    className="absolute inset-[-15%] z-0"
+                    className="absolute inset-[-20%] z-0"
                   >
                     <img 
                       src={getOptimizedUrl(image)} 
-                      // OPTIMIZATION: Hero uses eager loading to avoid LCP delay, with blur-to-clear transition
                       loading="eager"
-                      alt="Atmospheric architectural workspace symbolizing engineering precision" 
-                      className="w-full h-full object-cover transition-all duration-700 blur-sm brightness-[0.9] dark:brightness-100" 
-                      onLoad={(e) => e.currentTarget.classList.remove('blur-sm')}
+                      alt="Engineering precision visual" 
+                      className="w-full h-full object-cover transition-all duration-700 brightness-[0.9] dark:brightness-100" 
                     />
                   </motion.div>
                   
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] pointer-events-none z-10" />
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.05)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-[length:100%_4px,3px_100%] pointer-events-none z-10" />
                   <div className="absolute inset-0 bg-gradient-to-t from-t-bg/90 via-transparent to-transparent pointer-events-none z-10" />
                   
                   <div className="absolute top-8 left-8 right-8 flex justify-between items-start z-20">
                     <div className="flex flex-col gap-1">
                       <div className="w-8 h-1.5 bg-t-accent-2 shadow-[0_0_15px_rgba(var(--color-accent-secondary-rgb),0.6)]" />
                       <p className="text-[8px] font-black text-white uppercase tracking-widest bg-black/40 backdrop-blur-md px-2 py-0.5 rounded">Visual Input // 01</p>
-                    </div>
-                    <div className="px-4 py-1.5 rounded-full border border-white/40 bg-black/50 backdrop-blur-lg text-[9px] font-black text-white uppercase tracking-widest shadow-xl">
-                      Live Render
                     </div>
                   </div>
 
@@ -170,9 +165,6 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                          <p className="text-[11px] font-black text-white uppercase tracking-[0.4em] drop-shadow-lg">VK-PULLAIAHGARI</p>
                          <p className="text-[8px] font-black text-white/90 uppercase tracking-[0.2em] drop-shadow-md">Engineering Specification</p>
                        </div>
-                       <div className="w-10 h-10 rounded-xl border border-white/30 bg-black/40 backdrop-blur-md flex items-center justify-center">
-                          <div className="w-2 h-2 bg-t-accent-2 animate-ping rounded-full" />
-                       </div>
                     </div>
                   </div>
                 </div>
@@ -181,22 +173,13 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
 
           <motion.div 
             animate={{ 
-              scale: [1, 1.15, 1],
-              opacity: [0.1, 0.2, 0.1]
+              scale: [1, 1.1, 1],
+              opacity: [0.1, 0.15, 0.1]
             }}
             transition={{ duration: 5, repeat: Infinity }}
-            className="absolute -inset-20 bg-t-accent/40 dark:bg-t-accent/30 blur-[120px] rounded-full -z-10" 
+            className="absolute -inset-20 bg-t-accent/30 dark:bg-t-accent/20 blur-[100px] rounded-full -z-10" 
           />
         </div>
-      </div>
-
-      <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.1] dark:opacity-[0.07]">
-        <div className="absolute top-0 bottom-0 left-1/4 w-px bg-t-fg" />
-        <div className="absolute top-0 bottom-0 left-2/4 w-px bg-t-fg" />
-        <div className="absolute top-0 bottom-0 left-3/4 w-px bg-t-fg" />
-        <div className="absolute left-0 right-0 top-1/4 h-px bg-t-fg" />
-        <div className="absolute left-0 right-0 top-2/4 h-px bg-t-fg" />
-        <div className="absolute left-0 right-0 top-3/4 h-px bg-t-fg" />
       </div>
     </section>
   );

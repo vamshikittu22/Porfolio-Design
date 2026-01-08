@@ -53,6 +53,35 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
     }
   };
 
+  const getCoreLogicTitle = () => {
+    switch (chapter.id) {
+      case 'system-architecture': return 'How It Works: Scroll-Based Routing Without Full Page Reload';
+      case 'hero-kernel': return 'Algorithm Breakdown: How 550 Keywords Get Generated & Animated';
+      case 'mobile-first-design': return 'Strategy: Start with HTML, Add CSS, Layer JavaScript';
+      case 'skills-matrix': return 'State Logic: How the Interactive Node Cluster Manages Displacement';
+      case 'github-intelligence': return 'Smart Fetching: One GraphQL Query Instead of Three REST Calls';
+      case 'game-engine': return 'The Algorithm: How the AI Thinks Ahead';
+      case 'neural-chat': return 'How It Works: Resume Data → AI Context → Accurate Answers';
+      case 'qa-framework': return 'The Testing Strategy: Preventing Bugs Before Production';
+      default: return 'Architectural Core Logic';
+    }
+  };
+
+  const getVisualStageLabel = () => {
+    switch (chapter.id) {
+      case 'system-architecture': return 'Performance Metrics Dashboard';
+      case 'hero-kernel': return 'Performance Dashboard: Animation & Memory Usage';
+      case 'mobile-first-design': return 'Network Performance Metrics';
+      case 'skills-matrix': return 'Interaction Flow & Magnetic Displacement Map';
+      case 'github-intelligence': return 'Data Source & Caching Strategy';
+      case 'game-engine': return 'Algorithm Performance Dashboard';
+      case 'neural-chat': return 'AI Model & Performance Metrics';
+      case 'qa-framework': return 'Testing & Accessibility Metrics';
+      case 'security-implementation': return 'Security Defense Layers';
+      default: return `Visualization Stage // ${chapter.visualId}`;
+    }
+  };
+
   return (
     <div className="py-32 lg:py-48 border-b border-t-border last:border-0 relative overflow-visible">
       {/* Background Section Ambient Glow */}
@@ -62,7 +91,7 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
         {/* CHAPTER HEADER - Full Width */}
         <div className="mb-24 space-y-6">
           <div className="flex items-center gap-6">
-            <span className={`text-[10px] font-black uppercase tracking-[0.8em] text-${chapter.color}-500`}>Module 0{index + 1}</span>
+            <span className={`text-[10px] font-black uppercase tracking-[0.8em] text-${chapter.color}-500`}>{chapter.introLabel}</span>
             <div className={`h-px flex-1 bg-${chapter.color}-500/20`} />
           </div>
           <h3 className="text-6xl lg:text-9xl font-black font-display text-t-fg uppercase tracking-tighter leading-[0.8]">
@@ -77,16 +106,16 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
           {/* NARRATIVE SECTION */}
           <div className="lg:col-span-7 space-y-12">
             <div className="prose-xl text-t-fg-m leading-relaxed font-medium space-y-8">
-              <p className="text-2xl lg:text-3xl text-t-fg leading-tight border-l-4 pl-8" style={{ borderColor: currentAccentHex }}>
+              <div className="text-2xl lg:text-3xl text-t-fg leading-tight border-l-4 pl-8" style={{ borderColor: currentAccentHex }}>
                 {chapter.content.purpose}
-              </p>
+              </div>
               <p className="text-lg opacity-70 italic">
                 {chapter.content.visualDescription}
               </p>
             </div>
 
             <div className="space-y-6">
-              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">Architectural Core Logic</h4>
+              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">{getCoreLogicTitle()}</h4>
               <div className="p-8 rounded-[40px] bg-t-bg-el border border-t-border shadow-inner">
                 <p className="text-sm font-mono text-t-accent-2 leading-relaxed whitespace-pre-wrap">{chapter.content.coreLogic}</p>
               </div>
@@ -129,7 +158,9 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
                     <div className="mb-12 flex justify-between items-center">
                        <div className="flex flex-col gap-1">
                           <div className={`w-8 h-1 bg-${chapter.color}-500 shadow-[0_0_15px_rgba(var(--color-accent-rgb),0.5)]`} />
-                          <span className="text-[9px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">Visualization Stage // {chapter.visualId}</span>
+                          <span className="text-[9px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">
+                            {getVisualStageLabel()}
+                          </span>
                        </div>
                        <div className="flex gap-2">
                          <div className="w-2.5 h-2.5 rounded-full bg-rose-500/20" />
@@ -143,7 +174,7 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
             </div>
           </div>
 
-          {/* TECHNOLOGICAL IMPLEMENTATION - Redesigned Grid to occupy all space */}
+          {/* TECHNOLOGICAL IMPLEMENTATION */}
           <div className="lg:col-span-12 pt-16 pb-24 space-y-12">
             <div className="flex items-center gap-6">
               <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-t-fg opacity-40">Technological Implementation</h4>
@@ -182,7 +213,7 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
             </div>
           </div>
 
-          {/* CHALLENGES & SOURCE CODE - Shared row */}
+          {/* CHALLENGES & SOURCE CODE */}
           <div className="lg:col-span-6 space-y-8">
             <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">Development Constraints</h4>
             <div className="grid gap-6">
@@ -217,7 +248,9 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
                 </div>
                 <div className="text-left">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-t-fg block mb-1">Module Logic Explorer</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-t-fg block mb-1">
+                    {chapter.id === 'system-architecture' ? 'Deep Dive: Module Hydration Pattern' : 'Logic Explorer'}
+                  </span>
                   <span className="text-sm font-bold text-t-fg-m opacity-60">{chapter.content.code.title}</span>
                 </div>
               </div>

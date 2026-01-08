@@ -11,7 +11,7 @@ export const DataPipelineArchitecture: React.FC = () => {
 
       <div className="grid lg:grid-cols-2 gap-8">
         <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-6">
-          <span className="text-[9px] font-black uppercase tracking-widest opacity-40">Request Sequence (Latency Optimization)</span>
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40">Behind the Scenes: How Data Gets Loaded & Cached</span>
           <div className="p-6 bg-black/5 dark:bg-black/40 rounded-2xl font-mono text-[9px] leading-relaxed text-emerald-500 border border-white/5 overflow-x-auto">
             <pre>{`
   [USER] ----> [CACHE CHECK] ----> [API CALL] ----> [TRANSFORM] ----> [RENDER]
@@ -20,40 +20,37 @@ export const DataPipelineArchitecture: React.FC = () => {
   (0ms)        (Skip API)         (Fetch)           State           Visuals
             `}</pre>
           </div>
-          <p className="text-[9px] font-bold text-t-fg-m opacity-50 italic">The pipeline prioritizes local hydration (SessionStorage) to ensure the UI feels instantaneous on return visits.</p>
+          <p className="text-[9px] font-bold text-t-fg-m opacity-50 italic">Priority local hydration ensures the UI feels instantaneous on return visits.</p>
         </div>
 
         <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-6">
-          <span className="text-[9px] font-black uppercase tracking-widest opacity-40">Protocol Optimization Comparison</span>
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40">GraphQL vs REST: Which is Faster?</span>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <span className="text-[8px] font-black uppercase text-rose-500">REST API</span>
               <div className="p-3 rounded-xl bg-rose-500/5 border border-rose-500/10 font-mono text-[10px]">
                 3 Requests<br/>
-                ~1.2s Latency<br/>
-                High Payload
+                ~1.2s Latency
               </div>
             </div>
             <div className="space-y-2">
               <span className="text-[8px] font-black uppercase text-emerald-500">GraphQL</span>
               <div className="p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20 font-mono text-[10px]">
                 1 Request<br/>
-                ~0.4s Latency<br/>
-                Optimized
+                ~0.4s Latency
               </div>
             </div>
           </div>
           <div className="pt-2">
             <div className="w-full bg-t-fg/5 h-1.5 rounded-full overflow-hidden flex">
               <div className="h-full bg-emerald-500 w-[30%]" />
-              <div className="h-full bg-rose-500/20 w-[70%]" />
             </div>
             <span className="text-[8px] font-black uppercase opacity-40 mt-2 block">Network Efficiency: +70% Increase</span>
           </div>
         </div>
 
         <div className="col-span-full p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-8">
-          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 block text-center">Service Availability Fallback Cascade</span>
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 block text-center">Backup Plans: Live API → Cache → Fallback JSON</span>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto">
             {[
               { label: "Live API", status: "Primary", icon: "⚡" },
@@ -81,30 +78,21 @@ export const DataPipelineArchitecture: React.FC = () => {
           <table className="w-full text-left bg-t-bg-el">
             <thead>
               <tr className="bg-emerald-500/5 border-b border-t-border">
-                <th className="p-6 text-[9px] font-black uppercase tracking-widest text-emerald-500">Feature</th>
+                <th className="p-6 text-[9px] font-black uppercase tracking-widest text-emerald-500">Optimization Results: API Rate Limits Solved</th>
                 <th className="p-6 text-[9px] font-black uppercase tracking-widest text-t-fg-m">Standard Path</th>
                 <th className="p-6 text-[9px] font-black uppercase tracking-widest text-emerald-500">Optimized Path</th>
-                <th className="p-6 text-[9px] font-black uppercase tracking-widest text-emerald-500">Business Value</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-t-border/50 text-[10px]">
               <tr className="group hover:bg-emerald-500/[0.02] transition-colors">
-                <td className="p-6 font-black uppercase tracking-tight">Rate Limit</td>
+                <td className="p-6 font-black uppercase tracking-tight">Rate Limit Resiliency</td>
                 <td className="p-6 opacity-60 italic">60 Requests / Hr</td>
                 <td className="p-6 font-black text-emerald-500">Unlimited (Cache-First)</td>
-                <td className="p-6 font-bold opacity-80">99.9% Availability</td>
               </tr>
               <tr className="group hover:bg-emerald-500/[0.02] transition-colors">
-                <td className="p-6 font-black uppercase tracking-tight">Data Cost</td>
-                <td className="p-6 opacity-60 italic">Fetch every visit</td>
-                <td className="p-6 font-black text-emerald-500">Fetch once per session</td>
-                <td className="p-6 font-bold opacity-80">Zero Overhead</td>
-              </tr>
-              <tr className="group hover:bg-emerald-500/[0.02] transition-colors">
-                <td className="p-6 font-black uppercase tracking-tight">API Tokens</td>
-                <td className="p-6 opacity-60 italic">Required for every hit</td>
-                <td className="p-6 font-black text-emerald-500">Hidden via Proxy/Cache</td>
-                <td className="p-6 font-bold opacity-80">Secure Architecture</td>
+                <td className="p-6 font-black uppercase tracking-tight">System Availability</td>
+                <td className="p-6 opacity-60 italic">90% Uptime</td>
+                <td className="p-6 font-black text-emerald-500">99.9% (Triple-Tier Fallback)</td>
               </tr>
             </tbody>
           </table>

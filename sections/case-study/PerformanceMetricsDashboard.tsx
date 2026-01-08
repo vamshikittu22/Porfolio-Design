@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -9,12 +8,18 @@ export const PerformanceMetricsDashboard: React.FC = () => {
     { label: 'TTI', before: 2.1, after: 0.8, unit: 's' },
   ];
 
-  const lighthouse = [
-    { label: 'Performance', score: 98, color: 'text-emerald-500' },
-    { label: 'Accessibility', score: 100, color: 'text-indigo-500' },
-    { label: 'Best Practices', score: 100, color: 'text-cyan-500' },
-    { label: 'SEO', score: 100, color: 'text-amber-500' },
+  const lighthouseData = [
+    { label: 'Performance', score: 98 },
+    { label: 'Accessibility', score: 100 },
+    { label: 'Best Practices', score: 100 },
+    { label: 'SEO', score: 100 },
   ];
+
+  const getStatus = (score: number) => {
+    if (score >= 90) return { label: 'Optimal', color: 'bg-emerald-500', text: 'text-emerald-500' };
+    if (score >= 70) return { label: 'Needs Improvement', color: 'bg-amber-500', text: 'text-amber-500' };
+    return { label: 'Poor', color: 'bg-rose-500', text: 'text-rose-500' };
+  };
 
   return (
     <div className="mt-16 space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
@@ -24,9 +29,10 @@ export const PerformanceMetricsDashboard: React.FC = () => {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
-        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-8">
+        {/* 1. Comparison Metrics */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-8 shadow-sm">
           <div className="flex justify-between items-end">
-            <span className="text-[9px] font-black uppercase tracking-widest opacity-40">Load Metrics (Optimization Delta)</span>
+            <span className="text-[9px] font-black uppercase tracking-widest opacity-40">Optimization Results: Before & After</span>
             <div className="flex gap-4">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-t-fg/10" />
@@ -63,7 +69,68 @@ export const PerformanceMetricsDashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border flex flex-col justify-between">
+        {/* 2. Lighthouse Score Cards */}
+        <div className="grid grid-cols-2 gap-4">
+           {lighthouseData.map((data) => {
+             const status = getStatus(data.score);
+             return (
+               <div key={data.label} className="p-6 rounded-[32px] bg-t-bg-el border border-t-border flex flex-col items-center justify-between text-center group hover:border-t-accent transition-all duration-500 shadow-sm relative overflow-hidden">
+                 {/* Fix: Combined duplicate className attributes into a single template literal */}
+                 <div className={`absolute top-0 left-0 w-full h-1 opacity-20 ${status.color}`} />
+                 
+                 <div className="space-y-1">
+                   <div className="text-[7px] font-black uppercase tracking-widest text-t-fg-m opacity-50 group-hover:opacity-100 transition-opacity">{data.label}</div>
+                   <div className={`text-4xl font-black tracking-tighter ${status.text}`}>{data.score}</div>
+                 </div>
+
+                 <div className="mt-4 flex flex-col items-center gap-2">
+                   <div className={`px-2 py-0.5 rounded-full text-[6px] font-black uppercase tracking-widest text-white shadow-sm ${status.color}`}>
+                     {status.label}
+                   </div>
+                   <svg className="w-16 h-4 opacity-10" viewBox="0 0 100 20" fill="none" stroke="currentColor">
+                      <motion.path 
+                        d="M0 10 Q25 0 50 10 T100 10" 
+                        strokeWidth="2" 
+                        initial={{ pathLength: 0 }} 
+                        whileInView={{ pathLength: 1 }} 
+                        transition={{ duration: 2 }}
+                        className={status.text}
+                      />
+                   </svg>
+                 </div>
+               </div>
+             );
+           })}
+        </div>
+
+        {/* 3. Hydration Strategy */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border col-span-full lg:col-span-1 shadow-sm">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 block mb-6">Loading Strategy: Critical Path → Background Hydration</span>
+          <div className="font-mono text-[9px] leading-relaxed text-t-fg/70 bg-black/5 dark:bg-black/40 p-5 rounded-xl shadow-inner border border-white/5">
+            <div className="flex gap-4 items-center">
+              <span className="text-t-accent font-black w-16 uppercase tracking-widest">Critical</span>
+              <span className="flex-1 h-3 bg-t-accent/20 rounded border border-t-accent/40 relative">
+                <span className="absolute inset-y-0 left-0 w-[30%] bg-t-accent shadow-[0_0_10px_rgba(var(--color-accent-rgb),0.5)]" />
+              </span>
+              <span className="opacity-40">0ms - 250ms</span>
+            </div>
+            <div className="flex gap-4 items-center mt-3 opacity-60">
+              <span className="text-t-fg font-black w-16 uppercase tracking-widest">Idle</span>
+              <span className="flex-1 h-3 bg-t-fg/10 rounded" />
+              <span className="opacity-40">250ms - 600ms</span>
+            </div>
+            <div className="flex gap-4 items-center mt-3">
+              <span className="text-t-accent-2 font-black w-16 uppercase tracking-widest">Background</span>
+              <span className="flex-1 h-3 bg-t-accent-2/10 rounded border border-t-accent-2/40 relative">
+                <span className="absolute inset-y-0 left-[60%] w-[40%] bg-t-accent-2 shadow-[0_0_10px_rgba(var(--color-accent-secondary-rgb),0.5)]" />
+              </span>
+              <span className="opacity-40">600ms - Hydrated</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 4. Compression Results */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border flex flex-col justify-between col-span-full lg:col-span-1 shadow-sm">
           <span className="text-[9px] font-black uppercase tracking-widest opacity-40 mb-8">Asset Compression Strategy</span>
           <div className="flex items-center justify-around gap-8 flex-1">
              <div className="text-center space-y-4">
@@ -86,43 +153,9 @@ export const PerformanceMetricsDashboard: React.FC = () => {
                <p className="text-[8px] font-black uppercase tracking-widest text-t-accent">Optimized</p>
              </div>
           </div>
-          <p className="text-[9px] font-bold text-t-fg-m opacity-50 mt-6 text-center leading-relaxed">
-            Achieved via Treeshaking, Image WebP encoding, and dynamic module sharding.
+          <p className="text-[9px] font-bold text-t-fg-m opacity-50 mt-6 text-center leading-relaxed italic">
+            Treeshaking, Image WebP sharding, and edge-side GZIP/Brotli compression.
           </p>
-        </div>
-
-        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border col-span-full lg:col-span-1">
-          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 block mb-6">Hydration Waterfall</span>
-          <div className="font-mono text-[9px] leading-relaxed text-t-fg/70 bg-black/5 dark:bg-black/40 p-4 rounded-xl shadow-inner border border-white/5">
-            <div className="flex gap-4 items-center">
-              <span className="text-t-accent font-black w-16">EAGER</span>
-              <span className="flex-1 h-3 bg-t-accent/20 rounded border border-t-accent/40 relative">
-                <span className="absolute inset-y-0 left-0 w-[30%] bg-t-accent shadow-[0_0_10px_rgba(var(--color-accent-rgb),0.5)]" />
-              </span>
-              <span className="opacity-40">0ms - 250ms</span>
-            </div>
-            <div className="flex gap-4 items-center mt-3 opacity-60">
-              <span className="text-t-fg font-black w-16 uppercase">IDLE</span>
-              <span className="flex-1 h-3 bg-t-fg/10 rounded" />
-              <span className="opacity-40">250ms - 600ms</span>
-            </div>
-            <div className="flex gap-4 items-center mt-3">
-              <span className="text-t-accent-2 font-black w-16">LAZY</span>
-              <span className="flex-1 h-3 bg-t-accent-2/10 rounded border border-t-accent-2/40 relative">
-                <span className="absolute inset-y-0 left-[60%] w-[40%] bg-t-accent-2 shadow-[0_0_10px_rgba(var(--color-accent-secondary-rgb),0.5)]" />
-              </span>
-              <span className="opacity-40">600ms - Hydrated</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 col-span-full lg:col-span-1">
-           {lighthouse.map((score) => (
-             <div key={score.label} className="p-5 rounded-[32px] bg-t-bg-el border border-t-border flex flex-col items-center justify-center text-center group hover:border-t-accent transition-colors">
-               <div className={`text-2xl font-black mb-1 ${score.color}`}>{score.score}</div>
-               <div className="text-[7px] font-black uppercase tracking-widest text-t-fg-m opacity-50 group-hover:opacity-100">{score.label}</div>
-             </div>
-           ))}
         </div>
       </div>
     </div>

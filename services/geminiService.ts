@@ -3,7 +3,6 @@ import { GoogleGenAI, Type } from "@google/genai";
 
 /**
  * Fallback greetings used when the AI service is unavailable or quota-locked.
- * Rotates based on the current hour to ensure variety even in offline mode.
  */
 const FALLBACK_GREETINGS = [
   "Open for professional collaboration on innovative software systems.",
@@ -26,14 +25,10 @@ export class GeminiService {
     return this.instance;
   }
 
-  /**
-   * retryWithBackoff: Executes an async function with exponential backoff retries.
-   * Standard strategy: 1s -> 2s -> 4s wait intervals.
-   */
   private async retryWithBackoff<T>(
     fn: () => Promise<T>,
     context: string,
-    maxRetries = 3
+    maxRetries = 2
   ): Promise<T> {
     for (let i = 0; i < maxRetries; i++) {
       try {
@@ -51,16 +46,12 @@ export class GeminiService {
 
         if (isQuotaError) {
           if (!this.isQuotaLocked()) this.setQuotaLock(120000);
-          throw new Error(`QUOTA_EXCEEDED: API limit reached. Cooling down.`);
+          throw new Error(`QUOTA_EXCEEDED: API limit reached.`);
         }
 
-        if (isLastAttempt) {
-          console.error(`[GeminiService] Max retries reached for ${context}:`, error);
-          throw error;
-        }
+        if (isLastAttempt) throw error;
 
         const delay = 1000 * Math.pow(2, i);
-        console.warn(`[GeminiService] Retry ${i + 1}/${maxRetries} for ${context} in ${delay}ms`);
         await new Promise(r => setTimeout(r, delay));
       }
     }
@@ -94,7 +85,7 @@ export class GeminiService {
   private async throttle() {
     this.checkPersistentLock();
     if (this.isQuotaLocked()) {
-      throw new Error(`QUOTA_EXCEEDED: API limit reached. Try again in ${this.getLockTimeRemaining()} seconds.`);
+      throw new Error(`QUOTA_EXCEEDED: API limit reached.`);
     }
 
     const now = Date.now();
@@ -138,47 +129,19 @@ export class GeminiService {
 
   private handleError(error: any, context: string): never {
     let message = typeof error === 'string' ? error : error?.message || "";
-    
-    if (message.startsWith('{') && message.includes('"error"')) {
-      try {
-        const parsed = JSON.parse(message);
-        message = parsed.error?.message || parsed.error?.status || message;
-      } catch (e) { }
-    }
-
-    const isQuotaError = 
-      message.toLowerCase().includes("429") || 
-      message.toLowerCase().includes("quota") || 
-      message.toLowerCase().includes("limit") ||
-      message.toLowerCase().includes("resource_exhausted");
-
-    if (isQuotaError) {
-      this.setQuotaLock(120000); 
-      console.warn(`[GeminiService] Quota Hit in ${context}: ${message}`);
-      throw new Error(`QUOTA_EXCEEDED: API limit reached. Try again in ${this.getLockTimeRemaining()} seconds.`);
-    }
-    
-    console.error(`[GeminiService] Error in ${context}:`, message);
-
-    if (message.includes("Failed to fetch") || message.includes("NetworkError")) {
-      throw new Error("NETWORK_ISSUE: Unable to reach AI service. Check your connection.");
-    }
-
-    throw new Error(message || "UNEXPECTED_ERROR: Service connection error.");
+    const isQuotaError = message.toLowerCase().includes("429") || message.toLowerCase().includes("quota");
+    if (isQuotaError) this.setQuotaLock(120000);
+    throw new Error(message || "UNEXPECTED_ERROR");
   }
 
-  /**
-   * generateImage: Generates an AI image with robust fallback layers.
-   * Cascade: 1. Session Cache -> 2. AI Generate -> 3. Local Persistent Backup (Prev success) -> 4. Physical Asset Fallback
-   */
   async generateImage(
     prompt: string, 
     baseImageBase64?: string, 
     aspectRatio: "1:1" | "16:9" | "9:16" | "4:3" | "3:4" = "1:1",
     physicalFallbackUrl?: string
   ): Promise<string> {
-    const cacheKey = `img_${prompt}_${aspectRatio}_${baseImageBase64 ? 'ctx' : 'raw'}`;
-    const backupKey = `backup_img_${prompt.substring(0, 20)}_${aspectRatio}`;
+    const cacheKey = `img_${prompt}_${aspectRatio}`;
+    const backupKey = `bkp_img_${prompt.substring(0, 15)}`;
     
     // LAYER 1: Session Cache (Instant)
     const cached = this.getCached(cacheKey);
@@ -187,24 +150,14 @@ export class GeminiService {
     const runAIGeneration = async () => {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const parts: any[] = [{ text: prompt }];
-      
       if (baseImageBase64) {
-        parts.push({
-          inlineData: {
-            data: baseImageBase64.split(',')[1] || baseImageBase64,
-            mimeType: 'image/png',
-          }
-        });
+        parts.push({ inlineData: { data: baseImageBase64.split(',')[1] || baseImageBase64, mimeType: 'image/png' } });
       }
 
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash-image',
         contents: { parts },
-        config: {
-          imageConfig: {
-            aspectRatio: aspectRatio
-          }
-        }
+        config: { imageConfig: { aspectRatio: aspectRatio } }
       });
 
       let result = "";
@@ -217,97 +170,54 @@ export class GeminiService {
         }
         if (result) break;
       }
-      
-      if (!result) throw new Error("AI generated no image data.");
+      if (!result) throw new Error("Empty AI result");
       return result;
     };
 
     try {
-      // LAYER 2: Try AI Generation (with retry & throttle)
       if (this.isQuotaLocked()) throw new Error("QUOTA_LOCKED");
-
-      const result = await this.retryWithBackoff(runAIGeneration, 'generateImage', 2);
-      
-      // SUCCESS: Save as backup for future failures
+      const result = await this.retryWithBackoff(runAIGeneration, 'generateImage', 1);
       this.setCache(cacheKey, result);
       localStorage.setItem(this.getCacheKey(backupKey), result);
       return result;
-
     } catch (error) {
-      console.warn(`[GeminiService] AI Image Generation failed for prompt: "${prompt.substring(0, 30)}..." - Cascade to fallbacks.`);
-      
-      // LAYER 3: Check persistent backup (Last successful generation)
+      console.warn(`[GeminiService] AI Image Failure - Falling back to physical assets.`);
+      // LAYER 3: Last Successful Build Backup (Persistent)
       const lastSuccess = localStorage.getItem(this.getCacheKey(backupKey));
-      if (lastSuccess) {
-        console.log("[GeminiService] Using persistent local backup.");
-        return lastSuccess;
-      }
+      if (lastSuccess) return lastSuccess;
 
-      // LAYER 4: Final Physical Fallback (Hardcoded Assets)
-      if (physicalFallbackUrl) {
-        console.log(`[GeminiService] Using final physical fallback: ${physicalFallbackUrl}`);
-        return physicalFallbackUrl;
-      }
-
-      // NO OPTIONS LEFT: Propagate the original error
+      // LAYER 4: Hardcoded Reliable Physical URL (Final Safety)
+      if (physicalFallbackUrl) return physicalFallbackUrl;
       throw error;
     }
   }
 
   async generateVideo(prompt: string, baseImageBase64?: string): Promise<string> {
-    if (this.isQuotaLocked()) {
-      throw new Error(`QUOTA_EXCEEDED: API limit reached. Try again in ${this.getLockTimeRemaining()} seconds.`);
-    }
+    if (this.isQuotaLocked()) throw new Error("QUOTA_LOCKED");
     
-    if (typeof window !== 'undefined' && (window as any).aistudio) {
-      const hasKey = await (window as any).aistudio.hasSelectedApiKey();
-      if (!hasKey) {
-        await (window as any).aistudio.openSelectKey();
-      }
-    }
-
     return this.retryWithBackoff(async () => {
       try {
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-        
         const payload: any = {
           model: 'veo-3.1-fast-generate-preview',
           prompt: prompt,
-          config: {
-            numberOfVideos: 1,
-            resolution: '720p',
-            aspectRatio: '16:9'
-          }
+          config: { numberOfVideos: 1, resolution: '720p', aspectRatio: '16:9' }
         };
 
         if (baseImageBase64) {
-          payload.image = {
-            imageBytes: baseImageBase64.split(',')[1] || baseImageBase64,
-            mimeType: 'image/png',
-          };
+          payload.image = { imageBytes: baseImageBase64.split(',')[1] || baseImageBase64, mimeType: 'image/png' };
         }
 
         let operation = await ai.models.generateVideos(payload);
-
         while (!operation.done) {
           await new Promise(resolve => setTimeout(resolve, 10000));
           operation = await ai.operations.getVideosOperation({ operation: operation });
         }
 
         const downloadLink = operation.response?.generatedVideos?.[0]?.video?.uri;
-        if (!downloadLink) throw new Error("MEDIA_UNAVAILABLE: Video generation link missing.");
+        if (!downloadLink) throw new Error("Video link missing");
 
         const response = await fetch(`${downloadLink}&key=${process.env.API_KEY}`);
-        if (!response.ok) {
-          const errorText = await response.text();
-          if (errorText.includes("Requested entity was not found.")) {
-             if (typeof window !== 'undefined' && (window as any).aistudio) {
-               await (window as any).aistudio.openSelectKey();
-             }
-          }
-          throw new Error("FETCH_FAILED: Failed to fetch generated video media.");
-        }
-
         const blob = await response.blob();
         return URL.createObjectURL(blob);
       } catch (error) {
@@ -338,7 +248,6 @@ export class GeminiService {
             }
           }
         });
-
         return JSON.parse(response.text || "{}");
       } catch (error) {
         this.handleError(error, 'getTicTacToeHint');
@@ -350,24 +259,20 @@ export class GeminiService {
     const cacheKey = "neural_greeting";
     const cached = this.getCached(cacheKey);
     if (cached) return cached;
-
     const hour = new Date().getHours();
     const fallback = FALLBACK_GREETINGS[hour % FALLBACK_GREETINGS.length];
-
     if (this.isQuotaLocked()) return fallback;
 
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: "Write a 15-word professional, welcoming greeting for a software engineer's portfolio. Focus on collaboration and engineering excellence. No jargon.",
+        contents: "Write a 15-word professional greeting for a software engineer's portfolio. No jargon.",
       });
-
       const result = response.text || fallback;
       this.setCache(cacheKey, result);
       return result;
-    } catch (error) {
-      console.warn("[GeminiService] Neural greeting failed, using high-fidelity fallback.");
+    } catch {
       return fallback;
     }
   }

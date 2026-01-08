@@ -1,10 +1,11 @@
+
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 const VOCABULARY = [
   "Vamshi Krishna", "Pullaiahgari", "Software Engineer", "AI Native", "Senior Developer",
   "React 19", "C#", ".NET Core", "TypeScript", "MS CIS", "UCM", "MIST", "B.Tech CSE",
-  "Charlotte", "Missouri", "Warrensburg","Utah", "Utah", "Hyderabad", "Pune", "India", "USA", "STEM OPT",
+  "Charlotte", "Missouri", "Warrensburg","Utah", "Hyderabad", "Pune", "India", "USA", "STEM OPT",
   "Mini Metro", "Future Job Fit", "Wanderlust Trails", "Event Node Pro", "Cinematic Discovery",
   "MySQL", "Azure", "PostgreSQL", "SQL Server", "MongoDB", "Redis", "GraphQL",
   "Vite", "REST API", "CRM", "SDLC", "Agile", "Scrum", "Sprint", "UAT", "Deployment",
@@ -55,7 +56,7 @@ interface WordItem {
 export const NameBackground: React.FC = () => {
   const items = useMemo(() => {
     const tempItems: WordItem[] = [];
-    const count = 550; // Increased density
+    const count = 550; // Rendering 550 instances of technical keywords
 
     for (let i = 0; i < count; i++) {
       const text = VOCABULARY[Math.floor(Math.random() * VOCABULARY.length)];
@@ -64,25 +65,26 @@ export const NameBackground: React.FC = () => {
       let opacityBase: number;
       let blurValue: string;
 
+      // Tiered density for architectural depth
       if (roll < 0.05) {
-        sizeValue = Math.random() * 6 + 5; 
+        sizeValue = Math.random() * 6 + 5; // Macro Layer
         opacityBase = 0.08; 
         blurValue = "blur(3px)";
       } else if (roll < 0.2) {
-        sizeValue = Math.random() * 2 + 1.2; 
+        sizeValue = Math.random() * 2 + 1.2; // Secondary Detail
         opacityBase = 0.18;
         blurValue = "blur(0px)";
       } else if (roll < 0.6) {
-        sizeValue = Math.random() * 0.7 + 0.6; 
+        sizeValue = Math.random() * 0.7 + 0.6; // Core Grid
         opacityBase = 0.28;
         blurValue = "blur(0px)";
       } else {
-        sizeValue = Math.random() * 0.4 + 0.3; 
+        sizeValue = Math.random() * 0.4 + 0.3; // Texture Layer
         opacityBase = 0.35;
         blurValue = "blur(0px)";
       }
       
-      const rotations = [0, 0, 0, 90, -90, 0];
+      const rotations = [0, 0, 0, 90, -90, 0]; // Restricted to structural angles
       const rotate = rotations[Math.floor(Math.random() * rotations.length)];
       const trackingOptions = ["tracking-tighter", "tracking-tight", "tracking-normal", "tracking-widest"];
 
@@ -139,9 +141,9 @@ export const NameBackground: React.FC = () => {
         ))}
       </div>
       
+      {/* Editorial Shadow Layers */}
       <div className="absolute inset-0 bg-gradient-to-b from-t-bg via-transparent to-t-bg opacity-80 dark:opacity-70 pointer-events-none z-10 transition-colors duration-500" />
       <div className="absolute inset-0 bg-gradient-to-r from-t-bg via-transparent to-t-bg opacity-80 dark:opacity-70 pointer-events-none z-10 transition-colors duration-500" />
-      <div className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
     </div>
   );
 };
