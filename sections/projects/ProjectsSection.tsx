@@ -1,12 +1,9 @@
-
 import React, { useState, useMemo, useEffect } from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { PROJECTS_CONFIG } from '../../config/projects';
 import { ProjectCategory } from '../../config/types';
 import ProjectList from './ProjectList';
-import { AnimatePresence, motion } from 'framer-motion';
-
-const VIBRANT_ACCENTS: ('indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange')[] = ['purple', 'orange', 'indigo', 'emerald', 'rose', 'amber'];
+import { VIBRANT_ACCENTS } from '../../config/constants';
 
 const CATEGORIES = ['All', ...Object.values(ProjectCategory)];
 

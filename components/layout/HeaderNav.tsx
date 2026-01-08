@@ -351,9 +351,12 @@ const NavItem: React.FC<NavItemProps> = ({ name, label, isActive, onClick }) => 
         onFocus={() => setIsHovered(true)}
         onBlur={() => setIsHovered(false)}
         whileTap={{ scale: 0.92 }}
+        // Accessibility Enhancements:
+        aria-pressed={isActive}
+        aria-label={`Navigate to ${label} section`}
         className={`group relative flex items-center justify-center w-11 h-11 lg:w-12 lg:h-12 rounded-xl transition-all duration-500 outline-none z-20
+          focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg
           ${isActive ? 'text-t-accent-2 opacity-100 shadow-[0_0_20px_rgba(var(--color-accent-secondary-rgb),0.2)]' : isHovered ? 'text-t-accent opacity-100' : 'text-t-fg/20 dark:text-white/20'}`}
-        aria-label={label}
       >
         <div className="relative w-5 h-5 flex items-center justify-center pointer-events-none" aria-hidden="true">
           <CrazyNavIcon name={name} isActive={isActive} isHovered={!reducedMotion && isHovered} />
@@ -422,15 +425,19 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
           onClick={() => isCaseStudyView ? onGoHome?.() : onScrollToSection('hero-section')} 
           onMouseEnter={() => setLogoHovered(true)}
           onMouseLeave={() => setLogoHovered(false)}
+          onFocus={() => setLogoHovered(true)}
+          onBlur={() => setLogoHovered(false)}
           whileHover={{ scale: 1.05 }}
-          className="flex items-center outline-none group relative overflow-visible mr-1"
+          // Accessibility Enhancements:
+          aria-label="Return to top / Home"
+          className="flex items-center outline-none group relative overflow-visible mr-1 focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg focus-visible:rounded-xl"
         >
           <VKIcon isHovered={logoHovered} isActive={activeSection === 'hero-section' && !isCaseStudyView} />
         </motion.button>
 
         <div className="h-6 w-px bg-t-border/20 mx-2" />
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1" role="tablist" aria-label="Main navigation">
           {isCaseStudyView ? (
              <NavItem name="Home" label="Home" isActive={false} onClick={() => onGoHome?.()} />
           ) : (
@@ -454,12 +461,14 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
             onClick={onToggleTheme} 
             whileHover={{ scale: 1.15, rotate: 20 }}
             whileTap={{ scale: 0.9 }}
-            className="p-3 rounded-xl transition-all duration-500 text-t-fg/30 hover:text-t-accent hover:bg-t-accent/10"
+            // Accessibility Enhancements:
+            aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
+            className="p-3 rounded-xl transition-all duration-500 text-t-fg/30 hover:text-t-accent hover:bg-t-accent/10 outline-none focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg"
           >
             {isDarkMode ? (
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" /></svg>
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" /></svg>
             ) : (
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
             )}
           </motion.button>
           
@@ -467,9 +476,11 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
             onClick={() => window.print()} 
             whileHover={{ scale: 1.15, y: -2 }}
             whileTap={{ scale: 0.9 }}
-            className="bg-t-accent text-t-bg p-3 rounded-xl transition-all shadow-xl hover:shadow-t-accent/20"
+            // Accessibility Enhancements:
+            aria-label="Export technical CV as PDF"
+            className="bg-t-accent text-t-bg p-3 rounded-xl transition-all shadow-xl hover:shadow-t-accent/20 outline-none focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </motion.button>

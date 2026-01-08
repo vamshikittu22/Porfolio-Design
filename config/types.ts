@@ -1,4 +1,3 @@
-
 export enum ProjectCategory {
   FRONTEND = 'Frontend',
   FULLSTACK = 'Full-stack',
@@ -48,4 +47,4 @@ export interface SocialPost {
   link: string;
 }
 
-export type AccentColor = 'blue' | 'green' | 'red';
+export type AccentColor = 'indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange';

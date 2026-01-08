@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GlassCard } from '../../components/ui/GlassUI';
@@ -28,8 +27,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isI
   return (
     <button
       onClick={(e) => { e.stopPropagation(); onToggle(); }}
+      // Accessibility: Added aria-pressed and unique descriptive label
+      aria-pressed={isActive}
+      aria-label={`${isActive ? 'Hide' : 'View'} full architecture details for ${project.title}`}
       className={`
         group relative w-full text-left transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] outline-none
+        focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-4 focus-visible:ring-offset-t-bg focus-visible:rounded-[32px] focus-visible:z-20
         ${isActive ? 'scale-[1.03] z-10' : ''}
         ${isInactive ? 'opacity-50 grayscale hover:grayscale-0 hover:opacity-100' : 'hover:scale-[1.01]'}
       `}
@@ -76,7 +79,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isI
             ${isActive ? 'text-t-bg shadow-t-accent/40' : 'text-t-fg-m opacity-40 group-hover:opacity-100 group-hover:border-t-accent group-hover:text-t-accent'}
           `}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             {isActive ? (
                <motion.path 
                 initial={{ pathLength: 0 }}

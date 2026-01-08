@@ -10,9 +10,12 @@ import ResumeSection from './sections/resume/ResumeSection';
 import GameSection from './sections/game/GameSection';
 import TravelSection from './sections/travel/TravelSection';
 import ContactSection from './sections/contact/ContactSection';
-
-const HERO_FALLBACK_DARK = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200";
-const HERO_FALLBACK_LIGHT = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200";
+import { 
+  HERO_FALLBACK_DARK, 
+  HERO_FALLBACK_LIGHT, 
+  HERO_PROMPT_DARK, 
+  HERO_PROMPT_LIGHT 
+} from './config/constants';
 
 const App: React.FC = () => {
   const [heroImage, setHeroImage] = useState<string | null>(null);
@@ -61,9 +64,7 @@ const App: React.FC = () => {
     if (gemini.isQuotaLocked()) return; 
     setHeroLoading(true);
     try {
-      const prompt = isDarkMode 
-        ? "Hyper-clean architectural workspace, deep navy midnight atmosphere, electric aqua mint accents, high-end Swiss minimalist design."
-        : "Hyper-clean architectural workspace, dreamy ocean breeze lighting, soft lilac and pale grey tones, high-end Swiss minimalist design.";
+      const prompt = isDarkMode ? HERO_PROMPT_DARK : HERO_PROMPT_LIGHT;
       const img = await gemini.generateImage(prompt);
       setHeroImage(img);
     } catch (err) {
@@ -73,7 +74,7 @@ const App: React.FC = () => {
     }
   };
 
-  useEffect(() => { generateHero(); }, []);
+  useEffect(() => { generateHero(); }, [isDarkMode]);
 
   const scrollToSection = (id: string) => { 
     const element = document.getElementById(id); 

@@ -9,6 +9,12 @@ interface HeroProps {
 }
 
 export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) => {
+  // OPTIMIZATION: Use modern WebP format and balanced quality
+  const getOptimizedUrl = (url: string | null) => {
+    if (!url) return '';
+    return url.includes('unsplash.com') ? `${url}&fm=webp&q=75` : url;
+  };
+
   return (
     <section id="hero-section" className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center mb-[40rem] min-h-[85vh] print:hidden relative">
       <div className="space-y-12 animate-in fade-in slide-in-from-left duration-1000 z-20">
@@ -61,9 +67,12 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
           ) : (
             <>
               <img 
-                src={image || ''} 
+                src={getOptimizedUrl(image)} 
+                // OPTIMIZATION: Priority hero image with eager loading and blur-up transition
+                loading="eager"
                 alt="Software Engineering" 
-                className="w-full h-full object-cover transition-all duration-5000 group-hover:scale-110 mix-blend-luminosity dark:mix-blend-normal brightness-90 contrast-125" 
+                className="w-full h-full object-cover transition-all duration-500 blur-sm mix-blend-luminosity dark:mix-blend-normal brightness-90 contrast-125" 
+                onLoad={(e) => e.currentTarget.classList.remove('blur-sm')}
               />
               <div className="absolute inset-0 bg-t-accent/20 dark:bg-t-bg/40 mix-blend-overlay pointer-events-none" />
               <div className="absolute inset-0 bg-gradient-to-t from-t-bg via-transparent to-transparent opacity-80 pointer-events-none" />

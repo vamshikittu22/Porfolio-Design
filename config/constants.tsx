@@ -1,6 +1,4 @@
-
-
-import { BlogPost } from './types';
+import { BlogPost, AccentColor } from './types';
 
 export const FULL_NAME = 'Vamshi Krishna Pullaiahgari';
 export const EMAIL = 'krishnavamshi.2297@gmail.com';
@@ -13,6 +11,15 @@ export const X_URL = `https://x.com/ki22u__`;
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/vamshi-krishna-pullaiahgari/';
 export const BLOG_URL = 'https://travelsofvk.blogspot.com';
 export const RESUME_URL = '#resume-section'; 
+
+// OPTIMIZATION: Appended WebP format and 75% quality to fallback assets
+export const HERO_FALLBACK_DARK = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=75&w=1200&fm=webp";
+export const HERO_FALLBACK_LIGHT = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=75&w=1200&fm=webp";
+
+export const HERO_PROMPT_DARK = "Abstract professional software engineering desk scene. Modern minimalist setup, high resolution, Swiss architectural style. Deep navy midnight atmosphere with electric purple and orange accents.";
+export const HERO_PROMPT_LIGHT = "Abstract professional software engineering desk scene. Modern minimalist setup, high resolution, Swiss architectural style. Dreamy daylight atmosphere with soft grey tones and blue accents.";
+
+export const VIBRANT_ACCENTS: AccentColor[] = ['purple', 'orange', 'indigo', 'emerald', 'rose', 'amber'];
 
 export interface ResumeItem {
   title: string;

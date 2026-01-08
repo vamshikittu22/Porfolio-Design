@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { GlassCard } from '../../components/ui/GlassUI';
 import { GITHUB_USERNAME } from '../../config/constants';
@@ -213,7 +212,13 @@ const GitHubStats: React.FC = () => {
                <div className="relative group/avatar">
                  <div className="absolute -inset-1 rounded-xl bg-t-accent opacity-0 group-hover/avatar:opacity-30 transition-opacity blur-md" />
                  <div className="relative w-10 h-10 rounded-lg overflow-hidden border border-t-border shadow-sm bg-t-bg">
-                   <img src={user?.avatar_url} className="w-full h-full object-cover" alt="Avatar" />
+                   <img 
+                    src={user?.avatar_url} 
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-all duration-700 blur-sm" 
+                    onLoad={(e) => e.currentTarget.classList.remove('blur-sm')}
+                    alt="Avatar" 
+                   />
                  </div>
                  <div className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-t-bg-el animate-pulse shadow-sm ${usingLiveData ? 'bg-emerald-500' : 'bg-amber-500'}`} />
                </div>

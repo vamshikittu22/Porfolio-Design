@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo, useEffect } from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { SKILLS_RESUME } from '../../config/constants';
@@ -176,6 +175,7 @@ export const AboutSection: React.FC = () => {
                 setSelectedCategory('All');
                 setHoveredSkill(null);
              }}
+             role="presentation" // Correctly labeling the background interaction container
            >
               {isMounted && bubbleData.map((item) => {
                  const isHovered = hoveredSkill === item.name;
@@ -209,6 +209,9 @@ export const AboutSection: React.FC = () => {
                  return (
                    <motion.button
                      key={item.name}
+                     // Accessibility Enhancements:
+                     aria-pressed={isInSelectedCategory}
+                     aria-label={`Show details for ${item.name} technology`}
                      initial={{ scale: 0, opacity: 0 }}
                      animate={{ 
                        x: [0, item.floatX, 0],
@@ -232,7 +235,7 @@ export const AboutSection: React.FC = () => {
                         e.stopPropagation();
                         setSelectedCategory(item.cat as Category);
                      }}
-                     className="w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl outline-none"
+                     className="w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl outline-none focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505] focus-visible:scale-125 focus-visible:z-50"
                    >
                      <div className={`
                        absolute inset-0 rounded-2xl 
@@ -246,7 +249,7 @@ export const AboutSection: React.FC = () => {
 
                      <img 
                        src={item.icon} 
-                       alt={item.name} 
+                       alt="" // Decorative icon, label is on button
                        className={`relative w-[60%] h-[60%] object-contain drop-shadow-lg transition-transform duration-300 ${isHovered ? 'scale-110' : ''}`}
                        onError={(e) => {
                           (e.target as HTMLImageElement).src = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg';
@@ -269,15 +272,18 @@ export const AboutSection: React.FC = () => {
            {/* RIGHT: ANALYSIS PANEL */}
            <div className="relative w-full lg:w-[35%] bg-white/[0.01] border-t lg:border-t-0 lg:border-l border-white/5 backdrop-blur-xl p-8 lg:p-12 flex flex-col justify-between z-20 min-h-[350px]">
               
-              <div className="flex flex-wrap gap-2 mb-10 justify-end lg:justify-start">
+              <div className="flex flex-wrap gap-2 mb-10 justify-end lg:justify-start" role="tablist" aria-label="Skill categories">
                 {(['All', 'Languages', 'Frameworks', 'Cloud', 'Tools', 'AI', 'Coursework'] as Category[]).map(cat => (
                   <button
                     key={cat}
+                    role="tab"
+                    aria-selected={selectedCategory === cat}
+                    aria-controls="skill-matrix"
                     onClick={(e) => {
                         e.stopPropagation();
                         setSelectedCategory(cat);
                     }}
-                    className={`px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest transition-all border
+                    className={`px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest transition-all border outline-none focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2
                       ${selectedCategory === cat 
                         ? 'bg-t-accent text-t-bg border-t-accent shadow-[0_0_15px_rgba(var(--color-accent-rgb),0.3)]' 
                         : 'bg-transparent text-white/40 border-white/5 hover:border-white/20 hover:text-white'}
@@ -296,6 +302,7 @@ export const AboutSection: React.FC = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     className="space-y-8"
+                    aria-live="polite"
                   >
                     <div>
                       <h3 className="text-4xl lg:text-5xl font-black text-white uppercase tracking-tighter leading-none mb-2">{hoveredSkill}.</h3>
@@ -304,7 +311,7 @@ export const AboutSection: React.FC = () => {
                       </p>
                     </div>
                     
-                    <p className="text-base text-white/70 leading-relaxed font-medium pl-4 border-l-2 border-white/10 italic">
+                    <p className="text-sm text-white/70 leading-relaxed font-medium pl-4 border-l-2 border-white/10 italic">
                       "{activeDetail.desc}"
                     </p>
 
@@ -332,6 +339,7 @@ export const AboutSection: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     className="space-y-6"
+                    aria-live="polite"
                   >
                      <div className="w-16 h-16 rounded-2xl bg-white/5 border border-dashed border-white/20 flex items-center justify-center">
                         <div className={`w-8 h-8 rounded-full bg-${CATEGORY_COLORS[selectedCategory]}-500/30 animate-pulse`} />

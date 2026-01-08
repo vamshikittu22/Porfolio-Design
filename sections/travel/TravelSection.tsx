@@ -1,9 +1,7 @@
 import React from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
-import { BLOG_POSTS } from '../../config/constants';
+import { BLOG_POSTS, VIBRANT_ACCENTS } from '../../config/constants';
 import TravelStoryItem from './TravelStoryItem';
-
-const VIBRANT_ACCENTS: ('indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange')[] = ['purple', 'orange', 'indigo', 'emerald', 'rose', 'amber'];
 
 export const TravelSection: React.FC = () => {
   return (
@@ -21,10 +19,9 @@ export const TravelSection: React.FC = () => {
       <div className="relative">
          <div className="space-y-0">
            {BLOG_POSTS.map((post, i) => {
-             let accent: 'indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange' = 'indigo';
+             let accent = VIBRANT_ACCENTS[i % VIBRANT_ACCENTS.length];
              if (post.id === 'rishikesh-story') accent = 'purple';
              else if (post.id === 'coorg-story') accent = 'emerald';
-             else accent = VIBRANT_ACCENTS[(i + 3) % VIBRANT_ACCENTS.length];
              return <TravelStoryItem key={post.id} post={post} index={i} accent={accent} />;
            })}
          </div>

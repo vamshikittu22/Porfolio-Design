@@ -1,6 +1,6 @@
-
 import { Project, ProjectCategory } from './types';
 
+// OPTIMIZATION: Updated all Unsplash assets with &fm=webp and &q=75
 export const PROJECTS_CONFIG: Project[] = [
   {
     id: 'mini-metro-simulator',
@@ -21,12 +21,9 @@ export const PROJECTS_CONFIG: Project[] = [
       'Developed a graph-based router with automated reachability and cost optimization.'
     ],
     category: ProjectCategory.AI,
-    // Abstract lines/circuitry for thumbnail (logo feel)
-    thumbnailUrl: 'https://images.unsplash.com/photo-1555677284-6a6f971638e0?auto=format&fit=crop&q=80&w=200',
-    // Dynamic metro tunnel blur for main background
-    secondaryImageUrl: 'https://images.unsplash.com/photo-1494515843206-f3117d3f51b7?auto=format&fit=crop&q=80&w=1200',
-    // Clean minimalist train window/interior for detail view
-    tertiaryImageUrl: 'https://images.unsplash.com/photo-1520697830682-bbb6e85e2b0b?auto=format&fit=crop&q=80&w=600',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1555677284-6a6f971638e0?auto=format&fit=crop&q=75&w=200&fm=webp',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1494515843206-f3117d3f51b7?auto=format&fit=crop&q=75&w=1200&fm=webp',
+    tertiaryImageUrl: 'https://images.unsplash.com/photo-1520697830682-bbb6e85e2b0b?auto=format&fit=crop&q=75&w=600&fm=webp',
     tech: ['React 19', 'TypeScript 5.8', 'Vite', 'HTML5 Canvas', 'Gemini 3 Pro', 'TailwindCSS'],
     liveUrl: 'https://mini-metro-tau.vercel.app/',
     repoUrl: 'https://github.com/vamshikittu22/mini-metro',
@@ -51,8 +48,8 @@ export const PROJECTS_CONFIG: Project[] = [
       'Developed a custom JSON-to-PDF engine with pixel-perfect precision.'
     ],
     category: ProjectCategory.AI,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=1000',
-    secondaryImageUrl: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=1200',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=75&w=1000&fm=webp',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=75&w=1200&fm=webp',
     tech: ['React', 'TypeScript', 'Gemini API', 'Tailwind', 'Node.js'],
     liveUrl: 'https://future-job-fit.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/future-job-fit',
@@ -77,8 +74,8 @@ export const PROJECTS_CONFIG: Project[] = [
       'Optimized query performance to reduce initial load times by 50%.'
     ],
     category: ProjectCategory.FULLSTACK,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&q=80&w=1000',
-    secondaryImageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=1200',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&q=75&w=1000&fm=webp',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=75&w=1200&fm=webp',
     tech: ['PHP', 'MySQL', 'JavaScript', 'Tailwind', 'REST'],
     liveUrl: 'https://wanderlust-trails.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/Wanderlusttrails',
@@ -103,8 +100,8 @@ export const PROJECTS_CONFIG: Project[] = [
       'Integrated external movie metadata APIs for automated listing updates.'
     ],
     category: ProjectCategory.FULLSTACK,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=1000',
-    secondaryImageUrl: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=1200',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=75&w=1000&fm=webp',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=75&w=1200&fm=webp',
     tech: ['PHP', 'MySQL', 'JavaScript', 'Bootstrap', 'Ajax'],
     liveUrl: 'https://cinematic-discovery.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/Movie-Booking-Website',
@@ -129,8 +126,8 @@ export const PROJECTS_CONFIG: Project[] = [
       'Developed the admin dashboard metrics using advanced LINQ queries.'
     ],
     category: ProjectCategory.FULLSTACK,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&q=80&w=1000',
-    secondaryImageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1200',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&q=75&w=1000&fm=webp',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=75&w=1200&fm=webp',
     tech: ['C#', '.NET Core', 'SQL Server', 'HTML5', 'CSS3'],
     liveUrl: 'https://pullaiahgari-tickets.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/PullaiahgariTicketSales',

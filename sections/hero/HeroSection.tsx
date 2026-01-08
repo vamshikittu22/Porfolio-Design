@@ -17,11 +17,9 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
   const mouseXSpring = useSpring(x, { stiffness: 100, damping: 30 });
   const mouseYSpring = useSpring(y, { stiffness: 100, damping: 30 });
 
-  // Subtle tilt for the container
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [5, -5]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-5, 5]);
   
-  // Parallax movement for the image inside the frame
   const imageTranslateX = useTransform(mouseXSpring, [-0.5, 0.5], [-30, 30]);
   const imageTranslateY = useTransform(mouseYSpring, [-0.5, 0.5], [-30, 30]);
 
@@ -35,52 +33,53 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
     y.set(yPct);
   };
 
+  // OPTIMIZATION: Append WebP and balanced quality for Unsplash assets
+  const getOptimizedUrl = (url: string | null) => {
+    if (!url) return '';
+    return url.includes('unsplash.com') ? `${url}&fm=webp&q=75` : url;
+  };
+
   return (
     <section 
       id="hero-section" 
       className="relative min-h-screen flex items-center justify-center py-20 mb-[20rem] lg:mb-[30rem] print:hidden overflow-visible"
       onMouseMove={handleMouseMove}
+      aria-labelledby="hero-title"
     >
-      {/* BACKGROUND DATA LAYER */}
       <div className="absolute inset-0 z-0">
         <NameBackground />
       </div>
 
-      {/* MAIN CONTENT GRID */}
       <div className="grid lg:grid-cols-[1.4fr_0.6fr] gap-12 lg:gap-24 items-center w-full relative z-20">
-        
-        {/* TEXT CONTENT (LEFT COLUMN) */}
         <div className="space-y-16 animate-in fade-in slide-in-from-left duration-1000">
-          
-          {/* Header Row: Title and Tagline */}
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <div className="w-12 h-1 bg-t-accent" />
               <span className="text-[12px] font-black uppercase tracking-[1em] text-t-accent">Systems Architect</span>
             </div>
-            <HeroTitle />
+            <div id="hero-title">
+              <HeroTitle />
+            </div>
           </div>
           
           <div className="grid lg:grid-cols-[1fr_0.7fr] gap-12 items-start">
-            {/* Description Column */}
             <div className="max-w-xl space-y-8">
               <p className="text-xl lg:text-3xl text-t-fg font-medium leading-tight tracking-tight text-balance">
                 Architecting <span className="text-t-accent font-black">high-performance</span> digital ecosystems with Swiss precision and AI integration.
               </p>
             </div>
             
-            {/* CTA Column */}
-            <div className="flex flex-col gap-6 relative">
-              {/* STAGGERED BUTTONS */}
+            <div className="flex flex-col gap-6 relative" role="group" aria-label="Quick Actions">
               <motion.div whileHover={{ x: 5 }}>
                 <GlassButton 
                   primary 
                   accent="theme" 
-                  className="!px-8 !py-5 !text-[10px] group shadow-xl dark:shadow-2xl w-full" 
+                  aria-label="View selected software engineering projects"
+                  className="!px-8 !py-5 !text-[10px] group shadow-xl dark:shadow-2xl w-full focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:outline-none" 
                   onClick={() => onScroll('projects-section')}
                 >
                   Launch Projects
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3} aria-hidden="true">
                     <path d="M14 5l7 7-7 7M5 12h16" />
                   </svg>
                 </GlassButton>
@@ -89,7 +88,8 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
               <motion.div whileHover={{ x: 5 }} className="lg:ml-10">
                 <GlassButton 
                   accent="secondary" 
-                  className="!px-8 !py-5 !text-[10px] hover:bg-t-accent-2/10 w-full whitespace-nowrap border-t-accent-2/40" 
+                  aria-label="Export technical resume as PDF"
+                  className="!px-8 !py-5 !text-[10px] hover:bg-t-accent-2/10 w-full whitespace-nowrap border-t-accent-2/40 focus-visible:ring-4 focus-visible:ring-t-accent-2 focus-visible:ring-offset-2 focus-visible:outline-none" 
                   onClick={() => window.print()}
                 >
                   Technical CV
@@ -99,7 +99,8 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
               <motion.div whileHover={{ x: 5 }} className="lg:ml-20">
                 <GlassButton 
                   accent="theme" 
-                  className="!px-8 !py-5 !text-[10px] hover:bg-t-accent/10 w-full whitespace-nowrap border-t-accent/40" 
+                  aria-label="Scroll to contact information section"
+                  className="!px-8 !py-5 !text-[10px] hover:bg-t-accent/10 w-full whitespace-nowrap border-t-accent/40 focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:outline-none" 
                   onClick={() => onScroll('contact-section')}
                 >
                   Contact Me
@@ -109,11 +110,8 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
           </div>
         </div>
         
-        {/* HERO IMAGE PORTAL (RIGHT COLUMN) */}
         <div className="relative flex flex-col gap-10 items-center lg:items-end justify-center perspective-[2000px]">
-          
-          {/* HUD METADATA - Adjusted for extreme visibility in light mode */}
-          <div className="w-full max-w-sm space-y-5 animate-in fade-in slide-in-from-right duration-1000 delay-300">
+          <div className="w-full max-w-sm space-y-5 animate-in fade-in slide-in-from-right duration-1000 delay-300" role="complementary" aria-label="Status Indicators">
             <div className="h-[2px] w-full bg-t-accent/40 dark:bg-t-accent/30" />
             <div className="flex justify-between items-start gap-6">
               {[
@@ -144,18 +142,18 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                     className="absolute inset-[-15%] z-0"
                   >
                     <img 
-                      src={image || ''} 
-                      alt="Vamshi Krishna Portfolio Hero" 
-                      className="w-full h-full object-cover transition-all duration-300 group-hover:saturate-[1.1] brightness-[0.9] dark:brightness-100" 
+                      src={getOptimizedUrl(image)} 
+                      // OPTIMIZATION: Hero uses eager loading to avoid LCP delay, with blur-to-clear transition
+                      loading="eager"
+                      alt="Atmospheric architectural workspace symbolizing engineering precision" 
+                      className="w-full h-full object-cover transition-all duration-700 blur-sm brightness-[0.9] dark:brightness-100" 
+                      onLoad={(e) => e.currentTarget.classList.remove('blur-sm')}
                     />
                   </motion.div>
                   
-                  {/* GLASS SCANLINES */}
                   <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] pointer-events-none z-10" />
-                  
                   <div className="absolute inset-0 bg-gradient-to-t from-t-bg/90 via-transparent to-transparent pointer-events-none z-10" />
                   
-                  {/* HUD OVERLAY ELEMENTS */}
                   <div className="absolute top-8 left-8 right-8 flex justify-between items-start z-20">
                     <div className="flex flex-col gap-1">
                       <div className="w-8 h-1.5 bg-t-accent-2 shadow-[0_0_15px_rgba(var(--color-accent-secondary-rgb),0.6)]" />
@@ -181,7 +179,6 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
               )}
           </motion.div>
 
-          {/* AMBIENT BACKGROUND GLOWS */}
           <motion.div 
             animate={{ 
               scale: [1, 1.15, 1],
@@ -193,7 +190,6 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
         </div>
       </div>
 
-      {/* DECORATIVE GRID LINES */}
       <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.1] dark:opacity-[0.07]">
         <div className="absolute top-0 bottom-0 left-1/4 w-px bg-t-fg" />
         <div className="absolute top-0 bottom-0 left-2/4 w-px bg-t-fg" />

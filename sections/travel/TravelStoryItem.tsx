@@ -1,17 +1,14 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { GlassButton } from '../../components/ui/GlassUI';
-import { BlogPost } from '../../config/types';
+import { BlogPost, AccentColor } from '../../config/types';
 import { GeminiService } from '../../services/geminiService';
-
-type SwissAccent = 'indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange';
 
 interface TravelStoryItemProps {
   post: BlogPost;
   index: number;
-  accent: SwissAccent;
+  accent: AccentColor;
 }
 
 export const TravelStoryItem: React.FC<TravelStoryItemProps> = ({ post, index, accent }) => {
@@ -41,7 +38,7 @@ export const TravelStoryItem: React.FC<TravelStoryItemProps> = ({ post, index, a
     }
   };
 
-  const paletteMap: Record<SwissAccent, { bg: string, text: string, accent: string, border: string }> = {
+  const paletteMap: Record<AccentColor, { bg: string, text: string, accent: string, border: string }> = {
     purple: { bg: 'bg-purple-600', text: 'text-white', accent: 'bg-purple-400', border: 'border-purple-300' },
     orange: { bg: 'bg-orange-500', text: 'text-white', accent: 'bg-orange-300', border: 'border-orange-200' },
     indigo: { bg: 'bg-indigo-600', text: 'text-white', accent: 'bg-indigo-400', border: 'border-indigo-300' },
@@ -56,7 +53,13 @@ export const TravelStoryItem: React.FC<TravelStoryItemProps> = ({ post, index, a
     <ScrollReveal className="relative w-full py-48 lg:py-64 flex items-center transition-all duration-1000 border-b border-t-border print:hidden overflow-hidden">
       {illustration && (
         <div className="absolute inset-0 z-0 animate-in fade-in duration-1000 pointer-events-none">
-          <img src={illustration} className="w-full h-full object-cover opacity-20 dark:opacity-10 scale-110" alt="" />
+          <img 
+            src={illustration} 
+            loading="lazy"
+            className="w-full h-full object-cover opacity-20 dark:opacity-10 scale-110 blur-sm transition-all duration-1000" 
+            onLoad={(e) => e.currentTarget.classList.remove('blur-sm')}
+            alt="" 
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-t-bg via-transparent to-t-bg" />
         </div>
       )}
@@ -72,7 +75,7 @@ export const TravelStoryItem: React.FC<TravelStoryItemProps> = ({ post, index, a
             >
                <div className="flex items-center gap-6 mb-8">
                   <span className="px-5 py-2 rounded-full text-[8px] font-black uppercase tracking-[0.4em] bg-white/20 text-white border border-white/10">{post.date}</span>
-                  <span className="text-[8px] font-black text-white/50 uppercase tracking-raw-60.6em]">{post.tag}</span>
+                  <span className="text-[8px] font-black text-white/50 uppercase tracking-widest">{post.tag}</span>
                </div>
                <h3 className="text-4xl lg:text-7xl font-black uppercase tracking-tighter mb-10 leading-[0.75]">{post.title}.</h3>
                <p className="text-lg lg:text-xl text-white/80 font-medium leading-relaxed italic mb-12">"{post.summary}"</p>
@@ -113,7 +116,13 @@ export const TravelStoryItem: React.FC<TravelStoryItemProps> = ({ post, index, a
              )}
              {illustration && (
                <>
-                 <img src={illustration} className="w-full h-full object-cover transition-transform duration-[5000ms] group-hover:scale-110 saturate-[1.2]" alt={post.title} />
+                 <img 
+                    src={illustration} 
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-all duration-[2000ms] group-hover:scale-110 saturate-[1.2] blur-sm" 
+                    onLoad={(e) => e.currentTarget.classList.remove('blur-sm')}
+                    alt={post.title} 
+                 />
                  {showIsland && (
                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center p-8 lg:p-20 text-center animate-in fade-in duration-500">
                      <div className="bg-t-bg-el/95 backdrop-blur-3xl px-8 py-6 lg:px-12 lg:py-10 rounded-[48px_16px_48px_16px] border border-t-border shadow-2xl max-md:max-w-xs">

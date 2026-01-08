@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { GlassCard } from '../../components/ui/GlassUI';
 import { Project } from '../../config/types';
@@ -12,12 +11,16 @@ interface ProjectDetailsProps {
 }
 
 const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, accent, onClose }) => {
+  // OPTIMIZATION: Append WebP and quality params for Unsplash URLs
+  const getOptimizedUrl = (url: string) => {
+    return url.includes('unsplash.com') ? `${url}&fm=webp&q=75` : url;
+  };
+
   return (
     <div className="w-full pt-8 pb-4">
       <GlassCard accent={accent} className="relative w-full overflow-hidden flex flex-col shadow-2xl border-t-border bg-t-bg-el/95 backdrop-blur-3xl">
         <div className="absolute inset-0 bg-t-accent/5 pointer-events-none" />
         
-        {/* Floating Close Button */}
         <div className="absolute top-6 right-6 lg:top-10 lg:right-10 z-50">
           <button 
             onClick={onClose}
@@ -32,24 +35,29 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, accent, onClos
         </div>
 
         <div className="p-8 lg:p-20 space-y-20 relative z-10">
-          
-          {/* Top Section: Hero & Overview */}
           <div className="grid lg:grid-cols-[1.5fr_1fr] gap-16 lg:gap-24 items-start">
             <div className="space-y-12">
-               {/* Hero Image */}
                <div className="relative aspect-[16/9] rounded-[40px] border border-white/40 bg-white/30 dark:bg-white/5 backdrop-blur-3xl overflow-hidden p-10 flex flex-col justify-between shadow-lg group/card">
                   <div className="absolute inset-0 z-[-1]">
                      <img 
-                       src={project.secondaryImageUrl} 
-                       className="w-full h-full object-cover opacity-90 mix-blend-overlay transition-transform duration-[3000ms] group-hover/card:scale-105" 
+                       src={getOptimizedUrl(project.secondaryImageUrl)} 
+                       loading="lazy"
+                       className="w-full h-full object-cover opacity-90 mix-blend-overlay transition-all duration-[2000ms] group-hover/card:scale-105 blur-sm" 
+                       onLoad={(e) => e.currentTarget.classList.remove('blur-sm')}
                        alt="Project Background" 
                      />
                      <div className="absolute inset-0 bg-gradient-to-t from-t-bg-el/90 via-t-bg-el/20 to-transparent" />
                   </div>
 
                   <div className="flex justify-between items-start">
-                    <div className="w-14 h-14 rounded-2xl border border-white/50 bg-white/20 flex items-center justify-center shadow-lg backdrop-blur-md">
-                      <img src={project.thumbnailUrl} className="w-8 h-8 object-cover rounded-full" alt="Logo" />
+                    <div className="w-14 h-14 rounded-2xl border border-white/50 bg-white/20 flex items-center justify-center shadow-lg backdrop-blur-md overflow-hidden">
+                      <img 
+                        src={getOptimizedUrl(project.thumbnailUrl)} 
+                        loading="lazy"
+                        className="w-8 h-8 object-cover rounded-full transition-all duration-700 blur-sm" 
+                        onLoad={(e) => e.currentTarget.classList.remove('blur-sm')}
+                        alt="Logo" 
+                      />
                     </div>
                   </div>
                   
@@ -73,9 +81,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, accent, onClos
                </div>
             </div>
 
-            {/* Right Column: Features & Tech */}
             <div className="space-y-12">
-               {/* Features List */}
                <div className="space-y-6">
                   <h5 className="text-[9px] font-black uppercase tracking-[0.6em] text-t-fg-m opacity-50">Core Features</h5>
                   <div className="space-y-4">
@@ -88,13 +94,11 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, accent, onClos
                   </div>
                </div>
 
-               {/* Tech Stack */}
                <div className="p-8 rounded-[32px] bg-t-fg/[0.02] border border-t-border">
                   <h5 className="text-[9px] font-black uppercase tracking-[0.6em] text-t-fg-m opacity-50 mb-6">Architecture Stack</h5>
                   <ProjectTechPills tech={project.tech} accent={accent} />
                </div>
 
-               {/* Architecture & Role */}
                <div className="space-y-8">
                   <div>
                     <h5 className="text-[9px] font-black uppercase tracking-[0.6em] text-t-accent-2 mb-3">System Architecture</h5>
