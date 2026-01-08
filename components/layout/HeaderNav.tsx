@@ -165,16 +165,6 @@ const ResumeIcon = ({ isHovered }: { isHovered: boolean }) => (
   </svg>
 );
 
-const BlueprintIcon = ({ isHovered }: { isHovered: boolean }) => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
-    <motion.path 
-      d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" 
-      animate={isHovered ? { y: [0, -2, 0], strokeWidth: [2, 2.5, 2] } : {}}
-      transition={{ duration: 1, repeat: Infinity }}
-    />
-  </svg>
-);
-
 const ContactIcon = ({ isHovered }: { isHovered: boolean }) => (
   <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
     <motion.rect x="2" y="4" width="20" height="16" rx="2" animate={isHovered ? { scale: [1, 1.05, 1] } : {}} />
@@ -199,7 +189,6 @@ const CrazyNavIcon = ({ name, isActive, isHovered }: CrazyNavIconProps) => {
     case 'Playlab': return <PlaylabIcon {...iconProps} />;
     case 'Travel': return <TravelIcon {...iconProps} />;
     case 'Resume': return <ResumeIcon {...iconProps} />;
-    case 'Blueprint': return <BlueprintIcon {...iconProps} />;
     case 'Contact': return <ContactIcon {...iconProps} />;
     case 'Home': return <HomeIcon {...iconProps} />;
     default: return null;
@@ -283,12 +272,21 @@ interface HeaderNavProps {
   onScrollToTop: () => void;
   onToggleTheme: () => void;
   onGoHome?: () => void;
+  /** Added onOpenCaseStudy to fix TypeScript error in App.tsx */
   onOpenCaseStudy?: () => void;
   isCaseStudyView?: boolean;
 }
 
 export const HeaderNav: React.FC<HeaderNavProps> = ({ 
-  scrolled, activeSection, isDarkMode, onScrollToSection, onToggleTheme, onGoHome, onOpenCaseStudy, isCaseStudyView 
+  scrolled, 
+  activeSection, 
+  isDarkMode, 
+  onScrollToSection, 
+  onScrollToTop, 
+  onToggleTheme, 
+  onGoHome, 
+  onOpenCaseStudy, 
+  isCaseStudyView 
 }) => {
   const [logoHovered, setLogoHovered] = useState(false);
 
@@ -326,7 +324,6 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
               <NavItem name="Projects" label="Projects" isActive={activeSection === 'projects-section'} onClick={() => onScrollToSection('projects-section')} />
               <NavItem name="GitHub" label="GitHub" isActive={activeSection === 'github-section'} onClick={() => onScrollToSection('github-section')} />
               <NavItem name="Resume" label="Resume" isActive={activeSection === 'resume-section'} onClick={() => onScrollToSection('resume-section')} />
-              <NavItem name="Blueprint" label="Blueprint" isActive={false} onClick={() => onOpenCaseStudy?.()} />
               <NavItem name="Playlab" label="Playlab" isActive={activeSection === 'game-section'} onClick={() => onScrollToSection('game-section')} />
               <NavItem name="Travel" label="Travel" isActive={activeSection === 'travel-section'} onClick={() => onScrollToSection('travel-section')} />
               <NavItem name="Contact" label="Contact" isActive={activeSection === 'contact-section'} onClick={() => onScrollToSection('contact-section')} />

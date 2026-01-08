@@ -10,6 +10,7 @@ import ProjectsSection from '../sections/projects/ProjectsSection';
 import GithubSection from '../sections/github/GithubSection';
 import ChatAssistant from '../components/layout/ChatAssistant/ChatAssistant';
 import PortfolioCaseStudy from '../sections/case-study/PortfolioCaseStudy';
+import { BlueprintLauncher } from '../components/layout/BlueprintLauncher';
 import SectionLoader from '../components/ui/SectionLoader';
 import { 
   HERO_FALLBACK_DARK, 
@@ -155,6 +156,12 @@ const App: React.FC = () => {
         <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-t-accent-s/40 blur-[200px] rounded-full" />
       </div>
 
+      {/* Standalone Engineering Launcher */}
+      <BlueprintLauncher 
+        onOpen={() => setView('case-study')} 
+        visible={view === 'portfolio'} 
+      />
+
       <HeaderNav 
         scrolled={scrolled} 
         activeSection={activeSection} 
@@ -163,7 +170,6 @@ const App: React.FC = () => {
         onScrollToTop={handleScrollToTop} 
         onToggleTheme={() => setIsDarkMode(!isDarkMode)}
         onGoHome={() => setView('portfolio')}
-        onOpenCaseStudy={() => setView('case-study')}
         isCaseStudyView={view === 'case-study'}
       />
 
