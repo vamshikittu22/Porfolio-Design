@@ -12,10 +12,10 @@ export const CASE_STUDY_DATA: CaseStudyChapter[] = [
       purpose: "Most portfolios are static brochures. I wanted a living application. This architecture was designed to bridge the gap between a resume and a software product, demonstrating capability in state management, asynchronous data handling, and performance optimization immediately upon load.",
       visualDescription: "The application uses a 'Shell & Lazy-Load' pattern. The user immediately sees the Navigation, Hero, and About sections (Critical Rendering Path), while heavier interactive modules like the Game Engine and AI Chatbot are hydrated quietly in the background using React Suspense boundaries.",
       techStack: [
-        { name: "React 19", reason: "Leveraging Concurrent Mode for non-blocking UI updates during heavy animation frames." },
-        { name: "Vite", reason: "Chosen for its ESBuild-based dev server, ensuring sub-100ms HMR updates during rapid UI iteration." },
-        { name: "TypeScript 5.x", reason: "Enforcing strict type safety on API responses (GitHub/Gemini) to prevent runtime crashes." },
-        { name: "Tailwind CSS", reason: "Zero-runtime overhead styling that keeps the bundle size minimal compared to CSS-in-JS libraries." }
+        { name: "React 19", reason: "Leveraging Concurrent Mode for non-blocking UI updates. This ensures that even during heavy data hydration or complex state transitions, the main thread remains responsive to user input and scroll events." },
+        { name: "Vite", reason: "Chosen for its ESBuild-based development server, ensuring sub-100ms HMR updates. Vite's rollup-based production build optimizes asset sharding, drastically reducing initial TTI (Time to Interactive)." },
+        { name: "TypeScript 5.x", reason: "Enforcing strict type safety across the entire application ecosystem. This is critical for managing the multi-modal responses from Gemini and GraphQL, preventing common runtime errors in complex data structures." },
+        { name: "Tailwind CSS", reason: "A utility-first engine providing zero-runtime styling overhead. Using the JIT engine allows for a highly customized Swiss design system while keeping the CSS bundle size at an absolute minimum." }
       ],
       architecture: `
 App_Root
@@ -84,8 +84,10 @@ function App() {
       purpose: "The Hero section solves the 'Blank Page' problem. Instead of a static image, it immerses the visitor in a cloud of my technical identity. It serves as a visual metaphor for 'Order from Chaos'—taking hundreds of disconnected skills and organizing them into a coherent professional profile.",
       visualDescription: "A 3D constellation of over 550 keywords (skills, locations, tools) floats in the background. As the mouse moves, the text layers shift in parallax—foreground words move faster than background words—creating a sense of genuine depth.",
       techStack: [
-        { name: "Framer Motion", reason: "Handles the physics-based spring animations for the mouse parallax effect." },
-        { name: "CSS Variables", reason: "Used for high-performance, reactive theme switching without React re-renders." }
+        { name: "Framer Motion", reason: "Advanced physics orchestration for the 3D parallax layers. It maps direct mouse coordinates to spring-damped transforms, ensuring the movement feels biological rather than mechanical." },
+        { name: "CSS Variables", reason: "Used as the primary engine for real-time design tokens. This allows the procedural word cloud to react instantly to dark mode transitions without triggering expensive React re-render cycles." },
+        { name: "Viewport Units", reason: "Utilizing SVH and DVH units to prevent layout instability during browser address bar transitions on mobile devices, ensuring the procedural cloud always fills the available space." },
+        { name: "Procedural Logic", reason: "A custom coordinate generation algorithm that intelligently clusters keywords to ensure high readability while maintaining a dense, complex visual field." }
       ],
       architecture: `
 Hero_Container
@@ -147,9 +149,10 @@ const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-5, 5]);`,
       purpose: "Engineering for mobile is not an afterthought; it is the primary interface for modern users. This chapter outlines the design system's adaptation strategy to ensure low-latency performance and high ergonomic quality on handheld devices.",
       visualDescription: "Visual breakdown of breakpoint behaviors, touch-target ergonomics, and the progressive enhancement strategy that powers the UI across varying network conditions.",
       techStack: [
-        { name: "Tailwind JIT", reason: "Generates mobile-first utility classes on the fly, reducing CSS payload." },
-        { name: "Viewport Units", reason: "Used for dynamic font scaling and layout height stabilization (SVH/DVH)." },
-        { name: "MatchMedia Hook", reason: "Conditional JS execution to disable heavy 3D transforms on low-power mobile GPUs." }
+        { name: "Tailwind JIT", reason: "Generates precision utility classes on-demand, enabling complex mobile-first responsive grids without the bloat of traditional CSS frameworks." },
+        { name: "Adaptive Hooks", reason: "Custom React hooks that detect device capabilities and dynamically disable expensive 3D transforms on low-power mobile GPUs to preserve battery and frame rate." },
+        { name: "Ergonomic Spec", reason: "Standardizing a 44px minimum touch target across all interactive elements, optimized for single-handed thumb interaction in high-velocity mobile contexts." },
+        { name: "Responsive Media", reason: "Implementing a dynamic asset pipeline that serves multi-resolution WebP images based on device pixel density (DPR), optimizing both visual clarity and load speed." }
       ],
       architecture: `View_Root -> Mobile_Priority -> Breakpoint_Expansion -> Desktop_Enhancement`,
       coreLogic: "The application utilizes a 'Base-Up' styling logic. All styles are defined for mobile first, and expanded via 'md:' and 'lg:' prefixes. Interaction heavy components (like the Game) swap absolute coordinate grids for auto-flowing flexboxes below 768px.",
@@ -192,9 +195,10 @@ const rotationEffect = useTransform(
       purpose: "Anyone can claim they code; this section proves it. It connects directly to my GitHub profile to show real engineering velocity. It solves the 'trust' problem for recruiters by providing verifiable, live data.",
       visualDescription: "A dashboard featuring an 'Equalizer' bar graph that visualizes commit intensity. Below it, a timeline allows users to toggle between yearly datasets (2023-2025). It explicitly highlights if the data is 'Live' (API) or 'Cached'.",
       techStack: [
-        { name: "GitHub GraphQL API", reason: "Fetches precise contribution data in a single request, unlike the REST API which requires pagination." },
-        { name: "SessionStorage", reason: "Caches the expensive API response to prevent hitting rate limits on page reloads." },
-        { name: "Fetch API", reason: "Native browser standard for network requests, no heavy Axios dependency needed." }
+        { name: "GitHub GraphQL", reason: "Leveraging a strongly-typed schema to fetch precisely what is needed in one round-trip. This significantly outperforms standard REST APIs by eliminating both over-fetching and under-fetching." },
+        { name: "Session Cache", reason: "A high-integrity caching mechanism that persists the complex yearly contribution objects for the duration of the user's session, minimizing redundant network traffic." },
+        { name: "Native Fetch", reason: "Utilizing the browser's native Fetch implementation with a custom middleware for GraphQL orchestration, keeping the dependency tree slim and highly performant." },
+        { name: "Data Mapping", reason: "Complex transformation logic that maps high-density commit timestamps into a visually balanced audio-visualizer style graph, ensuring clarity at all screen sizes." }
       ],
       architecture: `
 GitHub_Section
@@ -261,8 +265,10 @@ GitHub_Section
       purpose: "This isn't just a game; it's a demonstration of algorithmic competency. It shows I can implement recursive logic, manage complex state machines, and optimize for 'unbeatable' outcomes.",
       visualDescription: "A Tic-Tac-Toe board inside a glass panel. Users play against the CPU. The CPU difficulty can be toggled. At 'Hard' level, the CPU never loses.",
       techStack: [
-        { name: "React Reducer", reason: "Manages the complex state transitions (turn switching, win checking, draw logic)." },
-        { name: "Web Workers", reason: "(Potential optimization) To offload Minimax calculation from the main thread if depth increases." }
+        { name: "Minimax Logic", reason: "A zero-sum game theory algorithm that recursively simulates the entire future game tree. It guarantees that the CPU will always play optimally, assuming the opponent does the same." },
+        { name: "React Reducer", reason: "Implementing a strict state management pattern for the game loop. This prevents race conditions during CPU thinking states and ensures a clean undo/redo history if needed." },
+        { name: "Heuristic Search", reason: "Optimization techniques like alpha-beta pruning concepts and static opening books to ensure the CPU responds in sub-millisecond time regardless of the search depth." },
+        { name: "Interactive UI", reason: "A physics-based board renderer that uses spring animations for move feedback, creating a tactile and responsive feel that elevates a standard logic puzzle." }
       ],
       architecture: `
 Game_Container
@@ -329,8 +335,10 @@ Game_Container
       purpose: "Recruiters often have specific questions my static text might miss. This Chat Assistant acts as a 24/7 representative, answering questions about my experience using a Retrieval-Augmented Generation (RAG) pattern to ensure accuracy.",
       visualDescription: "A floating button expands into a glass-panel chat interface. The UI mimics a modern messaging app with typing indicators, auto-scroll, and quick-suggestion chips.",
       techStack: [
-        { name: "Google Gemini 3 Flash", reason: "Selected for its massive context window and sub-second inference speed." },
-        { name: "Context Injection", reason: "Feeds the resume/project data as a 'System Instruction' rather than fine-tuning a model." }
+        { name: "Gemini 3 Flash", reason: "Providing sub-second inference and a massive context window. Its high-efficiency architecture makes it perfect for a real-time conversational agent where low latency is the priority." },
+        { name: "RAG Pipeline", reason: "Implementing a 'Lite-RAG' pattern that injects structured JSON resume data into the system instruction, grounding the model in factual data and preventing creative hallucination." },
+        { name: "Neural Logic", reason: "A sophisticated prompt engineering strategy that defines a clear professional persona, ensuring the assistant remains helpful while strictly adhering to professional boundaries." },
+        { name: "Stream Engine", reason: "Using a pseudo-streaming pattern to hydrate messages with typing indicators, creating a more natural and engaging user experience compared to block-based responses." }
       ],
       architecture: `
 Chat_System
@@ -392,9 +400,10 @@ Chat_System
       purpose: "Reliability is non-negotiable in production software. This chapter details the multi-layered testing strategy used to ensure that as features scale, the core application remains stable, accessible, and performant.",
       visualDescription: "A comprehensive dashboard visualizing the automated testing pipeline, from unit test coverage to accessibility compliance audits. It highlights the CI/CD flow that gates production releases.",
       techStack: [
-        { name: "Vitest", reason: "Ultra-fast unit testing framework that integrates seamlessly with Vite's module resolution." },
-        { name: "React Testing Library", reason: "Encourages testing components as users interact with them rather than internal implementation details." },
-        { name: "Lighthouse CI", reason: "Automated performance and accessibility gating within the deployment pipeline." }
+        { name: "Vitest Runner", reason: "An ultra-fast unit testing engine that leverages Vite's HMR logic to run hundreds of tests in milliseconds. This enables a TDD workflow that doesn't compromise development velocity." },
+        { name: "DOM Testing", reason: "Using React Testing Library to simulate complex user interactions. This ensures that features like project filtering and game moves remain functional across all browser environments." },
+        { name: "Gated CD", reason: "A strict deployment pipeline that automatically blocks production releases if test coverage drops or if critical accessibility audits (Lighthouse) fail to meet thresholds." },
+        { name: "Snapshot CI", reason: "Automated visual regression testing to detect unintended UI shifts in complex glassmorphism layouts, ensuring design continuity across the entire site." }
       ],
       architecture: `
 QA_Pipeline
@@ -455,9 +464,10 @@ QA_Pipeline
       purpose: "In an era of increasing cyber threats, application security is a primary architectural concern. This chapter outlines the hardened security posture of the portfolio, covering everything from origin-lock CORS policies to strictly server-side secret management.",
       visualDescription: "A multi-layered defense diagram illustrating how requests are validated and filtered before reaching core logic. It also highlights compliance with the OWASP Top 10 security standards.",
       techStack: [
-        { name: "CORS Policies", reason: "Prevents unauthorized origins from interacting with the GitHub and Gemini SDK services." },
-        { name: "Input Sanitization", reason: "Uses regex and schema validation (Zod-like patterns) to neutralize potential XSS vectors in the contact form." },
-        { name: "Environment Isolation", reason: "Strictly separates development and production keys, using Vercel's encrypted vault for origin-only access." }
+        { name: "Origin Lock", reason: "Strict CORS policies that ensure only the production domain can execute requests against the GitHub and Gemini API endpoints, preventing unauthorized resource hijacking." },
+        { name: "Input Sanitization", reason: "Advanced regex-based sanitization for the contact module. This neutralizes potential XSS and SQL injection vectors before they are processed by the Web3Forms middleware." },
+        { name: "Encrypted Vault", reason: "Using Vercel's production environment secrets to ensure that API keys are never stored in plain text or exposed in client-side JS bundles during the build process." },
+        { name: "Rate Safeguard", reason: "Custom client-side middleware that implements exponential backoff and persistent quota locks to protect API infrastructure from unintentional traffic spikes or malicious flood attacks." }
       ],
       architecture: `
 Security_Layers

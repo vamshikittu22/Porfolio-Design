@@ -1,21 +1,58 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { GlassButton } from '../../components/ui/GlassUI';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { CASE_STUDY_DATA } from './CaseStudyData';
 import { CaseStudyChapterView } from './CaseStudyChapterView';
+import { CaseStudyNav } from './CaseStudyNav';
 
 interface PortfolioCaseStudyProps {
   onBack: () => void;
 }
 
 const PortfolioCaseStudy: React.FC<PortfolioCaseStudyProps> = ({ onBack }) => {
+  const [activeChapterId, setActiveChapterId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveChapterId(entry.target.id.replace('chapter-', ''));
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: '-20% 0px -60% 0px' }
+    );
+
+    CASE_STUDY_DATA.forEach((chapter) => {
+      const el = document.getElementById(`chapter-${chapter.id}`);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleNavigate = (id: string) => {
+    const element = document.getElementById(`chapter-${id}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="relative pt-32 pb-64 min-h-screen">
+      {/* Fixed Vertical Navigation */}
+      <CaseStudyNav 
+        chapters={CASE_STUDY_DATA} 
+        activeId={activeChapterId} 
+        onNavigate={handleNavigate} 
+      />
+
       <div className="max-w-7xl mx-auto px-6">
         
         {/* HEADER */}
-        <section className="space-y-16 mb-32">
+        <section id="blueprint-header" className="space-y-16 mb-32">
           <div className="space-y-8">
             <div className="flex items-center gap-6">
               <div className="w-16 h-[2.5px] bg-t-accent" />
@@ -31,14 +68,16 @@ const PortfolioCaseStudy: React.FC<PortfolioCaseStudyProps> = ({ onBack }) => {
         {/* CHAPTERS */}
         <div className="space-y-0">
           {CASE_STUDY_DATA.map((chapter, idx) => (
-            <ScrollReveal key={chapter.id}>
-              <CaseStudyChapterView chapter={chapter} index={idx} />
-            </ScrollReveal>
+            <div key={chapter.id} id={`chapter-${chapter.id}`} className="scroll-mt-32">
+              <ScrollReveal>
+                <CaseStudyChapterView chapter={chapter} index={idx} />
+              </ScrollReveal>
+            </div>
           ))}
         </div>
 
         {/* FOOTER CTA */}
-        <section className="flex flex-col items-center py-48 text-center space-y-12">
+        <section id="blueprint-footer" className="flex flex-col items-center py-48 text-center space-y-12">
            <div className="w-px h-24 bg-t-accent/30" />
            <h2 className="text-5xl lg:text-9xl font-black font-display text-t-fg uppercase tracking-tighter leading-[0.8]">Ready for <br /> Digital Deployment?</h2>
            <GlassButton primary accent="theme" onClick={onBack} className="!px-16 !py-6 !text-[12px] shadow-2xl">

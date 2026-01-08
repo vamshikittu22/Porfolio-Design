@@ -39,197 +39,197 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
 
   const renderVisuals = () => {
     switch (chapter.id) {
-      case 'system-architecture':
-        return <PerformanceMetricsDashboard />;
-      case 'hero-kernel':
-        return (
-          <div className="space-y-12">
-            <ParallaxPhysicsBreakdown />
-            <EvolutionComparison type="hero" accentColor={currentAccentHex} />
-          </div>
-        );
-      case 'mobile-first-design':
-        return <MobileDesignDecisions />;
-      case 'skills-matrix':
-        return (
-          <div className="space-y-12">
-            <InteractionStateMachine />
-            <EvolutionComparison type="skills" accentColor={currentAccentHex} />
-          </div>
-        );
-      case 'github-intelligence':
-        return (
-          <div className="space-y-12">
-            <DataPipelineArchitecture />
-            <EvolutionComparison type="github" accentColor={currentAccentHex} />
-          </div>
-        );
-      case 'game-engine':
-        return <MinimaxDecisionTree />;
-      case 'neural-chat':
-        return (
-          <div className="space-y-12">
-            <ContextInjectionPipeline />
-            <EvolutionComparison type="chat" accentColor={currentAccentHex} />
-          </div>
-        );
-      case 'qa-framework':
-        return <QualityAssuranceFramework />;
-      case 'security-implementation':
-        return <SecurityImplementation />;
-      case 'production-deployment':
-        return <ProductionDeploymentArchitecture />;
-      default:
-        return null;
+      case 'system-architecture': return <PerformanceMetricsDashboard />;
+      case 'hero-kernel': return <div className="space-y-12"><ParallaxPhysicsBreakdown /><EvolutionComparison type="hero" accentColor={currentAccentHex} /></div>;
+      case 'mobile-first-design': return <MobileDesignDecisions />;
+      case 'skills-matrix': return <div className="space-y-12"><InteractionStateMachine /><EvolutionComparison type="skills" accentColor={currentAccentHex} /></div>;
+      case 'github-intelligence': return <div className="space-y-12"><DataPipelineArchitecture /><EvolutionComparison type="github" accentColor={currentAccentHex} /></div>;
+      case 'game-engine': return <MinimaxDecisionTree />;
+      case 'neural-chat': return <div className="space-y-12"><ContextInjectionPipeline /><EvolutionComparison type="chat" accentColor={currentAccentHex} /></div>;
+      case 'qa-framework': return <QualityAssuranceFramework />;
+      case 'security-implementation': return <SecurityImplementation />;
+      case 'production-deployment': return <ProductionDeploymentArchitecture />;
+      default: return null;
     }
   };
 
   return (
-    <div className="py-24 lg:py-32 border-b border-t-border last:border-0 relative overflow-hidden">
-      {/* Background Ambience */}
-      <div className={`absolute top-0 ${isEven ? 'right-0' : 'left-0'} w-1/2 h-full bg-${chapter.color}-500/5 blur-[120px] pointer-events-none`} />
+    <div className="py-32 lg:py-48 border-b border-t-border last:border-0 relative overflow-visible">
+      {/* Background Section Ambient Glow */}
+      <div className={`absolute top-0 ${isEven ? 'right-0' : 'left-0'} w-2/3 h-full bg-${chapter.color}-500/[0.03] blur-[160px] pointer-events-none -z-10`} />
 
-      <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 lg:gap-24 relative z-10">
-        
-        {/* LEFT COLUMN: Narrative & Logic */}
-        <div className={`space-y-12 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-          <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <span className={`text-[10px] font-black uppercase tracking-[0.6em] text-${chapter.color}-500`}>Module 0{index + 1}</span>
-              <div className={`h-px w-12 bg-${chapter.color}-500/30`} />
-            </div>
-            <h3 className="text-5xl lg:text-7xl font-black font-display text-t-fg uppercase tracking-tighter leading-none">{chapter.title}.</h3>
-            <p className="text-sm font-bold uppercase tracking-[0.3em] text-t-fg-m opacity-60">{chapter.subtitle}</p>
+      <div className="max-w-6xl mx-auto">
+        {/* CHAPTER HEADER - Full Width */}
+        <div className="mb-24 space-y-6">
+          <div className="flex items-center gap-6">
+            <span className={`text-[10px] font-black uppercase tracking-[0.8em] text-${chapter.color}-500`}>Module 0{index + 1}</span>
+            <div className={`h-px flex-1 bg-${chapter.color}-500/20`} />
           </div>
-
-          <div className="prose-lg text-t-fg-m leading-relaxed font-medium space-y-6">
-            <p className="pl-6 border-l-2 border-t-accent/20">{chapter.content.purpose}</p>
-            <p className="text base opacity-80">{chapter.content.visualDescription}</p>
-          </div>
-
-          <div className="space-y-6">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">Core Logic</h4>
-            <div className="p-6 rounded-2xl bg-t-bg-el border border-t-border shadow-inner">
-              <p className="text-sm font-mono text-t-accent-2 leading-relaxed whitespace-pre-wrap">{chapter.content.coreLogic}</p>
-            </div>
-          </div>
-
-          {/* Render Sub-component Visuals */}
-          {renderVisuals()}
-
-          {/* CHALLENGES */}
-          <div className="space-y-6">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">Engineering Challenges</h4>
-            <div className="grid gap-4">
-              {chapter.content.challenges.map((c, i) => (
-                <div key={i} className="p-5 rounded-2xl bg-t-bg/50 border border-t-border hover:border-t-accent/30 transition-colors">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-rose-500" />
-                    <span className="text-[9px] font-black uppercase tracking-widest text-t-fg">{c.problem}</span>
-                  </div>
-                  <p className="text-xs text-t-fg-m mb-3 pl-4 border-l border-t-border/50">{c.solution}</p>
-                  <div className="flex items-center gap-2 pl-4">
-                    <div className="w-1 h-1 rounded-full bg-emerald-500" />
-                    <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-400">{c.outcome}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <h3 className="text-6xl lg:text-9xl font-black font-display text-t-fg uppercase tracking-tighter leading-[0.8]">
+            {chapter.title}.
+          </h3>
+          <p className="text-sm lg:text-base font-bold uppercase tracking-[0.4em] text-t-fg-m opacity-50">{chapter.subtitle}</p>
         </div>
 
-        {/* RIGHT COLUMN: Visuals, Stack, Code, and Insights (The "Margin") */}
-        <div className={`space-y-12 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+        {/* CONTENT GRID - 12 Column Editorial System */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-16 items-start">
           
-          {/* Visual Architecture Block */}
-          <GlassCard accent={chapter.color} className="relative overflow-hidden group min-h-[300px] flex flex-col">
-            <div className="absolute top-4 right-4 text-[8px] font-mono opacity-30 uppercase tracking-widest">
-              {chapter.visualId} // Architecture
-            </div>
-            
-            <div className="flex-1 p-8 flex items-center justify-center bg-black/5 dark:bg-black/20">
-              <pre className="text-[8px] lg:text-[10px] font-mono text-t-fg/70 leading-tight whitespace-pre select-none pointer-events-none">
-                {chapter.content.architecture}
-              </pre>
+          {/* NARRATIVE SECTION */}
+          <div className="lg:col-span-7 space-y-12">
+            <div className="prose-xl text-t-fg-m leading-relaxed font-medium space-y-8">
+              <p className="text-2xl lg:text-3xl text-t-fg leading-tight border-l-4 pl-8" style={{ borderColor: currentAccentHex }}>
+                {chapter.content.purpose}
+              </p>
+              <p className="text-lg opacity-70 italic">
+                {chapter.content.visualDescription}
+              </p>
             </div>
 
-            <div className="p-6 border-t border-t-border bg-t-bg-el/50 backdrop-blur-md">
-              <div className="flex justify-between items-center mb-6">
-                <span className="text-[9px] font-black uppercase tracking-widest text-t-fg-m">Technology Stack</span>
-                <div className="flex gap-1">
-                  <div className="w-2 h-2 rounded-full bg-rose-500/50" />
-                  <div className="w-2 h-2 rounded-full bg-amber-500/50" />
-                  <div className="w-2 h-2 rounded-full bg-emerald-500/50" />
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {chapter.content.techStack.map((t) => (
-                  <div key={t.name} className="group/tech relative cursor-help">
-                    <BubbleTag accent={chapter.color} className="!text-[8px] !px-3 !py-1">{t.name}</BubbleTag>
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-3 rounded-xl bg-t-bg-el border border-t-border shadow-xl opacity-0 group-hover/tech:opacity-100 transition-opacity pointer-events-none z-50 text-center">
-                      <p className="text-9px text-t-fg font-medium leading-tight">{t.reason}</p>
-                    </div>
-                  </div>
-                ))}
+            <div className="space-y-6">
+              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">Architectural Core Logic</h4>
+              <div className="p-8 rounded-[40px] bg-t-bg-el border border-t-border shadow-inner">
+                <p className="text-sm font-mono text-t-accent-2 leading-relaxed whitespace-pre-wrap">{chapter.content.coreLogic}</p>
               </div>
             </div>
-          </GlassCard>
-
-          {/* INSIGHT CALLOUTS - Desktop "Margin" Style */}
-          {chapter.content.insights && (
-            <div className="grid grid-cols-1 gap-4 animate-in fade-in slide-in-from-right-4 duration-1000 delay-500">
-              <div className="flex items-center gap-4 mb-2">
-                <span className="text-[8px] font-black uppercase tracking-[0.5em] text-t-fg-m opacity-30">Field Notes</span>
-                <div className="h-px flex-1 bg-t-border/50" />
-              </div>
-              {chapter.content.insights.map((insight, i) => (
-                <InsightCard 
-                  key={i} 
-                  type={insight.type} 
-                  title={insight.title} 
-                  description={insight.description} 
-                  accent={chapter.color} 
-                />
-              ))}
-            </div>
-          )}
-
-          {/* Metrics Grid */}
-          <div className="grid grid-cols-3 gap-4">
-            {chapter.content.metrics.map((m, i) => (
-              <div key={i} className="p-4 rounded-2xl bg-t-bg-el/30 border border-t-border flex flex-col items-center justify-center text-center">
-                <span className="text-xl lg:text-2xl font-black text-t-fg mb-1">{m.value}</span>
-                <span className="text-[7px] font-black uppercase tracking-widest text-t-fg-m opacity-50">{m.label}</span>
-              </div>
-            ))}
           </div>
 
-          {/* Code Snippet Toggle */}
-          <div className="relative">
+          {/* ASIDE / INSIGHTS SECTION - Margin Callouts */}
+          <div className="lg:col-span-4 lg:col-start-9 space-y-6">
+            <div className="flex items-center gap-4 mb-4">
+              <span className="text-[8px] font-black uppercase tracking-[0.5em] text-t-fg-m opacity-30">Engineering Notes</span>
+              <div className="h-px flex-1 bg-t-border/50" />
+            </div>
+            
+            {chapter.content.insights?.map((insight, i) => (
+              <InsightCard 
+                key={i} 
+                type={insight.type} 
+                title={insight.title} 
+                description={insight.description} 
+                accent={chapter.color} 
+              />
+            ))}
+
+            {/* Micro Metrics in margin */}
+            <div className="grid grid-cols-1 gap-3 pt-6">
+              {chapter.content.metrics.map((m, i) => (
+                <div key={i} className="px-6 py-4 rounded-2xl bg-t-bg-el/30 border border-t-border flex justify-between items-center group hover:border-t-accent transition-all">
+                  <span className="text-[8px] font-black uppercase tracking-widest text-t-fg-m opacity-50">{m.label}</span>
+                  <span className="text-lg font-black text-t-fg">{m.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* LARGE VISUAL BREAK - Full Width Rendering Stage */}
+          <div className="lg:col-span-12 py-16">
+            <div className="relative group">
+              <GlassCard accent={chapter.color} className="p-0 overflow-hidden shadow-2xl">
+                 <div className="p-12 lg:p-24 bg-black/[0.01] dark:bg-black/20 flex flex-col justify-center min-h-[500px]">
+                    <div className="mb-12 flex justify-between items-center">
+                       <div className="flex flex-col gap-1">
+                          <div className={`w-8 h-1 bg-${chapter.color}-500 shadow-[0_0_15px_rgba(var(--color-accent-rgb),0.5)]`} />
+                          <span className="text-[9px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">Visualization Stage // {chapter.visualId}</span>
+                       </div>
+                       <div className="flex gap-2">
+                         <div className="w-2.5 h-2.5 rounded-full bg-rose-500/20" />
+                         <div className="w-2.5 h-2.5 rounded-full bg-amber-500/20" />
+                         <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/20" />
+                       </div>
+                    </div>
+                    {renderVisuals()}
+                 </div>
+              </GlassCard>
+            </div>
+          </div>
+
+          {/* TECHNOLOGICAL IMPLEMENTATION - Redesigned Grid to occupy all space */}
+          <div className="lg:col-span-12 pt-16 pb-24 space-y-12">
+            <div className="flex items-center gap-6">
+              <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-t-fg opacity-40">Technological Implementation</h4>
+              <div className="h-px flex-1 bg-t-border/50" />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {chapter.content.techStack.map((t, i) => (
+                <motion.div 
+                  key={t.name}
+                  whileHover={{ y: -5 }}
+                  className="p-8 rounded-[40px] bg-t-bg-el border border-t-border shadow-sm hover:shadow-xl hover:border-t-accent/30 transition-all duration-500 group/techitem flex flex-col justify-between h-full"
+                >
+                  <div className="space-y-6">
+                    <div className="flex justify-between items-start">
+                      <div className={`w-10 h-10 rounded-2xl bg-${chapter.color}-500/10 flex items-center justify-center text-${chapter.color}-500 group-hover/techitem:bg-${chapter.color}-500 group-hover/techitem:text-t-bg transition-colors duration-500`}>
+                        <span className="text-[10px] font-black">0{i + 1}</span>
+                      </div>
+                      <div className={`w-1.5 h-1.5 rounded-full bg-${chapter.color}-500/30 group-hover/techitem:animate-ping`} />
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <h5 className="text-lg font-black text-t-fg uppercase tracking-tight">{t.name}</h5>
+                      <p className="text-[11px] font-medium text-t-fg-m leading-relaxed opacity-70 italic group-hover/techitem:opacity-100 transition-opacity">
+                        {t.reason}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-8 pt-6 border-t border-t-border/50 flex justify-between items-center">
+                    <span className="text-[7px] font-black uppercase tracking-widest opacity-30 group-hover/techitem:opacity-100 transition-opacity">Module Spec</span>
+                    <svg className={`w-3 h-3 text-${chapter.color}-500 opacity-0 group-hover/techitem:opacity-100 transition-all transform translate-x-[-10px] group-hover/techitem:translate-x-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}><path d="M9 5l7 7-7 7" /></svg>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* CHALLENGES & SOURCE CODE - Shared row */}
+          <div className="lg:col-span-6 space-y-8">
+            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">Development Constraints</h4>
+            <div className="grid gap-6">
+              {chapter.content.challenges.map((c, i) => (
+                <div key={i} className="p-8 rounded-[32px] bg-t-bg-el/30 border border-t-border hover:border-t-accent/20 transition-all">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-2 h-2 rounded-full bg-rose-500" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-t-fg">{c.problem}</span>
+                  </div>
+                  <p className="text-sm text-t-fg-m mb-6 pl-6 border-l-2 border-t-border/50 leading-relaxed italic">{c.solution}</p>
+                  <div className="flex items-center gap-3 pl-6">
+                    <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-tighter">Outcome: {c.outcome}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 lg:col-start-8 space-y-8">
+            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">Interactive Source</h4>
             <button 
               onClick={() => setActiveCode(!activeCode)}
-              className={`w-full p-6 rounded-2xl border transition-all duration-500 flex items-center justify-between group
-                ${activeCode ? 'bg-t-bg-el border-t-accent' : 'bg-t-bg/20 border-t-border hover:border-t-accent/30'}
+              className={`w-full p-8 rounded-[32px] border transition-all duration-700 flex items-center justify-between group overflow-hidden relative
+                ${activeCode ? 'bg-t-bg-el border-t-accent shadow-xl' : 'bg-t-bg-el/20 border-t-border hover:border-t-accent/40'}
               `}
             >
-              <div className="flex items-center gap-4">
-                <div className="w-8 h-8 rounded-lg bg-t-fg/5 flex items-center justify-center text-t-fg">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+              <div className="flex items-center gap-6 relative z-10">
+                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500
+                  ${activeCode ? 'bg-t-accent text-t-bg' : 'bg-t-fg/5 text-t-fg'}
+                `}>
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
                 </div>
                 <div className="text-left">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-t-fg block mb-0.5">Interactive Source</span>
-                  <span className="text-xs font-bold text-t-fg-m opacity-60 group-hover:opacity-100 transition-opacity">{chapter.content.code.title}</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-t-fg block mb-1">Module Logic Explorer</span>
+                  <span className="text-sm font-bold text-t-fg-m opacity-60">{chapter.content.code.title}</span>
                 </div>
               </div>
-              <span className={`text-xl transition-transform duration-500 ${activeCode ? 'rotate-180' : ''}`}>↓</span>
+              <div className={`text-2xl transition-all duration-700 ${activeCode ? 'rotate-180 translate-y-[-2px]' : 'translate-y-[2px]'}`}>↓</div>
             </button>
 
             <AnimatePresence>
               {activeCode && (
                 <motion.div 
-                  initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                  animate={{ height: 'auto', opacity: 1, marginTop: 16 }}
-                  exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
                   <CodePlayground 
@@ -244,7 +244,6 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
               )}
             </AnimatePresence>
           </div>
-
         </div>
       </div>
     </div>
