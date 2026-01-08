@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 
@@ -59,7 +60,7 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
             }}
           >VK</motion.span>
 
-          <span className="relative text-t-fg">VK</span>
+          <span className="relative text-t-fg font-black">VK</span>
         </div>
       </motion.div>
 
@@ -92,226 +93,99 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
 };
 
 const AboutIcon = ({ isHovered }: { isHovered: boolean }) => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <motion.circle 
       cx="12" cy="7" r="4"
-      animate={isHovered ? { y: [0, -10, 0], scale: [1, 0.5, 1], opacity: [1, 0, 1] } : { y: 0, scale: 1, opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      animate={isHovered ? { y: [0, -2, 0], scale: [1, 1.1, 1] } : { y: 0, scale: 1 }}
+      transition={{ duration: 0.4 }}
     />
-    <motion.path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" animate={isHovered ? { pathLength: [1, 0, 1] } : { pathLength: 1 }} />
+    <motion.path 
+      d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" 
+      animate={isHovered ? { pathLength: [1, 0.8, 1] } : { pathLength: 1 }} 
+    />
   </svg>
 );
 
 const CareerIcon = ({ isHovered }: { isHovered: boolean }) => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2" style={{ perspective: '500px' }}>
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
     <motion.rect 
       x="2" y="7" width="20" height="13" rx="2"
-      animate={isHovered ? { 
-        rotateX: [0, -20, 0],
-        scale: [1, 1.05, 1],
-      } : { rotateX: 0, scale: 1 }}
+      animate={isHovered ? { rotateX: [0, -10, 0], y: -1 } : { rotateX: 0, y: 0 }}
     />
     <motion.path 
       d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"
-      animate={isHovered ? { 
-        y: -3, 
-        rotate: [0, -10, 10, 0],
-        scale: 1.1 
-      } : { y: 0, rotate: 0, scale: 1 }}
+      animate={isHovered ? { y: -2, scale: 1.05 } : { y: 0, scale: 1 }}
     />
-    <AnimatePresence>
-      {isHovered && [0, 1, 2].map(i => (
-        <motion.path 
-          key={i}
-          d="M12 12h.01"
-          strokeWidth="3"
-          initial={{ opacity: 0, y: 0, x: 0 }}
-          animate={{ 
-            opacity: [0, 1, 0], 
-            y: [-5, -20 - (i * 5)], 
-            x: [(i - 1) * 15],
-            scale: [0.5, 1.5, 0.5] 
-          }}
-          transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.2 }}
-        />
-      ))}
-    </AnimatePresence>
   </svg>
 );
 
 const ProjectsIcon = ({ isHovered }: { isHovered: boolean }) => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2">
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
     {[
-      { x: 3, y: 3, r: 0 }, { x: 13, y: 3, r: 90 },
-      { x: 3, y: 13, r: -90 }, { x: 13, y: 13, r: 180 }
+      { x: 3, y: 3 }, { x: 13, y: 3 },
+      { x: 3, y: 13 }, { x: 13, y: 13 }
     ].map((pos, i) => (
       <motion.rect 
         key={i} x={pos.x} y={pos.y} width="8" height="8" rx="1.5"
-        animate={isHovered ? {
-          x: [pos.x, pos.x + (i % 2 === 0 ? -12 : 12), pos.x],
-          y: [pos.y, pos.y + (i < 2 ? -12 : 12), pos.y],
-          rotate: [pos.r, pos.r + 360],
-          scale: [1, 0.2, 1.5, 1],
-          opacity: [1, 0.5, 1]
-        } : { x: pos.x, y: pos.y, rotate: 0, scale: 1, opacity: 1 }}
-        transition={{ duration: 1, delay: i * 0.05, ease: "backOut" }}
+        animate={isHovered ? { scale: [1, 0.8, 1.2, 1], opacity: [1, 0.6, 1] } : { scale: 1, opacity: 1 }}
+        transition={{ duration: 0.8, delay: i * 0.1 }}
       />
     ))}
-    <motion.circle 
-      cx="12" cy="12" r="2" 
-      fill="currentColor" stroke="none"
-      initial={{ scale: 0 }}
-      animate={isHovered ? { scale: [0, 1.5, 0] } : { scale: 0 }}
-      transition={{ repeat: Infinity, duration: 0.8 }}
-    />
   </svg>
 );
 
 const GitHubIcon = ({ isHovered }: { isHovered: boolean }) => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2">
-    <motion.path 
-      d="M16 18l6-6-6-6" 
-      animate={isHovered ? { 
-        x: [0, 8, -4, 0],
-        opacity: [1, 0.4, 1]
-      } : { x: 0 }} 
-    />
-    <motion.path 
-      d="M8 6l-6 6 6 6" 
-      animate={isHovered ? { 
-        x: [0, -8, 4, 0],
-        opacity: [1, 0.4, 1]
-      } : { x: 0 }} 
-    />
-    <motion.path 
-      d="M13 4l-2 16" 
-      animate={isHovered ? { 
-        rotate: [0, 180, 360, 540, 720],
-        scaleY: [1, 1.5, 0.5, 1]
-      } : { rotate: 0 }} 
-      transition={{ duration: 1 }} 
-    />
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
+    <motion.path d="M16 18l6-6-6-6" animate={isHovered ? { x: [0, 2, 0] } : { x: 0 }} />
+    <motion.path d="M8 6l-6 6 6 6" animate={isHovered ? { x: [0, -2, 0] } : { x: 0 }} />
+    <motion.path d="M13 4l-2 16" animate={isHovered ? { rotate: [0, 10, -10, 0] } : { rotate: 0 }} />
   </svg>
 );
 
 const PlaylabIcon = ({ isHovered }: { isHovered: boolean }) => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2">
-    <motion.path 
-      d="M10 2v7.5M14 2v7.5" 
-      animate={isHovered ? { 
-        y: [-2, 2, -2],
-        strokeWidth: [2, 4, 2]
-      } : { y: 0 }} 
-    />
-    <motion.path 
-      d="M8.5 2h7M7 9.5h10l3 11H4l3-11z" 
-      animate={isHovered ? { 
-        scale: [1, 1.1, 0.9, 1.05, 1],
-        rotate: [0, 5, -5, 3, 0]
-      } : { scale: 1 }} 
-    />
-    {isHovered && [0, 1, 2].map(i => (
-      <motion.circle 
-        key={i} cx={12} cy={16} r="1" fill="currentColor" stroke="none"
-        animate={{ 
-          y: [0, -15], 
-          x: [(i - 1) * 10], 
-          opacity: [0, 1, 0],
-          scale: [0.5, 1.5, 0]
-        }}
-        transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.2 }}
-      />
-    ))}
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
+    <motion.path d="M10 2v7.5M14 2v7.5" animate={isHovered ? { y: [-1, 1, -1] } : { y: 0 }} />
+    <motion.path d="M8.5 2h7M7 9.5h10l3 11H4l3-11z" animate={isHovered ? { scale: [1, 1.05, 1] } : { scale: 1 }} />
   </svg>
 );
 
 const TravelIcon = ({ isHovered }: { isHovered: boolean }) => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2">
-    <motion.path 
-      d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-      animate={isHovered ? { 
-        y: [0, -4, 0],
-        fill: ["rgba(0,0,0,0)", "currentColor", "rgba(0,0,0,0)"]
-      } : { y: 0 }}
-      fillOpacity={0.1}
-    />
-    <motion.circle 
-      cx="12" cy="10" r="3"
-      animate={isHovered ? { 
-        scale: [1, 2, 0.8, 1],
-        y: [0, -2, 2, 0]
-      } : { scale: 1 }}
-    />
-    <AnimatePresence>
-      {isHovered && (
-        <motion.ellipse 
-          cx="12" cy="10" rx="12" ry="5" 
-          initial={{ pathLength: 0, opacity: 0, rotate: 0 }}
-          animate={{ pathLength: 1, opacity: 0.5, rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          className="stroke-t-accent-2"
-          strokeWidth="1"
-          strokeDasharray="4 4"
-        />
-      )}
-    </AnimatePresence>
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
+    <motion.path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" animate={isHovered ? { y: [0, -2, 0] } : { y: 0 }} />
+    <motion.circle cx="12" cy="10" r="3" animate={isHovered ? { scale: [1, 1.2, 1] } : { scale: 1 }} />
   </svg>
 );
 
 const ResumeIcon = ({ isHovered }: { isHovered: boolean }) => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2">
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
+    <motion.path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" animate={isHovered ? { x: [0, 1, 0] } : { x: 0 }} />
+    <motion.path d="M14 2v6h6" animate={isHovered ? { scale: [1, 1.1, 1] } : { scale: 1 }} />
+    <motion.line x1="8" y1="13" x2="16" y2="13" animate={isHovered ? { opacity: [1, 0.4, 1] } : {}} />
+    <motion.line x1="8" y1="17" x2="16" y2="17" animate={isHovered ? { opacity: [1, 0.4, 1] } : {}} transition={{ delay: 0.1 }} />
+  </svg>
+);
+
+const BlueprintIcon = ({ isHovered }: { isHovered: boolean }) => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
     <motion.path 
-      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-      animate={isHovered ? {
-        rotateY: [0, 25, 0],
-        x: [0, 2, -2, 0]
-      } : { rotateY: 0 }}
-      transition={{ duration: 0.6 }}
+      d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" 
+      animate={isHovered ? { y: [0, -2, 0], strokeWidth: [2, 2.5, 2] } : {}}
+      transition={{ duration: 1, repeat: Infinity }}
     />
-    <motion.path 
-      d="M14 2v6h6"
-      animate={isHovered ? { 
-        scale: [1, 1.4, 1],
-        rotate: [0, 15, 0]
-      } : { scale: 1 }}
-    />
-    {[13, 17].map((y, i) => (
-      <motion.line 
-        key={y} x1="8" y1={y} x2="16" y2={y}
-        animate={isHovered ? { 
-          pathLength: [0, 1, 0],
-          x: [0, 5, -5, 0]
-        } : { pathLength: 1 }}
-        transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.2 }}
-      />
-    ))}
   </svg>
 );
 
 const ContactIcon = ({ isHovered }: { isHovered: boolean }) => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2">
-    <AnimatePresence mode="wait">
-      {isHovered ? (
-        <motion.path
-          key="plane" initial={{ pathLength: 0, x: -10, y: 10, opacity: 0 }}
-          animate={{ pathLength: 1, x: 25, y: -25, opacity: [0, 1, 0] }}
-          d="M3 21l18-18M3 21l8-2M3 21l2-8" transition={{ duration: 0.7, ease: "easeOut" }}
-        />
-      ) : (
-        <motion.rect key="mail" x="2" y="4" width="20" height="16" rx="2" />
-      )}
-    </AnimatePresence>
-    {!isHovered && <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />}
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
+    <motion.rect x="2" y="4" width="20" height="16" rx="2" animate={isHovered ? { scale: [1, 1.05, 1] } : {}} />
+    <motion.path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" animate={isHovered ? { pathLength: [1, 0.8, 1] } : { pathLength: 1 }} />
   </svg>
 );
 
 const HomeIcon = ({ isHovered }: { isHovered: boolean }) => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current" strokeWidth="2">
-    <motion.path 
-      d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" 
-      animate={isHovered ? { y: [-2, 0, -2], scale: [1, 1.05, 1] } : { y: 0, scale: 1 }}
-    />
-    <motion.polyline points="9 22 9 12 15 12 15 22" animate={isHovered ? { y: [0, -1, 0] } : { y: 0 }} />
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
+    <motion.path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" animate={isHovered ? { y: [-1, 0, -1] } : { y: 0 }} />
+    <motion.polyline points="9 22 9 12 15 12 15 22" />
   </svg>
 );
 
@@ -325,6 +199,7 @@ const CrazyNavIcon = ({ name, isActive, isHovered }: CrazyNavIconProps) => {
     case 'Playlab': return <PlaylabIcon {...iconProps} />;
     case 'Travel': return <TravelIcon {...iconProps} />;
     case 'Resume': return <ResumeIcon {...iconProps} />;
+    case 'Blueprint': return <BlueprintIcon {...iconProps} />;
     case 'Contact': return <ContactIcon {...iconProps} />;
     case 'Home': return <HomeIcon {...iconProps} />;
     default: return null;
@@ -351,12 +226,16 @@ const NavItem: React.FC<NavItemProps> = ({ name, label, isActive, onClick }) => 
         onFocus={() => setIsHovered(true)}
         onBlur={() => setIsHovered(false)}
         whileTap={{ scale: 0.92 }}
-        // Accessibility Enhancements:
         aria-pressed={isActive}
         aria-label={`Navigate to ${label} section`}
         className={`group relative flex items-center justify-center w-11 h-11 lg:w-12 lg:h-12 rounded-xl transition-all duration-500 outline-none z-20
           focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg
-          ${isActive ? 'text-t-accent-2 opacity-100 shadow-[0_0_20px_rgba(var(--color-accent-secondary-rgb),0.2)]' : isHovered ? 'text-t-accent opacity-100' : 'text-t-fg/20 dark:text-white/20'}`}
+          ${isActive 
+            ? 'text-t-accent-2 opacity-100 shadow-[0_0_20px_rgba(var(--color-accent-secondary-rgb),0.2)]' 
+            : isHovered 
+              ? 'text-t-accent opacity-100' 
+              : 'text-t-fg/50 dark:text-white/50'
+          }`}
       >
         <div className="relative w-5 h-5 flex items-center justify-center pointer-events-none" aria-hidden="true">
           <CrazyNavIcon name={name} isActive={isActive} isHovered={!reducedMotion && isHovered} />
@@ -366,10 +245,10 @@ const NavItem: React.FC<NavItemProps> = ({ name, label, isActive, onClick }) => 
           {(isHovered || isActive) && (
             <motion.div 
               layoutId="nav-bg-glow"
-              initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.8, rotate: 10 }}
-              className={`absolute inset-0 rounded-xl -z-10 border ${isActive ? 'bg-t-accent-2/10 border-t-accent-2/20 shadow-inner' : 'bg-t-accent/5 border-t-accent/10'}`}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className={`absolute inset-0 rounded-xl -z-10 border ${isActive ? 'bg-t-accent-2/10 border-t-accent-2/20' : 'bg-t-accent/5 border-t-accent/10'}`}
             />
           )}
         </AnimatePresence>
@@ -404,11 +283,12 @@ interface HeaderNavProps {
   onScrollToTop: () => void;
   onToggleTheme: () => void;
   onGoHome?: () => void;
+  onOpenCaseStudy?: () => void;
   isCaseStudyView?: boolean;
 }
 
 export const HeaderNav: React.FC<HeaderNavProps> = ({ 
-  scrolled, activeSection, isDarkMode, onScrollToSection, onToggleTheme, onGoHome, isCaseStudyView 
+  scrolled, activeSection, isDarkMode, onScrollToSection, onToggleTheme, onGoHome, onOpenCaseStudy, isCaseStudyView 
 }) => {
   const [logoHovered, setLogoHovered] = useState(false);
 
@@ -428,7 +308,6 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
           onFocus={() => setLogoHovered(true)}
           onBlur={() => setLogoHovered(false)}
           whileHover={{ scale: 1.05 }}
-          // Accessibility Enhancements:
           aria-label="Return to top / Home"
           className="flex items-center outline-none group relative overflow-visible mr-1 focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg focus-visible:rounded-xl"
         >
@@ -447,6 +326,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
               <NavItem name="Projects" label="Projects" isActive={activeSection === 'projects-section'} onClick={() => onScrollToSection('projects-section')} />
               <NavItem name="GitHub" label="GitHub" isActive={activeSection === 'github-section'} onClick={() => onScrollToSection('github-section')} />
               <NavItem name="Resume" label="Resume" isActive={activeSection === 'resume-section'} onClick={() => onScrollToSection('resume-section')} />
+              <NavItem name="Blueprint" label="Blueprint" isActive={false} onClick={() => onOpenCaseStudy?.()} />
               <NavItem name="Playlab" label="Playlab" isActive={activeSection === 'game-section'} onClick={() => onScrollToSection('game-section')} />
               <NavItem name="Travel" label="Travel" isActive={activeSection === 'travel-section'} onClick={() => onScrollToSection('travel-section')} />
               <NavItem name="Contact" label="Contact" isActive={activeSection === 'contact-section'} onClick={() => onScrollToSection('contact-section')} />
@@ -461,7 +341,6 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
             onClick={onToggleTheme} 
             whileHover={{ scale: 1.15, rotate: 20 }}
             whileTap={{ scale: 0.9 }}
-            // Accessibility Enhancements:
             aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
             className="p-3 rounded-xl transition-all duration-500 text-t-fg/30 hover:text-t-accent hover:bg-t-accent/10 outline-none focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg"
           >
@@ -476,7 +355,6 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
             onClick={() => window.print()} 
             whileHover={{ scale: 1.15, y: -2 }}
             whileTap={{ scale: 0.9 }}
-            // Accessibility Enhancements:
             aria-label="Export technical CV as PDF"
             className="bg-t-accent text-t-bg p-3 rounded-xl transition-all shadow-xl hover:shadow-t-accent/20 outline-none focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg"
           >

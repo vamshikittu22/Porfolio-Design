@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { GeminiService } from '../services/geminiService';
 import { HeaderNav } from '../components/layout/HeaderNav';
@@ -18,8 +19,6 @@ import {
 } from '../config/constants';
 
 // --- LAZY LOADED SECTIONS (Below the fold) ---
-// We lazy load these because they contain heavy logic or external integrations 
-// that aren't critical for the initial page load (LCP).
 const ResumeSection = lazy(() => import('../sections/resume/ResumeSection'));
 const GameSection = lazy(() => import('../sections/game/GameSection'));
 const TravelSection = lazy(() => import('../sections/travel/TravelSection'));
@@ -42,7 +41,7 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 1. Navigation Observer (Active State)
+  // Navigation Observer (Active State)
   useEffect(() => {
     if (view !== 'portfolio') return;
     const sections = [
@@ -75,8 +74,7 @@ const App: React.FC = () => {
     return () => observer.disconnect();
   }, [view]);
 
-  // 2. Preload Observer (Performance Optimization)
-  // Triggers the import() call when the user gets within 1000px of a lazy section.
+  // Preload Observer (Performance Optimization)
   useEffect(() => {
     if (view !== 'portfolio') return;
     const lazyIds = ['resume-section', 'game-section', 'travel-section', 'contact-section'];
@@ -85,7 +83,6 @@ const App: React.FC = () => {
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Trigger dynamic import by calling the lazy factory
             switch (entry.target.id) {
               case 'resume-section': import('../sections/resume/ResumeSection'); break;
               case 'game-section': import('../sections/game/GameSection'); break;
@@ -95,7 +92,7 @@ const App: React.FC = () => {
           }
         });
       },
-      { rootMargin: '1000px 0px' } // Preload when section is 1000px away
+      { rootMargin: '1000px 0px' }
     );
 
     lazyIds.forEach(id => {
@@ -166,6 +163,7 @@ const App: React.FC = () => {
         onScrollToTop={handleScrollToTop} 
         onToggleTheme={() => setIsDarkMode(!isDarkMode)}
         onGoHome={() => setView('portfolio')}
+        onOpenCaseStudy={() => setView('case-study')}
         isCaseStudyView={view === 'case-study'}
       />
 
@@ -179,7 +177,6 @@ const App: React.FC = () => {
               <ProjectsSection />
               <GithubSection />
               
-              {/* LAZY MODULES: Wrapped in Suspense with individual anchors for preloading */}
               <div id="resume-section-anchor">
                 <Suspense fallback={<SectionLoader />}>
                   <ResumeSection />

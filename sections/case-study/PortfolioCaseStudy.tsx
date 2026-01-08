@@ -47,6 +47,269 @@ interface CaseStudyChapter {
   };
 }
 
+// --- SUB-COMPONENTS ---
+
+const PerformanceMetricsDashboard: React.FC = () => {
+  const metrics = [
+    { label: 'FCP', before: 0.8, after: 0.3, unit: 's' },
+    { label: 'LCP', before: 1.2, after: 0.4, unit: 's' },
+    { label: 'TTI', before: 2.1, after: 0.8, unit: 's' },
+  ];
+
+  const lighthouse = [
+    { label: 'Performance', score: 98, color: 'text-emerald-500' },
+    { label: 'Accessibility', score: 100, color: 'text-indigo-500' },
+    { label: 'Best Practices', score: 100, color: 'text-cyan-500' },
+    { label: 'SEO', score: 100, color: 'text-amber-500' },
+  ];
+
+  return (
+    <div className="mt-16 space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
+      <div className="flex items-center gap-4">
+        <div className="w-8 h-px bg-t-accent" />
+        <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-t-fg-m">Performance Analytics</h4>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-8">
+        {/* 1. Visual Performance Timeline */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-8">
+          <div className="flex justify-between items-end">
+            <span className="text-[9px] font-black uppercase tracking-widest opacity-40">Load Metrics (Optimization Delta)</span>
+            <div className="flex gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-t-fg/10" />
+                <span className="text-[8px] font-bold uppercase opacity-40">Initial</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-t-accent" />
+                <span className="text-[8px] font-bold uppercase text-t-accent">Post-Vite</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="space-y-6">
+            {metrics.map((m) => (
+              <div key={m.label} className="space-y-2">
+                <div className="flex justify-between text-[9px] font-black uppercase tracking-widest text-t-fg">
+                  <span>{m.label}</span>
+                  <span>{m.after}{m.unit} <span className="opacity-30 line-through ml-2 font-medium">{m.before}{m.unit}</span></span>
+                </div>
+                <div className="h-1.5 w-full bg-t-fg/5 rounded-full overflow-hidden relative">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${(m.before / 2.5) * 100}%` }}
+                    className="absolute inset-0 bg-t-fg/10 rounded-full"
+                  />
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${(m.after / 2.5) * 100}%` }}
+                    className="absolute inset-0 bg-t-accent rounded-full shadow-[0_0_10px_rgba(var(--color-accent-rgb),0.5)]"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 2. Bundle Size Comparison */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border flex flex-col justify-between">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 mb-8">Asset Compression Strategy</span>
+          <div className="flex items-center justify-around gap-8 flex-1">
+             <div className="text-center space-y-4">
+               <div className="w-24 h-24 rounded-full border border-dashed border-t-border flex items-center justify-center opacity-40">
+                  <span className="text-[10px] font-black">850KB</span>
+               </div>
+               <p className="text-[8px] font-black uppercase tracking-widest opacity-30 text-t-fg">Standard</p>
+             </div>
+             
+             <div className="flex flex-col items-center gap-2">
+               <div className="h-px w-12 bg-t-accent/30" />
+               <div className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black text-emerald-500">-60%</div>
+               <div className="h-px w-12 bg-t-accent/30" />
+             </div>
+
+             <div className="text-center space-y-4">
+               <div className="w-16 h-16 rounded-full bg-t-accent shadow-[0_0_40px_rgba(var(--color-accent-rgb),0.4)] flex items-center justify-center border border-white/20">
+                  <span className="text-[10px] font-black text-t-bg">340KB</span>
+               </div>
+               <p className="text-[8px] font-black uppercase tracking-widest text-t-accent">Optimized</p>
+             </div>
+          </div>
+          <p className="text-[9px] font-bold text-t-fg-m opacity-50 mt-6 text-center leading-relaxed">
+            Achieved via Treeshaking, Image WebP encoding, and dynamic module sharding.
+          </p>
+        </div>
+
+        {/* 3. Code Splitting Waterfall */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border col-span-full lg:col-span-1">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 block mb-6">Hydration Waterfall</span>
+          <div className="font-mono text-[9px] leading-relaxed text-t-fg/70 bg-black/5 dark:bg-black/40 p-4 rounded-xl shadow-inner border border-white/5">
+            <div className="flex gap-4 items-center">
+              <span className="text-t-accent font-black w-16">EAGER</span>
+              <span className="flex-1 h-3 bg-t-accent/20 rounded border border-t-accent/40 relative">
+                <span className="absolute inset-y-0 left-0 w-[30%] bg-t-accent shadow-[0_0_10px_rgba(var(--color-accent-rgb),0.5)]" />
+              </span>
+              <span className="opacity-40">0ms - 250ms</span>
+            </div>
+            <div className="flex gap-4 items-center mt-3 opacity-60">
+              <span className="text-t-fg font-black w-16 uppercase">IDLE</span>
+              <span className="flex-1 h-3 bg-t-fg/10 rounded" />
+              <span className="opacity-40">250ms - 600ms</span>
+            </div>
+            <div className="flex gap-4 items-center mt-3">
+              <span className="text-t-accent-2 font-black w-16">LAZY</span>
+              <span className="flex-1 h-3 bg-t-accent-2/10 rounded border border-t-accent-2/40 relative">
+                <span className="absolute inset-y-0 left-[60%] w-[40%] bg-t-accent-2 shadow-[0_0_10px_rgba(var(--color-accent-secondary-rgb),0.5)]" />
+              </span>
+              <span className="opacity-40">600ms - Hydrated</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 4. Lighthouse Score Cards */}
+        <div className="grid grid-cols-2 gap-4 col-span-full lg:col-span-1">
+           {lighthouse.map((score) => (
+             <div key={score.label} className="p-5 rounded-[32px] bg-t-bg-el border border-t-border flex flex-col items-center justify-center text-center group hover:border-t-accent transition-colors">
+               <div className={`text-2xl font-black mb-1 ${score.color}`}>{score.score}</div>
+               <div className="text-[7px] font-black uppercase tracking-widest text-t-fg-m opacity-50 group-hover:opacity-100">{score.label}</div>
+               <div className="mt-3 flex gap-1">
+                 {[1, 2, 3, 4, 5].map((i) => (
+                   <div key={i} className={`w-1 h-1 rounded-full ${score.score >= 90 ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+                 ))}
+               </div>
+             </div>
+           ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ParallaxPhysicsBreakdown: React.FC = () => {
+  return (
+    <div className="mt-16 space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
+      <div className="flex items-center gap-4">
+        <div className="w-8 h-px bg-purple-500" />
+        <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-t-fg-m">Parallax Physics Breakdown</h4>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-8">
+        {/* 1. Interactive Layering Diagram */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-6 relative overflow-hidden group">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40">Multi-Plane Interaction Model</span>
+          
+          <div className="h-64 relative flex items-center justify-center perspective-[1000px]">
+            <svg viewBox="0 0 400 300" className="w-full h-full drop-shadow-2xl overflow-visible">
+              {/* Background Layer */}
+              <motion.rect 
+                x="50" y="80" width="300" height="140" rx="12"
+                fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4"
+                className="text-purple-500/20"
+                animate={{ x: [-10, 10, -10], rotateY: [20, 20, 20], rotateX: [10, 10, 10] }}
+                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <text x="60" y="100" className="fill-purple-500/30 text-[8px] font-black uppercase tracking-widest">Z-Index: 0 (Slow)</text>
+
+              {/* Midground Layer */}
+              <motion.rect 
+                x="30" y="60" width="300" height="140" rx="12"
+                fill="none" stroke="currentColor" strokeWidth="2"
+                className="text-purple-500/40"
+                animate={{ x: [-25, 25, -25], rotateY: [20, 20, 20], rotateX: [10, 10, 10] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <text x="40" y="80" className="fill-purple-500/50 text-[8px] font-black uppercase tracking-widest">Z-Index: 10 (Medium)</text>
+
+              {/* Foreground Layer */}
+              <motion.rect 
+                x="10" y="40" width="300" height="140" rx="12"
+                fill="rgba(168, 85, 247, 0.05)" stroke="currentColor" strokeWidth="3"
+                className="text-purple-500"
+                animate={{ x: [-45, 45, -45], rotateY: [20, 20, 20], rotateX: [10, 10, 10] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <text x="20" y="60" className="fill-purple-500 text-[8px] font-black uppercase tracking-widest">Z-Index: 50 (Fast)</text>
+            </svg>
+          </div>
+          
+          <p className="text-[9px] font-bold text-t-fg-m opacity-50 text-center leading-relaxed">
+            Layers are mapped to mouse delta. Displacement intensity is inversely proportional to Z-depth, creating an organic sense of volume.
+          </p>
+        </div>
+
+        {/* 2. Depth Map Visualization */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border flex flex-col justify-between">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 mb-8">Depth Complexity Visualization</span>
+          <div className="flex-1 flex items-center justify-center gap-1">
+             {[0.1, 0.2, 0.3, 0.4, 0.6, 0.8, 1].map((op, i) => (
+               <div key={i} className="flex flex-col items-center gap-4">
+                 <div 
+                  className="w-8 lg:w-10 rounded-lg bg-purple-500 shadow-lg group-hover:scale-y-110 transition-transform duration-500"
+                  style={{ height: `${20 + (i * 15)}px`, opacity: op }}
+                 />
+                 <span className="text-[7px] font-mono opacity-30">Z:{i * 10}</span>
+               </div>
+             ))}
+          </div>
+          <div className="mt-8 pt-6 border-t border-t-border flex justify-between items-center">
+             <span className="text-[8px] font-black uppercase text-purple-500">Distance: Infinity</span>
+             <div className="h-px flex-1 bg-purple-500/20 mx-4" />
+             <span className="text-[8px] font-black uppercase text-purple-500">Distance: Zero</span>
+          </div>
+        </div>
+
+        {/* 3. Logic Snippet */}
+        <div className="col-span-full">
+           <div className="p-6 rounded-2xl bg-[#0d1117] border border-white/10 text-gray-300 font-mono text-xs leading-relaxed overflow-x-auto shadow-inner">
+             <div className="flex justify-between items-center mb-4 pb-4 border-b border-white/5">
+                <span className="text-[9px] font-black uppercase tracking-widest text-purple-400">Kinetic Mapping Function</span>
+                <span className="text-[8px] opacity-40">TypeScript / Framer</span>
+             </div>
+             <pre>{`// Mouse Delta -0.5 to 0.5 mapped to Rotation degrees
+const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [5, -5]);
+const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-5, 5]);
+
+// Translate Delta based on Z-depth coefficient
+const layerOffset = useTransform(mouseXSpring, [-0.5, 0.5], [zDepth * -30, zDepth * 30]);`}</pre>
+           </div>
+        </div>
+
+        {/* 4. Performance Cost Analysis Table */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border col-span-full overflow-hidden">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 block mb-6 text-center">Procedural Rendering Efficiency</span>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-t-border">
+                  <th className="pb-4 text-[9px] font-black uppercase tracking-widest text-t-fg-m">Metric</th>
+                  <th className="pb-4 text-[9px] font-black uppercase tracking-widest text-t-fg-m">Static Asset</th>
+                  <th className="pb-4 text-[9px] font-black uppercase tracking-widest text-purple-500">Procedural Cloud</th>
+                  <th className="pb-4 text-[9px] font-black uppercase tracking-widest text-emerald-500">Delta</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-t-border/50">
+                {[
+                  { m: 'Frame Rate (FPS)', s: '60', p: '60', d: 'Stable' },
+                  { m: 'Memory Usage', s: '4.2MB', p: '0.8MB', d: '-81%' },
+                  { m: 'Paint Time', s: '12ms', p: '4ms', d: '-66%' },
+                  { m: 'Interactivity', s: 'Zero', p: 'Real-time', d: 'Infinite' },
+                ].map((row, i) => (
+                  <tr key={i} className="group hover:bg-purple-500/[0.02] transition-colors">
+                    <td className="py-4 text-[10px] font-bold text-t-fg-m uppercase tracking-tight">{row.m}</td>
+                    <td className="py-4 text-[10px] font-medium opacity-60 italic">{row.s}</td>
+                    <td className="py-4 text-[10px] font-black text-purple-500">{row.p}</td>
+                    <td className="py-4 text-[10px] font-black text-emerald-500">{row.d}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // --- DATA: THE ENGINEERING NARRATIVE ---
 
 const CASE_STUDY_DATA: CaseStudyChapter[] = [
@@ -489,6 +752,15 @@ const CaseStudyChapterView: React.FC<{ chapter: CaseStudyChapter; index: number 
               <p className="text-sm font-mono text-t-accent-2 leading-relaxed whitespace-pre-wrap">{chapter.content.coreLogic}</p>
             </div>
           </div>
+
+          {/* DYNAMIC DASHBOARDS BASED ON SECTION */}
+          {chapter.id === 'system-architecture' && (
+            <PerformanceMetricsDashboard />
+          )}
+
+          {chapter.id === 'hero-kernel' && (
+            <ParallaxPhysicsBreakdown />
+          )}
 
           {/* CHALLENGES */}
           <div className="space-y-6">
