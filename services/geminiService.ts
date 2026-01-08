@@ -1,3 +1,4 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 
 /**
@@ -36,13 +37,11 @@ export class GeminiService {
   ): Promise<T> {
     for (let i = 0; i < maxRetries; i++) {
       try {
-        // ALWAYS check quota at the start of an attempt to catch concurrent locks
         await this.throttle();
         return await fn();
       } catch (error: any) {
         const isLastAttempt = i === maxRetries - 1;
         
-        // Normalize error message for parsing
         const msg = typeof error === 'string' ? error : error?.message || JSON.stringify(error);
         const isQuotaError = 
           msg.toLowerCase().includes("429") || 
@@ -51,9 +50,7 @@ export class GeminiService {
           msg.toLowerCase().includes("resource_exhausted");
 
         if (isQuotaError) {
-          // Trigger the lock if not already set
           if (!this.isQuotaLocked()) this.setQuotaLock(120000);
-          // Don't retry on quota errors, it just wastes time and hits the server more
           throw new Error(`QUOTA_EXCEEDED: API limit reached. Cooling down.`);
         }
 
@@ -79,10 +76,6 @@ export class GeminiService {
     return Math.max(0, Math.ceil((GeminiService.quotaLockedUntil - Date.now()) / 1000));
   }
 
-  /**
-   * Sets the quota lock period. 
-   * Exposed as public for infrastructure testing.
-   */
   public setQuotaLock(durationMs: number = 120000) { 
     GeminiService.quotaLockedUntil = Date.now() + durationMs;
     localStorage.setItem('gemini_quota_lock', GeminiService.quotaLockedUntil.toString());
@@ -146,12 +139,11 @@ export class GeminiService {
   private handleError(error: any, context: string): never {
     let message = typeof error === 'string' ? error : error?.message || "";
     
-    // If the error message is a stringified JSON (common in Gemini SDK), parse it
     if (message.startsWith('{') && message.includes('"error"')) {
       try {
         const parsed = JSON.parse(message);
         message = parsed.error?.message || parsed.error?.status || message;
-      } catch (e) { /* fallback to original message */ }
+      } catch (e) { }
     }
 
     const isQuotaError = 
@@ -162,7 +154,6 @@ export class GeminiService {
 
     if (isQuotaError) {
       this.setQuotaLock(120000); 
-      // Log as warning to reduce red noise in console for expected free-tier behavior
       console.warn(`[GeminiService] Quota Hit in ${context}: ${message}`);
       throw new Error(`QUOTA_EXCEEDED: API limit reached. Try again in ${this.getLockTimeRemaining()} seconds.`);
     }
@@ -176,57 +167,91 @@ export class GeminiService {
     throw new Error(message || "UNEXPECTED_ERROR: Service connection error.");
   }
 
-  async generateImage(prompt: string, baseImageBase64?: string, aspectRatio: "1:1" | "16:9" | "9:16" | "4:3" | "3:4" = "1:1"): Promise<string> {
+  /**
+   * generateImage: Generates an AI image with robust fallback layers.
+   * Cascade: 1. Session Cache -> 2. AI Generate -> 3. Local Persistent Backup (Prev success) -> 4. Physical Asset Fallback
+   */
+  async generateImage(
+    prompt: string, 
+    baseImageBase64?: string, 
+    aspectRatio: "1:1" | "16:9" | "9:16" | "4:3" | "3:4" = "1:1",
+    physicalFallbackUrl?: string
+  ): Promise<string> {
     const cacheKey = `img_${prompt}_${aspectRatio}_${baseImageBase64 ? 'ctx' : 'raw'}`;
-    const cached = localStorage.getItem(this.getCacheKey(cacheKey));
+    const backupKey = `backup_img_${prompt.substring(0, 20)}_${aspectRatio}`;
+    
+    // LAYER 1: Session Cache (Instant)
+    const cached = this.getCached(cacheKey);
     if (cached) return cached;
 
-    if (this.isQuotaLocked()) {
-      throw new Error(`QUOTA_EXCEEDED: API limit reached. Try again in ${this.getLockTimeRemaining()} seconds.`);
-    }
-
-    return this.retryWithBackoff(async () => {
-      try {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-        const parts: any[] = [{ text: prompt }];
-        
-        if (baseImageBase64) {
-          parts.push({
-            inlineData: {
-              data: baseImageBase64.split(',')[1] || baseImageBase64,
-              mimeType: 'image/png',
-            }
-          });
-        }
-
-        const response = await ai.models.generateContent({
-          model: 'gemini-2.5-flash-image',
-          contents: { parts },
-          config: {
-            imageConfig: {
-              aspectRatio: aspectRatio
-            }
+    const runAIGeneration = async () => {
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const parts: any[] = [{ text: prompt }];
+      
+      if (baseImageBase64) {
+        parts.push({
+          inlineData: {
+            data: baseImageBase64.split(',')[1] || baseImageBase64,
+            mimeType: 'image/png',
           }
         });
+      }
 
-        let result = "";
-        for (const part of response.candidates?.[0]?.content?.parts || []) {
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash-image',
+        contents: { parts },
+        config: {
+          imageConfig: {
+            aspectRatio: aspectRatio
+          }
+        }
+      });
+
+      let result = "";
+      for (const candidate of response.candidates || []) {
+        for (const part of candidate.content?.parts || []) {
           if (part.inlineData) {
             result = `data:image/png;base64,${part.inlineData.data}`;
             break;
           }
         }
-
-        if (result) {
-          localStorage.setItem(this.getCacheKey(cacheKey), result);
-          return result;
-        }
-        
-        throw new Error('INVALID_RESPONSE: AI generated invalid response.');
-      } catch (error) {
-        this.handleError(error, 'generateImage');
+        if (result) break;
       }
-    }, 'generateImage');
+      
+      if (!result) throw new Error("AI generated no image data.");
+      return result;
+    };
+
+    try {
+      // LAYER 2: Try AI Generation (with retry & throttle)
+      if (this.isQuotaLocked()) throw new Error("QUOTA_LOCKED");
+
+      const result = await this.retryWithBackoff(runAIGeneration, 'generateImage', 2);
+      
+      // SUCCESS: Save as backup for future failures
+      this.setCache(cacheKey, result);
+      localStorage.setItem(this.getCacheKey(backupKey), result);
+      return result;
+
+    } catch (error) {
+      console.warn(`[GeminiService] AI Image Generation failed for prompt: "${prompt.substring(0, 30)}..." - Cascade to fallbacks.`);
+      
+      // LAYER 3: Check persistent backup (Last successful generation)
+      const lastSuccess = localStorage.getItem(this.getCacheKey(backupKey));
+      if (lastSuccess) {
+        console.log("[GeminiService] Using persistent local backup.");
+        return lastSuccess;
+      }
+
+      // LAYER 4: Final Physical Fallback (Hardcoded Assets)
+      if (physicalFallbackUrl) {
+        console.log(`[GeminiService] Using final physical fallback: ${physicalFallbackUrl}`);
+        return physicalFallbackUrl;
+      }
+
+      // NO OPTIONS LEFT: Propagate the original error
+      throw error;
+    }
   }
 
   async generateVideo(prompt: string, baseImageBase64?: string): Promise<string> {
@@ -326,7 +351,6 @@ export class GeminiService {
     const cached = this.getCached(cacheKey);
     if (cached) return cached;
 
-    // Determine deterministic fallback based on the current hour
     const hour = new Date().getHours();
     const fallback = FALLBACK_GREETINGS[hour % FALLBACK_GREETINGS.length];
 

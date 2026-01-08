@@ -16,7 +16,8 @@ import {
   HERO_FALLBACK_DARK, 
   HERO_FALLBACK_LIGHT, 
   HERO_PROMPT_DARK, 
-  HERO_PROMPT_LIGHT 
+  HERO_PROMPT_LIGHT,
+  PHYSICAL_FALLBACKS
 } from '../config/constants';
 
 // --- LAZY LOADED SECTIONS (Below the fold) ---
@@ -116,14 +117,16 @@ const App: React.FC = () => {
 
   const generateHero = async () => {
     const gemini = GeminiService.getInstance();
-    if (gemini.isQuotaLocked()) return; 
     setHeroLoading(true);
     try {
       const prompt = isDarkMode ? HERO_PROMPT_DARK : HERO_PROMPT_LIGHT;
-      const img = await gemini.generateImage(prompt);
+      const physicalFallback = isDarkMode ? PHYSICAL_FALLBACKS.HERO_DARK : PHYSICAL_FALLBACKS.HERO_LIGHT;
+      
+      // Use improved generation with physical fallbacks and persistent backups
+      const img = await gemini.generateImage(prompt, undefined, "1:1", physicalFallback);
       setHeroImage(img);
     } catch (err) {
-      console.warn("Hero image generation paused.");
+      console.warn("Hero image generation fallback cycle activated.");
     } finally {
       setHeroLoading(false);
     }
@@ -148,6 +151,7 @@ const App: React.FC = () => {
 
   const handleScrollToTop = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
 
+  // Final rendering safety layer
   const activeHeroImage = heroImage || (isDarkMode ? HERO_FALLBACK_DARK : HERO_FALLBACK_LIGHT);
 
   return (

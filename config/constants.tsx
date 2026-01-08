@@ -1,3 +1,4 @@
+
 import { BlogPost, AccentColor } from './types';
 
 export const FULL_NAME = 'Vamshi Krishna Pullaiahgari';
@@ -12,7 +13,17 @@ export const LINKEDIN_URL = 'https://www.linkedin.com/in/vamshi-krishna-pullaiah
 export const BLOG_URL = 'https://travelsofvk.blogspot.com';
 export const RESUME_URL = '#resume-section'; 
 
-// OPTIMIZATION: Appended WebP format and 75% quality to fallback assets
+// PHYSICAL FALLBACKS (Used when AI fails and no previous backup exists)
+// Note: Users should place actual images at these paths in their public folder
+export const PHYSICAL_FALLBACKS = {
+  HERO_DARK: "/assets/fallbacks/hero-dark.webp",
+  HERO_LIGHT: "/assets/fallbacks/hero-light.webp",
+  TRAVEL_RISHIKESH: "/assets/fallbacks/travel-rishikesh.webp",
+  TRAVEL_COORG: "/assets/fallbacks/travel-coorg.webp",
+  AI_LAB_GENERIC: "/assets/fallbacks/ai-lab-placeholder.webp"
+};
+
+// RELIABLE REMOTE FALLBACKS (If physical files aren't found)
 export const HERO_FALLBACK_DARK = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=75&w=1200&fm=webp";
 export const HERO_FALLBACK_LIGHT = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=75&w=1200&fm=webp";
 

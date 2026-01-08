@@ -1,4 +1,14 @@
 
+// Fix: Added InsightType for categorized architecture field notes
+export type InsightType = 'optimization' | 'challenge' | 'solution' | 'metric';
+
+// Fix: Defined Insight interface to support structured technical commentary
+export interface Insight {
+  type: InsightType;
+  title: string;
+  description: string;
+}
+
 export interface TechItem {
   name: string;
   reason: string;
@@ -40,5 +50,7 @@ export interface CaseStudyChapter {
     challenges: Challenge[];
     metrics: Metric[];
     code: CodeSnippet;
+    // Fix: Integrated insights property into chapter content to resolve missing property errors in Data and View components
+    insights?: Insight[];
   };
 }

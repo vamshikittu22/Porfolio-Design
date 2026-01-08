@@ -14,6 +14,8 @@ import { ParallaxPhysicsBreakdown } from './ParallaxPhysicsBreakdown';
 import { SecurityImplementation } from './SecurityImplementation';
 import { EvolutionComparison } from './EvolutionComparison';
 import { CodePlayground } from '../../components/ui/CodePlayground';
+import { InsightCard } from './InsightCard';
+import { MobileDesignDecisions } from './MobileDesignDecisions';
 
 interface CaseStudyChapterViewProps {
   chapter: CaseStudyChapter;
@@ -24,7 +26,6 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
   const [activeCode, setActiveCode] = useState(false);
   const isEven = index % 2 === 0;
 
-  // Map tailwind color names to hex codes for the comparison component
   const accentHexMap: Record<string, string> = {
     indigo: '#6366f1',
     emerald: '#10b981',
@@ -47,6 +48,8 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
             <EvolutionComparison type="hero" accentColor={currentAccentHex} />
           </div>
         );
+      case 'mobile-first-design':
+        return <MobileDesignDecisions />;
       case 'skills-matrix':
         return (
           <div className="space-y-12">
@@ -135,7 +138,7 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Visuals, Stack, Code */}
+        {/* RIGHT COLUMN: Visuals, Stack, Code, and Insights (The "Margin") */}
         <div className={`space-y-12 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
           
           {/* Visual Architecture Block */}
@@ -171,6 +174,25 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
               </div>
             </div>
           </GlassCard>
+
+          {/* INSIGHT CALLOUTS - Desktop "Margin" Style */}
+          {chapter.content.insights && (
+            <div className="grid grid-cols-1 gap-4 animate-in fade-in slide-in-from-right-4 duration-1000 delay-500">
+              <div className="flex items-center gap-4 mb-2">
+                <span className="text-[8px] font-black uppercase tracking-[0.5em] text-t-fg-m opacity-30">Field Notes</span>
+                <div className="h-px flex-1 bg-t-border/50" />
+              </div>
+              {chapter.content.insights.map((insight, i) => (
+                <InsightCard 
+                  key={i} 
+                  type={insight.type} 
+                  title={insight.title} 
+                  description={insight.description} 
+                  accent={chapter.color} 
+                />
+              ))}
+            </div>
+          )}
 
           {/* Metrics Grid */}
           <div className="grid grid-cols-3 gap-4">

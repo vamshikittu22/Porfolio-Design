@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
   <head>
@@ -74,6 +75,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@800;900&display=swap" rel="stylesheet">
+    
+    <!-- Prism.js Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
     <style>
       :root {
         --color-bg: #FFFFFF;
@@ -117,6 +122,19 @@
       .scrollbar-hide::-webkit-scrollbar { display: none; }
       .perspective-800 { perspective: 800px; }
       [style*="preserve-3d"] { transform-style: preserve-3d; }
+
+      /* PRISM OVERRIDES */
+      pre[class*="language-"] {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        font-family: inherit !important;
+      }
+      code[class*="language-"] {
+        font-family: inherit !important;
+        text-shadow: none !important;
+      }
 
       /* PRINT ARCHITECTURE */
       @media print {
@@ -169,6 +187,11 @@
   }
 }
 </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
   </head>
   <body>
     <div id="root"></div>

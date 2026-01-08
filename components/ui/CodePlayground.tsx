@@ -1,6 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+// Global Prism access from index.html
+declare var Prism: any;
 
 interface CodePlaygroundProps {
   code: string;
@@ -20,6 +23,15 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
   accent 
 }) => {
   const [copied, setCopied] = useState(false);
+  const [isHighlighted, setIsHighlighted] = useState(false);
+  const codeRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (codeRef.current && typeof Prism !== 'undefined') {
+      Prism.highlightElement(codeRef.current);
+      setIsHighlighted(true);
+    }
+  }, [code, lang]);
 
   const handleCopy = async () => {
     try {
@@ -73,30 +85,47 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
       </div>
 
       {/* Code Area */}
-      <div className="p-6 font-mono text-[11px] lg:text-xs leading-relaxed overflow-x-auto overflow-y-hidden">
-        <div className="flex">
+      <div className="relative font-mono text-[11px] lg:text-xs leading-6 overflow-x-auto">
+        <div className="flex min-w-full">
           {/* Line Numbers */}
-          <div className="pr-6 text-white/20 text-right select-none border-r border-white/5 mr-6 min-w-[3ch]">
+          <div className="sticky left-0 py-6 px-4 text-white/20 text-right select-none bg-[#0d1117] border-r border-white/5 min-w-[50px] z-10">
             {lines.map((_, i) => (
               <div key={i} className="h-6 flex items-center justify-end">{i + 1}</div>
             ))}
           </div>
+          
           {/* Syntax Content */}
-          <div className="flex-1 text-gray-300">
-            {lines.map((line, i) => {
-              const isHighlighted = highlightLines.includes(i + 1);
-              return (
-                <div 
-                  key={i} 
-                  className={`h-6 flex items-center whitespace-pre relative group/line ${isHighlighted ? 'bg-white/[0.03]' : ''}`}
-                >
-                  {isHighlighted && (
-                    <div className="absolute left-[-25px] inset-y-0 w-1 bg-current" style={{ color: accent }} />
-                  )}
-                  {line || ' '}
-                </div>
-              );
-            })}
+          <div className="relative flex-1 py-6">
+            {/* Diff/Highlight Layer */}
+            <div className="absolute inset-y-6 inset-x-0 pointer-events-none">
+              {lines.map((line, i) => {
+                const lineNum = i + 1;
+                const isHighlighted = highlightLines.includes(lineNum);
+                const isAddition = line.startsWith('+');
+                const isDeletion = line.startsWith('-');
+                
+                return (
+                  <div 
+                    key={i} 
+                    className={`h-6 w-full ${isHighlighted ? 'bg-white/[0.04]' : ''} ${isAddition ? 'bg-emerald-500/10' : ''} ${isDeletion ? 'bg-rose-500/10' : ''}`}
+                  >
+                    {(isHighlighted || isAddition || isDeletion) && (
+                      <div 
+                        className="h-full w-1" 
+                        style={{ backgroundColor: isAddition ? '#10b981' : isDeletion ? '#f43f5e' : accent }} 
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Prism Layer */}
+            <pre className={`language-${lang} px-6`}>
+              <code ref={codeRef} className={`language-${lang} block`}>
+                {code}
+              </code>
+            </pre>
           </div>
         </div>
       </div>

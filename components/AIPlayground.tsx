@@ -1,6 +1,8 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { GlassCard, GlassButton } from './GlassUI';
 import { GeminiService } from '../services/geminiService';
+import { PHYSICAL_FALLBACKS } from '../config/constants';
 
 const AIPlayground: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -41,7 +43,7 @@ const AIPlayground: React.FC = () => {
     setError(null);
     setStatus('Generating your image study...');
     try {
-      const result = await gemini.generateImage(prompt, image || undefined, "16:9");
+      const result = await gemini.generateImage(prompt, image || undefined, "16:9", PHYSICAL_FALLBACKS.AI_LAB_GENERIC);
       setImage(result);
       setStatus('');
     } catch (err: any) {

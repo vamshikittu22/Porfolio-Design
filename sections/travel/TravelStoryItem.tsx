@@ -1,9 +1,11 @@
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { GlassButton } from '../../components/ui/GlassUI';
 import { BlogPost, AccentColor } from '../../config/types';
 import { GeminiService } from '../../services/geminiService';
+import { PHYSICAL_FALLBACKS } from '../../config/constants';
 
 interface TravelStoryItemProps {
   post: BlogPost;
@@ -24,12 +26,18 @@ export const TravelStoryItem: React.FC<TravelStoryItemProps> = ({ post, index, a
     try {
       const gemini = GeminiService.getInstance();
       let specificPrompt = `Panoramic high-fidelity watercolor illustration of ${post.title}. Professional Swiss minimalist art style. Aspect ratio 16:9.`;
+      let fallbackUrl = PHYSICAL_FALLBACKS.AI_LAB_GENERIC;
+
       if (post.id === 'rishikesh-story') {
         specificPrompt = "Panoramic hand-drawn watercolor illustration in a monochrome indigo palette. Depict the sacred Ganges river, the Ram Jhula suspension bridge, white water rafting boats, and symbolic yoga icons. Overlapping artistic elements, Swiss minimalist style, clean compositions.";
+        fallbackUrl = PHYSICAL_FALLBACKS.TRAVEL_RISHIKESH;
       } else if (post.id === 'coorg-story') {
         specificPrompt = "Panoramic hand-drawn watercolor illustration. Depict lush emerald coffee plantations, majestic elephants, and misty rolling hills of Coorg. Overlapping artistic elements, soft atmospheric lighting, Swiss minimalist style, serene nature.";
+        fallbackUrl = PHYSICAL_FALLBACKS.TRAVEL_COORG;
       }
-      const img = await gemini.generateImage(specificPrompt, undefined, "16:9");
+
+      // Improved call with fallback mapping
+      const img = await gemini.generateImage(specificPrompt, undefined, "16:9", fallbackUrl);
       setIllustration(img);
     } catch (err: any) {
       setError(err.message);
