@@ -49,6 +49,236 @@ interface CaseStudyChapter {
 
 // --- SUB-COMPONENTS ---
 
+const MinimaxDecisionTree: React.FC = () => {
+  return (
+    <div className="mt-16 space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
+      <div className="flex items-center gap-4">
+        <div className="w-8 h-px bg-rose-500" />
+        <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-t-fg-m">Minimax Decision Tree</h4>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-8">
+        {/* 1. ASCII Tree */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-6">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40">State Exploration (2 Levels)</span>
+          <div className="p-6 bg-black/5 dark:bg-black/40 rounded-2xl font-mono text-[10px] leading-relaxed text-rose-500 border border-white/5 overflow-x-auto">
+            <pre>{`
+      [X|O| ] (Current: Turn X)
+      /      |      \\
+   Move 1  Move 2  Move 3
+     |       |       |
+  [X|O|X] [X|O| ] [X|O| ]
+   (MAX)   (MAX)   (MAX)
+    / \\     / \\     / \\
+   O1  O2  O3  O4  O5  O6
+  (MIN)   (MIN)   (MIN)
+            `}</pre>
+          </div>
+          <p className="text-[9px] font-bold text-t-fg-m opacity-50 italic">The engine recursively explores all leaf nodes to determine the path with the highest guaranteed score.</p>
+        </div>
+
+        {/* 2. Scoring System */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-6">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40">Terminal Node Scoring</span>
+          <div className="grid grid-cols-1 gap-3">
+            {[
+              { label: "CPU Victory (X)", score: "+10", desc: "Maximizing objective reached", color: "text-emerald-500" },
+              { label: "Human Victory (O)", score: "-10", desc: "Minimizing threat detected", color: "text-rose-500" },
+              { label: "Draw State", score: "0", desc: "Neutral equilibrium", color: "text-t-fg-m" }
+            ].map((s, i) => (
+              <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 group hover:border-rose-500/30 transition-colors">
+                <div>
+                  <p className="text-[10px] font-black uppercase text-t-fg">{s.label}</p>
+                  <p className="text-[8px] font-medium opacity-50">{s.desc}</p>
+                </div>
+                <span className={`text-lg font-black ${s.color}`}>{s.score}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 3. Performance Optimization */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border col-span-full">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 block mb-6">Heuristic Optimization Table</span>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="bg-rose-500/5 border-b border-t-border">
+                  <th className="p-4 text-[9px] font-black uppercase tracking-widest text-rose-500">Method</th>
+                  <th className="p-4 text-[9px] font-black uppercase tracking-widest text-t-fg-m">Nodes Visited</th>
+                  <th className="p-4 text-[9px] font-black uppercase tracking-widest text-t-fg-m">Response Time</th>
+                  <th className="p-4 text-[9px] font-black uppercase tracking-widest text-rose-500">Constraint</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-t-border/50 text-[10px]">
+                <tr>
+                  <td className="p-4 font-black uppercase">Full Minimax (Blank)</td>
+                  <td className="p-4 font-mono">549,946</td>
+                  <td className="p-4">~450ms</td>
+                  <td className="p-4 opacity-60">High CPU Spike</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-black uppercase text-rose-500">Opening Book</td>
+                  <td className="p-4 font-mono">1</td>
+                  <td className="p-4 text-rose-500 font-bold">&lt; 1ms</td>
+                  <td className="p-4 opacity-60">Instant Hydration</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* 4. Difficulty Chart */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border col-span-full">
+           <div className="flex justify-between items-end mb-8">
+              <span className="text-[9px] font-black uppercase tracking-widest opacity-40">System Win Probability</span>
+              <span className="text-[8px] font-mono text-rose-500 uppercase tracking-widest">Calculated via 1000 Simulations</span>
+           </div>
+           <div className="space-y-6">
+              {[
+                { label: "Easy (Random Move)", rate: 40, color: "bg-t-fg/20" },
+                { label: "Medium (Block Logic)", rate: 60, color: "bg-rose-500/40" },
+                { label: "Hard (Full Minimax)", rate: 100, color: "bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.5)]" }
+              ].map((tier, i) => (
+                <div key={i} className="space-y-2">
+                  <div className="flex justify-between text-[9px] font-black uppercase tracking-widest text-t-fg">
+                    <span>{tier.label}</span>
+                    <span>{tier.rate}% Success</span>
+                  </div>
+                  <div className="h-2 w-full bg-t-fg/5 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${tier.rate}%` }}
+                      transition={{ duration: 1, delay: i * 0.2 }}
+                      className={`h-full ${tier.color} rounded-full`}
+                    />
+                  </div>
+                </div>
+              ))}
+           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const DataPipelineArchitecture: React.FC = () => {
+  return (
+    <div className="mt-16 space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
+      <div className="flex items-center gap-4">
+        <div className="w-8 h-px bg-emerald-500" />
+        <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-t-fg-m">Data Pipeline Architecture</h4>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-8">
+        {/* 1. Sequence Diagram */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-6">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40">Request Sequence (Latency Optimization)</span>
+          <div className="p-6 bg-black/5 dark:bg-black/40 rounded-2xl font-mono text-[9px] leading-relaxed text-emerald-500 border border-white/5 overflow-x-auto">
+            <pre>{`
+  [USER] ----> [CACHE CHECK] ----> [API CALL] ----> [TRANSFORM] ----> [RENDER]
+    |               |                |                 |                |
+  Mount           Hit?             GraphQL           Map to           Update
+  (0ms)        (Skip API)         (Fetch)           State           Visuals
+            `}</pre>
+          </div>
+          <p className="text-[9px] font-bold text-t-fg-m opacity-50 italic">The pipeline prioritizes local hydration (SessionStorage) to ensure the UI feels instantaneous on return visits.</p>
+        </div>
+
+        {/* 2. Optimization Comparison */}
+        <div className="p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-6">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40">Protocol Optimization Comparison</span>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <span className="text-[8px] font-black uppercase text-rose-500">REST API</span>
+              <div className="p-3 rounded-xl bg-rose-500/5 border border-rose-500/10 font-mono text-[10px]">
+                3 Requests<br/>
+                ~1.2s Latency<br/>
+                High Payload
+              </div>
+            </div>
+            <div className="space-y-2">
+              <span className="text-[8px] font-black uppercase text-emerald-500">GraphQL</span>
+              <div className="p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20 font-mono text-[10px]">
+                1 Request<br/>
+                ~0.4s Latency<br/>
+                Optimized
+              </div>
+            </div>
+          </div>
+          <div className="pt-2">
+            <div className="w-full bg-t-fg/5 h-1.5 rounded-full overflow-hidden flex">
+              <div className="h-full bg-emerald-500 w-[30%]" />
+              <div className="h-full bg-rose-500/20 w-[70%]" />
+            </div>
+            <span className="text-[8px] font-black uppercase opacity-40 mt-2 block">Network Efficiency: +70% Increase</span>
+          </div>
+        </div>
+
+        {/* 3. Fallback Cascade */}
+        <div className="col-span-full p-8 rounded-[32px] bg-t-bg-el border border-t-border space-y-8">
+          <span className="text-[9px] font-black uppercase tracking-widest opacity-40 block text-center">Service Availability Fallback Cascade</span>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto">
+            {[
+              { label: "Live API", status: "Primary", icon: "⚡" },
+              { label: "SessionStorage", status: "Secondary", icon: "💾" },
+              { label: "LocalStorage", status: "Tertiary", icon: "📂" },
+              { label: "Static JSON", status: "Final", icon: "📦" }
+            ].map((step, i) => (
+              <React.Fragment key={step.label}>
+                <div className="flex flex-col items-center gap-3 group">
+                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl group-hover:border-emerald-500/50 transition-colors">
+                    {step.icon}
+                  </div>
+                  <div className="text-center">
+                    <p className="text-[10px] font-black text-t-fg uppercase">{step.label}</p>
+                    <p className="text-[8px] font-bold text-emerald-500 uppercase opacity-60">{step.status}</p>
+                  </div>
+                </div>
+                {i < 3 && <div className="hidden md:block w-12 h-px bg-emerald-500/20" />}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        {/* 4. Rate Limit Strategy Table */}
+        <div className="col-span-full overflow-hidden rounded-[32px] border border-t-border">
+          <table className="w-full text-left bg-t-bg-el">
+            <thead>
+              <tr className="bg-emerald-500/5 border-b border-t-border">
+                <th className="p-6 text-[9px] font-black uppercase tracking-widest text-emerald-500">Feature</th>
+                <th className="p-6 text-[9px] font-black uppercase tracking-widest text-t-fg-m">Standard Path</th>
+                <th className="p-6 text-[9px] font-black uppercase tracking-widest text-emerald-500">Optimized Path</th>
+                <th className="p-6 text-[9px] font-black uppercase tracking-widest text-emerald-500">Business Value</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-t-border/50 text-[10px]">
+              <tr className="group hover:bg-emerald-500/[0.02] transition-colors">
+                <td className="p-6 font-black uppercase tracking-tight">Rate Limit</td>
+                <td className="p-6 opacity-60 italic">60 Requests / Hr</td>
+                <td className="p-6 font-black text-emerald-500">Unlimited (Cache-First)</td>
+                <td className="p-6 font-bold opacity-80">99.9% Availability</td>
+              </tr>
+              <tr className="group hover:bg-emerald-500/[0.02] transition-colors">
+                <td className="p-6 font-black uppercase tracking-tight">Data Cost</td>
+                <td className="p-6 opacity-60 italic">Fetch every visit</td>
+                <td className="p-6 font-black text-emerald-500">Fetch once per session</td>
+                <td className="p-6 font-bold opacity-80">Zero Overhead</td>
+              </tr>
+              <tr className="group hover:bg-emerald-500/[0.02] transition-colors">
+                <td className="p-6 font-black uppercase tracking-tight">API Tokens</td>
+                <td className="p-6 opacity-60 italic">Required for every hit</td>
+                <td className="p-6 font-black text-emerald-500">Hidden via Proxy/Cache</td>
+                <td className="p-6 font-bold opacity-80">Secure Architecture</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const InteractionStateMachine: React.FC = () => {
   return (
     <div className="mt-16 space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
@@ -117,8 +347,8 @@ const dist = sqrt(dx*dx + dy*dy);
 
 if (dist < 200) {
   const power = pow(1 - dist/200, 1.5);
-  orb.pos.x += dx * power * 0.25;
-  orb.pos.y += dy * power * 0.25;
+  orb.pos.x += dx * power * 25;
+  orb.pos.y += dy * power * 25;
 }
                 `}</pre>
               </div>
@@ -872,6 +1102,14 @@ const CaseStudyChapterView: React.FC<{ chapter: CaseStudyChapter; index: number 
 
           {chapter.id === 'skills-matrix' && (
             <InteractionStateMachine />
+          )}
+
+          {chapter.id === 'github-intelligence' && (
+            <DataPipelineArchitecture />
+          )}
+
+          {chapter.id === 'game-engine' && (
+            <MinimaxDecisionTree />
           )}
 
           {/* CHALLENGES */}
