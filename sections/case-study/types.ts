@@ -17,8 +17,19 @@ export interface Metric {
 
 export interface CodeSnippet {
   title: string;
+  filename?: string;
   lang: string;
   code: string;
+  highlightLines?: number[];
+  sandboxUrl?: string;
+}
+
+export type InsightType = 'optimization' | 'challenge' | 'solution' | 'metric';
+
+export interface Insight {
+  type: InsightType;
+  title: string;
+  description: string;
 }
 
 export interface CaseStudyChapter {
@@ -37,5 +48,6 @@ export interface CaseStudyChapter {
     challenges: Challenge[];
     metrics: Metric[];
     code: CodeSnippet;
+    insights?: Insight[];
   };
 }

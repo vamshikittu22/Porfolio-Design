@@ -13,6 +13,8 @@ import { PerformanceMetricsDashboard } from './PerformanceMetricsDashboard';
 import { ParallaxPhysicsBreakdown } from './ParallaxPhysicsBreakdown';
 import { SecurityImplementation } from './SecurityImplementation';
 import { EvolutionComparison } from './EvolutionComparison';
+import { CodePlayground } from '../../components/ui/CodePlayground';
+import { InsightCard } from './InsightCard';
 
 interface CaseStudyChapterViewProps {
   chapter: CaseStudyChapter;
@@ -113,6 +115,21 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
           {/* Render Sub-component Visuals */}
           {renderVisuals()}
 
+          {/* INSIGHTS - Tucked below visuals for mobile, or integrated into the flow */}
+          {chapter.content.insights && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {chapter.content.insights.map((insight, i) => (
+                <InsightCard 
+                  key={i} 
+                  type={insight.type} 
+                  title={insight.title} 
+                  description={insight.description} 
+                  accent={chapter.color} 
+                />
+              ))}
+            </div>
+          )}
+
           {/* CHALLENGES */}
           <div className="space-y-6">
             <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-t-fg opacity-40">Engineering Challenges</h4>
@@ -194,7 +211,7 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
                 </div>
                 <div className="text-left">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-t-fg block mb-0.5">Implementation</span>
+                  <span className="text-[9px] font-black uppercase tracking-widest text-t-fg block mb-0.5">Interactive Source</span>
                   <span className="text-xs font-bold text-t-fg-m opacity-60 group-hover:opacity-100 transition-opacity">{chapter.content.code.title}</span>
                 </div>
               </div>
@@ -209,9 +226,14 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
                   exit={{ height: 0, opacity: 0, marginTop: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="p-6 rounded-2xl bg-[#0d1117] border border-white/10 text-gray-300 font-mono text-xs leading-relaxed overflow-x-auto shadow-inner">
-                    <pre>{chapter.content.code.code}</pre>
-                  </div>
+                  <CodePlayground 
+                    code={chapter.content.code.code}
+                    lang={chapter.content.code.lang}
+                    filename={chapter.content.code.filename}
+                    highlightLines={chapter.content.code.highlightLines}
+                    sandboxUrl={chapter.content.code.sandboxUrl}
+                    accent={currentAccentHex}
+                  />
                 </motion.div>
               )}
             </AnimatePresence>
