@@ -14,7 +14,6 @@ import { ParallaxPhysicsBreakdown } from './ParallaxPhysicsBreakdown';
 import { SecurityImplementation } from './SecurityImplementation';
 import { EvolutionComparison } from './EvolutionComparison';
 import { CodePlayground } from '../../components/ui/CodePlayground';
-import { InsightCard } from './InsightCard';
 
 interface CaseStudyChapterViewProps {
   chapter: CaseStudyChapter;
@@ -114,21 +113,6 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
 
           {/* Render Sub-component Visuals */}
           {renderVisuals()}
-
-          {/* INSIGHTS - Tucked below visuals for mobile, or integrated into the flow */}
-          {chapter.content.insights && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {chapter.content.insights.map((insight, i) => (
-                <InsightCard 
-                  key={i} 
-                  type={insight.type} 
-                  title={insight.title} 
-                  description={insight.description} 
-                  accent={chapter.color} 
-                />
-              ))}
-            </div>
-          )}
 
           {/* CHALLENGES */}
           <div className="space-y-6">

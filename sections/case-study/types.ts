@@ -24,14 +24,6 @@ export interface CodeSnippet {
   sandboxUrl?: string;
 }
 
-export type InsightType = 'optimization' | 'challenge' | 'solution' | 'metric';
-
-export interface Insight {
-  type: InsightType;
-  title: string;
-  description: string;
-}
-
 export interface CaseStudyChapter {
   id: string;
   visualId: string;
@@ -48,6 +40,5 @@ export interface CaseStudyChapter {
     challenges: Challenge[];
     metrics: Metric[];
     code: CodeSnippet;
-    insights?: Insight[];
   };
 }
