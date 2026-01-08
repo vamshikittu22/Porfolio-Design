@@ -35,37 +35,63 @@ const ResumeSection: React.FC = () => {
               body * { visibility: hidden; }
               #resume-section, #resume-section * { visibility: visible; }
               #resume-section { position: absolute; left: 0; top: 0; width: 100%; }
-              .print-only-resume { font-family: 'Times New Roman', Times, serif !important; color: black !important; }
-              .section-line { border-bottom: 1.5px solid black !important; margin-bottom: 8px !important; }
-              .resume-bullet { list-style-type: none !important; }
-              .resume-bullet li::before { content: "– "; font-weight: bold; }
+              .print-document { 
+                font-family: 'Inter', sans-serif !important; 
+                color: black !important; 
+                line-height: 1.4 !important;
+              }
+              .section-title {
+                border-bottom: 2px solid black !important;
+                padding-bottom: 4px !important;
+                margin-bottom: 12px !important;
+                font-size: 11pt !important;
+                font-weight: 800 !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.1em !important;
+              }
+              .item-header {
+                font-size: 10.5pt !important;
+                font-weight: 700 !important;
+              }
+              .item-body {
+                font-size: 10pt !important;
+                font-weight: 400 !important;
+              }
+              .page-number-footer {
+                display: block !important;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                font-size: 8pt;
+                color: #666;
+              }
             }
           `}</style>
 
-          <div className="print-only-resume">
+          <div className="print-document">
             {/* Header: Name and Contact Info */}
-            <header className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-t-border pb-10 print:border-black print:mb-6">
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-t-border pb-10 print:border-black print:mb-6 print:pb-4">
               <div className="space-y-4 print:space-y-1">
-                <h2 className="text-4xl lg:text-6xl font-black font-display tracking-tight text-t-fg print:text-3xl print:font-bold">
+                <h2 className="text-4xl lg:text-6xl font-black font-display tracking-tight text-t-fg print:text-[28pt] print:font-extrabold print:leading-none">
                   {FULL_NAME}
                 </h2>
-                <div className="hidden print:block text-sm">
-                   Master of Science<br/>
-                   University of Central Missouri
+                <div className="hidden print:block text-[11pt] font-bold text-black uppercase tracking-widest">
+                   Software Engineer // STEM OPT
                 </div>
               </div>
               
-              <div className="mt-6 md:mt-0 text-right space-y-1 text-xs lg:text-sm font-bold text-t-fg-m print:text-black print:font-normal print:text-[11px] print:mt-0">
+              <div className="mt-6 md:mt-0 text-right space-y-1 text-xs lg:text-sm font-bold text-t-fg-m print:text-black print:font-medium print:text-[9pt] print:mt-0">
                 <p className="flex items-center md:justify-end gap-2">
+                  <span className="print:font-bold">Phone:</span>
                   <span>{PHONE}</span>
-                  <svg className="w-3.5 h-3.5 opacity-50 print:hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                 </p>
                 <p className="flex items-center md:justify-end gap-2">
+                  <span className="print:font-bold">Email:</span>
                   <span>{EMAIL}</span>
-                  <svg className="w-3.5 h-3.5 opacity-50 print:hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                 </p>
-                <p className="print:block">GitHub Profile</p>
-                <p className="print:block">LinkedIn Profile</p>
+                <p className="print:block"><span className="print:font-bold">GitHub:</span> github.com/vamshikittu22</p>
+                <p className="print:block"><span className="print:font-bold">LinkedIn:</span> linkedin.com/in/vamshi-krishna-pullaiahgari/</p>
                 <div className="pt-4 print:hidden">
                   <GlassButton 
                     primary 
@@ -79,47 +105,28 @@ const ResumeSection: React.FC = () => {
               </div>
             </header>
 
-            <div className="space-y-10 print:space-y-4">
-              {/* EDUCATION */}
-              <section>
-                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:text-sm print:font-bold print:tracking-normal print:mb-1">
-                  Education
-                </h3>
-                <div className="print:section-line border-b border-t-border mb-6" />
-                <div className="space-y-6 print:space-y-2">
-                  {EDUCATION.map((edu, idx) => (
-                    <div key={idx} className="flex flex-col gap-1">
-                      <div className="flex justify-between items-baseline">
-                        <h4 className="text-base font-black text-t-fg print:text-[12px] print:font-bold">• {edu.title}</h4>
-                        <span className="text-[10px] font-bold text-t-accent print:text-[11px] print:text-black italic">{edu.period}</span>
-                      </div>
-                      <p className="text-sm italic text-t-fg-m print:text-[11px] print:text-black">{edu.subtitle}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
+            <div className="space-y-10 print:space-y-6">
               {/* EXPERIENCE */}
-              <section>
-                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:text-sm print:font-bold print:tracking-normal print:mb-1">
-                  Experience
+              <section className="print-break-inside-avoid">
+                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:section-title">
+                  Professional Experience
                 </h3>
-                <div className="print:section-line border-b border-t-border mb-6" />
                 <div className="space-y-8 print:space-y-4">
                   {EXPERIENCE.map((exp, idx) => (
-                    <div key={idx} className="space-y-3 print:space-y-0.5">
+                    <div key={idx} className="space-y-3 print:space-y-1 print-break-inside-avoid">
                       <div className="flex justify-between items-baseline">
-                        <h4 className="text-base font-black text-t-fg print:text-[12px] print:font-bold">• {exp.subtitle}</h4>
-                        <span className="text-[10px] font-bold text-t-accent print:text-[11px] print:text-black italic">{exp.location}</span>
+                        <h4 className="text-base font-black text-t-fg print:item-header">{exp.subtitle}</h4>
+                        <span className="text-[10px] font-bold text-t-accent print:text-[9pt] print:text-black italic">{exp.location}</span>
                       </div>
                       <div className="flex justify-between items-baseline">
-                        <p className="text-sm italic text-t-fg-m print:text-[11px] print:text-black">{exp.title}</p>
-                        <span className="text-[10px] font-medium opacity-60 print:text-[11px] print:text-black print:opacity-100">{exp.period}</span>
+                        <p className="text-sm italic text-t-fg-m print:text-[10pt] print:text-black font-semibold">{exp.title}</p>
+                        <span className="text-[10px] font-medium opacity-60 print:text-[9pt] print:text-black print:opacity-100">{exp.period}</span>
                       </div>
-                      <ul className="mt-3 space-y-2 list-none print:mt-1 print:space-y-0.5 resume-bullet">
+                      <ul className="mt-3 space-y-2 list-none print:mt-1 print:space-y-1">
                         {exp.description.map((bullet, bIdx) => (
-                          <li key={bIdx} className="text-sm text-t-fg leading-relaxed flex items-start gap-3 print:text-[11px] print:leading-tight">
+                          <li key={bIdx} className="text-sm text-t-fg leading-relaxed flex items-start gap-3 print:item-body print:leading-tight">
                             <span className="w-1.5 h-1.5 rounded-full bg-t-accent mt-2 flex-shrink-0 print:hidden" />
+                            <span className="hidden print:inline-block font-bold pr-1">•</span>
                             <span>{bullet}</span>
                           </li>
                         ))}
@@ -130,23 +137,23 @@ const ResumeSection: React.FC = () => {
               </section>
 
               {/* PERSONAL PROJECTS */}
-              <section>
-                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:text-sm print:font-bold print:tracking-normal print:mb-1">
-                  Personal Projects
+              <section className="print-break-inside-avoid">
+                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:section-title">
+                  Selected Engineering Projects
                 </h3>
-                <div className="print:section-line border-b border-t-border mb-6" />
                 <div className="space-y-8 print:space-y-4">
                   {PERSONAL_PROJECTS.map((proj, idx) => (
-                    <div key={idx} className="space-y-2 print:space-y-0.5">
+                    <div key={idx} className="space-y-2 print:space-y-1 print-break-inside-avoid">
                       <div className="flex justify-between items-baseline">
-                        <h4 className="text-base font-black text-t-fg print:text-[12px] print:font-bold">• {proj.title}</h4>
-                        <span className="text-[10px] font-bold text-t-accent print:text-[11px] print:text-black italic">{proj.period}</span>
+                        <h4 className="text-base font-black text-t-fg print:item-header">{proj.title}</h4>
+                        <span className="text-[10px] font-bold text-t-accent print:text-[9pt] print:text-black italic">{proj.period}</span>
                       </div>
-                      <p className="text-sm italic text-t-fg-m print:text-[11px] print:text-black">{proj.subtitle}</p>
-                      <ul className="mt-2 space-y-2 list-none print:mt-1 print:space-y-0.5 resume-bullet">
+                      <p className="text-sm italic text-t-fg-m print:text-[10pt] print:text-black font-semibold">{proj.subtitle}</p>
+                      <ul className="mt-2 space-y-2 list-none print:mt-1 print:space-y-1">
                         {proj.description.map((bullet, bIdx) => (
-                          <li key={bIdx} className="text-sm text-t-fg leading-relaxed flex items-start gap-3 print:text-[11px] print:leading-tight">
+                          <li key={bIdx} className="text-sm text-t-fg leading-relaxed flex items-start gap-3 print:item-body print:leading-tight">
                             <span className="w-1.5 h-1.5 rounded-full bg-t-accent mt-2 flex-shrink-0 print:hidden" />
+                            <span className="hidden print:inline-block font-bold pr-1">•</span>
                             <span>{bullet}</span>
                           </li>
                         ))}
@@ -157,43 +164,62 @@ const ResumeSection: React.FC = () => {
               </section>
 
               {/* TECHNICAL SKILLS AND INTERESTS */}
-              <section className="print:break-before-page">
-                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:text-sm print:font-bold print:tracking-normal print:mb-1">
-                  Technical Skills and Interests
+              <section className="print:print-break-before">
+                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:section-title">
+                  Technical Infrastructure
                 </h3>
-                <div className="print:section-line border-b border-t-border mb-6" />
-                <div className="space-y-3 print:space-y-0.5 text-sm print:text-[11px]">
-                  <p><span className="font-bold">Languages:</span> {SKILLS_RESUME.languages.join(', ')}.</p>
-                  <p><span className="font-bold">Frameworks:</span> {SKILLS_RESUME.frameworks.join(', ')}.</p>
-                  <p><span className="font-bold">Cloud/Databases:</span> {SKILLS_RESUME.cloud_db.join(', ')}.</p>
-                  <p><span className="font-bold">Development Tools / Environment:</span> {SKILLS_RESUME.tools.join(', ')}.</p>
-                  <p><span className="font-bold">Relevant Coursework:</span> {SKILLS_RESUME.coursework.join(', ')}.</p>
-                  <p><span className="font-bold">Areas of Interest:</span> {SKILLS_RESUME.interests.join(', ')}.</p>
-                  <p><span className="font-bold">Soft Skills:</span> {SKILLS_RESUME.soft_skills.join(', ')}.</p>
+                <div className="space-y-3 print:space-y-2 text-sm print:text-[10pt] print:leading-relaxed">
+                  <p className="print:item-body"><span className="font-bold print:uppercase print:text-[9pt]">Languages:</span> {SKILLS_RESUME.languages.join(', ')}.</p>
+                  <p className="print:item-body"><span className="font-bold print:uppercase print:text-[9pt]">Frameworks:</span> {SKILLS_RESUME.frameworks.join(', ')}.</p>
+                  <p className="print:item-body"><span className="font-bold print:uppercase print:text-[9pt]">Cloud/Databases:</span> {SKILLS_RESUME.cloud_db.join(', ')}.</p>
+                  <p className="print:item-body"><span className="font-bold print:uppercase print:text-[9pt]">Dev Tools:</span> {SKILLS_RESUME.tools.join(', ')}.</p>
+                  <p className="print:item-body"><span className="font-bold print:uppercase print:text-[9pt]">Coursework:</span> {SKILLS_RESUME.coursework.join(', ')}.</p>
                 </div>
               </section>
 
-              {/* AWARDS & CERTIFICATIONS */}
-              <section>
-                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:text-sm print:font-bold print:tracking-normal print:mb-1">
-                  Awards & Certifications
+              {/* EDUCATION */}
+              <section className="print-break-inside-avoid">
+                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:section-title">
+                  Academic Credentials
                 </h3>
-                <div className="print:section-line border-b border-t-border mb-6" />
-                <div className="space-y-3 print:space-y-1">
-                  {AWARDS.map((award, idx) => (
-                    <div key={idx} className="flex justify-between items-baseline text-sm print:text-[11px]">
-                      <p>• <span className="font-bold">{award.title}</span> {award.subtitle}</p>
-                      <span className="text-[10px] italic print:text-[11px]">{award.period}</span>
+                <div className="space-y-6 print:space-y-2">
+                  {EDUCATION.map((edu, idx) => (
+                    <div key={idx} className="flex flex-col gap-1 print-break-inside-avoid">
+                      <div className="flex justify-between items-baseline">
+                        <h4 className="text-base font-black text-t-fg print:item-header">{edu.title}</h4>
+                        <span className="text-[10px] font-bold text-t-accent print:text-[9pt] print:text-black italic">{edu.period}</span>
+                      </div>
+                      <p className="text-sm italic text-t-fg-m print:text-[10pt] print:text-black">{edu.subtitle}</p>
                     </div>
                   ))}
                 </div>
               </section>
 
-              {/* Bottom Footer Area */}
+              {/* AWARDS & CERTIFICATIONS */}
+              <section className="print-break-inside-avoid">
+                <h3 className="text-sm font-black tracking-[0.3em] text-t-fg-m uppercase mb-3 print:section-title">
+                  Honors & Certifications
+                </h3>
+                <div className="space-y-3 print:space-y-1">
+                  {AWARDS.map((award, idx) => (
+                    <div key={idx} className="flex justify-between items-baseline text-sm print:text-[10pt] print-break-inside-avoid">
+                      <p className="print:item-body"><span className="font-bold">{award.title}</span> – {award.subtitle}</p>
+                      <span className="text-[10px] italic print:text-[9pt] font-medium">{award.period}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Print Footer Page Number */}
+              <div className="hidden print:block page-number-footer">
+                Vamshi Krishna Pullaiahgari — Engineering Portfolio Document
+              </div>
+
+              {/* Web Only Bottom Area */}
               <footer className="pt-12 border-t border-t-border print:hidden">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
                   <p className="text-xs font-bold text-t-fg-m uppercase tracking-widest opacity-60">
-                    Professional Record
+                    Professional Record // End of Document
                   </p>
                   <div className="flex gap-4">
                     <GlassButton 
@@ -201,7 +227,7 @@ const ResumeSection: React.FC = () => {
                       className="!px-8 !py-3 !text-[10px] !rounded-full"
                       onClick={handleDownload}
                     >
-                      Download PDF
+                      Export to PDF
                     </GlassButton>
                     <GlassButton 
                       primary 

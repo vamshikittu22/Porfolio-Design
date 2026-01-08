@@ -117,6 +117,39 @@
       .scrollbar-hide::-webkit-scrollbar { display: none; }
       .perspective-800 { perspective: 800px; }
       [style*="preserve-3d"] { transform-style: preserve-3d; }
+
+      /* PRINT ARCHITECTURE */
+      @media print {
+        @page {
+          size: auto;
+          margin: 0.5in;
+        }
+        body {
+          background: white !important;
+          color: black !important;
+        }
+        .print-break-inside-avoid {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+        .print-break-before {
+          break-before: page;
+          page-break-before: always;
+        }
+        .print-only {
+          display: block !important;
+        }
+        .print-hidden {
+          display: none !important;
+        }
+        /* Reset all background effects */
+        * {
+          box-shadow: none !important;
+          text-shadow: none !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+        }
+      }
     </style>
     <script type="importmap">
     {
