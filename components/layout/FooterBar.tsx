@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 import { 
@@ -286,7 +287,7 @@ const SocialOrb: React.FC<{
   data: SocialOrbData; 
   index: number;
   mousePos: { x: number; y: number };
-  containerRef: React.RefObject<HTMLDivElement>;
+  containerRef: React.RefObject<HTMLDivElement | null>;
   isFlipped: boolean;
   onClick: () => void;
   reducedMotion: boolean;
