@@ -1,8 +1,19 @@
-# Vamshi Krishna | AI-Native Software Portfolio
+# Vamshi Krishna | AI-Native Software Portfolio v2.5
 
 An enterprise-grade digital ecosystem designed with **Swiss Minimalist** precision. This project serves as a high-performance technical proof-of-concept, bridging the gap between high-fidelity visual design and algorithmic software engineering.
 
+## 🏗️ The Engineering Blueprint: "Inside the Developer's Mind"
 
+Unique to this portfolio is the **Engineering Blueprint** mode—a dedicated architectural case study built directly into the UI. It reveals the exact logic, performance metrics, and development constraints encountered during the creation of this site.
+
+- **How to access:** Click the **"Systems Architecture"** icon in the top right or footer of the live interface.
+- **What's inside:**
+  - **Interaction State Machines:** Visualizing the magnetic vector math behind the Skill Matrix.
+  - **Performance Analytics:** Real-time dashboards showing Lighthouse scores (98+) and bundle distribution.
+  - **Recursive Logic:** A breakdown of the Minimax search tree used in the Tic-Tac-Toe engine.
+  - **Context Injection:** Documentation on the RAG (Retrieval-Augmented Generation) pipeline powering the AI Assistant.
+
+---
 
 ## 🏛️ Core Architectural Pillars
 
@@ -43,19 +54,6 @@ An enterprise-grade digital ecosystem designed with **Swiss Minimalist** precisi
 - **Lighthouse Accessibility:** 100/100 (WCAG 2.1 Level AA)
 - **Time to Interactive (TTI):** < 0.8s (via Section-Level Hydration)
 - **Cumulative Layout Shift (CLS):** 0.01 (Stable layouts across breakpoints)
-
----
-
-## 🏗️ The Engineering Blueprint: "Inside the Developer's Mind"
-
-Unique to this portfolio is the **Engineering Blueprint** mode—a dedicated architectural case study built directly into the UI. It reveals the exact logic, performance metrics, and development constraints encountered during the creation of this site.
-
-- **How to access:** Click the **"Systems Architecture"** icon in the top right or footer of the live interface.
-- **What's inside:**
-  - **Interaction State Machines:** Visualizing the magnetic vector math behind the Skill Matrix.
-  - **Performance Analytics:** Real-time dashboards showing Lighthouse scores (98+) and bundle distribution.
-  - **Recursive Logic:** A breakdown of the Minimax search tree used in the Tic-Tac-Toe engine.
-  - **Context Injection:** Documentation on the RAG (Retrieval-Augmented Generation) pipeline powering the AI Assistant.
 
 ---
 
