@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { GlassButton } from '../../components/ui/GlassUI';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
@@ -56,10 +55,10 @@ const PortfolioCaseStudy: React.FC<PortfolioCaseStudyProps> = ({ onBack }) => {
           <div className="space-y-8">
             <div className="flex items-center gap-6">
               <div className="w-16 h-[2.5px] bg-t-accent" />
-              <span className="text-[11px] font-black uppercase tracking-[1em] text-t-accent">Technical Architecture Specification</span>
+              <span className="text-[11px] font-mono font-bold uppercase tracking-[1em] text-t-accent">Technical Architecture Specification</span>
             </div>
             <h1 className="text-7xl lg:text-[11rem] font-black font-display text-t-fg uppercase tracking-tighter leading-[0.75]">Engineering <br /> Blueprint.</h1>
-            <p className="text-xl lg:text-3xl text-t-fg-m font-medium leading-tight tracking-tight max-w-4xl text-balance">
+            <p className="text-xl lg:text-3xl text-t-fg-m font-medium font-sans leading-tight tracking-tight max-w-4xl text-balance">
               This portfolio is not just a website; it is a full-stack, <span className="text-t-accent font-black">AI-Native Application</span> designed to demonstrate production-grade architecture, performance optimization, and complex state management.
             </p>
           </div>

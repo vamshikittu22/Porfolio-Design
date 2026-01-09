@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion, useTransform, MotionValue } from 'framer-motion';
 
@@ -55,7 +54,7 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
           whileHover={{ 
             rotateX: -12, 
             rotateY: 8, 
-            z: 40,
+            z: 40, 
             transition: { duration: 0.3 }
           }}
           className="text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg hover:text-t-accent-2 tracking-tighter uppercase origin-right transition-colors duration-500 whitespace-nowrap relative z-20"
@@ -72,7 +71,7 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
         </motion.h1>
       </motion.div>
 
-      {/* Role Label */}
+      {/* Role Label - Using SYNE for emphasis */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -80,8 +79,8 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
         className="mt-8 flex items-center gap-6"
       >
         <div className="w-16 h-1 bg-t-accent-2 transition-colors duration-500" />
-        <p className="text-[14px] lg:text-[18px] font-black text-t-fg uppercase tracking-[0.8em] transition-colors duration-500">
-          Software <span className="text-t-accent">Engineer</span>
+        <p className="text-[14px] lg:text-[18px] font-extrabold font-emphasis text-t-fg uppercase tracking-[0.6em] transition-colors duration-500">
+          Software <span className="text-t-accent font-black">Engineer</span>
         </p>
       </motion.div>
     </div>

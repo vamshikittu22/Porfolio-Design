@@ -64,7 +64,7 @@ export const BubbleTag: React.FC<GlassProps> = ({ children, className = '', acce
       whileHover={{ scale: 1.08, rotate: [0, -1, 1, 0] }}
       className={`
       px-5 py-2.5
-      text-[10px] font-black uppercase tracking-[0.3em] border
+      text-[10px] font-mono font-bold uppercase tracking-[0.3em] border
       rounded-full transition-all duration-500 select-none
       ${themes[accent as keyof typeof themes] || themes.theme}
       ${className}
@@ -144,7 +144,7 @@ export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: 
       whileTap={{ scale: 0.96 }}
       transition={{ type: "spring", stiffness: 500, damping: 15 }}
       className={`
-        px-10 py-4 font-black text-[9px] uppercase tracking-[0.5em] border-b-[2px]
+        px-10 py-4 font-cta font-bold text-[10px] uppercase tracking-[0.4em] border-b-[2px]
         transition-all duration-500 rounded-full
         flex items-center justify-center gap-4
         ${styleClass}

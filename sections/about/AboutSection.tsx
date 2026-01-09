@@ -159,7 +159,7 @@ export const AboutSection: React.FC = () => {
               Skills & <br/> <span className="text-t-fg-m opacity-40">Expertise.</span>
             </h2>
             <div className="h-1 w-24 bg-t-accent" />
-            <p className="text-lg lg:text-xl text-t-fg font-medium leading-relaxed max-w-2xl">
+            <p className="text-lg lg:text-xl text-t-fg font-medium font-sans leading-relaxed max-w-2xl">
               Mapping my technical landscape across backend systems, user interfaces, and AI automation.
             </p>
         </div>
@@ -175,7 +175,7 @@ export const AboutSection: React.FC = () => {
                 setSelectedCategory('All');
                 setHoveredSkill(null);
              }}
-             role="presentation" // Correctly labeling the background interaction container
+             role="presentation" 
            >
               {isMounted && bubbleData.map((item) => {
                  const isHovered = hoveredSkill === item.name;
@@ -209,7 +209,6 @@ export const AboutSection: React.FC = () => {
                  return (
                    <motion.button
                      key={item.name}
-                     // Accessibility Enhancements:
                      aria-pressed={isInSelectedCategory}
                      aria-label={`Show details for ${item.name} technology`}
                      initial={{ scale: 0, opacity: 0 }}
@@ -249,7 +248,7 @@ export const AboutSection: React.FC = () => {
 
                      <img 
                        src={item.icon} 
-                       alt="" // Decorative icon, label is on button
+                       alt="" 
                        className={`relative w-[60%] h-[60%] object-contain drop-shadow-lg transition-transform duration-300 ${isHovered ? 'scale-110' : ''}`}
                        onError={(e) => {
                           (e.target as HTMLImageElement).src = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg';
@@ -283,7 +282,7 @@ export const AboutSection: React.FC = () => {
                         e.stopPropagation();
                         setSelectedCategory(cat);
                     }}
-                    className={`px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest transition-all border outline-none focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2
+                    className={`px-3 py-1.5 rounded-lg text-[8px] font-mono font-black uppercase tracking-widest transition-all border outline-none focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2
                       ${selectedCategory === cat 
                         ? 'bg-t-accent text-t-bg border-t-accent shadow-[0_0_15px_rgba(var(--color-accent-rgb),0.3)]' 
                         : 'bg-transparent text-white/40 border-white/5 hover:border-white/20 hover:text-white'}
@@ -305,17 +304,17 @@ export const AboutSection: React.FC = () => {
                     aria-live="polite"
                   >
                     <div>
-                      <h3 className="text-4xl lg:text-5xl font-black text-white uppercase tracking-tighter leading-none mb-2">{hoveredSkill}.</h3>
-                      <p className={`text-[9px] font-black uppercase tracking-[0.2em] text-${CATEGORY_COLORS[bubbleData.find(i => i.name === hoveredSkill)?.cat || 'Languages']}-400 opacity-60`}>
+                      <h3 className="text-4xl lg:text-5xl font-black text-white uppercase tracking-tighter leading-none mb-2 font-display">{hoveredSkill}.</h3>
+                      <p className={`text-[9px] font-mono font-black uppercase tracking-[0.2em] text-${CATEGORY_COLORS[bubbleData.find(i => i.name === hoveredSkill)?.cat || 'Languages']}-400 opacity-60`}>
                         {activeDetail.role} // {activeDetail.exp}
                       </p>
                     </div>
                     
-                    <p className="text-sm text-white/70 leading-relaxed font-medium pl-4 border-l-2 border-white/10 italic">
+                    <p className="text-sm text-white/70 leading-relaxed font-sans font-medium pl-4 border-l-2 border-white/10 italic">
                       "{activeDetail.desc}"
                     </p>
 
-                    <div className="grid grid-cols-1 gap-4">
+                    <div className="grid grid-cols-1 gap-4 font-mono">
                       <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 flex items-center gap-4">
                          <div className="w-1 h-1 rounded-full bg-t-accent" />
                          <div>
@@ -345,14 +344,14 @@ export const AboutSection: React.FC = () => {
                         <div className={`w-8 h-8 rounded-full bg-${CATEGORY_COLORS[selectedCategory]}-500/30 animate-pulse`} />
                      </div>
                      <div>
-                       <h3 className="text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2">
+                       <h3 className="text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 font-display">
                          {selectedCategory}.
                        </h3>
-                       <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">
+                       <p className="text-[10px] font-mono font-bold text-white/30 uppercase tracking-[0.2em]">
                          Category Breakdown
                        </p>
                      </div>
-                     <p className="text-sm text-white/60 leading-relaxed pl-4 border-l-2 border-white/5">
+                     <p className="text-sm text-white/60 leading-relaxed pl-4 border-l-2 border-white/5 font-sans">
                        {CATEGORY_DESCRIPTIONS[selectedCategory]}
                      </p>
                   </motion.div>
@@ -367,18 +366,18 @@ export const AboutSection: React.FC = () => {
                      <div className="w-20 h-20 rounded-full border border-dashed border-white/10 animate-[spin_15s_linear_infinite] flex items-center justify-center mb-8">
                         <div className="w-10 h-10 rounded-full bg-white/[0.02] animate-pulse" />
                      </div>
-                     <h4 className="text-xl font-black text-white uppercase tracking-widest mb-4 opacity-40">
+                     <h4 className="text-xl font-black text-white uppercase tracking-widest mb-4 opacity-40 font-display">
                         Skill Insights
                      </h4>
-                     <p className="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] max-w-[240px] leading-loose">
+                     <p className="text-[9px] font-mono font-bold text-white/30 uppercase tracking-[0.2em] max-w-[240px] leading-loose">
                        Hover over a tech node or select a category to view proficiency and experience details.
                      </p>
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              <div className="mt-8 pt-6 border-t border-white/5 opacity-40">
-                <p className="text-[8px] font-mono text-white/50 uppercase tracking-[0.3em]">
+              <div className="mt-8 pt-6 border-t border-white/5 opacity-40 font-mono">
+                <p className="text-[8px] text-white/50 uppercase tracking-[0.3em]">
                   <span className="text-t-accent font-black">Core:</span> C# · .NET · React · SQL · Azure · Gemini
                 </p>
               </div>
