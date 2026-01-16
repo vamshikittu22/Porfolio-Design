@@ -30,12 +30,12 @@ const ProjectsSection: React.FC = () => {
   return (
     <section id="projects-section" className="mb-[40rem] scroll-mt-32 print:hidden">
       <ScrollReveal className="flex flex-col items-center mb-16 text-center">
-         <h2 className="text-7xl lg:text-[10rem] font-black font-display text-t-fg uppercase tracking-tighter leading-none text-balance">
-           Selected <br /> Software Projects.
+         <h2 className="text-6xl lg:text-8xl font-black font-display text-t-fg uppercase tracking-tighter leading-none text-balance">
+           Technical <br /> Showcase.
          </h2>
          
          {/* Filtering UI */}
-         <div className="mt-16 flex flex-wrap justify-center gap-4 lg:gap-8">
+         <div className="mt-12 flex flex-wrap justify-center gap-4 lg:gap-8">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
@@ -56,7 +56,7 @@ const ProjectsSection: React.FC = () => {
             ))}
          </div>
          
-         <div className="w-48 h-px bg-t-accent-2 mt-20 opacity-30 shadow-[0_0_20px_rgba(var(--color-accent-secondary-rgb),0.5)]" />
+         <div className="w-48 h-px bg-t-accent-2 mt-16 opacity-30 shadow-[0_0_20px_rgba(var(--color-accent-secondary-rgb),0.5)]" />
       </ScrollReveal>
 
       <div className="flex flex-col gap-12 lg:gap-20 transition-all duration-700">
