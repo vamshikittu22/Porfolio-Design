@@ -2,21 +2,12 @@ import React from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { GlassButton, GlassCard } from '../../components/ui/GlassUI';
 import { RESUME_CONTENT } from './ResumeData';
-import { RESUME_PDF_URL } from '../../config/constants';
 
 const ResumeSection: React.FC = () => {
-  const handleDownload = () => {
-    // Primary: Trigger direct file download
-    const link = document.createElement('a');
-    link.href = RESUME_PDF_URL;
-    link.download = 'Vamshi_Krishna_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Optional Fallback: Some users might still want the browser print view
-    // if the file is missing or they want to generate a fresh one.
-    // console.log("Download triggered. Ensure /public/Vamshi_Krishna_Resume.pdf exists.");
+  const handleExport = () => {
+    // Optimization: Since a static file might not be found in preview environments,
+    // we use the highly-optimized @media print styles to generate a perfect PDF.
+    window.print();
   };
 
   const scrollToContact = () => {
@@ -60,16 +51,11 @@ const ResumeSection: React.FC = () => {
                 font-size: 10.5pt !important;
                 font-weight: 700 !important;
               }
-              .item-body {
-                font-size: 10pt !important;
-                font-weight: 400 !important;
-              }
               .skill-label {
                 font-weight: 700 !important;
                 font-family: sans-serif !important;
                 font-size: 9.5pt !important;
               }
-              .page-number-footer { display: none; }
               .print-hide { display: none !important; }
             }
           `}</style>
@@ -100,15 +86,14 @@ const ResumeSection: React.FC = () => {
                   primary 
                   accent="theme" 
                   className="!px-6 !py-3 !text-[10px]"
-                  onClick={handleDownload}
+                  onClick={handleExport}
                 >
-                  Download PDF
+                  Export to PDF
                 </GlassButton>
               </div>
             </header>
 
             <div className="space-y-6 print:space-y-4">
-              {/* PROFESSIONAL SUMMARY */}
               <section>
                 <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-2 print:section-title">
                   Professional Summary
@@ -118,7 +103,6 @@ const ResumeSection: React.FC = () => {
                 </p>
               </section>
 
-              {/* TECHNICAL SKILLS */}
               <section>
                 <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-2 print:section-title">
                   Technical Skills
@@ -135,7 +119,6 @@ const ResumeSection: React.FC = () => {
                 </div>
               </section>
 
-              {/* PROFESSIONAL EXPERIENCE */}
               <section>
                 <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-3 print:section-title">
                   Professional Experience
@@ -160,7 +143,6 @@ const ResumeSection: React.FC = () => {
                 </div>
               </section>
 
-              {/* PROJECTS */}
               <section className="print-break-before">
                 <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-3 print:section-title">
                   Projects
@@ -186,7 +168,6 @@ const ResumeSection: React.FC = () => {
                 </div>
               </section>
 
-              {/* EDUCATION */}
               <section>
                 <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-3 print:section-title">
                   Education
@@ -206,8 +187,7 @@ const ResumeSection: React.FC = () => {
                 </div>
               </section>
 
-              {/* Web Only Bottom Area */}
-              <footer className="pt-12 border-t border-t-border print-hide">
+              <footer className="pt-12 border-t border-t-border print:hide">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
                   <p className="text-xs font-bold text-t-fg-m font-mono uppercase tracking-widest opacity-60">
                     Technical Record // Optimized for Export
@@ -216,7 +196,7 @@ const ResumeSection: React.FC = () => {
                     <GlassButton 
                       accent="theme" 
                       className="!px-8 !py-3 !text-[10px]"
-                      onClick={handleDownload}
+                      onClick={handleExport}
                     >
                       Export to PDF
                     </GlassButton>

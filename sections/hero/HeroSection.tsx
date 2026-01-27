@@ -3,7 +3,6 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { GlassButton } from '../../components/ui/GlassUI';
 import { HeroTitle } from './HeroTitle';
 import { NameBackground } from './NameBackground';
-import { RESUME_PDF_URL } from '../../config/constants';
 
 interface HeroProps {
   image: string | null;
@@ -34,13 +33,9 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
     y.set(yPct);
   };
 
-  const handleDownloadResume = () => {
-    const link = document.createElement('a');
-    link.href = RESUME_PDF_URL;
-    link.download = 'Vamshi_Krishna_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleExportResume = () => {
+    // Robust on-the-fly PDF generation via the browser's print engine
+    window.print();
   };
 
   const getOptimizedUrl = (url: string | null) => {
@@ -99,9 +94,9 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                   accent="secondary" 
                   aria-label="Download resume"
                   className="!px-8 !py-5 !text-[10px] hover:bg-t-accent-2/10 w-full whitespace-nowrap border-t-accent-2/40" 
-                  onClick={handleDownloadResume}
+                  onClick={handleExportResume}
                 >
-                  Technical CV
+                  Technical CV (PDF)
                 </GlassButton>
               </motion.div>
 
