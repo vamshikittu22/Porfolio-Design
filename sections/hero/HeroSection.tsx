@@ -33,9 +33,13 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
     y.set(yPct);
   };
 
-  const handleExportResume = () => {
-    // Robust on-the-fly PDF generation via the browser's print engine
-    window.print();
+  const handleDownloadResumeFile = () => {
+    const link = document.createElement('a');
+    link.href = '/assets/downloads/Vamshi_Krishna_Resume.pdf';
+    link.download = 'Vamshi_Krishna_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const getOptimizedUrl = (url: string | null) => {
@@ -94,7 +98,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                   accent="secondary" 
                   aria-label="Download resume"
                   className="!px-8 !py-5 !text-[10px] hover:bg-t-accent-2/10 w-full whitespace-nowrap border-t-accent-2/40" 
-                  onClick={handleExportResume}
+                  onClick={handleDownloadResumeFile}
                 >
                   Technical CV (PDF)
                 </GlassButton>

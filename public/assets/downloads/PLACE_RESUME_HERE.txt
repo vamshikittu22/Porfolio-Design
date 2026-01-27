@@ -1,8 +1,0 @@
-ASSET REPOSITORY: DOWNLOADS
-----------------------------
-Place your professional files here for direct download access.
-
-Current Target: Vamshi_Krishna_Resume.pdf
-Path: /assets/downloads/Vamshi_Krishna_Resume.pdf
-
-Note: Files placed in this folder (under the 'public' directory) are served at the root URL of your website.

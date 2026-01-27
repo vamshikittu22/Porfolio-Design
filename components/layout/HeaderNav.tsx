@@ -288,8 +288,13 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
 }) => {
   const [logoHovered, setLogoHovered] = useState(false);
 
-  const handleExportResume = () => {
-    window.print();
+  const handleDownloadResumeFile = () => {
+    const link = document.createElement('a');
+    link.href = '/assets/downloads/Vamshi_Krishna_Resume.pdf';
+    link.download = 'Vamshi_Krishna_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -351,7 +356,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
           </motion.button>
           
           <motion.button 
-            onClick={handleExportResume} 
+            onClick={handleDownloadResumeFile} 
             whileHover={{ scale: 1.15, y: -2 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Export technical CV as PDF"
