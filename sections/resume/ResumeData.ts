@@ -8,14 +8,14 @@ export interface ResumeItem {
 
 export const RESUME_CONTENT = {
   name: "Vamshi Krishna Pullaiahgari",
-  role: "Full Stack Developer",
+  role: "Software Engineer",
   contact: {
     phone: "+1 (913) 326-7373",
     email: "vamshikrishna2297@gmail.com",
     github: "github.com/vamshikittu22",
     linkedin: "linkedin.com/in/vamshi-krishna-pullaiahgari/",
     portfolio: "vamshikrishna.dev",
-    location: "Overland Park, KS // STEM OPT"
+    location: "Overland Park, KS"
   },
   summary: "Full Stack Developer with 5+ years of experience building scalable, secure enterprise applications across healthcare, finance, and banking domains. Strong expertise in Java (8–17), Spring Boot, Angular/React, AWS microservices, and Kafka-based real-time systems. Proven in delivering REST/GraphQL APIs, cloud-native deployments (ECS/EKS), CI/CD automation, and secure authentication using OAuth2/JWT. Recently contributed to AI-assisted analytics for claims processing and financial risk workflows.",
   experience: [
@@ -78,24 +78,23 @@ export const RESUME_CONTENT = {
   ],
   projects: [
     {
-      title: "Future Job Fit | AI Resume Creation & Job Optimization Platform",
-      subtitle: "React, TypeScript, Supabase Edge Functions, LLM APIs, Python, Node.js",
+      title: "Future Job Fit | AI Resume Platform",
+      subtitle: "React, TypeScript, Supabase, LLM APIs, Node.js",
       period: "2024",
       description: [
-        "Architected a full-stack platform enabling users to create resumes and optimize them against job descriptions using ATS-style keyword extraction, job-to-skill mapping, and AI-assisted content generation.",
-        "Designed a pluggable LLM integration layer (default Gemini) with secure server-side API orchestration via Supabase Edge Functions, supporting multi-provider inference while protecting credentials.",
-        "Integrated browser-based Python (Pyodide) for local document parsing and NLP preprocessing, combining client-side analytics with server-side AI services to deliver real-time JD-specific feedback.",
-        "Built modular React workflows for resume builder, job optimizer, and AI recommendations, implementing scalable state management and extensible components for future feature expansion."
+        "Architected a platform enabling users to create resumes optimized against JDs using keyword extraction and AI generation.",
+        "Designed a pluggable LLM layer with secure server-side orchestration via Supabase Edge Functions.",
+        "Integrated Pyodide for browser-based NLP document parsing to deliver real-time JD-specific feedback."
       ]
     },
     {
-      title: "WanderlustTrails | Full Stack Travel Booking Platform",
-      subtitle: "React, PHP, REST APIs, MySQL, JWT Authentication",
+      title: "WanderlustTrails | Full Stack Booking",
+      subtitle: "React, PHP, REST APIs, MySQL, JWT",
       period: "2024",
       description: [
-        "Designed and implemented an end-to-end travel booking platform with React frontend and PHP REST services, supporting user authentication, destination search, bookings, reviews, and role-based admin dashboards.",
-        "Architected relational MySQL schemas and REST workflows for users, packages, bookings, and reviews, implementing JWT-based authentication and authorization for secure multi-role access across the platform.",
-        "Built modular backend services for bookings, payments, blogs, and user management, enabling real-time availability checks, transactional consistency, and scalable feature expansion through loosely coupled APIs."
+        "Designed end-to-end travel platform supporting destination search, bookings, and role-based dashboards.",
+        "Architected relational schemas and JWT-based authentication for secure multi-role access.",
+        "Built modular backend services for bookings, payments, and real-time availability checks."
       ]
     }
   ],
@@ -111,23 +110,15 @@ export const RESUME_CONTENT = {
       subtitle: "Jawaharlal Nehru Technological University, Hyderabad, India.",
       period: "Jul 2019",
       description: [
-        "Relevant Coursework: Distributed Systems, Cloud Computing, Information Security Management, Artificial Intelligence, Data Warehousing & Analytics, Advanced Systems Design."
+        "Focus: Distributed Systems, Cloud Computing, AI, Advanced Systems Design."
       ]
-    }
-  ],
-  awards: [
-    {
-      title: 'Top Performer Q3',
-      subtitle: 'Mphasis',
-      period: 'Dec 2022',
-      description: ['Recognized for excellent client service, agility, and KPI delivery.']
     }
   ],
   technicalInfrastructure: {
     languages: ["Java (8–17)", "Python", "JavaScript", "TypeScript", "C#", "PHP"],
     frontend: ["React.js", "Redux", "Angular", "HTML5/CSS3", "Bootstrap"],
     backend: ["Spring Boot", "Node.js", "Hibernate", "JPA", "JDBC", "REST APIs"],
-    ai_data: ["OpenAI API", "LLM-based Summarization", "Python Data Pipelines"],
+    ai_data: ["OpenAI API", "LLM Summarization", "Anomaly Detection", "Python Pipelines"],
     databases: ["Oracle", "PostgreSQL", "MySQL", "MongoDB", "DynamoDB"],
     cloud: ["AWS (ECS, EKS, Lambda, Fargate, S3, RDS, IAM, KMS)"],
     devops: ["Docker", "Kubernetes", "Jenkins", "Terraform", "Git", "GitHub"],

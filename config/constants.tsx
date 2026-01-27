@@ -13,10 +13,11 @@ export const BLOG_URL = 'https://travelsofvk.blogspot.com';
 export const RESUME_URL = '#resume-section'; 
 
 /**
- * PATH TO DOWNLOADABLE RESUME
- * Drop your physical PDF file into the /public folder and update this name.
+ * DEDICATED DOWNLOAD PATH
+ * Instructions: Place your PDF file in the project folder under /public/assets/downloads/ 
+ * and name it 'Vamshi_Krishna_Resume.pdf'
  */
-export const RESUME_PDF_URL = '/Vamshi_Krishna_Resume.pdf';
+export const RESUME_PDF_URL = '/assets/downloads/Vamshi_Krishna_Resume.pdf';
 
 export const PHYSICAL_FALLBACKS = {
   HERO_DARK: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=75&w=1200&fm=webp",

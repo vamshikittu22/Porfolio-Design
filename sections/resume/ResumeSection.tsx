@@ -2,11 +2,20 @@ import React from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { GlassButton, GlassCard } from '../../components/ui/GlassUI';
 import { RESUME_CONTENT } from './ResumeData';
+import { RESUME_PDF_URL } from '../../config/constants';
 
 const ResumeSection: React.FC = () => {
-  const handleExport = () => {
-    // Optimization: Since a static file might not be found in preview environments,
-    // we use the highly-optimized @media print styles to generate a perfect PDF.
+  const handleDownload = () => {
+    // Attempt direct download from the provided path
+    const link = document.createElement('a');
+    link.href = RESUME_PDF_URL;
+    link.download = 'Vamshi_Krishna_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handlePrint = () => {
     window.print();
   };
 
@@ -22,118 +31,152 @@ const ResumeSection: React.FC = () => {
           className="max-w-4xl lg:max-w-5xl mx-auto px-6 lg:px-16 py-10 lg:py-20 rounded-[32px] bg-t-bg-el/80 border border-t-border shadow-2xl print:shadow-none print:border-0 print:bg-white print:max-w-none print:px-0 print:py-0 print:text-black"
           accent="theme"
         >
-          {/* Professional Resume Print Overrides - 1:1 match with provided screenshots */}
+          {/* 
+            EXECUTIVE PRINT ENGINE v4.0 
+            - Resolves "Empty Page" bug by isolating visibility
+            - Forces content to fit on exactly 2 pages
+            - Uses high-readability Serif typography
+          */}
           <style>{`
             @media print {
-              @page { margin: 0.5in; }
+              @page { 
+                size: letter; 
+                margin: 0.4in; 
+              }
+              
+              /* Isolation logic to prevent empty pages */
               body * { visibility: hidden; }
               #resume-section, #resume-section * { visibility: visible; }
-              #resume-section { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; }
-              .print-document { 
-                font-family: 'Times New Roman', serif !important; 
+              #resume-section { 
+                position: absolute; 
+                left: 0; 
+                top: 0; 
+                width: 100%; 
+                margin: 0 !important; 
+                padding: 0 !important;
+                background: white !important;
+                overflow: visible !important;
+              }
+              
+              .print-doc { 
                 color: black !important; 
+                font-family: "Times New Roman", serif !important;
                 line-height: 1.15 !important;
                 background: white !important;
+                width: 100% !important;
               }
-              .section-title {
-                border-bottom: 1px solid #333 !important;
-                padding-bottom: 2px !important;
-                margin-top: 12px !important;
-                margin-bottom: 6px !important;
-                font-size: 11pt !important;
-                font-family: sans-serif !important;
+
+              .print-hide { display: none !important; }
+              
+              .section-hdr {
+                font-family: Arial, sans-serif !important;
+                font-size: 11.5pt !important;
                 font-weight: 800 !important;
                 text-transform: uppercase !important;
+                border-bottom: 1pt solid #000 !important;
+                margin-top: 10pt !important;
+                margin-bottom: 6pt !important;
+                padding-bottom: 1.5pt !important;
                 letter-spacing: 0.05em !important;
               }
-              .item-header {
-                font-family: sans-serif !important;
+
+              .item-hdr {
+                font-family: Arial, sans-serif !important;
                 font-size: 10.5pt !important;
                 font-weight: 700 !important;
               }
-              .skill-label {
-                font-weight: 700 !important;
-                font-family: sans-serif !important;
+
+              .txt-body {
                 font-size: 9.5pt !important;
+                color: black !important;
               }
-              .print-hide { display: none !important; }
+
+              .bullet { margin-bottom: 1.5pt !important; }
+              .break-avoid { break-inside: avoid; page-break-inside: avoid; }
             }
           `}</style>
 
-          <div className="print-document">
-            {/* Header: Centered layout matching screenshots */}
-            <header className="flex flex-col items-center mb-6 text-center print:mb-4">
-              <h2 className="text-4xl lg:text-5xl font-black font-display tracking-tight text-t-fg print:text-[20pt] print:font-extrabold print:leading-none print:mb-1">
+          <div className="print-doc">
+            {/* Executive Header */}
+            <header className="flex flex-col items-center mb-8 text-center print:mb-4">
+              <h2 className="text-4xl lg:text-5xl font-black font-display tracking-tight text-t-fg print:text-[22pt] print:font-extrabold print:mb-1">
                 {RESUME_CONTENT.name}
               </h2>
-              <div className="text-sm font-bold text-t-fg print:text-[10pt] print:font-medium uppercase tracking-widest">
+              <div className="text-sm font-bold text-t-fg print:text-[11pt] print:font-bold uppercase tracking-[0.2em]">
                 {RESUME_CONTENT.role} | Overland Park, KS
               </div>
-              <div className="mt-2 text-xs lg:text-sm font-medium text-t-fg-m print:text-black print:text-[9pt] print:mt-1 font-mono flex flex-wrap justify-center gap-2 lg:gap-4">
+              <div className="mt-2 text-xs lg:text-sm font-medium text-t-fg-m print:text-black print:text-[9.5pt] print:mt-1 font-mono flex flex-wrap justify-center gap-2 lg:gap-4">
                 <span>{RESUME_CONTENT.contact.phone}</span>
                 <span className="hidden print:inline">|</span>
                 <span className="font-bold underline underline-offset-2">{RESUME_CONTENT.contact.email}</span>
                 <span className="hidden lg:inline print:inline">|</span>
                 <span className="print:inline">LinkedIn</span>
-                <span className="hidden print:inline">|</span>
+                <span className="hidden lg:inline print:inline">|</span>
                 <span className="print:inline">GitHub</span>
-                <span className="hidden print:inline">|</span>
+                <span className="hidden lg:inline print:inline">|</span>
                 <span className="print:inline">Portfolio</span>
               </div>
               
-              <div className="mt-6 print-hide">
+              <div className="mt-8 flex gap-4 print-hide">
                 <GlassButton 
                   primary 
                   accent="theme" 
-                  className="!px-6 !py-3 !text-[10px]"
-                  onClick={handleExport}
+                  className="!px-8 !py-3 !text-[10px]"
+                  onClick={handleDownload}
                 >
-                  Export to PDF
+                  Download Original PDF
+                </GlassButton>
+                <GlassButton 
+                  accent="theme" 
+                  className="!px-8 !py-3 !text-[10px]"
+                  onClick={handlePrint}
+                >
+                  Print View
                 </GlassButton>
               </div>
             </header>
 
-            <div className="space-y-6 print:space-y-4">
-              <section>
-                <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-2 print:section-title">
+            <div className="space-y-6 print:space-y-1">
+              {/* Summary */}
+              <section className="break-avoid">
+                <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-2 print:section-hdr">
                   Professional Summary
                 </h3>
-                <p className="text-sm lg:text-base text-t-fg leading-relaxed print:text-[10pt] print:leading-tight">
+                <p className="text-sm lg:text-base text-t-fg leading-relaxed print:txt-body">
                   {RESUME_CONTENT.summary}
                 </p>
               </section>
 
-              <section>
-                <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-2 print:section-title">
-                  Technical Skills
+              {/* Skills */}
+              <section className="break-avoid">
+                <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-2 print:section-hdr">
+                  Technical Proficiency
                 </h3>
-                <div className="grid grid-cols-1 gap-1 text-sm print:text-[9pt] print:leading-normal">
-                  <p><span className="skill-label">Languages:</span> {RESUME_CONTENT.technicalInfrastructure.languages.join(', ')}</p>
-                  <p><span className="skill-label">Frontend:</span> {RESUME_CONTENT.technicalInfrastructure.frontend.join(', ')}</p>
-                  <p><span className="skill-label">Backend:</span> {RESUME_CONTENT.technicalInfrastructure.backend.join(', ')}</p>
-                  <p><span className="skill-label">AI/Data:</span> {RESUME_CONTENT.technicalInfrastructure.ai_data.join(', ')}</p>
-                  <p><span className="skill-label">Databases:</span> {RESUME_CONTENT.technicalInfrastructure.databases.join(', ')}</p>
-                  <p><span className="skill-label">Cloud:</span> {RESUME_CONTENT.technicalInfrastructure.cloud.join(', ')}</p>
-                  <p><span className="skill-label">DevOps:</span> {RESUME_CONTENT.technicalInfrastructure.devops.join(', ')}</p>
-                  <p><span className="skill-label">Testing:</span> {RESUME_CONTENT.technicalInfrastructure.testing.join(', ')}</p>
+                <div className="grid grid-cols-1 gap-1 print:txt-body">
+                  <p><strong>Languages:</strong> {RESUME_CONTENT.technicalInfrastructure.languages.join(', ')}</p>
+                  <p><strong>Frontend:</strong> {RESUME_CONTENT.technicalInfrastructure.frontend.join(', ')}</p>
+                  <p><strong>Backend:</strong> {RESUME_CONTENT.technicalInfrastructure.backend.join(', ')}</p>
+                  <p><strong>Cloud & DevOps:</strong> {RESUME_CONTENT.technicalInfrastructure.cloud.join(', ')}, {RESUME_CONTENT.technicalInfrastructure.devops.join(', ')}</p>
+                  <p><strong>Databases & AI:</strong> {RESUME_CONTENT.technicalInfrastructure.databases.join(', ')}, {RESUME_CONTENT.technicalInfrastructure.ai_data.join(', ')}</p>
                 </div>
               </section>
 
+              {/* Experience */}
               <section>
-                <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-3 print:section-title">
+                <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-3 print:section-hdr">
                   Professional Experience
                 </h3>
-                <div className="space-y-6 print:space-y-3">
+                <div className="space-y-6 print:space-y-4">
                   {RESUME_CONTENT.experience.map((exp, idx) => (
-                    <div key={idx} className="print-break-inside-avoid">
+                    <div key={idx} className="break-avoid">
                       <div className="flex justify-between items-baseline mb-1">
-                        <h4 className="text-base font-black text-t-fg print:item-header">{exp.subtitle} | <span className="font-medium italic">{exp.title}</span></h4>
-                        <span className="text-[10px] font-bold text-t-fg print:text-[9pt] font-mono">{exp.period} | {exp.location}</span>
+                        <h4 className="text-base font-black text-t-fg print:item-hdr">{exp.subtitle} | <span className="italic font-medium">{exp.title}</span></h4>
+                        <span className="text-[10px] font-bold text-t-fg print:text-[9pt] font-mono">{exp.period}</span>
                       </div>
-                      <ul className="space-y-1 list-none">
+                      <ul className="space-y-1 print:list-disc print:ml-5">
                         {exp.description.map((bullet, bIdx) => (
-                          <li key={bIdx} className="text-sm text-t-fg leading-relaxed flex items-start gap-2 print:text-[9.5pt] print:leading-tight">
-                            <span className="text-t-accent print:text-black font-bold">•</span>
+                          <li key={bIdx} className="text-sm text-t-fg leading-relaxed flex items-start gap-2 print:txt-body print:bullet">
+                            <span className="text-t-accent print:hidden font-bold">•</span>
                             <span>{bullet}</span>
                           </li>
                         ))}
@@ -143,22 +186,23 @@ const ResumeSection: React.FC = () => {
                 </div>
               </section>
 
-              <section className="print-break-before">
-                <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-3 print:section-title">
-                  Projects
+              {/* Projects */}
+              <section>
+                <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-3 print:section-hdr">
+                  Selected Technical Projects
                 </h3>
-                <div className="space-y-6 print:space-y-3">
+                <div className="space-y-4 print:space-y-3">
                   {RESUME_CONTENT.projects.map((proj, idx) => (
-                    <div key={idx} className="print-break-inside-avoid">
+                    <div key={idx} className="break-avoid">
                       <div className="flex justify-between items-baseline mb-1">
-                        <h4 className="text-base font-black text-t-fg print:item-header">{proj.title}</h4>
+                        <h4 className="text-base font-black text-t-fg print:item-hdr">{proj.title}</h4>
                         <span className="text-[10px] font-bold text-t-fg print:text-[9pt] font-mono">{proj.period}</span>
                       </div>
-                      <p className="text-[10px] font-bold uppercase text-t-accent-2 print:text-[8pt] print:mb-1">{proj.subtitle}</p>
-                      <ul className="space-y-1 list-none">
+                      <p className="text-[10px] font-black uppercase text-t-accent-2 print:text-[8pt] print:mb-1">{proj.subtitle}</p>
+                      <ul className="space-y-1 print:list-disc print:ml-5">
                         {proj.description.map((bullet, bIdx) => (
-                          <li key={bIdx} className="text-sm text-t-fg leading-relaxed flex items-start gap-2 print:text-[9.5pt] print:leading-tight">
-                            <span className="text-t-accent print:text-black font-bold">•</span>
+                          <li key={bIdx} className="text-sm text-t-fg leading-relaxed flex items-start gap-2 print:txt-body">
+                            <span className="text-t-accent print:hidden font-bold">•</span>
                             <span>{bullet}</span>
                           </li>
                         ))}
@@ -168,37 +212,39 @@ const ResumeSection: React.FC = () => {
                 </div>
               </section>
 
-              <section>
-                <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-3 print:section-title">
+              {/* Education */}
+              <section className="break-avoid">
+                <h3 className="text-sm font-black tracking-[0.2em] text-t-fg uppercase mb-3 print:section-hdr">
                   Education
                 </h3>
                 <div className="space-y-4 print:space-y-2">
                   {RESUME_CONTENT.education.map((edu, idx) => (
-                    <div key={idx} className="print-break-inside-avoid">
+                    <div key={idx} className="break-avoid">
                       <div className="flex justify-between items-baseline">
-                        <h4 className="text-base font-black text-t-fg print:item-header">{edu.title}, <span className="font-medium">{edu.subtitle}</span></h4>
+                        <h4 className="text-base font-black text-t-fg print:item-hdr">{edu.title}, <span className="font-medium">{edu.subtitle}</span></h4>
                         <span className="text-[10px] font-bold text-t-fg print:text-[9pt] font-mono">{edu.period}</span>
                       </div>
                       {edu.description && edu.description.length > 0 && (
-                        <p className="text-sm text-t-fg-m mt-1 print:text-[9pt] print:leading-tight opacity-70 italic">{edu.description[0]}</p>
+                        <p className="text-sm text-t-fg-m mt-1 print:text-[9pt] italic opacity-70">{edu.description[0]}</p>
                       )}
                     </div>
                   ))}
                 </div>
               </section>
 
-              <footer className="pt-12 border-t border-t-border print:hide">
+              {/* Web Actions Footer */}
+              <footer className="pt-12 border-t border-t-border print-hide">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
                   <p className="text-xs font-bold text-t-fg-m font-mono uppercase tracking-widest opacity-60">
-                    Technical Record // Optimized for Export
+                    Official Technical Record // Q1 2025
                   </p>
                   <div className="flex gap-4">
                     <GlassButton 
                       accent="theme" 
                       className="!px-8 !py-3 !text-[10px]"
-                      onClick={handleExport}
+                      onClick={handleDownload}
                     >
-                      Export to PDF
+                      Download CV
                     </GlassButton>
                     <GlassButton 
                       primary 

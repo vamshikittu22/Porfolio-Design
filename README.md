@@ -2,51 +2,38 @@
 
 An enterprise-grade digital ecosystem designed with **Swiss Minimalist** precision. This project serves as a high-performance technical proof-of-concept, bridging the gap between high-fidelity visual design and algorithmic software engineering.
 
+## 📁 Project Directory & Assets
+To manage your downloadable files, use the following structure:
+
+```text
+/ (Project Root)
+└── public/
+    └── assets/
+        └── downloads/
+            └── Vamshi_Krishna_Resume.pdf  <-- PLACE YOUR RESUME HERE
+```
+
+### Direct Download Logic
+The application is pre-configured to look for `/assets/downloads/Vamshi_Krishna_Resume.pdf`. 
+1. Open the `public/assets/downloads/` folder.
+2. Upload/Paste your professional PDF.
+3. Ensure the filename is exactly `Vamshi_Krishna_Resume.pdf`.
+
 ## 🤖 Interactive AI Assistant
 Located in the bottom-right corner, the **VK Neural Assistant** is a context-grounded RAG (Retrieval-Augmented Generation) agent.
 - **Ask anything:** You can ask questions about Vamshi's technical stack, specific project roles, or work history.
-- **Grounded Intelligence:** The bot is strictly grounded in the site's JSON data, ensuring it provides factual summaries of experience and skill proficiency.
-- **Recruiter Shortcuts:** Use the provided suggestion chips to quickly summarize the profile or dive into backend expertise.
+- **Grounded Intelligence:** The bot is strictly grounded in the site's JSON data, providing factual summaries for recruiters.
 
-## 🏗️ The Engineering Blueprint: "Inside the Developer's Mind"
-Unique to this portfolio is the **Engineering Blueprint** mode—a dedicated architectural case study built directly into the UI. It reveals the exact logic, performance metrics, and development constraints encountered during the creation of this site.
+## 📄 Dynamic Fallback
+If you choose not to add a physical file, the system utilizes a custom **High-Fidelity Print Engine**. Clicking "Print View" or "Download" (when the file is missing) will generate a pixel-perfect, 2-page executive resume directly from the website's live data.
 
-- **How to access:** Click the **"Systems Architecture"** icon in the top right or footer of the live interface.
-- **What's inside:**
-  - **Interaction State Machines:** Visualizing the magnetic vector math behind the Skill Matrix.
-  - **Performance Analytics:** Real-time dashboards showing Lighthouse scores (98+) and bundle distribution.
-  - **Recursive Logic:** A breakdown of the Minimax search tree used in the Tic-Tac-Toe engine.
-  - **Context Injection:** Documentation on the RAG (Retrieval-Augmented Generation) pipeline powering the AI Assistant.
+## 🏗️ Engineering Blueprint
+Unique to this portfolio is the **Engineering Blueprint** mode—a dedicated architectural case study built directly into the UI.
+
+- **How to access:** Click the **"Systems Architecture"** icon in the top right.
+- **What's inside:** Real-time performance metrics, Minimax decision tree visualizations, and RAG pipeline documentation.
 
 ---
-
-## 🏛️ Core Architectural Pillars
-
-### 1. Intelligence Layer (Gemini-Native)
-- **RAG-Based Chat Assistant:** Integrates Gemini 3 Flash with a custom **Retrieval-Augmented Generation (RAG)** pipeline. It grounds the LLM in structured JSON resume data to ensure 95%+ factual accuracy for recruiter inquiries.
-- **Resilient AI Pipeline:** Implements a 4-tier fallback hierarchy to handle API quota locks:
-  1. **Session Cache:** Instant hydration for recurring users.
-  2. **Live Inference:** Real-time synthesis via Gemini 2.5 Flash for illustrations and greetings.
-  3. **Persistent Backup:** LocalStorage snapshots of previous successful generations.
-  4. **Physical Fallbacks:** Curated Unsplash assets for zero-inventory scenarios.
-
-### 2. Kinetic Design System (Bauhaus x Futurism)
-- **Swiss Precision:** Strict architectural grid utilizing high-contrast typography (Inter/Manrope) and glassmorphism.
-- **Inertia Physics:** The UI maps mouse coordinates to hardware-accelerated `rotate3d` and `translate3d` transforms, providing a tactile, biological sense of weight and depth.
-- **Procedural Identity:** The Hero features a **Constellation Engine** rendering 550+ technical keyword instances across tiered Z-depth layers.
-
-### 3. Algorithmic Logic
-- **Unbeatable AI Engine:** A custom Tic-Tac-Toe module featuring a **Minimax recursive search tree**. It evaluates up to 549,946 nodes to guarantee a non-loss state in "Hard" mode.
-- **Magnetic Skill Matrix:** A physics-based interaction model where 40+ technology nodes react to pointer proximity using magnetic displacement formulas and exponential decay.
-
----
-
-## 🚀 Development Setup
-
-### Environment Variables
-Required for full AI and GitHub data functionality:
-- `API_KEY`: Google Gemini API Key.
-- `GITHUB_TOKEN`: GitHub Personal Access Token.
 
 **Engineered with precision by Vamshi Krishna Pullaiahgari**  
 USA | 2025
