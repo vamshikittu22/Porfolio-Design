@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { GlassButton } from '../../components/ui/GlassUI';
 import { HeroTitle } from './HeroTitle';
 import { NameBackground } from './NameBackground';
+import { RESUME_PDF_URL } from '../../config/constants';
 
 interface HeroProps {
   image: string | null;
@@ -31,6 +32,15 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
     const yPct = (mouseY / rect.height) - 0.5;
     x.set(xPct);
     y.set(yPct);
+  };
+
+  const handleDownloadResume = () => {
+    const link = document.createElement('a');
+    link.href = RESUME_PDF_URL;
+    link.download = 'Vamshi_Krishna_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const getOptimizedUrl = (url: string | null) => {
@@ -87,9 +97,9 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
               <motion.div whileHover={{ x: 5 }} className="lg:ml-10">
                 <GlassButton 
                   accent="secondary" 
-                  aria-label="View resume"
+                  aria-label="Download resume"
                   className="!px-8 !py-5 !text-[10px] hover:bg-t-accent-2/10 w-full whitespace-nowrap border-t-accent-2/40" 
-                  onClick={() => onScroll('resume-section-anchor')}
+                  onClick={handleDownloadResume}
                 >
                   Technical CV
                 </GlassButton>

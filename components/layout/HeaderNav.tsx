@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
+import { RESUME_PDF_URL } from '../../config/constants';
 
 // --- TYPES & INTERFACES ---
 interface CrazyNavIconProps {
@@ -290,6 +290,15 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
 }) => {
   const [logoHovered, setLogoHovered] = useState(false);
 
+  const handleDownloadResume = () => {
+    const link = document.createElement('a');
+    link.href = RESUME_PDF_URL;
+    link.download = 'Vamshi_Krishna_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <nav className="fixed top-6 lg:top-8 left-1/2 -translate-x-1/2 z-[200] w-full max-w-fit print:hidden px-4">
       <motion.div 
@@ -349,10 +358,10 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
           </motion.button>
           
           <motion.button 
-            onClick={() => window.print()} 
+            onClick={handleDownloadResume} 
             whileHover={{ scale: 1.15, y: -2 }}
             whileTap={{ scale: 0.9 }}
-            aria-label="Export technical CV as PDF"
+            aria-label="Download technical CV as PDF"
             className="bg-t-accent text-t-bg p-3 rounded-xl transition-all shadow-xl hover:shadow-t-accent/20 outline-none focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">

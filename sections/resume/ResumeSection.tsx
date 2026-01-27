@@ -2,12 +2,21 @@ import React from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { GlassButton, GlassCard } from '../../components/ui/GlassUI';
 import { RESUME_CONTENT } from './ResumeData';
+import { RESUME_PDF_URL } from '../../config/constants';
 
 const ResumeSection: React.FC = () => {
   const handleDownload = () => {
-    // The print engine handles PDF conversion for the user
-    // We provide a high-fidelity @media print stylesheet for the correct layout
-    window.print();
+    // Primary: Trigger direct file download
+    const link = document.createElement('a');
+    link.href = RESUME_PDF_URL;
+    link.download = 'Vamshi_Krishna_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Optional Fallback: Some users might still want the browser print view
+    // if the file is missing or they want to generate a fresh one.
+    // console.log("Download triggered. Ensure /public/Vamshi_Krishna_Resume.pdf exists.");
   };
 
   const scrollToContact = () => {
