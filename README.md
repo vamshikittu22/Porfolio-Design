@@ -1,39 +1,78 @@
-# Vamshi Krishna | AI-Native Software Portfolio v2.5
+# Vamshi Krishna | AI-Native Software Engineering Portfolio
 
-An enterprise-grade digital ecosystem designed with **Swiss Minimalist** precision. This project serves as a high-performance technical proof-of-concept, bridging the gap between high-fidelity visual design and algorithmic software engineering.
+A production-grade, Swiss-style technical portfolio architected for high performance, modularity, and seamless AI integration. This project serves as a comprehensive showcase of modern frontend engineering, bridging the gap between sophisticated visual design and algorithmic depth.
 
-## 📁 Project Directory & Assets
-To manage your downloadable files, use the following structure:
+## 🏗️ Architectural Overview
+
+The application utilizes a **Modular Shell Architecture** designed for optimal Core Web Vitals. Key design patterns include:
+
+- **Section-Level Hydration:** Leveraging React 19's concurrent features and lazy-loading to prioritize critical-path rendering.
+- **Service-Oriented Logic:** Business logic is encapsulated in singleton services (`GeminiService`, `ChatService`, `SocialService`) to maintain clean separation of concerns.
+- **RAG Integration:** The AI Assistant uses a Retrieval-Augmented Generation pattern, grounding the Gemini 3 Flash model in structured technical data for factually accurate interactions.
+- **Deterministic State Machines:** Complex UI states, such as the Minimax Game Engine and the Project Navigator, are managed via deterministic logic to ensure UI/UX consistency.
+
+## 🛠️ Technical Stack
+
+- **Framework:** React 19 (Concurrent Mode)
+- **Build Tool:** Vite (ESBuild-driven)
+- **Language:** TypeScript 5.x (Strict Mode)
+- **Styling:** Tailwind CSS (Utility-first JIT)
+- **Animation:** Framer Motion (Spring-physics & Layout animations)
+- **AI Core:** Google Gemini API (Generative Content & Multimodal reasoning)
+- **Testing:** Vitest & React Testing Library
+
+## 📂 Project Structure
 
 ```text
-/ (Project Root)
-└── public/
-    └── assets/
-        └── downloads/
-            └── Vamshi_Krishna_Resume.pdf  <-- PLACE YOUR RESUME HERE
+/
+├── app/                # Main Application entry and layout orchestration
+├── components/         
+│   ├── layout/         # Navigation, Footer, and AI Chat Assistant
+│   ├── ui/             # Reusable UI library (Glassmorphism, Code Playgrounds, etc.)
+├── config/             # Static configurations, project metadata, and constants
+├── sections/           # Modular page sections
+│   ├── about/          # Technical matrix and profile
+│   ├── career/         # Interactive work history timeline
+│   ├── projects/       # Technical showcase and architecture details
+│   ├── game/           # Algorithmic sandbox (Minimax Tic-Tac-Toe)
+│   ├── case-study/     # "Engineering Blueprint" deep-dive documentation
+│   └── travel/         # Personal narrative and AI-generated visuals
+├── services/           # API clients and business logic singletons
+├── public/             # Static assets, fonts, and global downloads
+└── tests/              # Unit and integration testing suites
 ```
 
-### Direct Download Logic
-The application is pre-configured to look for `/assets/downloads/Vamshi_Krishna_Resume.pdf`. 
-1. Open the `public/assets/downloads/` folder.
-2. Upload/Paste your professional PDF.
-3. Ensure the filename is exactly `Vamshi_Krishna_Resume.pdf`.
+## 🚀 Setup & Deployment
 
-## 🤖 Interactive AI Assistant
-Located in the bottom-right corner, the **VK Neural Assistant** is a context-grounded RAG (Retrieval-Augmented Generation) agent.
-- **Ask anything:** You can ask questions about Vamshi's technical stack, specific project roles, or work history.
-- **Grounded Intelligence:** The bot is strictly grounded in the site's JSON data, providing factual summaries for recruiters.
+### Environment Configuration
+Ensure your environment variables are configured in a `.env` file at the root:
+```bash
+API_KEY=your_gemini_api_key
+GITHUB_TOKEN=your_github_personal_access_token
+```
 
-## 📄 Dynamic Fallback
-If you choose not to add a physical file, the system utilizes a custom **High-Fidelity Print Engine**. Clicking "Print View" or "Download" (when the file is missing) will generate a pixel-perfect, 2-page executive resume directly from the website's live data.
+### Installation
+```bash
+# Install dependencies
+npm install
 
-## 🏗️ Engineering Blueprint
-Unique to this portfolio is the **Engineering Blueprint** mode—a dedicated architectural case study built directly into the UI.
+# Start development server
+npm run dev
 
-- **How to access:** Click the **"Systems Architecture"** icon in the top right.
-- **What's inside:** Real-time performance metrics, Minimax decision tree visualizations, and RAG pipeline documentation.
+# Run test suite
+npm run test
+
+# Build for production
+npm run build
+```
+
+## 💎 Key Features
+
+- **Engineering Blueprint:** A dedicated documentation mode explaining the "why" behind the technical decisions.
+- **Neural Assistant:** A context-aware agent capable of answering specific recruiter inquiries about the technical stack.
+- **Visual Physics:** 3D parallax and magnetic interaction nodes that respond to pointer velocity.
+- **Print Optimization:** A specialized CSS engine that transforms the interactive web resume into a pixel-perfect 2-page PDF.
 
 ---
-
 **Engineered with precision by Vamshi Krishna Pullaiahgari**  
-USA | 2025
+*Full Stack Developer | 2025*

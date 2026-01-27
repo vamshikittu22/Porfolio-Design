@@ -25,17 +25,20 @@ export class ChatService {
       Summary: ${e.description.join(' ')}
     `).join('\n');
 
-    // Fix: Replaced invalid 'frameworks' and 'cloud_db' properties with existing fields from RESUME_CONTENT.technicalInfrastructure
+    /**
+     * Fix: Replaced invalid 'technicalInfrastructure' with the correct 'technicalSkills' 
+     * property and mapped the fields to match the RESUME_CONTENT definition.
+     */
     return `
       Profile: ${FULL_NAME}
       Summary: ${RESUME_CONTENT.summary}
       Experience: ${expCtx}
-      Skills: ${RESUME_CONTENT.technicalInfrastructure.languages.join(', ')}
-      Frontend: ${RESUME_CONTENT.technicalInfrastructure.frontend.join(', ')}
-      Backend: ${RESUME_CONTENT.technicalInfrastructure.backend.join(', ')}
-      AI & Data: ${RESUME_CONTENT.technicalInfrastructure.ai_data.join(', ')}
-      Cloud: ${RESUME_CONTENT.technicalInfrastructure.cloud.join(', ')}
-      Databases: ${RESUME_CONTENT.technicalInfrastructure.databases.join(', ')}
+      Skills: ${RESUME_CONTENT.technicalSkills.languages.join(', ')}
+      Frontend: ${RESUME_CONTENT.technicalSkills.frontend.join(', ')}
+      Backend: ${RESUME_CONTENT.technicalSkills.backend.join(', ')}
+      AI: ${RESUME_CONTENT.technicalSkills.ai.join(', ')}
+      Cloud: ${RESUME_CONTENT.technicalSkills.cloud.join(', ')}
+      Databases: ${RESUME_CONTENT.technicalSkills.databases.join(', ')}
       Email: ${EMAIL}
     `;
   }

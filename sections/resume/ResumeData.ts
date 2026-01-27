@@ -14,7 +14,7 @@ export const RESUME_CONTENT = {
     email: "vamshikrishna2297@gmail.com",
     github: "github.com/vamshikittu22",
     linkedin: "linkedin.com/in/vamshi-krishna-pullaiahgari/",
-    portfolio: "vamshikrishna.dev",
+    portfolio: "Portfolio",
     location: "Overland Park, KS"
   },
   summary: "Full Stack Developer with 5+ years of experience building scalable, secure enterprise applications across healthcare, finance, and banking domains. Strong expertise in Java (8–17), Spring Boot, Angular/React, AWS microservices, and Kafka-based real-time systems. Proven in delivering REST/GraphQL APIs, cloud-native deployments (ECS/EKS), CI/CD automation, and secure authentication using OAuth2/JWT. Recently contributed to AI-assisted analytics for claims processing and financial risk workflows.",
@@ -78,22 +78,23 @@ export const RESUME_CONTENT = {
   ],
   projects: [
     {
-      title: "Future Job Fit | AI Resume Platform",
-      subtitle: "React, TypeScript, Supabase, LLM APIs, Node.js",
+      title: "Future Job Fit | AI Resume Creation & Job Optimization Platform",
+      subtitle: "React, TypeScript, Supabase, Gemini/OpenAI, Python (Pyodide), Node.js",
       period: "2024",
       description: [
-        "Architected a platform enabling users to create resumes optimized against JDs using keyword extraction and AI generation.",
-        "Designed a pluggable LLM layer with secure server-side orchestration via Supabase Edge Functions.",
-        "Integrated Pyodide for browser-based NLP document parsing to deliver real-time JD-specific feedback."
+        "Architected a full-stack platform enabling users to create resumes and optimize them against job descriptions using ATS-style keyword extraction and AI-assisted content generation.",
+        "Designed a pluggable LLM integration layer with secure server-side API orchestration via Supabase Edge Functions.",
+        "Integrated browser-based Python (Pyodide) for local document parsing and NLP preprocessing.",
+        "Built modular React workflows for resume builder, job optimizer, and AI recommendations."
       ]
     },
     {
-      title: "WanderlustTrails | Full Stack Booking",
-      subtitle: "React, PHP, REST APIs, MySQL, JWT",
+      title: "WanderlustTrails | Full Stack Travel Booking Platform",
+      subtitle: "React, PHP, REST APIs, MySQL, JWT Authentication",
       period: "2024",
       description: [
-        "Designed end-to-end travel platform supporting destination search, bookings, and role-based dashboards.",
-        "Architected relational schemas and JWT-based authentication for secure multi-role access.",
+        "Designed and implemented an end-to-end travel booking platform supporting user authentication, destination search, bookings, and role-based admin dashboards.",
+        "Architected relational MySQL schemas and REST workflows, implementing JWT based authentication and authorization.",
         "Built modular backend services for bookings, payments, and real-time availability checks."
       ]
     }
@@ -109,19 +110,19 @@ export const RESUME_CONTENT = {
       title: "Bachelors in Computer Science Engineering",
       subtitle: "Jawaharlal Nehru Technological University, Hyderabad, India.",
       period: "Jul 2019",
-      description: [
-        "Focus: Distributed Systems, Cloud Computing, AI, Advanced Systems Design."
-      ]
+      description: []
     }
   ],
-  technicalInfrastructure: {
+  technicalSkills: {
     languages: ["Java (8–17)", "Python", "JavaScript", "TypeScript", "C#", "PHP"],
     frontend: ["React.js", "Redux", "Angular", "HTML5/CSS3", "Bootstrap"],
     backend: ["Spring Boot", "Node.js", "Hibernate", "JPA", "JDBC", "REST APIs"],
-    ai_data: ["OpenAI API", "LLM Summarization", "Anomaly Detection", "Python Pipelines"],
     databases: ["Oracle", "PostgreSQL", "MySQL", "MongoDB", "DynamoDB"],
-    cloud: ["AWS (ECS, EKS, Lambda, Fargate, S3, RDS, IAM, KMS)"],
+    cloud: ["AWS (ECS, EKS, Lambda, Fargate, S3, RDS)", "Azure"],
     devops: ["Docker", "Kubernetes", "Jenkins", "Terraform", "Git", "GitHub"],
+    ai: ["OpenAI API", "Claude", "AI Chatbot Integration"],
+    tools: ["Maven", "SonarQube", "JIRA", "Postman"],
+    analytics: ["LLM Summarization", "Anomaly Detection", "Pipelines"],
     testing: ["JUnit", "Jest", "Selenium WebDriver"]
   }
 };
