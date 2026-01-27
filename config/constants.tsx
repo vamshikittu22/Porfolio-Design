@@ -12,13 +12,6 @@ export const LINKEDIN_URL = 'https://www.linkedin.com/in/vamshi-krishna-pullaiah
 export const BLOG_URL = 'https://travelsofvk.blogspot.com';
 export const RESUME_URL = '#resume-section'; 
 
-/**
- * DEDICATED DOWNLOAD PATH
- * Instructions: Place your PDF file in the project folder under /public/assets/downloads/ 
- * and name it 'Vamshi_Krishna_Resume.pdf'
- */
-export const RESUME_PDF_URL = '/assets/downloads/Vamshi_Krishna_Resume.pdf';
-
 export const PHYSICAL_FALLBACKS = {
   HERO_DARK: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=75&w=1200&fm=webp",
   HERO_LIGHT: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=75&w=1200&fm=webp",
