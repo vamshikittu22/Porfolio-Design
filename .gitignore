@@ -26,5 +26,6 @@ npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 
-# User Managed Assets
+# User Managed Assets - Absolutely no automated touching
 public/assets/downloads/
+public/assets/downloads/**
