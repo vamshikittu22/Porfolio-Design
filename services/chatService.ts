@@ -1,7 +1,6 @@
-
 import { GoogleGenAI } from "@google/genai";
-import { FULL_NAME, EDUCATION, EXPERIENCE, SKILLS_RESUME } from "../config/constants";
-import { PROJECTS_CONFIG } from "../config/projects";
+import { FULL_NAME, EMAIL } from "../config/constants";
+import { RESUME_CONTENT } from "../sections/resume/ResumeData";
 
 export interface ChatMessage {
   role: 'user' | 'model';
@@ -20,19 +19,24 @@ export class ChatService {
   }
 
   private getContext(): string {
-    const projectsCtx = PROJECTS_CONFIG.map(p => `
-      Project: ${p.title}
-      Tech: ${p.tech.join(', ')}
-      Overview: ${p.overview}
+    const expCtx = RESUME_CONTENT.experience.map(e => `
+      Role: ${e.title} at ${e.subtitle}
+      Period: ${e.period}
+      Summary: ${e.description.join(' ')}
     `).join('\n');
 
+    // Fix: Replaced invalid 'frameworks' and 'cloud_db' properties with existing fields from RESUME_CONTENT.technicalInfrastructure
     return `
       Profile: ${FULL_NAME}
-      Work Auth: STEM OPT
-      Experience: ${EXPERIENCE.length} roles, including AI Labs Web LLC and Mphasis.
-      Skills: ${SKILLS_RESUME.languages.join(', ')}
-      Frameworks: ${SKILLS_RESUME.frameworks.join(', ')}
-      Projects: ${projectsCtx}
+      Summary: ${RESUME_CONTENT.summary}
+      Experience: ${expCtx}
+      Skills: ${RESUME_CONTENT.technicalInfrastructure.languages.join(', ')}
+      Frontend: ${RESUME_CONTENT.technicalInfrastructure.frontend.join(', ')}
+      Backend: ${RESUME_CONTENT.technicalInfrastructure.backend.join(', ')}
+      AI & Data: ${RESUME_CONTENT.technicalInfrastructure.ai_data.join(', ')}
+      Cloud: ${RESUME_CONTENT.technicalInfrastructure.cloud.join(', ')}
+      Databases: ${RESUME_CONTENT.technicalInfrastructure.databases.join(', ')}
+      Email: ${EMAIL}
     `;
   }
 
@@ -43,9 +47,10 @@ export class ChatService {
       
       const systemInstruction = `
         You are the AI portfolio assistant for ${FULL_NAME}.
-        Your goal is to answer recruiter questions concisely (2-4 sentences).
+        Ground all your answers strictly in the provided resume data.
+        If asked about experience, highlight the 5+ years of full-stack expertise and recent roles at CVS Health and Citadel.
+        Be professional, concise (2-4 sentences), and helpful. 
         Context: ${context}
-        Always mention specific projects or skills when relevant.
       `;
 
       const contents = [
@@ -64,7 +69,7 @@ export class ChatService {
       this.history.push({ role: 'model', text: reply });
       return reply;
     } catch (error) {
-      return "I'm having trouble connecting to my AI logic. Please check my Resume manually!";
+      return "I'm having trouble connecting to my neural logic. Please review my Resume manually in the section below!";
     }
   }
 

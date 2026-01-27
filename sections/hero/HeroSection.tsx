@@ -54,7 +54,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <div className="w-12 h-1 bg-t-accent" />
-              <span className="text-[12px] font-black uppercase tracking-[1em] text-t-accent">Systems Architect</span>
+              <span className="text-[12px] font-black uppercase tracking-[1em] text-t-accent">Full Stack Developer</span>
             </div>
             <div id="hero-title">
               <HeroTitle mouseX={mouseXSpring} mouseY={mouseYSpring} />
@@ -64,7 +64,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
           <div className="grid lg:grid-cols-[1fr_0.7fr] gap-12 items-start">
             <div className="max-w-xl space-y-8">
               <p className="text-xl lg:text-3xl text-t-fg font-medium leading-tight tracking-tight text-balance">
-                Architecting <span className="text-t-accent font-black">high-performance</span> digital ecosystems with Swiss precision and AI integration.
+                Architecting <span className="text-t-accent font-black">scalable enterprise</span> ecosystems with Java, Spring Boot, and Cloud Native solutions.
               </p>
             </div>
             
@@ -77,7 +77,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                   className="!px-8 !py-5 !text-[10px] group shadow-xl dark:shadow-2xl w-full" 
                   onClick={() => onScroll('projects-section')}
                 >
-                  Launch Projects
+                  Explore Portfolio
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3} aria-hidden="true">
                     <path d="M14 5l7 7-7 7M5 12h16" />
                   </svg>
@@ -102,7 +102,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                   className="!px-8 !py-5 !text-[10px] hover:bg-t-accent/10 w-full whitespace-nowrap border-t-accent/40" 
                   onClick={() => onScroll('contact-section-anchor')}
                 >
-                  Contact Me
+                  Get In Touch
                 </GlassButton>
               </motion.div>
             </div>
@@ -114,9 +114,9 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
             <div className="h-[2px] w-full bg-t-accent/40 dark:bg-t-accent/30" />
             <div className="flex justify-between items-start gap-6">
               {[
-                { label: 'Location', val: 'Charlotte, USA' },
-                { label: 'Status', val: 'Active // STEM OPT' },
-                { label: 'Target Roles', val: 'Software Engineer' }
+                { label: 'Location', val: 'Overland Park, KS' },
+                { label: 'Current', val: 'CVS Health' },
+                { label: 'Experience', val: '5+ Years' }
               ].map((meta, i) => (
                 <div key={i} className="flex flex-col gap-1.5">
                   <span className="text-[8px] font-black uppercase tracking-widest text-t-accent whitespace-nowrap">{meta.label}</span>
@@ -162,7 +162,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
                     <div className="flex justify-between items-end">
                        <div className="space-y-1.5">
                          <p className="text-[11px] font-black text-white uppercase tracking-[0.4em] drop-shadow-lg">VK-PULLAIAHGARI</p>
-                         <p className="text-[8px] font-black text-white/90 uppercase tracking-[0.2em] drop-shadow-md">Engineering Specification</p>
+                         <p className="text-[8px] font-black text-white/90 uppercase tracking-[0.2em] drop-shadow-md">Enterprise Full Stack Engineer</p>
                        </div>
                     </div>
                   </div>

@@ -1,8 +1,8 @@
-
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from '../../components/ui/GlassUI';
-import { EXPERIENCE, EDUCATION, ResumeItem } from '../../config/constants';
+/* Fix: Import resume data and interface from correct local module to resolve multiple member missing and property errors */
+import { RESUME_CONTENT, ResumeItem } from '../resume/ResumeData';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 
 interface CareerItem extends ResumeItem {
@@ -64,8 +64,9 @@ const CareerSnapshot: React.FC = () => {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const combinedData = useMemo(() => {
+    /* Fix: Use RESUME_CONTENT.experience and education as data source instead of missing exports from config/constants */
     const combined: CareerItem[] = [
-      ...EXPERIENCE.map((item, idx) => {
+      ...RESUME_CONTENT.experience.map((item, idx) => {
         const years = item.period.match(/\d{4}/g);
         const yearStr = years ? years[0] : '2025';
         return { 
@@ -75,7 +76,7 @@ const CareerSnapshot: React.FC = () => {
           year: yearStr,
         };
       }),
-      ...EDUCATION.map((item, idx) => {
+      ...RESUME_CONTENT.education.map((item, idx) => {
         const years = item.period.match(/\d{4}/g);
         const yearStr = years ? years[0] : '2024';
         return { 
@@ -150,9 +151,9 @@ const CareerSnapshot: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
                 { val: "5+", label: "Years Exp", accent: "purple" },
-                { val: "3", label: "Companies", accent: "orange" },
+                { val: "4", label: "Companies", accent: "orange" },
                 { val: "2", label: "Degrees", accent: "indigo" },
-                { val: "10+", label: "Tech Stack", accent: "emerald" }
+                { val: "15+", label: "Tech Stack", accent: "emerald" }
               ].map((stat, i) => (
                 <div key={i} className="p-4 flex flex-col items-center justify-center text-center rounded-3xl bg-t-bg/40 border border-t-border/20 transition-transform hover:-translate-y-1">
                   <span className="text-2xl font-black text-t-accent mb-0.5">{stat.val}</span>
