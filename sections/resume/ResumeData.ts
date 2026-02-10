@@ -20,19 +20,17 @@ export const RESUME_CONTENT = {
   summary: "Full Stack Developer with 5+ years of experience building scalable, secure enterprise applications across healthcare, finance, and banking domains. Strong expertise in Java (8–17), Spring Boot, Angular/React, AWS microservices, and Kafka-based real-time systems. Proven in delivering REST/GraphQL APIs, cloud-native deployments (ECS/EKS), CI/CD automation, and secure authentication using OAuth2/JWT. Recently contributed to AI-assisted analytics for claims processing and financial risk workflows.",
   experience: [
     {
-      title: "Full Stack Developer",
+      title: "Software Engineer",
       subtitle: "CVS Health",
       location: "Texas, USA",
       period: "Feb 2025 – Present",
       description: [
-        "Designed and implemented REST and GraphQL APIs using Spring Boot to support insurance claims submission, approval, and billing workflows, improving processing throughput and enforcing secure role-based access.",
-        "Built a real-time claims analytics dashboard with Angular and NgRx, integrating D3.js visualizations to surface KPIs and claim trends, reducing operational review time for analysts.",
-        "Developed reusable Vue.js components for advanced filtering and visualization of claims data, improving UI consistency and accelerating feature delivery across modules.",
-        "Containerized Spring Boot microservices and deployed on AWS ECS with RDS backend, enabling modular releases and improving application scalability under peak workloads.",
-        "Integrated WebSocket communication for live claim status updates and notifications, enhancing operational visibility across claims processing teams.",
-        "Optimized application performance through lazy loading, query tuning on AWS RDS, and CDN caching, reducing latency and improving dashboard responsiveness.",
-        "Secured microservices using OAuth2, Spring Security, and JWT, ensuring HIPAA-compliant authentication and authorization across distributed services.",
-        "Implemented LLM-assisted claim summarization and trend analysis using OpenAI APIs to generate contextual insights for complex claims, reducing manual review effort for claim analysts."
+        "Engineered Java Spring Boot REST and GraphQL APIs to support claims processing workflows, enabling scalable feature delivery across sprint-based releases.",
+        "Implemented Angular and Vue.js dashboards using reusable components and structured state management, improving UI consistency and reducing rework across features.",
+        "Deployed containerized Spring Boot services on AWS ECS using CI/CD pipelines, improving deployment reliability and operational visibility.",
+        "Orchestrated Kafka-based event-driven communication and WebSocket real-time updates, enabling timely claim status updates.",
+        "Integrated AI-assisted claim analysis using OpenAI APIs, reducing manual review effort through automated summarization.",
+        "Hardened application security by implementing JWT-based role-based access control integrated with AWS IAM."
       ]
     },
     {
@@ -41,25 +39,24 @@ export const RESUME_CONTENT = {
       location: "Florida, USA",
       period: "Aug 2024 – Dec 2024",
       description: [
-        "Developed low-latency Spring Boot microservices supporting trading and risk workflows, enabling reliable real-time financial transaction processing across distributed systems.",
-        "Contributed to migrating legacy trading services to AWS, deploying containerized workloads on EKS and integrating Lambda for serverless components, improving platform scalability and operational efficiency.",
-        "Implemented REST APIs and Kafka-based streaming pipelines for secure, sub-millisecond data exchange across trading, pricing, and risk systems.",
-        "Built AI-assisted anomaly detection pipelines over Kafka trade streams using statistical models and Python services, reducing false-positive alerts, and improving risk signal accuracy.",
-        "Developed React.js dashboards for real-time market exposure and ML-enriched analytics, enabling traders and portfolio managers to make faster, data-driven decisions."
+        "Developed Java Spring Boot microservices with REST APIs and Kafka-based streaming pipelines, supporting real-time processing of trading and risk data.",
+        "Provisioned containerized services on Azure Kubernetes Service (AKS) using Azure Container Registry, ensuring controlled rollouts.",
+        "Enabled asynchronous event ingestion using Azure Functions and Azure Event Hubs to improve scalability.",
+        "Constructed React.js components with optimized Webpack builds, improving frontend performance and maintainability.",
+        "Applied anomaly detection and predictive analytics features with monitoring via Azure Monitor."
       ]
     },
     {
-      title: "Full Stack Developer",
+      title: "Software Engineer",
       subtitle: "Mphasis",
       location: "Pune, India",
       period: "Feb 2021 – July 2023",
       description: [
-        "Designed and delivered Spring Boot microservices supporting digital banking workflows including account management, payments, and loan origination, improving platform scalability and service reliability.",
-        "Developed and optimized REST APIs with asynchronous processing, caching, and pagination, reducing average API response times by 25% and increasing overall system throughput.",
-        "Implemented secure authentication and authorization using OAuth 2.0 / JWT and API gateway policies, aligning services with enterprise compliance and audit standards.",
-        "Built modular Angular (TypeScript) components with responsive design and reusable directives, improving UI performance and maintainability across customer-facing banking portals.",
-        "Tuned JPA/Hibernate mappings and optimized SQL queries in Oracle and PostgreSQL, reducing data access latency and improving transaction processing efficiency.",
-        "Automated containerized deployments using Docker and Jenkins on AWS EKS, strengthening release reliability, and minimizing manual intervention across environments."
+        "Authored Java Spring Boot REST APIs and implemented business logic using C# (.NET Core), supporting integration across multiple internal banking systems.",
+        "Assembled Angular UI modules with state-driven components and responsive layouts, supporting consistent user experiences.",
+        "Secured application access by implementing OAuth 2.0 and JWT-based authentication in compliance-driven environments.",
+        "Refined SQL queries for reporting and data retrieval, improving data access efficiency.",
+        "Supported Oracle and PostgreSQL databases on Amazon RDS with containerized deployments via Jenkins CI/CD."
       ]
     },
     {
@@ -68,11 +65,10 @@ export const RESUME_CONTENT = {
       location: "Hyderabad, India",
       period: "Aug 2019 – Jan 2021",
       description: [
-        "Developed a Python-based Selenium WebDriver automation framework to validate end-to-end healthcare CRM workflows, reducing manual regression effort by 40% and improving release stability.",
-        "Engineered REST API automation using Python Requests and UnitTest to validate Spring Boot microservices for claim submission and adjudication, accelerating backend verification cycles.",
-        "Simulated and validated Kafka event streams to ensure real-time synchronization across distributed CRM modules, improving claims data consistency across systems.",
-        "Integrated automated smoke and regression suites into Jenkins CI/CD pipelines for Docker deployments on AWS ECS, increasing build reliability and deployment confidence.",
-        "Built Python utilities to parse and validate large XML/CSV healthcare claim files, reconciling backend persistence across Oracle and MongoDB to ensure data accuracy and compliance."
+        "Created a Python-based Selenium WebDriver automation framework, reducing manual regression testing effort and improving test repeatability.",
+        "Automated REST API validation using Python Requests and unittest, improving backend service verification coverage.",
+        "Validated Kafka message streams by verifying event flow and data consistency across distributed services.",
+        "Embedded smoke and regression test suites into Jenkins pipelines, supporting Docker-based deployments on AWS ECS."
       ]
     }
   ],

@@ -7,21 +7,21 @@
     
     <!-- PRIMARY SEO -->
     <meta name="description" content="AI-Native full-stack portfolio featuring React 19, .NET Core, and Gemini API integration. STEM OPT Software Engineer specializing in scalable web applications." />
-    <link rel="canonical" href="https://your-domain.com" />
+    <link rel="canonical" href="https://vamshikrishnapullaiahgariportfolio.vercel.app/" />
 
     <!-- OPEN GRAPH / FACEBOOK -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Vamshi Krishna Pullaiahgari | Software Engineer Portfolio" />
     <meta property="og:description" content="AI-Native full-stack portfolio featuring React 19, .NET Core, and Gemini API integration. STEM OPT Software Engineer specializing in scalable web applications." />
-    <meta property="og:image" content="https://your-domain.com/og-image.png" />
-    <meta property="og:url" content="https://your-domain.com" />
+    <meta property="og:image" content="https://vamshikrishnapullaiahgariportfolio.vercel.app/og-image.png" />
+    <meta property="og:url" content="https://vamshikrishnapullaiahgariportfolio.vercel.app/" />
 
     <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:creator" content="@ki22u__" />
     <meta name="twitter:title" content="Vamshi Krishna | Software Engineer" />
     <meta name="twitter:description" content="Interactive portfolio with AI integration" />
-    <meta name="twitter:image" content="https://your-domain.com/og-image.png" />
+    <meta name="twitter:image" content="https://vamshikrishnapullaiahgariportfolio.vercel.app/og-image.png" />
 
     <!-- STRUCTURED DATA -->
     <script type="application/ld+json">
@@ -30,7 +30,7 @@
       "@type": "Person",
       "name": "Vamshi Krishna Pullaiahgari",
       "jobTitle": "Software Engineer",
-      "url": "https://your-domain.com",
+      "url": "https://vamshikrishnapullaiahgariportfolio.vercel.app/",
       "sameAs": [
         "https://www.linkedin.com/in/vamshi-krishna-pullaiahgari/",
         "https://github.com/vamshikittu22",
@@ -146,6 +146,33 @@
         text-shadow: none !important;
       }
 
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+      .sr-only:focus {
+        position: absolute;
+        width: auto;
+        height: auto;
+        padding: 1rem;
+        margin: 0;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+        z-index: 50;
+        background-color: var(--color-accent);
+        color: white;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: bold;
+      }
       @media print {
         @page {
           size: auto;
@@ -188,6 +215,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
   </head>
   <body>
+    <a href="#about-section" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-t-accent focus:text-white focus:rounded-lg">
+      Skip to main content
+    </a>
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
   </body>

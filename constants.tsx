@@ -39,38 +39,55 @@ export const EDUCATION: ResumeItem[] = [
 
 export const EXPERIENCE: ResumeItem[] = [
   {
-    title: 'Software Developer',
-    subtitle: 'AI Labs Web LLC',
-    location: 'Charlotte, USA',
-    period: 'Feb 2025 - Present',
+    title: 'Software Engineer',
+    subtitle: 'CVS Health',
+    location: 'Texas, USA',
+    period: 'Feb 2025 – Present',
     description: [
-      'Owning end-to-end development of modules for billing, appointment scheduling, and client CRM workflows using ReactJS, HTML/CSS, Bootstrap, and .NET/REST APIs.',
-      'Designing and implementing new components and API integrations, managing client-side state, validation rules, and robust error handling.',
-      'Driving features through full SDLC: clarifying requirements, breaking down technical tasks, and supporting UAT.',
-      'Leveraging generative AI tools to design and refine prompts for UI copy and test scenarios.'
+      'Engineered Java Spring Boot REST and GraphQL APIs to support claims processing workflows, enabling scalable feature delivery across sprint-based releases.',
+      'Implemented Angular and Vue.js dashboards using reusable components and structured state management, improving UI consistency and reducing rework across features.',
+      'Deployed containerized Spring Boot services on AWS ECS using CI/CD pipelines, improving deployment reliability and operational visibility.',
+      'Orchestrated Kafka-based event-driven communication and WebSocket real-time updates, enabling timely claim status updates.',
+      'Integrated AI-assisted claim analysis using OpenAI APIs, reducing manual review effort through automated summarization.',
+      'Hardened application security by implementing JWT-based role-based access control integrated with AWS IAM.'
     ]
   },
   {
-    title: 'Software Developer Intern',
-    subtitle: 'AI Labs Web LLC',
-    location: 'Charlotte, USA',
-    period: 'Aug 2024 - Dec 2024',
+    title: 'Software Engineer',
+    subtitle: 'Citadel (Financial Services)',
+    location: 'Florida, USA',
+    period: 'Aug 2024 – Dec 2024',
     description: [
-      'Created responsive and accessible user interfaces utilizing HTML, CSS, ReactJS, and Bootstrap to streamline operations for a small enterprise.',
-      'Collaborated with designers and backend developers to incorporate key features across platforms.',
-      'Created interactive prototypes for design iterations and usability assessments.'
+      'Developed Java Spring Boot microservices with REST APIs and Kafka-based streaming pipelines, supporting real-time processing of trading and risk data.',
+      'Provisioned containerized services on Azure Kubernetes Service (AKS) using Azure Container Registry, ensuring controlled rollouts.',
+      'Enabled asynchronous event ingestion using Azure Functions and Azure Event Hubs to improve scalability.',
+      'Constructed React.js components with optimized Webpack builds, improving frontend performance and maintainability.',
+      'Applied anomaly detection and predictive analytics features with monitoring via Azure Monitor.'
     ]
   },
   {
     title: 'Software Engineer',
     subtitle: 'Mphasis',
     location: 'Pune, India',
-    period: 'Feb 2020 - July 2023',
+    period: 'Feb 2021 – July 2023',
     description: [
-      'Collaborated with cross-functional teams to deliver enterprise-grade results and achieve project goals.',
-      'Maintained 100% system uptime through proactive monitoring and prompt patch implementation.',
-      'Troubleshot complex software issues under strict security protocols.',
-      'Utilized Control-M, Solarwinds, and ServiceNow for operational stability.'
+      'Authored Java Spring Boot REST APIs and implemented business logic using C# (.NET Core), supporting integration across multiple internal banking systems.',
+      'Assembled Angular UI modules with state-driven components and responsive layouts, supporting consistent user experiences.',
+      'Secured application access by implementing OAuth 2.0 and JWT-based authentication in compliance-driven environments.',
+      'Refined SQL queries for reporting and data retrieval, improving data access efficiency.',
+      'Supported Oracle and PostgreSQL databases on Amazon RDS with containerized deployments via Jenkins CI/CD.'
+    ]
+  },
+  {
+    title: 'Associate Software Engineer',
+    subtitle: 'Covantech Pvt Ltd',
+    location: 'Hyderabad, India',
+    period: 'Aug 2019 – Jan 2021',
+    description: [
+      'Created a Python-based Selenium WebDriver automation framework, reducing manual regression testing effort and improving test repeatability.',
+      'Automated REST API validation using Python Requests and unittest, improving backend service verification coverage.',
+      'Validated Kafka message streams by verifying event flow and data consistency across distributed services.',
+      'Embedded smoke and regression test suites into Jenkins pipelines, supporting Docker-based deployments on AWS ECS.'
     ]
   }
 ];

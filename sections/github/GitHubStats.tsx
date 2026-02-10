@@ -236,22 +236,27 @@ const GitHubStats: React.FC = () => {
                </div>
             </div>
 
-            <div className="flex flex-wrap gap-x-6 gap-y-2 items-center">
-               <div className="flex flex-col items-end">
-                 <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Projects</span>
-                 <span className="text-xs font-black text-t-fg">{user?.public_repos || 0}</span>
-               </div>
-               <div className="w-px h-6 bg-t-border opacity-50 hidden md:block" />
-               <div className="flex flex-col items-end">
-                 <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Joined</span>
-                 <span className="text-xs font-black text-t-fg">{new Date(user?.created_at || Date.now()).getFullYear()}</span>
-               </div>
-               <div className="w-px h-6 bg-t-border opacity-50 hidden md:block" />
-               <div className="flex flex-col items-end">
-                 <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Latest Activity</span>
-                 <span className="text-xs font-black text-t-fg">{latestActivityDate}</span>
-               </div>
-            </div>
+           <div className="flex flex-wrap gap-x-6 gap-y-2 items-center">
+                <div className="flex flex-col items-end">
+                  <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Projects</span>
+                  <span className="text-xs font-black text-t-fg">{user?.public_repos || 0}</span>
+                </div>
+                <div className="w-px h-6 bg-t-border opacity-50 hidden md:block" />
+                <div className="flex flex-col items-end">
+                  <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Joined</span>
+                  <span className="text-xs font-black text-t-fg">{new Date(user?.created_at || Date.now()).getFullYear()}</span>
+                </div>
+                <div className="w-px h-6 bg-t-border opacity-50 hidden md:block" />
+                <div className="flex flex-col items-end">
+                  <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-60">Latest Activity</span>
+                  <span className="text-xs font-black text-t-fg">{latestActivityDate}</span>
+                </div>
+                <div className="w-px h-6 bg-t-border opacity-50 hidden md:block" />
+                <div className="flex flex-col items-end">
+                  <span className="text-[7px] font-bold uppercase tracking-wider text-t-fg-m opacity-40">Data As Of</span>
+                  <span className="text-[10px] font-black text-t-fg-m opacity-60">Feb 2026</span>
+                </div>
+             </div>
           </div>
 
           {/* ACTIVITY ROW */}

@@ -10,10 +10,11 @@ export const TravelSection: React.FC = () => {
          <div className="px-16 py-6 rounded-full bg-t-accent-2 text-t-bg font-black uppercase tracking-[2em] text-[9px] shadow-lg">Personal Adventures</div>
          <div className="space-y-10 px-6">
            <h2 className="text-8xl lg:text-[12rem] font-black text-t-fg uppercase tracking-tighter leading-none text-center">Life in <br /> Perspective.</h2>
-           <p className="max-w-3xl mx-auto px-6 text-[7px] lg:text-[9px] font-black text-t-fg-m uppercase tracking-[0.3em] leading-relaxed opacity-60">
-             Long-form travel stories and AI-generated visuals that inspired my Wanderlust Trails platform — 
-             built from a genuine love for traveling and storytelling.
-           </p>
+            <p className="max-w-3xl mx-auto px-6 text-[7px] lg:text-[9px] font-black text-t-fg-m uppercase tracking-[0.3em] leading-relaxed opacity-60">
+              These travel experiences directly informed the design of my Wanderlust Trails full-stack booking platform. 
+              Understanding the traveler's journey—from research to booking—helped me build intuitive UX for search, 
+              reviews, and availability management. This is where user research meets full-stack development.
+            </p>
          </div>
       </ScrollReveal>
       <div className="relative">

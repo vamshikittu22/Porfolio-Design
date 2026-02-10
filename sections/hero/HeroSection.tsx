@@ -68,6 +68,9 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
             <div id="hero-title">
               <HeroTitle mouseX={mouseXSpring} mouseY={mouseYSpring} />
             </div>
+            <p className="text-xl lg:text-2xl font-bold text-t-fg-m uppercase tracking-widest">
+              Full-Stack Software Engineer | Java • Spring Boot • React • Cloud Architecture
+            </p>
           </div>
           
           <div className="grid lg:grid-cols-[1fr_0.7fr] gap-12 items-start">
@@ -124,7 +127,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
             <div className="flex justify-between items-start gap-6">
               {[
                 { label: 'Location', val: 'Overland Park, KS' },
-                { label: 'Current', val: 'CVS Health' },
+                { label: 'Current', val: 'Software Engineer @ CVS Health' },
                 { label: 'Experience', val: '5+ Years' }
               ].map((meta, i) => (
                 <div key={i} className="flex flex-col gap-1.5">

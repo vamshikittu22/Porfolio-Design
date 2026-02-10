@@ -156,10 +156,10 @@ export const ContactSection: React.FC = () => {
                     <div>
                       <h2 className="text-3xl lg:text-4xl font-black font-display text-t-fg uppercase tracking-tighter leading-[0.85] mb-1">VAMSHI KRISHNA</h2>
                       <h2 className="text-3xl lg:text-4xl font-black font-display text-t-accent uppercase tracking-tighter leading-[0.85]">PULLAIAHGARI</h2>
-                      <div className="mt-4 flex flex-col gap-1 text-[9px] font-bold text-t-fg-m opacity-50 uppercase tracking-widest">
-                        <p>Software Engineer</p>
-                        <p>Charlotte, NC · STEM OPT</p>
-                      </div>
+                       <div className="mt-4 flex flex-col gap-1 text-[9px] font-bold text-t-fg-m opacity-50 uppercase tracking-widest">
+                         <p>Software Engineer</p>
+                         <p>F-1 OPT Student with OPT EAD Work Authorization</p>
+                       </div>
                     </div>
 
                     <div className="p-5 rounded-3xl border-l-2 border-t-accent-2/30 bg-white/[0.02]">
