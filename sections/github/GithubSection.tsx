@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
-import GitHubStats from './GitHubStats';
+import GitHubStats from './components/GitHubStats';
 
 export const GithubSection: React.FC = () => {
   return (

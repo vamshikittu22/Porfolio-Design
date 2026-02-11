@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { GlassCard, GlassButton } from '../../components/ui/GlassUI';
+import { GlassCard, GlassButton } from '../../../components/ui/GlassUI';
 
 type Player = 'X' | 'O' | null;
 type Difficulty = 'Easy' | 'Medium' | 'Hard';
@@ -173,7 +173,7 @@ export const TicTacToe: React.FC = () => {
         }
         .animate-win { animation: win-pulse 1.5s infinite ease-in-out; }
       `}</style>
-      
+
       <GlassCard className="p-8 lg:p-12 border-t-fg/10 dark:border-white/10 transition-all duration-700 shadow-2xl" accent="theme">
         <div className="space-y-10">
           <div className="flex justify-between items-center px-4 py-3 rounded-2xl bg-t-fg/5 border border-t-fg/10 dark:border-white/10">
@@ -193,11 +193,10 @@ export const TicTacToe: React.FC = () => {
               <button
                 key={d}
                 onClick={() => { setDifficulty(d); resetGame(); }}
-                className={`px-6 py-2 rounded-full text-[8px] font-black uppercase tracking-widest transition-all duration-300 border ${
-                  difficulty === d 
-                  ? 'bg-t-accent text-t-bg border-t-accent' 
-                  : 'bg-t-fg/5 dark:bg-white/5 border-t-fg/10 dark:border-white/10 text-t-fg-m hover:border-t-accent/50 hover:bg-t-accent/10'
-                }`}
+                className={`px-6 py-2 rounded-full text-[8px] font-black uppercase tracking-widest transition-all duration-300 border ${difficulty === d
+                    ? 'bg-t-accent text-t-bg border-t-accent'
+                    : 'bg-t-fg/5 dark:bg-white/5 border-t-fg/10 dark:border-white/10 text-t-fg-m hover:border-t-accent/50 hover:bg-t-accent/10'
+                  }`}
               >
                 {d}
               </button>
@@ -241,33 +240,33 @@ export const TicTacToe: React.FC = () => {
           <div className="space-y-6 pt-4 border-t border-t-fg/10 dark:border-white/10">
             <div className="flex justify-between items-center h-12">
               <p className="text-[10px] font-black text-t-fg uppercase tracking-widest">
-                {gameStatus === 'won' ? (calculateWinner(board).player === 'O' ? 'Victory Achieved' : 'System Victory') : 
-                 gameStatus === 'draw' ? 'Strategic Draw' : 
-                 isCpuThinking ? 'Syncing...' : 'Pending Turn'}
+                {gameStatus === 'won' ? (calculateWinner(board).player === 'O' ? 'Victory Achieved' : 'System Victory') :
+                  gameStatus === 'draw' ? 'Strategic Draw' :
+                    isCpuThinking ? 'Syncing...' : 'Pending Turn'}
               </p>
-              
+
               <div className="flex gap-4">
-                <GlassButton 
-                  accent="theme" 
-                  className="!px-6 !py-3 !text-[8px] !border-t-fg/10 dark:!border-white/10" 
+                <GlassButton
+                  accent="theme"
+                  className="!px-6 !py-3 !text-[8px] !border-t-fg/10 dark:!border-white/10"
                   onClick={showHint}
                   disabled={gameStatus !== 'playing' || xIsNext}
                 >
                   Hint
                 </GlassButton>
-                <GlassButton 
-                  accent="theme" 
-                  primary 
-                  className="!px-8 !py-3 !text-[8px]" 
+                <GlassButton
+                  accent="theme"
+                  primary
+                  className="!px-8 !py-3 !text-[8px]"
                   onClick={resetGame}
                 >
                   Reset
                 </GlassButton>
               </div>
             </div>
-            
+
             <div className="flex justify-center">
-              <button 
+              <button
                 onClick={resetScores}
                 className="text-[7px] font-black uppercase tracking-[0.5em] text-t-fg-m hover:text-t-accent transition-colors"
               >
@@ -277,7 +276,7 @@ export const TicTacToe: React.FC = () => {
           </div>
         </div>
       </GlassCard>
-      
+
       <div className="mt-8 px-10 flex justify-between items-center opacity-40">
         <div className="flex gap-4">
           <div className={`w-1.5 h-1.5 rounded-full ${difficulty === 'Hard' ? 'bg-t-accent' : 'bg-t-fg/20 dark:bg-white/20'}`} />

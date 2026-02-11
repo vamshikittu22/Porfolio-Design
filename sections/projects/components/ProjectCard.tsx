@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GlassCard } from '../../components/ui/GlassUI';
-import { Project } from '../../config/types';
+import { GlassCard } from '../../../components/ui/GlassUI';
+import { Project } from '../../../config/types';
 
 interface ProjectCardProps {
   project: Project;
@@ -12,7 +12,7 @@ interface ProjectCardProps {
   accent: 'indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange';
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isInactive, onToggle, accent }) => {
+export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isInactive, onToggle, accent }) => {
   const accentColors = {
     indigo: 'text-indigo-400',
     emerald: 'text-emerald-400',
@@ -27,7 +27,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isI
   return (
     <button
       onClick={(e) => { e.stopPropagation(); onToggle(); }}
-      // Accessibility: Added aria-pressed and unique descriptive label
       aria-pressed={isActive}
       aria-label={`${isActive ? 'Hide' : 'View'} full architecture details for ${project.title}`}
       className={`
@@ -42,8 +41,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isI
         className={`
           relative overflow-hidden p-8 lg:p-10 flex items-center justify-between min-h-[120px]
           transition-all duration-700
-          ${isActive 
-            ? 'bg-t-bg-el border-t-accent shadow-[0_40px_80px_-20px_rgba(var(--color-accent-rgb),0.3)]' 
+          ${isActive
+            ? 'bg-t-bg-el border-t-accent shadow-[0_40px_80px_-20px_rgba(var(--color-accent-rgb),0.3)]'
             : 'hover:bg-t-bg-el/90 bg-t-bg-el/50'}
         `}
       >
@@ -65,9 +64,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isI
           </div>
         </div>
 
-        {/* Morphing Toggle Icon */}
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             rotate: isActive ? 180 : 0,
             scale: isActive ? 1.2 : 1,
             backgroundColor: isActive ? 'var(--color-accent)' : 'rgba(var(--color-fg-muted-rgb), 0.05)',
@@ -81,17 +79,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isI
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             {isActive ? (
-               <motion.path 
+              <motion.path
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M20 12H4" 
-               />
+                strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M20 12H4"
+              />
             ) : (
-               <motion.path 
+              <motion.path
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" 
-               />
+                strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4"
+              />
             )}
           </svg>
         </motion.div>
@@ -99,5 +97,3 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isActive, isI
     </button>
   );
 };
-
-export default ProjectCard;

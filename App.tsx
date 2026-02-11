@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { GeminiService } from './services/geminiService';
 import { HeaderNav } from './components/layout/HeaderNav';
 import FooterBar from './components/layout/FooterBar';
 import { HeroSection } from './sections/hero/HeroSection';
-import { AboutSection } from './sections/AboutSection';
-import ProjectsSection from './sections/projects/ProjectsSection';
-import GithubSection from './sections/github/GithubSection';
-import ResumeSection from './sections/resume/ResumeSection';
-import GameSection from './sections/game/GameSection';
-import TravelSection from './sections/travel/TravelSection';
-import ContactSection from './sections/contact/ContactSection';
+import { AboutSection } from './sections/about/AboutSection';
+
+// Lazy Loaded Sections
+const ProjectsSection = lazy(() => import('./sections/projects/ProjectsSection'));
+const GithubSection = lazy(() => import('./sections/github/GithubSection'));
+const ResumeSection = lazy(() => import('./sections/resume/ResumeSection'));
+const GameSection = lazy(() => import('./sections/game/GameSection'));
+const TravelSection = lazy(() => import('./sections/travel/TravelSection'));
+const ContactSection = lazy(() => import('./sections/contact/ContactSection'));
+
+const SectionLoading = () => (
+  <div className="w-full h-80 flex items-center justify-center">
+    <div className="w-10 h-10 border-2 border-t-accent/20 border-t-t-accent rounded-full animate-spin" />
+  </div>
+);
+
 import {
   HERO_FALLBACK_DARK,
   HERO_FALLBACK_LIGHT,

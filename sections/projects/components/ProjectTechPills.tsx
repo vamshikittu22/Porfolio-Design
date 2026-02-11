@@ -1,12 +1,12 @@
 import React from 'react';
-import { BubbleTag } from '../../components/ui/GlassUI';
+import { BubbleTag } from '../../../components/ui/GlassUI';
 
 interface ProjectTechPillsProps {
   tech: string[];
   accent: 'indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange';
 }
 
-const ProjectTechPills: React.FC<ProjectTechPillsProps> = ({ tech, accent }) => {
+export const ProjectTechPills: React.FC<ProjectTechPillsProps> = ({ tech, accent }) => {
   return (
     <div className="flex gap-3 flex-wrap">
       {tech.map((t) => (
@@ -17,5 +17,3 @@ const ProjectTechPills: React.FC<ProjectTechPillsProps> = ({ tech, accent }) => 
     </div>
   );
 };
-
-export default ProjectTechPills;

@@ -5,21 +5,21 @@ import FooterBar from '../components/layout/FooterBar';
 import { HeroSection } from '../sections/hero/HeroSection';
 import { AboutSection } from '../sections/about/AboutSection';
 import CareerSnapshot from '../sections/career/CareerSnapshot';
-import ProjectsSection from '../sections/projects/ProjectsSection';
-import GithubSection from '../sections/github/GithubSection';
 import ChatAssistant from '../components/layout/ChatAssistant/ChatAssistant';
 import PortfolioCaseStudy from '../sections/case-study/PortfolioCaseStudy';
 import { BlueprintLauncher } from '../components/layout/BlueprintLauncher';
 import SectionLoader from '../components/ui/SectionLoader';
-import { 
-  HERO_FALLBACK_DARK, 
-  HERO_FALLBACK_LIGHT, 
-  HERO_PROMPT_DARK, 
+import {
+  HERO_FALLBACK_DARK,
+  HERO_FALLBACK_LIGHT,
+  HERO_PROMPT_DARK,
   HERO_PROMPT_LIGHT,
   PHYSICAL_FALLBACKS
 } from '../config/constants';
 
 // --- LAZY LOADED SECTIONS (Below the fold) ---
+const ProjectsSection = lazy(() => import('../sections/projects/ProjectsSection'));
+const GithubSection = lazy(() => import('../sections/github/GithubSection'));
 const ResumeSection = lazy(() => import('../sections/resume/ResumeSection'));
 const GameSection = lazy(() => import('../sections/game/GameSection'));
 const TravelSection = lazy(() => import('../sections/travel/TravelSection'));
@@ -51,8 +51,8 @@ const App: React.FC = () => {
       'hero-section': 'hero-section',
       'about-section': 'about-section',
       'career-snapshot-section': 'career-snapshot-section',
-      'projects-section': 'projects-section',
-      'github-section': 'github-section',
+      'projects-section-anchor': 'projects-section',
+      'github-section-anchor': 'github-section',
       'resume-section-anchor': 'resume-section',
       'game-section-anchor': 'game-section',
       'travel-section-anchor': 'travel-section',
@@ -62,7 +62,7 @@ const App: React.FC = () => {
     const observerOptions = {
       // Use a broader margin to account for large section gaps
       rootMargin: '-10% 0px -40% 0px',
-      threshold: 0.01 
+      threshold: 0.01
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -85,13 +85,22 @@ const App: React.FC = () => {
   // Preload Observer (Performance Optimization)
   useEffect(() => {
     if (view !== 'portfolio') return;
-    const lazyIds = ['resume-section-anchor', 'game-section-anchor', 'travel-section-anchor', 'contact-section-anchor'];
-    
+    const lazyIds = [
+      'projects-section-anchor',
+      'github-section-anchor',
+      'resume-section-anchor',
+      'game-section-anchor',
+      'travel-section-anchor',
+      'contact-section-anchor'
+    ];
+
     const preloadObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             switch (entry.target.id) {
+              case 'projects-section-anchor': import('../sections/projects/ProjectsSection'); break;
+              case 'github-section-anchor': import('../sections/github/GithubSection'); break;
               case 'resume-section-anchor': import('../sections/resume/ResumeSection'); break;
               case 'game-section-anchor': import('../sections/game/GameSection'); break;
               case 'travel-section-anchor': import('../sections/travel/TravelSection'); break;
@@ -140,17 +149,17 @@ const App: React.FC = () => {
     generateHero();
   }, [isDarkMode]);
 
-  const scrollToSection = (id: string) => { 
+  const scrollToSection = (id: string) => {
     if (view !== 'portfolio') {
       setView('portfolio');
       setTimeout(() => {
-        const element = document.getElementById(id); 
-        if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+        const element = document.getElementById(id);
+        if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 100);
       return;
     }
-    const element = document.getElementById(id); 
-    if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+    const element = document.getElementById(id);
+    if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const handleScrollToTop = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
@@ -163,17 +172,17 @@ const App: React.FC = () => {
         <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-t-accent-s/40 blur-[200px] rounded-full" />
       </div>
 
-      <BlueprintLauncher 
-        onOpen={() => setView('case-study')} 
-        visible={view === 'portfolio'} 
+      <BlueprintLauncher
+        onOpen={() => setView('case-study')}
+        visible={view === 'portfolio'}
       />
 
-      <HeaderNav 
-        scrolled={scrolled} 
-        activeSection={activeSection} 
-        isDarkMode={isDarkMode} 
-        onScrollToSection={scrollToSection} 
-        onScrollToTop={handleScrollToTop} 
+      <HeaderNav
+        scrolled={scrolled}
+        activeSection={activeSection}
+        isDarkMode={isDarkMode}
+        onScrollToSection={scrollToSection}
+        onScrollToTop={handleScrollToTop}
         onToggleTheme={() => setIsDarkMode(!isDarkMode)}
         onGoHome={() => setView('portfolio')}
         isCaseStudyView={view === 'case-study'}
@@ -185,13 +194,25 @@ const App: React.FC = () => {
             <div id="hero-section">
               <HeroSection image={activeHeroImage} loading={heroLoading} onScroll={scrollToSection} />
             </div>
-            
+
             <div className="space-y-[30rem] lg:space-y-[40rem]">
               <AboutSection />
-              <CareerSnapshot />
-              <ProjectsSection />
-              <GithubSection />
-              
+              <div id="career-snapshot-section">
+                <CareerSnapshot />
+              </div>
+
+              <div id="projects-section-anchor" className="scroll-mt-32">
+                <Suspense fallback={<SectionLoader />}>
+                  <ProjectsSection />
+                </Suspense>
+              </div>
+
+              <div id="github-section-anchor" className="scroll-mt-32">
+                <Suspense fallback={<SectionLoader />}>
+                  <GithubSection />
+                </Suspense>
+              </div>
+
               <div id="resume-section-anchor" className="scroll-mt-32">
                 <Suspense fallback={<SectionLoader />}>
                   <ResumeSection />

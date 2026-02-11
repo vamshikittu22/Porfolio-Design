@@ -1,8 +1,8 @@
 
 import React, { useRef, useEffect } from 'react';
-import { Project } from '../../config/types';
-import ProjectCard from './ProjectCard';
-import ProjectDetails from './ProjectDetails';
+import { Project } from '../../../config/types';
+import { ProjectCard } from './ProjectCard';
+import { ProjectDetails } from './ProjectDetails';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface ProjectListProps {
@@ -12,7 +12,7 @@ interface ProjectListProps {
   accents: ('indigo' | 'emerald' | 'rose' | 'amber' | 'purple' | 'orange')[];
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({ projects, activeProjectId, onToggleProject, accents }) => {
+export const ProjectList: React.FC<ProjectListProps> = ({ projects, activeProjectId, onToggleProject, accents }) => {
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Effect to handle centering the card when it is closed
@@ -28,9 +28,9 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, activeProjectId, on
     onToggleProject(id);
     // Scroll back to the card and center it
     setTimeout(() => {
-      cardRefs.current[id]?.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'center' 
+      cardRefs.current[id]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
       });
     }, 100);
   };
@@ -44,21 +44,21 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, activeProjectId, on
 
         return (
           <React.Fragment key={project.id}>
-            <motion.div 
+            <motion.div
               // Fix: Added block braces to avoid returning the assigned element to the ref callback
               ref={el => { cardRefs.current[project.id] = el; }}
-              layout 
+              layout
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
               className="h-full"
             >
-              <ProjectCard 
-                project={project} 
-                index={idx} 
+              <ProjectCard
+                project={project}
+                index={idx}
                 isActive={isActive}
                 isInactive={isInactive}
-                onToggle={() => onToggleProject(project.id)} 
+                onToggle={() => onToggleProject(project.id)}
                 accent={accent}
               />
             </motion.div>
@@ -75,9 +75,9 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, activeProjectId, on
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   className="col-span-full overflow-hidden z-20"
                 >
-                  <ProjectDetails 
-                    project={project} 
-                    accent={accent} 
+                  <ProjectDetails
+                    project={project}
+                    accent={accent}
                     onClose={() => handleClose(project.id)}
                   />
                 </motion.div>
@@ -89,5 +89,3 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, activeProjectId, on
     </div>
   );
 };
-
-export default ProjectList;

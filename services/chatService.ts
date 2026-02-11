@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { FULL_NAME, EMAIL } from "../config/constants";
-import { RESUME_CONTENT } from "../sections/resume/ResumeData";
+import { RESUME_CONTENT } from "../sections/resume/data/ResumeData";
 
 export interface ChatMessage {
   role: 'user' | 'model';
@@ -47,7 +47,7 @@ export class ChatService {
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const context = this.getContext();
-      
+
       const systemInstruction = `
         You are the AI portfolio assistant for ${FULL_NAME}.
         Ground all your answers strictly in the provided resume data.

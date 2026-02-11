@@ -1,9 +1,11 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from '../../components/ui/GlassUI';
-/* Fix: Import resume data and interface from correct local module to resolve multiple member missing and property errors */
-import { RESUME_CONTENT, ResumeItem } from '../resume/ResumeData';
+import { RESUME_CONTENT, ResumeItem } from '../resume/data/ResumeData';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
+import { AnimatedDigit } from './components/AnimatedDigit';
+import { BadgeFlipper } from './components/BadgeFlipper';
+import { CareerStatGrid } from './components/CareerStatGrid';
+import { CareerTimelineItem } from './components/CareerTimelineItem';
 
 interface CareerItem extends ResumeItem {
   id: string;
@@ -11,78 +13,30 @@ interface CareerItem extends ResumeItem {
   year: string;
 }
 
-const AnimatedDigit: React.FC<{ digit: string }> = ({ digit }) => (
-  <div className="relative inline-flex flex-col h-[1em] w-[0.6em] overflow-hidden items-center justify-center mx-[-0.02em]">
-    <AnimatePresence mode="popLayout" initial={false}>
-      <motion.span
-        key={digit}
-        initial={{ y: "100%", opacity: 0, filter: "blur(4px)" }}
-        animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-        exit={{ y: "-100%", opacity: 0, filter: "blur(4px)" }}
-        transition={{ type: "spring", stiffness: 200, damping: 20, mass: 0.8 }}
-        className="absolute inset-0 flex justify-center items-center"
-      >
-        {digit}
-      </motion.span>
-    </AnimatePresence>
-    {/* Invisible placeholder for width layout */}
-    <span className="invisible">{digit}</span>
-  </div>
-);
-
-const BadgeFlipper: React.FC<{ type: 'work' | 'education' }> = ({ type }) => {
-  const isWork = type === 'work';
-  return (
-    <div className="relative h-10 w-40 mx-auto perspective-[800px]">
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={type}
-          initial={{ rotateX: -90, opacity: 0, y: 5 }}
-          animate={{ rotateX: 0, opacity: 1, y: 0 }}
-          exit={{ rotateX: 90, opacity: 0, y: -5 }}
-          // Updated for faster rotation: High stiffness, low mass, short duration target
-          transition={{ duration: 0.15, type: "spring", stiffness: 400, damping: 25, mass: 0.5 }}
-          className={`
-            absolute inset-0 flex items-center justify-center
-            px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border shadow-lg backface-hidden
-            ${isWork 
-              ? 'bg-purple-500/10 text-purple-500 border-purple-500/30' 
-              : 'bg-indigo-500/10 text-indigo-500 border-indigo-500/30'}
-          `}
-          style={{ transformStyle: 'preserve-3d' }}
-        >
-          {isWork ? 'Experience' : 'Academic'}
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
-};
-
 const CareerSnapshot: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const combinedData = useMemo(() => {
-    /* Fix: Use RESUME_CONTENT.experience and education as data source instead of missing exports from config/constants */
     const combined: CareerItem[] = [
       ...RESUME_CONTENT.experience.map((item, idx) => {
         const years = item.period.match(/\d{4}/g);
         const yearStr = years ? years[0] : '2025';
-        return { 
-          ...item, 
+        return {
+          ...item,
           id: `work-${idx}`,
-          type: 'work' as const, 
+          type: 'work' as const,
           year: yearStr,
         };
       }),
       ...RESUME_CONTENT.education.map((item, idx) => {
         const years = item.period.match(/\d{4}/g);
         const yearStr = years ? years[0] : '2024';
-        return { 
-          ...item, 
+        return {
+          ...item,
           id: `edu-${idx}`,
-          type: 'education' as const, 
+          type: 'education' as const,
           year: yearStr,
         };
       })
@@ -125,7 +79,7 @@ const CareerSnapshot: React.FC = () => {
 
     container.addEventListener('scroll', handleInternalScroll);
     handleInternalScroll();
-    
+
     return () => container.removeEventListener('scroll', handleInternalScroll);
   }, [activeIndex]);
 
@@ -137,7 +91,7 @@ const CareerSnapshot: React.FC = () => {
     <section id="career-snapshot-section" className="mb-[20rem] scroll-mt-32 max-w-7xl mx-auto px-6">
       <ScrollReveal>
         <GlassCard className="p-8 lg:p-12 overflow-hidden bg-t-bg-el/60 border-t-accent/10" accent="theme">
-          
+
           <div className="flex flex-col gap-8 mb-12">
             <div>
               <h2 className="text-4xl lg:text-6xl font-black font-display text-t-fg uppercase tracking-tighter leading-none mb-3">
@@ -148,19 +102,7 @@ const CareerSnapshot: React.FC = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {[
-                { val: "5+", label: "Years Exp", accent: "purple" },
-                { val: "4", label: "Companies", accent: "orange" },
-                { val: "2", label: "Degrees", accent: "indigo" },
-                { val: "15+", label: "Tech Stack", accent: "emerald" }
-              ].map((stat, i) => (
-                <div key={i} className="p-4 flex flex-col items-center justify-center text-center rounded-3xl bg-t-bg/40 border border-t-border/20 transition-transform hover:-translate-y-1">
-                  <span className="text-2xl font-black text-t-accent mb-0.5">{stat.val}</span>
-                  <span className="text-[8px] font-bold uppercase tracking-widest text-t-fg-m opacity-60">{stat.label}</span>
-                </div>
-              ))}
-            </div>
+            <CareerStatGrid />
           </div>
 
           <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-8 items-stretch h-[500px] lg:h-[600px] overflow-hidden border-t border-t-border/20 pt-8">
@@ -175,68 +117,26 @@ const CareerSnapshot: React.FC = () => {
               </div>
             </div>
 
-            <div 
+            <div
               ref={scrollContainerRef}
               className="w-full overflow-y-auto pr-4 scrollbar-hide space-y-8 snap-y snap-mandatory"
               style={{ scrollBehavior: 'smooth' }}
             >
               <div className="h-[200px] flex-shrink-0" />
-              
-              {combinedData.map((item, idx) => {
-                const isActive = activeIndex === idx;
-                
-                return (
-                  <div 
-                    key={item.id} 
-                    ref={el => { itemRefs.current[idx] = el; }}
-                    className="snap-center py-4"
-                  >
-                    <motion.div
-                      animate={{ 
-                        scale: isActive ? 1 : 0.9,
-                        opacity: isActive ? 1 : 0.3,
-                        filter: isActive ? 'blur(0px)' : 'blur(1px)'
-                      }}
-                      transition={{ duration: 0.4 }}
-                    >
-                      <div 
-                        className={`
-                          p-8 lg:p-10 border-l-8 transition-all duration-500 rounded-3xl bg-t-bg-el/90 border border-t-border
-                          ${item.type === 'work' ? 'border-l-purple-500' : 'border-l-indigo-500'}
-                          ${isActive ? 'shadow-2xl' : ''}
-                        `}
-                      >
-                        <div className="flex flex-col gap-6">
-                          <span className="text-[10px] font-bold text-t-accent-2 tracking-tight">{item.period}</span>
-                          <div className="space-y-1.5">
-                            <h4 className="text-2xl lg:text-3xl font-black text-t-fg uppercase tracking-tighter leading-tight">
-                              {item.title}
-                            </h4>
-                            <p className="text-sm font-bold text-t-fg opacity-80 uppercase tracking-wide">
-                              {item.subtitle}
-                            </p>
-                            <p className="text-[9px] font-black text-t-fg-m opacity-40 uppercase tracking-widest">
-                              {item.location}
-                            </p>
-                          </div>
-                          <div className="h-px w-full bg-t-border/20" />
-                          <ul className="space-y-3">
-                            {item.description.slice(0, 3).map((bullet, bIdx) => (
-                              <li key={bIdx} className="flex gap-3 items-start">
-                                <div className="w-1 h-1 rounded-full bg-t-accent mt-1.5 flex-shrink-0" />
-                                <p className="text-xs lg:text-sm font-medium text-t-fg-m leading-relaxed italic">
-                                  {bullet}
-                                </p>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </div>
-                );
-              })}
-              
+
+              {combinedData.map((item, idx) => (
+                <div
+                  key={item.id}
+                  ref={el => { itemRefs.current[idx] = el; }}
+                  className="snap-center py-4"
+                >
+                  <CareerTimelineItem
+                    item={item}
+                    isActive={activeIndex === idx}
+                  />
+                </div>
+              ))}
+
               <div className="h-[200px] flex-shrink-0" />
             </div>
           </div>
