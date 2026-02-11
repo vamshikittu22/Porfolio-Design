@@ -13,7 +13,7 @@ interface CrazyNavIconProps {
 const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean }) => {
   return (
     <div className="relative w-10 h-10 flex items-center justify-center overflow-visible perspective-[1000px]">
-      <motion.div 
+      <motion.div
         className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-gradient-to-b from-transparent via-t-accent to-transparent"
         animate={{
           top: ['-100%', '200%'],
@@ -37,7 +37,7 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
         className="relative z-10 font-black text-sm tracking-[0.2em] flex items-center justify-center"
       >
         <div className="relative">
-          <motion.span 
+          <motion.span
             className="absolute inset-0 text-[#00FFFF] mix-blend-screen opacity-50"
             animate={isHovered ? {
               x: [-2, 2, -1, 0],
@@ -47,8 +47,8 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
               transition: { duration: 2, repeat: Infinity }
             }}
           >VK</motion.span>
-          
-          <motion.span 
+
+          <motion.span
             className="absolute inset-0 text-[#FF00FF] mix-blend-screen opacity-50"
             animate={isHovered ? {
               x: [2, -2, 1, 0],
@@ -63,7 +63,7 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
         </div>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         initial={false}
         animate={{
           scale: isHovered ? 1.4 : [1, 1.1, 1],
@@ -76,7 +76,7 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
 
       <AnimatePresence>
         {isHovered && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0, rotate: 0 }}
             animate={{ opacity: 1, scale: 1, rotate: 360 }}
             exit={{ opacity: 0, scale: 0 }}
@@ -93,25 +93,25 @@ const VKIcon = ({ isHovered, isActive }: { isHovered: boolean; isActive: boolean
 
 const AboutIcon = ({ isHovered }: { isHovered: boolean }) => (
   <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <motion.circle 
+    <motion.circle
       cx="12" cy="7" r="4"
       animate={isHovered ? { y: [0, -2, 0], scale: [1, 1.1, 1] } : { y: 0, scale: 1 }}
       transition={{ duration: 0.4 }}
     />
-    <motion.path 
-      d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" 
-      animate={isHovered ? { pathLength: [1, 0.8, 1] } : { pathLength: 1 }} 
+    <motion.path
+      d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+      animate={isHovered ? { pathLength: [1, 0.8, 1] } : { pathLength: 1 }}
     />
   </svg>
 );
 
 const CareerIcon = ({ isHovered }: { isHovered: boolean }) => (
   <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
-    <motion.rect 
+    <motion.rect
       x="2" y="7" width="20" height="13" rx="2"
       animate={isHovered ? { rotateX: [0, -10, 0], y: -1 } : { rotateX: 0, y: 0 }}
     />
-    <motion.path 
+    <motion.path
       d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"
       animate={isHovered ? { y: -2, scale: 1.05 } : { y: 0, scale: 1 }}
     />
@@ -124,7 +124,7 @@ const ProjectsIcon = ({ isHovered }: { isHovered: boolean }) => (
       { x: 3, y: 3 }, { x: 13, y: 3 },
       { x: 3, y: 13 }, { x: 13, y: 13 }
     ].map((pos, i) => (
-      <motion.rect 
+      <motion.rect
         key={i} x={pos.x} y={pos.y} width="8" height="8" rx="1.5"
         animate={isHovered ? { scale: [1, 0.8, 1.2, 1], opacity: [1, 0.6, 1] } : { scale: 1, opacity: 1 }}
         transition={{ duration: 0.8, delay: i * 0.1 }}
@@ -207,7 +207,7 @@ const NavItem: React.FC<NavItemProps> = ({ name, label, isActive, onClick }) => 
 
   return (
     <div className="relative flex flex-col items-center">
-      <motion.button 
+      <motion.button
         onClick={onClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -218,10 +218,10 @@ const NavItem: React.FC<NavItemProps> = ({ name, label, isActive, onClick }) => 
         aria-label={`Navigate to ${label} section`}
         className={`group relative flex items-center justify-center w-11 h-11 lg:w-12 lg:h-12 rounded-xl transition-all duration-500 outline-none z-20
           focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg
-          ${isActive 
-            ? 'text-t-accent-2 opacity-100 shadow-[0_0_20px_rgba(var(--color-accent-secondary-rgb),0.2)]' 
-            : isHovered 
-              ? 'text-t-accent opacity-100' 
+          ${isActive
+            ? 'text-t-accent-2 opacity-100 shadow-[0_0_20px_rgba(var(--color-accent-secondary-rgb),0.2)]'
+            : isHovered
+              ? 'text-t-accent opacity-100'
               : 'text-t-fg/50 dark:text-white/50'
           }`}
       >
@@ -231,7 +231,7 @@ const NavItem: React.FC<NavItemProps> = ({ name, label, isActive, onClick }) => 
 
         <AnimatePresence>
           {(isHovered || isActive) && (
-            <motion.div 
+            <motion.div
               layoutId="nav-bg-glow"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -275,16 +275,16 @@ interface HeaderNavProps {
   isCaseStudyView?: boolean;
 }
 
-export const HeaderNav: React.FC<HeaderNavProps> = ({ 
-  scrolled, 
-  activeSection, 
-  isDarkMode, 
-  onScrollToSection, 
-  onScrollToTop, 
-  onToggleTheme, 
-  onGoHome, 
-  onOpenCaseStudy, 
-  isCaseStudyView 
+export const HeaderNav: React.FC<HeaderNavProps> = ({
+  scrolled,
+  activeSection,
+  isDarkMode,
+  onScrollToSection,
+  onScrollToTop,
+  onToggleTheme,
+  onGoHome,
+  onOpenCaseStudy,
+  isCaseStudyView
 }) => {
   const [logoHovered, setLogoHovered] = useState(false);
 
@@ -299,15 +299,15 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
 
   return (
     <nav className="fixed top-6 lg:top-8 left-1/2 -translate-x-1/2 z-[200] w-full max-w-fit print:hidden px-4">
-      <motion.div 
+      <motion.div
         layout
         className={`border px-2 lg:px-4 py-1.5 rounded-[32px] flex items-center gap-1 transition-all duration-1000 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]
-          ${scrolled 
-            ? 'bg-t-bg-el/95 dark:bg-t-bg-el/90 backdrop-blur-3xl border-t-border scale-95' 
+          ${scrolled
+            ? 'bg-t-bg-el/95 dark:bg-t-bg-el/90 backdrop-blur-3xl border-t-border scale-95'
             : 'bg-t-bg-el/60 dark:bg-t-bg-el/50 backdrop-blur-2xl border-t-border/30'}`}
       >
-        <motion.button 
-          onClick={() => isCaseStudyView ? onGoHome?.() : onScrollToSection('hero-section')} 
+        <motion.button
+          onClick={() => isCaseStudyView ? onGoHome?.() : onScrollToSection('hero-section')}
           onMouseEnter={() => setLogoHovered(true)}
           onMouseLeave={() => setLogoHovered(false)}
           onFocus={() => setLogoHovered(true)}
@@ -323,7 +323,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
 
         <div className="flex items-center gap-1" role="tablist" aria-label="Main navigation">
           {isCaseStudyView ? (
-             <NavItem name="Home" label="Home" isActive={false} onClick={() => onGoHome?.()} />
+            <NavItem name="Home" label="Home" isActive={false} onClick={() => onGoHome?.()} />
           ) : (
             <>
               <NavItem name="About" label="About" isActive={activeSection === 'about-section'} onClick={() => onScrollToSection('about-section')} />
@@ -341,8 +341,8 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
         <div className="h-6 w-px bg-t-border/20 mx-2" />
 
         <div className="flex items-center gap-2 px-1">
-          <motion.button 
-            onClick={onToggleTheme} 
+          <motion.button
+            onClick={onToggleTheme}
             whileHover={{ scale: 1.15, rotate: 20 }}
             whileTap={{ scale: 0.9 }}
             aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
@@ -354,9 +354,9 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
             )}
           </motion.button>
-          
-          <motion.button 
-            onClick={handleDownloadResumeFile} 
+
+          <motion.button
+            onClick={handleDownloadResumeFile}
             whileHover={{ scale: 1.15, y: -2 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Export technical CV as PDF"

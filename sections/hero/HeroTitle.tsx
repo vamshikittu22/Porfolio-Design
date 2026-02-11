@@ -12,7 +12,7 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
 
   return (
     <div className="relative flex flex-col items-start leading-[0.85] select-none perspective-[2000px] z-20">
-      
+
       {/* Line 1: VAMSHI */}
       <motion.div
         className="group/line1 cursor-default relative mb-2"
@@ -22,7 +22,7 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
         style={{ transformStyle: 'preserve-3d' }}
       >
         <motion.h1
-          whileHover={{ 
+          whileHover={{
             rotateX: 12,
             rotateY: -8,
             z: 40,
@@ -32,7 +32,7 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
         >
           Vamshi
         </motion.h1>
-        
+
         {/* Ghost Shadow - Reactive to Mouse */}
         <motion.h1
           style={{ x: ghostX, y: ghostY }}
@@ -51,10 +51,10 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
         style={{ transformStyle: 'preserve-3d' }}
       >
         <motion.h1
-          whileHover={{ 
-            rotateX: -12, 
-            rotateY: 8, 
-            z: 40, 
+          whileHover={{
+            rotateX: -12,
+            rotateY: 8,
+            z: 40,
             transition: { duration: 0.3 }
           }}
           className="text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg hover:text-t-accent-2 tracking-tighter uppercase origin-right transition-colors duration-500 whitespace-nowrap relative z-20"

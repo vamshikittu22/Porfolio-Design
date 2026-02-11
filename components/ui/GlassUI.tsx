@@ -27,7 +27,7 @@ export const GlassCard: React.FC<GlassProps> = ({ children, className = '', acce
   const baseClasses = 'bg-t-bg-el/85 border-t-border text-t-fg backdrop-blur-xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]';
 
   return (
-    <motion.div 
+    <motion.div
       onClick={onClick}
       whileHover={{ y: -4, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.1)" }}
       className={`
@@ -60,7 +60,7 @@ export const BubbleTag: React.FC<GlassProps> = ({ children, className = '', acce
   };
 
   return (
-    <motion.span 
+    <motion.span
       whileHover={{ scale: 1.08, rotate: [0, -1, 1, 0] }}
       className={`
       px-5 py-2.5
@@ -74,10 +74,10 @@ export const BubbleTag: React.FC<GlassProps> = ({ children, className = '', acce
   );
 };
 
-export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: boolean }> = ({ 
-  children, 
-  className = '', 
-  accent = 'theme', 
+export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: boolean }> = ({
+  children,
+  className = '',
+  accent = 'theme',
   primary = false,
   onClick,
   disabled = false
@@ -137,7 +137,7 @@ export const GlassButton: React.FC<GlassProps & { primary?: boolean; disabled?: 
   const styleClass = primary ? themeSet.primary : themeSet.outline;
 
   return (
-    <motion.button 
+    <motion.button
       onClick={onClick}
       disabled={disabled}
       whileHover={{ y: -3, scale: 1.02, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.15)" }}

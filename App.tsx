@@ -10,11 +10,11 @@ import ResumeSection from './sections/resume/ResumeSection';
 import GameSection from './sections/game/GameSection';
 import TravelSection from './sections/travel/TravelSection';
 import ContactSection from './sections/contact/ContactSection';
-import { 
-  HERO_FALLBACK_DARK, 
-  HERO_FALLBACK_LIGHT, 
-  HERO_PROMPT_DARK, 
-  HERO_PROMPT_LIGHT 
+import {
+  HERO_FALLBACK_DARK,
+  HERO_FALLBACK_LIGHT,
+  HERO_PROMPT_DARK,
+  HERO_PROMPT_LIGHT
 } from './config/constants';
 
 const App: React.FC = () => {
@@ -61,7 +61,7 @@ const App: React.FC = () => {
 
   const generateHero = async () => {
     const gemini = GeminiService.getInstance();
-    if (gemini.isQuotaLocked()) return; 
+    if (gemini.isQuotaLocked()) return;
     setHeroLoading(true);
     try {
       const prompt = isDarkMode ? HERO_PROMPT_DARK : HERO_PROMPT_LIGHT;
@@ -76,9 +76,9 @@ const App: React.FC = () => {
 
   useEffect(() => { generateHero(); }, [isDarkMode]);
 
-  const scrollToSection = (id: string) => { 
-    const element = document.getElementById(id); 
-    if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const handleScrollToTop = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
@@ -91,13 +91,13 @@ const App: React.FC = () => {
         <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-t-accent-s/40 blur-[200px] rounded-full" />
       </div>
 
-      <HeaderNav 
-        scrolled={scrolled} 
-        activeSection={activeSection} 
-        isDarkMode={isDarkMode} 
-        onScrollToSection={scrollToSection} 
-        onScrollToTop={handleScrollToTop} 
-        onToggleTheme={() => setIsDarkMode(!isDarkMode)} 
+      <HeaderNav
+        scrolled={scrolled}
+        activeSection={activeSection}
+        isDarkMode={isDarkMode}
+        onScrollToSection={scrollToSection}
+        onScrollToTop={handleScrollToTop}
+        onToggleTheme={() => setIsDarkMode(!isDarkMode)}
       />
 
       <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60 print:p-0">
