@@ -10,7 +10,7 @@ export const X_HANDLE = 'ki22u__';
 export const X_URL = `https://x.com/ki22u__`;
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/vamshi-krishna-pullaiahgari/';
 export const BLOG_URL = 'https://travelsofvk.blogspot.com';
-export const RESUME_URL = '#resume-section'; 
+export const RESUME_URL = '#resume-section';
 
 export const PHYSICAL_FALLBACKS = {
   HERO_DARK: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=75&w=1200&fm=webp",
@@ -29,10 +29,15 @@ export const HERO_PROMPT_LIGHT = "Abstract software engineering desk scene, high
 export const VIBRANT_ACCENTS: AccentColor[] = ['purple', 'orange', 'indigo', 'emerald', 'rose', 'amber'];
 
 export const SKILLS_RESUME = {
-  languages: ['Java (8-17)', 'Python', 'TypeScript', 'JavaScript', 'C#', 'PHP', 'SQL'],
-  frameworks: ['Spring Boot', 'React.js', 'Angular', 'Vue.js', 'Node.js', '.NET Core'],
-  cloud_db: ['AWS (ECS/EKS/Lambda)', 'PostgreSQL', 'Oracle', 'MongoDB', 'DynamoDB'],
-  tools: ['Docker', 'Kafka', 'Jenkins', 'Terraform', 'Git', 'GitHub', 'Postman'],
+  languages: ['Java (8-17)', 'Python', 'JavaScript', 'TypeScript', 'C#', 'SQL', 'PHP', 'C'],
+  frameworks: ['Spring Boot', 'Spring Framework', 'Node.js', 'React.js', 'Angular', 'Vue.js', '.NET Core'],
+  backend_apis: ['RESTful APIs', 'Microservices Architecture', 'GraphQL', 'Event-Driven Systems', 'Apache Kafka', 'Apache Pulsar'],
+  data_db: ['Oracle', 'MySQL', 'PostgreSQL', 'DynamoDB', 'BigQuery', 'Data Modeling', 'Hibernate', 'JPA', 'JDBC'],
+  cloud_infra: ['AWS (EC2/ECS/EKS/Lambda)', 'Google Cloud (GCP)', 'Azure (AKS/Functions)', 'Docker', 'Kubernetes'],
+  devops_ops: ['CI/CD', 'Jenkins', 'GitHub Actions', 'Terraform', 'Monitoring', 'Observability', 'CloudWatch', 'Azure Monitor'],
+  testing_quality: ['JUnit', 'Mockito', 'Integration Testing', 'Postman', 'Test-Driven Development', 'Code Reviews'],
+  tools_collab: ['Git', 'GitHub', 'Maven', 'Gradle', 'SonarQube', 'JIRA', 'Confluence'],
+  ai_analytics: ['OpenAI API', 'LLM Integration', 'Python Pipelines', 'Power BI'],
   coursework: ['Distributed Systems', 'Cloud Computing', 'AI', 'Data Warehousing', 'Information Security']
 };
 
