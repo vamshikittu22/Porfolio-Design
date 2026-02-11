@@ -14,8 +14,8 @@ export class GeminiService {
   private static instance: GeminiService;
   private cachePrefix = "gemini_v8_";
   private lastRequestTime = 0;
-  private minRequestInterval = 5000; 
-  
+  private minRequestInterval = 5000;
+
   private static quotaLockedUntil = 0;
 
   static getInstance() {
@@ -36,11 +36,11 @@ export class GeminiService {
         return await fn();
       } catch (error: any) {
         const isLastAttempt = i === maxRetries - 1;
-        
+
         const msg = typeof error === 'string' ? error : error?.message || JSON.stringify(error);
-        const isQuotaError = 
-          msg.toLowerCase().includes("429") || 
-          msg.toLowerCase().includes("quota") || 
+        const isQuotaError =
+          msg.toLowerCase().includes("429") ||
+          msg.toLowerCase().includes("quota") ||
           msg.toLowerCase().includes("limit") ||
           msg.toLowerCase().includes("resource_exhausted");
 
@@ -67,7 +67,7 @@ export class GeminiService {
     return Math.max(0, Math.ceil((GeminiService.quotaLockedUntil - Date.now()) / 1000));
   }
 
-  public setQuotaLock(durationMs: number = 120000) { 
+  public setQuotaLock(durationMs: number = 120000) {
     GeminiService.quotaLockedUntil = Date.now() + durationMs;
     localStorage.setItem('gemini_quota_lock', GeminiService.quotaLockedUntil.toString());
   }
@@ -123,7 +123,7 @@ export class GeminiService {
       });
       try {
         sessionStorage.setItem(this.getCacheKey(key), value);
-      } catch {}
+      } catch { }
     }
   }
 
@@ -134,29 +134,15 @@ export class GeminiService {
     throw new Error(message || "UNEXPECTED_ERROR");
   }
 
-  async generateImage(
-    prompt: string, 
-    baseImageBase64?: string, 
-    aspectRatio: "1:1" | "16:9" | "9:16" | "4:3" | "3:4" = "1:1",
-    physicalFallbackUrl?: string
-  ): Promise<string> {
-    const cacheKey = `img_${prompt}_${aspectRatio}`;
-    const backupKey = `bkp_img_${prompt.substring(0, 15)}`;
-    
-    // LAYER 1: Session Cache (Instant)
-    const cached = this.getCached(cacheKey);
-    if (cached) return cached;
+  async generateImage(prompt: string, aspectRatio = "1:1", fallbackUrl?: string): Promise<string> {
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
-    const runAIGeneration = async () => {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      const parts: any[] = [{ text: prompt }];
-      if (baseImageBase64) {
-        parts.push({ inlineData: { data: baseImageBase64.split(',')[1] || baseImageBase64, mimeType: 'image/png' } });
-      }
+    try {
+      if (this.isQuotaLocked()) return fallbackUrl || "";
 
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash-image',
-        contents: { parts },
+        contents: { parts: [{ text: prompt }] },
         config: { imageConfig: { aspectRatio: aspectRatio } }
       });
 
@@ -164,37 +150,24 @@ export class GeminiService {
       for (const candidate of response.candidates || []) {
         for (const part of candidate.content?.parts || []) {
           if (part.inlineData) {
+            // Extract base64 and format as Data URI
             result = `data:image/png;base64,${part.inlineData.data}`;
             break;
           }
         }
-        if (result) break;
       }
-      if (!result) throw new Error("Empty AI result");
-      return result;
-    };
-
-    try {
-      if (this.isQuotaLocked()) throw new Error("QUOTA_LOCKED");
-      const result = await this.retryWithBackoff(runAIGeneration, 'generateImage', 1);
-      this.setCache(cacheKey, result);
-      localStorage.setItem(this.getCacheKey(backupKey), result);
-      return result;
+      return result || fallbackUrl || "";
     } catch (error) {
-      console.warn(`[GeminiService] AI Image Failure - Falling back to physical assets.`);
-      // LAYER 3: Last Successful Build Backup (Persistent)
-      const lastSuccess = localStorage.getItem(this.getCacheKey(backupKey));
-      if (lastSuccess) return lastSuccess;
-
-      // LAYER 4: Hardcoded Reliable Physical URL (Final Safety)
-      if (physicalFallbackUrl) return physicalFallbackUrl;
-      throw error;
+      if (typeof error === 'object' && error !== null && ('status' in error || (error as any).message?.includes('429'))) {
+        this.setQuotaLock();
+      }
+      return fallbackUrl || ""; // Graceful failure to Unsplash fallback
     }
   }
 
   async generateVideo(prompt: string, baseImageBase64?: string): Promise<string> {
     if (this.isQuotaLocked()) throw new Error("QUOTA_LOCKED");
-    
+
     return this.retryWithBackoff(async () => {
       try {
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });

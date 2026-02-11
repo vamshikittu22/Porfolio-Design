@@ -136,7 +136,7 @@ const App: React.FC = () => {
     try {
       const prompt = isDarkMode ? HERO_PROMPT_DARK : HERO_PROMPT_LIGHT;
       const physicalFallback = isDarkMode ? PHYSICAL_FALLBACKS.HERO_DARK : PHYSICAL_FALLBACKS.HERO_LIGHT;
-      const img = await gemini.generateImage(prompt, undefined, "1:1", physicalFallback);
+      const img = await gemini.generateImage(prompt, "1:1", physicalFallback);
       setHeroImage(img);
     } catch (err) {
       console.warn("Hero image generation fallback cycle activated.");

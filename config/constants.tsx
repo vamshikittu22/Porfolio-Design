@@ -24,6 +24,7 @@ export const HERO_FALLBACK_DARK = PHYSICAL_FALLBACKS.HERO_DARK;
 export const HERO_FALLBACK_LIGHT = PHYSICAL_FALLBACKS.HERO_LIGHT;
 
 export const HERO_PROMPT_DARK = "Abstract software engineering desk scene, high resolution, Swiss minimalist style. Deep navy atmosphere with electric purple and orange accents, emphasizing cloud infrastructure and Java microservices.";
+
 export const HERO_PROMPT_LIGHT = "Abstract software engineering desk scene, high resolution, Swiss architectural style. Daylight atmosphere with soft blue accents, suggesting clean enterprise application design.";
 
 export const VIBRANT_ACCENTS: AccentColor[] = ['purple', 'orange', 'indigo', 'emerald', 'rose', 'amber'];

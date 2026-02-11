@@ -36,8 +36,7 @@ export const TravelStoryItem: React.FC<TravelStoryItemProps> = ({ post, index, a
         fallbackUrl = PHYSICAL_FALLBACKS.TRAVEL_COORG;
       }
 
-      // Improved call with fallback mapping
-      const img = await gemini.generateImage(specificPrompt, undefined, "16:9", fallbackUrl);
+      const img = await gemini.generateImage(specificPrompt, "16:9", fallbackUrl);
       setIllustration(img);
     } catch (err: any) {
       setError(err.message);

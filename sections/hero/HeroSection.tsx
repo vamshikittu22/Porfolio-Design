@@ -79,4 +79,5 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
   );
 };
 
+
 export default HeroSection;

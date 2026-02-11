@@ -43,7 +43,7 @@ const AIPlayground: React.FC = () => {
     setError(null);
     setStatus('Generating your image study...');
     try {
-      const result = await gemini.generateImage(prompt, image || undefined, "16:9", PHYSICAL_FALLBACKS.AI_LAB_GENERIC);
+      const result = await gemini.generateImage(prompt, "16:9", PHYSICAL_FALLBACKS.AI_LAB_GENERIC);
       setImage(result);
       setStatus('');
     } catch (err: any) {
@@ -121,7 +121,7 @@ const AIPlayground: React.FC = () => {
                   <span className="text-[10px] font-black text-t-fg-m uppercase tracking-[0.4em] opacity-40">Ready for Input</span>
                 </div>
               )}
-              
+
               {loading && (
                 <div className="absolute inset-0 bg-t-bg-el/90 backdrop-blur-3xl flex flex-col items-center justify-center p-10 text-center z-20">
                   <div className="w-12 h-12 border-4 border-t-accent-2-s border-t-t-accent-2 rounded-full animate-spin mb-6" />
@@ -131,22 +131,22 @@ const AIPlayground: React.FC = () => {
 
               {cooldown > 0 && !loading && (
                 <div className="absolute inset-0 bg-t-bg-el/40 backdrop-blur-sm flex flex-col items-center justify-center p-10 text-center z-10">
-                   <div className="bg-amber-500/90 text-white px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">
-                      Limit Reached: {cooldown}s
-                   </div>
+                  <div className="bg-amber-500/90 text-white px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">
+                    Limit Reached: {cooldown}s
+                  </div>
                 </div>
               )}
             </div>
 
-            <input 
-              type="file" 
-              accept="image/*" 
-              className="hidden" 
-              ref={fileInputRef} 
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
               onChange={handleFileChange}
             />
-            <GlassButton 
-              accent="secondary" 
+            <GlassButton
+              accent="secondary"
               className="w-full py-3"
               onClick={() => fileInputRef.current?.click()}
               disabled={cooldown > 0}
@@ -158,7 +158,7 @@ const AIPlayground: React.FC = () => {
           <div className="flex flex-col justify-between py-2">
             <div className="space-y-4">
               <label className="text-[10px] font-black text-t-fg-m uppercase tracking-[0.4em]">Describe your Vision</label>
-              <textarea 
+              <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 disabled={cooldown > 0}
@@ -168,18 +168,18 @@ const AIPlayground: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-4 pt-6">
-              <GlassButton 
-                accent="secondary" 
-                primary 
-                onClick={handleEditImage} 
+              <GlassButton
+                accent="secondary"
+                primary
+                onClick={handleEditImage}
                 disabled={loading || !prompt || cooldown > 0}
               >
                 {cooldown > 0 ? `Backoff ${cooldown}s` : 'Generate Image'}
               </GlassButton>
-              <GlassButton 
-                accent="secondary" 
-                primary 
-                onClick={handleAnimate} 
+              <GlassButton
+                accent="secondary"
+                primary
+                onClick={handleAnimate}
                 disabled={loading || cooldown > 0}
               >
                 {cooldown > 0 ? `Backoff ${cooldown}s` : 'Generate Video'}
