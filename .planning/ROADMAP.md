@@ -48,11 +48,11 @@ Plans:
   3. Chapter cards are responsive across mobile/tablet/desktop
   4. User can click any chapter card to enter that chapter
   5. Chapter cards use glass morphism styling
-**Plans**: TBD
+**Plans**: 2 plans in 1 wave
 
 Plans:
-- [ ] 02-01: TBD during planning
-- [ ] 02-02: TBD during planning
+- [ ] 02-01-PLAN.md — Landing page layout with responsive CSS Grid chapter card container
+- [ ] 02-02-PLAN.md — Interactive chapter cards with glass morphism styling and navigation
 
 ### Phase 3: Chapter Reader & Navigation UX
 **Goal**: Users can read chapters in an immersive full-screen experience with progress tracking
