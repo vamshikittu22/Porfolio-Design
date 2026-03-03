@@ -13,6 +13,8 @@
  * - Clickable header returns to landing page
  */
 
+import '../../styles/glass-morphism.css';
+
 interface ChapterHeaderProps {
   /** Chapter title (e.g., "The Introduction", "The Builder") */
   title: string;
@@ -36,12 +38,7 @@ export function ChapterHeader({ title, description }: ChapterHeaderProps) {
   return (
     <header 
       onClick={handleClick}
-      className="chapter-header sticky top-0 z-100 glass-morphism cursor-pointer transition-all duration-200 hover:bg-opacity-90"
-      style={{
-        background: 'rgba(var(--background-rgb), 0.8)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-      }}
+      className="chapter-header sticky top-0 z-100 glass-overlay cursor-pointer transition-all duration-200 hover:bg-opacity-90"
       role="button"
       aria-label="Return to chapter selection"
       tabIndex={0}
@@ -54,20 +51,20 @@ export function ChapterHeader({ title, description }: ChapterHeaderProps) {
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Chapter Title */}
-        <h1 className="text-3xl sm:text-4xl font-bold text-t-foreground mb-2">
+        <h1 className="heading-lg text-t-foreground mb-2">
           {title}
         </h1>
         
         {/* Chapter Description */}
-        <p className="text-base sm:text-lg text-t-secondary">
+        <p className="body-md text-t-secondary">
           {description}
         </p>
       </div>
       
-      {/* Bottom border for visual separation */}
+      {/* Enhanced bottom border with chapter accent */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-transparent to-transparent" 
         style={{
-          backgroundImage: 'linear-gradient(to right, transparent, rgba(var(--chapter-accent), 0.3), transparent)',
+          backgroundImage: 'linear-gradient(to right, transparent, rgba(var(--chapter-accent), 0.4), transparent)',
         }}
       />
     </header>

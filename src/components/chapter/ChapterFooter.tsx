@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { ChapterId } from '../../../types/chapters';
 import { getNextChapter, getPrevChapter } from '../../../data/chapters';
 import { useNavigation } from '../../../contexts/NavigationContext';
+import '../../styles/glass-morphism.css';
 
 /**
  * ChapterFooter Props
@@ -76,12 +77,7 @@ export function ChapterFooter({ chapterId }: ChapterFooterProps) {
   return (
     <nav
       aria-label="Chapter navigation"
-      className="chapter-footer glass-morphism"
-      style={{
-        background: 'rgba(var(--background-rgb), 0.8)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-      }}
+      className="chapter-footer glass-overlay"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex items-center justify-between gap-4">
@@ -169,7 +165,7 @@ export function ChapterFooter({ chapterId }: ChapterFooterProps) {
       {/* Top border for visual separation */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-transparent to-transparent" 
         style={{
-          backgroundImage: 'linear-gradient(to right, transparent, rgba(var(--chapter-accent), 0.3), transparent)',
+          backgroundImage: 'linear-gradient(to right, transparent, rgba(var(--chapter-accent), 0.4), transparent)',
         }}
       />
     </nav>
