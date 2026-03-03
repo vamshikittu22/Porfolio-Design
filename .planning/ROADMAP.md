@@ -79,11 +79,14 @@ Plans:
   1. Glass morphism UI style maintained across entire chapter system
   2. Dark/light theme support works in all chapters
   3. Typography and spacing is consistent across all chapters
-**Plans**: TBD
+  4. Each chapter has unique accent color for visual differentiation
+  5. Navigation bugs fixed (HeaderNav/ChapterSidebar conflicts resolved)
+**Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 04-01: TBD during planning
-- [ ] 04-02: TBD during planning
+- [ ] 04-01-PLAN.md — Navigation fixes (HeaderNav conditional, home button, clickable header) + ThemeContext
+- [ ] 04-02-PLAN.md — Chapter color themes (6 unique accent colors: blue, green, purple, orange, pink, cyan)
+- [ ] 04-03-PLAN.md — Glass morphism section overhaul (Hero, About, Projects, GitHub, Career, Travel, Game, Contact)
 
 ### Phase 5: AI Chapter Companion
 **Goal**: AI chatbot understands chapter context and helps users navigate
@@ -123,10 +126,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Navigation Architecture & State Foundation | 3/3 | ✓ Complete | 2026-03-03 |
 | 2. Landing Page & Chapter Cards | 2/2 | ✓ Complete | 2026-03-03 |
 | 3. Chapter Reader & Navigation UX | 4/4 | ✓ Complete | 2026-03-03 |
-| 4. Visual Theming & Glass Morphism | 0/2 | Not started | - |
+| 4. Visual Theming & Glass Morphism | 0/3 | Planned | - |
 | 5. AI Chapter Companion | 0/2 | Not started | - |
 | 6. Performance Optimization | 0/1 | Not started | - |
 
 ---
 *Created: 2026-03-02*
-*Last updated: 2026-03-03 after Phase 3 completion*
+*Last updated: 2026-03-03 after Phase 4 planning*
