@@ -45,8 +45,8 @@ export function ChapterProgress({ progress }: ChapterProgressProps) {
         height: '3px',
         zIndex: 1000,
         
-        // Background color - uses Tailwind accent color
-        backgroundColor: 'var(--accent-color, rgb(59, 130, 246))',
+        // Background color - uses chapter-specific accent color
+        backgroundColor: 'rgb(var(--chapter-accent))',
         
         // GPU-accelerated transform - scaleX driven by progress
         scaleX: progress,

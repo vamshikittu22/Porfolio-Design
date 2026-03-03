@@ -65,7 +65,11 @@ export function ChapterHeader({ title, description }: ChapterHeaderProps) {
       </div>
       
       {/* Bottom border for visual separation */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-t-accent/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-transparent to-transparent" 
+        style={{
+          backgroundImage: 'linear-gradient(to right, transparent, rgba(var(--chapter-accent), 0.3), transparent)',
+        }}
+      />
     </header>
   );
 }

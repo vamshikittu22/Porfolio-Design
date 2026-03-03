@@ -89,7 +89,19 @@ export function ChapterFooter({ chapterId }: ChapterFooterProps) {
           {prevChapter ? (
             <button
               onClick={() => navigateToChapter(prevChapter.id, 'sequential')}
-              className="flex items-center gap-2 px-4 py-3 rounded-lg bg-t-background/50 hover:bg-t-background transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-t-accent"
+              className="flex items-center gap-2 px-4 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-t-accent"
+              style={{
+                borderColor: 'rgba(var(--chapter-accent), 0.3)',
+                backgroundColor: 'rgba(var(--chapter-accent), 0.05)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(var(--chapter-accent), 0.6)';
+                e.currentTarget.style.backgroundColor = 'rgba(var(--chapter-accent), 0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(var(--chapter-accent), 0.3)';
+                e.currentTarget.style.backgroundColor = 'rgba(var(--chapter-accent), 0.05)';
+              }}
               aria-label={`Previous chapter: ${prevChapter.title}`}
             >
               <svg 
@@ -119,7 +131,19 @@ export function ChapterFooter({ chapterId }: ChapterFooterProps) {
           {nextChapter ? (
             <button
               onClick={() => navigateToChapter(nextChapter.id, 'sequential')}
-              className="flex items-center gap-2 px-4 py-3 rounded-lg bg-t-background/50 hover:bg-t-background transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-t-accent"
+              className="flex items-center gap-2 px-4 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-t-accent"
+              style={{
+                borderColor: 'rgba(var(--chapter-accent), 0.3)',
+                backgroundColor: 'rgba(var(--chapter-accent), 0.05)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(var(--chapter-accent), 0.6)';
+                e.currentTarget.style.backgroundColor = 'rgba(var(--chapter-accent), 0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(var(--chapter-accent), 0.3)';
+                e.currentTarget.style.backgroundColor = 'rgba(var(--chapter-accent), 0.05)';
+              }}
               aria-label={`Next chapter: ${nextChapter.title}`}
             >
               <span className="hidden sm:inline text-sm font-medium">
@@ -143,7 +167,11 @@ export function ChapterFooter({ chapterId }: ChapterFooterProps) {
       </div>
       
       {/* Top border for visual separation */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-t-accent/20 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-transparent to-transparent" 
+        style={{
+          backgroundImage: 'linear-gradient(to right, transparent, rgba(var(--chapter-accent), 0.3), transparent)',
+        }}
+      />
     </nav>
   );
 }

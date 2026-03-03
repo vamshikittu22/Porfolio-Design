@@ -77,6 +77,7 @@ export function ChapterContainer({ chapterId, children }: ChapterContainerProps)
     <div 
       ref={containerRef}
       className="chapter-container min-h-screen flex flex-col"
+      data-chapter={chapterId}
     >
       {/* Progress bar - fixed at top of viewport */}
       <ChapterProgress progress={progress} />
