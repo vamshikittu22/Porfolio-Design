@@ -33,33 +33,33 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
   return (
     <section
       id="hero-section"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
       onMouseMove={handleMouseMove}
       aria-labelledby="hero-title"
     >
       {/* Full-screen background */}
-      <div className="fixed inset-0 z-0">
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <NameBackground />
       </div>
 
-      <div className="container max-w-[1440px] mx-auto px-10 lg:px-32 grid lg:grid-cols-[1.4fr_0.6fr] gap-12 lg:gap-24 items-center w-full relative z-20">
-        <div className="space-y-16 animate-in fade-in slide-in-from-left duration-1000">
-          <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-1 bg-t-accent" />
-              <span className="text-[12px] font-black uppercase tracking-[1em] text-t-accent">Full Stack Developer</span>
+      <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-8 md:px-10 lg:px-16 xl:px-32 grid lg:grid-cols-[1.4fr_0.6fr] gap-8 md:gap-12 lg:gap-16 xl:gap-24 items-center relative z-20">
+        <div className="space-y-8 md:space-y-12 lg:space-y-16">
+          <div className="space-y-4 md:space-y-6">
+            <div className="flex items-center gap-3 md:gap-4">
+              <div className="w-8 md:w-12 h-1 bg-t-accent" />
+              <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.5em] md:tracking-[1em] text-t-accent">Full Stack Developer</span>
             </div>
             <div id="hero-title">
               <HeroTitle mouseX={mouseXSpring} mouseY={mouseYSpring} />
             </div>
-            <p className="text-xl lg:text-2xl font-bold text-t-fg-m uppercase tracking-widest">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-t-fg-m uppercase tracking-wide md:tracking-widest">
               Full-Stack Software Engineer | Java • Spring Boot • React • Cloud Architecture
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-[1fr_0.7fr] gap-12 items-start">
-            <div className="max-w-xl space-y-8">
-            <p className="body-lg text-t-fg font-medium leading-tight tracking-tight text-balance">
+          <div className="grid lg:grid-cols-[1fr_0.7fr] gap-8 md:gap-12 items-start">
+            <div className="max-w-xl space-y-6 md:space-y-8">
+            <p className="text-base md:text-lg lg:text-xl text-t-fg font-medium leading-tight tracking-tight text-balance">
               Architecting <span className="text-t-accent font-black">scalable enterprise</span> ecosystems with Java, Spring Boot, and Cloud Native solutions.
             </p>
             </div>
@@ -67,7 +67,7 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
           </div>
         </div>
 
-        <div className="relative flex flex-col gap-10 items-center lg:items-end justify-center perspective-[2000px]">
+        <div className="relative flex flex-col gap-6 md:gap-10 items-center lg:items-end justify-center perspective-[2000px]">
           <HeroStatus />
           <HeroCard
             image={image}

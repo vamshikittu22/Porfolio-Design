@@ -28,11 +28,11 @@ export const HeroCard: React.FC<HeroCardProps> = ({ image, loading, mouseX, mous
 
     return (
         <div
-            className="relative flex justify-center perspective-[2000px]"
+            className="relative flex justify-center perspective-[2000px] w-full"
         >
             <motion.div
                 style={{ rotateX, rotateY }}
-                className="relative aspect-[4/5] w-full max-w-sm min-h-[500px] rounded-[60px] bg-zinc-900/90 border border-t-border shadow-2xl z-10 overflow-hidden"
+                className="relative aspect-[4/5] w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-sm rounded-[40px] md:rounded-[60px] bg-zinc-900/90 border border-t-border shadow-2xl z-10 overflow-hidden"
             >
                 {loading && !image ? (
                     <div className="w-full h-full bg-zinc-900 animate-pulse flex items-center justify-center">

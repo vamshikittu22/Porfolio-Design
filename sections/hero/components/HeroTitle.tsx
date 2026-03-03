@@ -28,7 +28,7 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
             z: 40,
             transition: { duration: 0.3 }
           }}
-          className="text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg hover:text-t-accent tracking-tighter uppercase origin-left transition-colors duration-500 whitespace-nowrap relative z-20"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black font-display text-t-fg hover:text-t-accent tracking-tighter uppercase origin-left transition-colors duration-500 relative z-20"
         >
           Vamshi
         </motion.h1>
@@ -36,7 +36,7 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
         {/* Ghost Shadow - Reactive to Mouse */}
         <motion.h1
           style={{ x: ghostX, y: ghostY }}
-          className="absolute inset-0 text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg opacity-[0.03] dark:opacity-[0.05] tracking-tighter uppercase whitespace-nowrap z-10 pointer-events-none select-none transition-colors duration-500"
+          className="absolute inset-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black font-display text-t-fg opacity-[0.03] dark:opacity-[0.05] tracking-tighter uppercase z-10 pointer-events-none select-none transition-colors duration-500"
         >
           Vamshi
         </motion.h1>
@@ -44,7 +44,7 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
 
       {/* Line 2: KRISHNA */}
       <motion.div
-        className="group/line2 cursor-default relative ml-12 lg:ml-24"
+        className="group/line2 cursor-default relative ml-6 sm:ml-8 md:ml-12 lg:ml-16"
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -57,7 +57,7 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
             z: 40,
             transition: { duration: 0.3 }
           }}
-          className="text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg hover:text-t-accent-2 tracking-tighter uppercase origin-right transition-colors duration-500 whitespace-nowrap relative z-20"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black font-display text-t-fg hover:text-t-accent-2 tracking-tighter uppercase origin-right transition-colors duration-500 relative z-20"
         >
           Krishna
         </motion.h1>
@@ -65,7 +65,7 @@ export const HeroTitle: React.FC<HeroTitleProps> = ({ mouseX, mouseY }) => {
         {/* Ghost Shadow - Reactive to Mouse */}
         <motion.h1
           style={{ x: useTransform(mouseX, [-0.5, 0.5], [15, -15]), y: useTransform(mouseY, [-0.5, 0.5], [15, -15]) }}
-          className="absolute inset-0 text-7xl md:text-9xl lg:text-[11rem] font-black font-display text-t-fg opacity-[0.03] dark:opacity-[0.05] tracking-tighter uppercase whitespace-nowrap z-10 pointer-events-none select-none transition-colors duration-500"
+          className="absolute inset-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black font-display text-t-fg opacity-[0.03] dark:opacity-[0.05] tracking-tighter uppercase z-10 pointer-events-none select-none transition-colors duration-500"
         >
           Krishna
         </motion.h1>
