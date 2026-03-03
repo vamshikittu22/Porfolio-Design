@@ -70,7 +70,9 @@ Recent decisions affecting current work:
 - navigateToChapter with 'jump' type to reset scroll on chapter entry (02-02)
 - [Phase 03-01]: GPU-accelerated scaleX transform for progress bar instead of width-based animation
 - [Phase 03-01]: Keyboard navigation implemented in ChapterFooter (not separate component) for cohesion
-- [Phase 03-02]: Created Chapter 2 Builder (Projects) and Chapter 3 Journey (Career + Resume)
+- [Phase 03-02]: Lazy load Projects, GitHub, and Resume sections for performance (matches App.tsx pattern)
+- [Phase 03-02]: Progressive disclosure in Chapter 3: CareerSnapshot (eager) → ResumeSection (lazy)
+- [Phase 03-02]: Section-level Suspense boundaries for granular loading states
 - [Phase 03-03]: Relative import paths for chapter components (no path aliases used)
 - [Phase 03-03]: Single-section chapters for substantial content (Travel, Game, Contact)
 - [Phase 03-03]: TODO markers for CHAP-07 narrative enhancement and content verification
@@ -92,9 +94,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 03-03-PLAN.md
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None
 
 ---
 *Created: 2026-03-02*
-*Last updated: 2026-03-03 after completing 03-03*
+*Last updated: 2026-03-03 after completing 03-02*
