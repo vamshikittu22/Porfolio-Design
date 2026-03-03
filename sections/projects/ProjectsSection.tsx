@@ -5,6 +5,7 @@ import { ProjectCategory } from '../../config/types';
 import { ProjectList } from './components/ProjectList';
 import { ProjectFilter } from './components/ProjectFilter';
 import { VIBRANT_ACCENTS } from '../../config/constants';
+import '../../src/styles/glass-morphism.css';
 
 const CATEGORIES = ['All', ...Object.values(ProjectCategory)];
 
@@ -29,9 +30,9 @@ const ProjectsSection: React.FC = () => {
   };
 
   return (
-    <section id="projects-section" className="mb-[40rem] scroll-mt-32 print:hidden">
+    <section id="projects-section" className="py-12 md:py-16 mb-[40rem] scroll-mt-32 print:hidden">
       <ScrollReveal className="flex flex-col items-center mb-16 text-center">
-        <h2 className="text-6xl lg:text-8xl font-black font-display text-t-fg uppercase tracking-tighter leading-none text-balance">
+        <h2 className="heading-lg text-t-fg uppercase tracking-tighter leading-none text-balance">
           Technical <br /> Showcase.
         </h2>
 
@@ -47,7 +48,7 @@ const ProjectsSection: React.FC = () => {
         <div className="w-48 h-px bg-t-accent-2 mt-16 opacity-30 shadow-[0_0_20px_rgba(var(--color-accent-secondary-rgb),0.5)]" />
       </ScrollReveal>
 
-      <div className="flex flex-col gap-12 lg:gap-20 transition-all duration-700">
+      <div className="flex flex-col gap-6 md:gap-8 transition-all duration-700">
         {filteredProjects.length > 0 ? (
           <ProjectList
             projects={filteredProjects}

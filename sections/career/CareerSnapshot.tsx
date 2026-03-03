@@ -6,6 +6,7 @@ import { AnimatedDigit } from './components/AnimatedDigit';
 import { BadgeFlipper } from './components/BadgeFlipper';
 import { CareerStatGrid } from './components/CareerStatGrid';
 import { CareerTimelineItem } from './components/CareerTimelineItem';
+import '../../src/styles/glass-morphism.css';
 
 interface CareerItem extends ResumeItem {
   id: string;
@@ -88,16 +89,16 @@ const CareerSnapshot: React.FC = () => {
   if (!activeItem) return null;
 
   return (
-    <section id="career-snapshot-section" className="mb-[20rem] scroll-mt-32 max-w-7xl mx-auto px-6">
+    <section id="career-snapshot-section" className="py-12 md:py-16 mb-[20rem] scroll-mt-32 max-w-7xl mx-auto px-6">
       <ScrollReveal>
         <GlassCard className="p-8 lg:p-12 overflow-hidden bg-t-bg-el/60 border-t-accent/10" accent="theme">
 
-          <div className="flex flex-col gap-8 mb-12">
+          <div className="flex flex-col gap-6 mb-12">
             <div>
-              <h2 className="text-4xl lg:text-6xl font-black font-display text-t-fg uppercase tracking-tighter leading-none mb-3">
+              <h2 className="heading-lg text-t-fg uppercase tracking-tighter leading-none mb-3">
                 Work & <br /> <span className="text-t-accent">Education.</span>
               </h2>
-              <p className="text-[9px] font-black uppercase tracking-[0.5em] text-t-fg-m opacity-50">
+              <p className="caption text-t-fg-m">
                 A timeline of my professional experience
               </p>
             </div>
@@ -105,7 +106,7 @@ const CareerSnapshot: React.FC = () => {
             <CareerStatGrid />
           </div>
 
-          <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-8 items-stretch h-[500px] lg:h-[600px] overflow-hidden border-t border-t-border/20 pt-8">
+          <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-6 md:gap-8 items-stretch h-[500px] lg:h-[600px] overflow-hidden border-t border-t-border/20 pt-8">
             <div className="flex flex-col items-center justify-center text-center relative z-20">
               <div className="flex items-center justify-center text-7xl lg:text-9xl font-black font-display text-t-fg uppercase tracking-tighter leading-none">
                 {activeItem.year.split('').map((d, i) => (

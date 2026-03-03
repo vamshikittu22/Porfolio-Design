@@ -6,6 +6,7 @@ import { GeminiService } from '../../services/geminiService';
 import { ContactHero } from './components/ContactHero';
 import { ContactQuickLinks } from './components/ContactQuickLinks';
 import { ContactForm } from './components/ContactForm';
+import '../../src/styles/glass-morphism.css';
 
 type ContactTab = 'contact' | 'schedule';
 
@@ -90,7 +91,7 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact-section" className="mb-24 scroll-mt-32 print:hidden relative flex items-center justify-center overflow-visible px-4">
+    <section id="contact-section" className="py-12 md:py-16 mb-24 scroll-mt-32 print:hidden relative flex items-center justify-center overflow-visible px-4">
       <ScrollReveal className="w-full flex items-center justify-center">
         {!isBlasted ? (
           <ContactHero onToggle={handleToggle} />

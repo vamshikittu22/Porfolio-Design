@@ -5,6 +5,7 @@ import { NameBackground } from './components/NameBackground';
 import { HeroQuickActions } from './components/HeroQuickActions';
 import { HeroStatus } from './components/HeroStatus';
 import { HeroCard } from './components/HeroCard';
+import '../../src/styles/glass-morphism.css';
 
 interface HeroProps {
   image: string | null;
@@ -57,9 +58,9 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
 
           <div className="grid lg:grid-cols-[1fr_0.7fr] gap-12 items-start">
             <div className="max-w-xl space-y-8">
-              <p className="text-xl lg:text-3xl text-t-fg font-medium leading-tight tracking-tight text-balance">
-                Architecting <span className="text-t-accent font-black">scalable enterprise</span> ecosystems with Java, Spring Boot, and Cloud Native solutions.
-              </p>
+            <p className="body-lg text-t-fg font-medium leading-tight tracking-tight text-balance">
+              Architecting <span className="text-t-accent font-black">scalable enterprise</span> ecosystems with Java, Spring Boot, and Cloud Native solutions.
+            </p>
             </div>
             <HeroQuickActions onScroll={onScroll} />
           </div>

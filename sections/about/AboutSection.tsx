@@ -3,6 +3,7 @@ import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { AboutHeader } from '../../components/about/AboutHeader';
 import { SkillMatrix } from '../../components/about/SkillMatrix';
 import { SkillBrief } from '../../components/about/SkillBrief';
+import '../../src/styles/glass-morphism.css';
 
 // --- RICH SKILL DATA & ICON MAPPING ---
 const ICON_MAP: Record<string, string> = {
@@ -127,11 +128,11 @@ export const AboutSection: React.FC = () => {
   if (!isMounted) return null;
 
   return (
-    <section id="about-section" className="mb-[20rem] scroll-mt-32 relative">
+    <section id="about-section" className="py-12 md:py-16 mb-[20rem] scroll-mt-32 relative">
       <ScrollReveal>
         <AboutHeader />
 
-        <div className="w-full bg-[#050505] rounded-[40px] border border-white/5 shadow-2xl relative overflow-hidden flex flex-col lg:flex-row min-h-[700px] lg:h-[900px]">
+        <div className="w-full glass-panel bg-[#050505] border border-white/5 shadow-2xl relative overflow-hidden flex flex-col lg:flex-row min-h-[700px] lg:h-[900px]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(124,58,237,0.05)_0%,rgba(5,5,5,1)_100%)] pointer-events-none z-10" />
           <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay z-0" />
 

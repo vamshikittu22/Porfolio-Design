@@ -2,21 +2,22 @@
 import React from 'react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { TicTacToe } from './components/TicTacToe';
+import '../../src/styles/glass-morphism.css';
 
 export const GameSection: React.FC = () => {
   return (
-    <section id="game-section" className="mb-[40rem] rounded-[120px] p-16 lg:p-48 bg-t-bg-el/40 border border-t-border print:hidden scroll-mt-32 relative overflow-hidden group">
+    <section id="game-section" className="py-12 md:py-16 mb-[40rem] rounded-[120px] p-16 lg:p-48 bg-t-bg-el/40 border border-t-border print:hidden scroll-mt-32 relative overflow-hidden group">
       <div className="absolute inset-0 z-[-1] opacity-10 dark:opacity-20 transition-all duration-1000">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-radial from-t-accent-2/30 via-transparent to-transparent blur-[160px] scale-125" />
       </div>
-      <div className="grid lg:grid-cols-2 gap-48 items-center relative z-10">
+      <div className="grid lg:grid-cols-2 gap-6 md:gap-8 items-center relative z-10">
         <ScrollReveal className="space-y-16">
           <div className="flex items-center gap-4">
             <div className="w-10 h-[2px] bg-t-accent-2" />
-            <span className="text-[10px] font-black uppercase tracking-[1em] text-t-accent-2">Interactive Playlab</span>
+            <span className="caption text-t-accent-2">Interactive Playlab</span>
           </div>
-          <h2 className="text-6xl lg:text-9xl font-black font-display text-t-fg uppercase tracking-tighter leading-[0.75]">Game <br /> Logic.</h2>
-          <p className="text-t-fg-m font-medium max-w-lg text-2xl leading-relaxed text-balance">Testing real-time decision making through a strategic Tic-Tac-Toe simulation.</p>
+          <h2 className="heading-lg text-t-fg uppercase tracking-tighter leading-[0.75]">Game <br /> Logic.</h2>
+          <p className="body-lg text-t-fg-m font-medium max-w-lg leading-relaxed text-balance">Testing real-time decision making through a strategic Tic-Tac-Toe simulation.</p>
           <div className="pt-10 flex items-center gap-6 opacity-40">
             <div className="h-px flex-1 bg-t-border" />
             <span className="text-[8px] font-black uppercase tracking-widest text-t-fg">Algorithm Sandbox</span>
