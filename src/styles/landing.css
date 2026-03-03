@@ -1,0 +1,43 @@
+/**
+ * Landing Page Styles
+ * 
+ * CSS Grid responsive layout for chapter cards using auto-fit pattern.
+ * Automatically adjusts column count based on available space without hard-coded breakpoints.
+ * 
+ * Pattern: minmax(min(280px, 100%), 1fr)
+ * - 280px: minimum card width (optimal readability)
+ * - 100%: prevents overflow on small screens
+ * - 1fr: cards expand to fill available space
+ * - auto-fit: columns collapse/expand automatically
+ * 
+ * Result:
+ * - Mobile (<640px): 1 column
+ * - Tablet (640-900px): 2 columns
+ * - Desktop (>900px): 3 columns
+ */
+
+.chapter-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 2rem; /* 32px between cards */
+  padding: 2rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .chapter-card-grid {
+    gap: 1.5rem; /* 24px on mobile */
+    padding: 1.5rem;
+  }
+}
+
+/**
+ * Placeholder card styling
+ * Temporary styles for Task 2 - will be replaced by ChapterCard component in 02-02
+ */
+.chapter-card-placeholder {
+  min-height: 120px;
+}
