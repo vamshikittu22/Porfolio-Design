@@ -12,6 +12,7 @@ import SectionLoader from '../components/ui/SectionLoader';
 import { NavigationProvider } from '../contexts/NavigationContext';
 import { ChapterSidebar } from '../components/navigation/ChapterSidebar';
 import { ChapterBottomSheet } from '../components/navigation/ChapterBottomSheet';
+import { ChapterTransition } from '../src/components/transitions/ChapterTransition';
 import {
   HERO_FALLBACK_DARK,
   HERO_FALLBACK_LIGHT,
@@ -197,58 +198,60 @@ const App: React.FC = () => {
       />
 
       <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60 print:p-0">
-        {view === 'portfolio' ? (
-          <>
-            <div id="hero-section">
-              <HeroSection image={activeHeroImage} loading={heroLoading} onScroll={scrollToSection} />
-            </div>
-
-            <div className="space-y-[30rem] lg:space-y-[40rem]">
-              <AboutSection />
-              <div id="career-snapshot-section">
-                <CareerSnapshot />
+        <ChapterTransition>
+          {view === 'portfolio' ? (
+            <>
+              <div id="hero-section">
+                <HeroSection image={activeHeroImage} loading={heroLoading} onScroll={scrollToSection} />
               </div>
 
-              <div id="projects-section-anchor" className="scroll-mt-32">
-                <Suspense fallback={<SectionLoader />}>
-                  <ProjectsSection />
-                </Suspense>
-              </div>
+              <div className="space-y-[30rem] lg:space-y-[40rem]">
+                <AboutSection />
+                <div id="career-snapshot-section">
+                  <CareerSnapshot />
+                </div>
 
-              <div id="github-section-anchor" className="scroll-mt-32">
-                <Suspense fallback={<SectionLoader />}>
-                  <GithubSection />
-                </Suspense>
-              </div>
+                <div id="projects-section-anchor" className="scroll-mt-32">
+                  <Suspense fallback={<SectionLoader />}>
+                    <ProjectsSection />
+                  </Suspense>
+                </div>
 
-              <div id="resume-section-anchor" className="scroll-mt-32">
-                <Suspense fallback={<SectionLoader />}>
-                  <ResumeSection />
-                </Suspense>
-              </div>
+                <div id="github-section-anchor" className="scroll-mt-32">
+                  <Suspense fallback={<SectionLoader />}>
+                    <GithubSection />
+                  </Suspense>
+                </div>
 
-              <div id="game-section-anchor" className="scroll-mt-32">
-                <Suspense fallback={<SectionLoader />}>
-                  <GameSection />
-                </Suspense>
-              </div>
+                <div id="resume-section-anchor" className="scroll-mt-32">
+                  <Suspense fallback={<SectionLoader />}>
+                    <ResumeSection />
+                  </Suspense>
+                </div>
 
-              <div id="travel-section-anchor" className="scroll-mt-32">
-                <Suspense fallback={<SectionLoader />}>
-                  <TravelSection />
-                </Suspense>
-              </div>
+                <div id="game-section-anchor" className="scroll-mt-32">
+                  <Suspense fallback={<SectionLoader />}>
+                    <GameSection />
+                  </Suspense>
+                </div>
 
-              <div id="contact-section-anchor" className="scroll-mt-32">
-                <Suspense fallback={<SectionLoader />}>
-                  <ContactSection />
-                </Suspense>
+                <div id="travel-section-anchor" className="scroll-mt-32">
+                  <Suspense fallback={<SectionLoader />}>
+                    <TravelSection />
+                  </Suspense>
+                </div>
+
+                <div id="contact-section-anchor" className="scroll-mt-32">
+                  <Suspense fallback={<SectionLoader />}>
+                    <ContactSection />
+                  </Suspense>
+                </div>
               </div>
-            </div>
-          </>
-        ) : (
-          <PortfolioCaseStudy onBack={() => setView('portfolio')} />
-        )}
+            </>
+          ) : (
+            <PortfolioCaseStudy onBack={() => setView('portfolio')} />
+          )}
+        </ChapterTransition>
       </main>
 
       <FooterBar onScrollToTop={handleScrollToTop} onOpenCaseStudy={() => setView('case-study')} />
