@@ -111,10 +111,14 @@ Plans:
   1. Glass morphism effects render at 60fps during scrolling
   2. Chapter content lazy-loads to maintain fast initial load
   3. Landing page loads in under 3 seconds
-**Plans**: TBD
+  4. Main bundle size reduced to under 300kB (from 683kB)
+  5. Lighthouse Performance score > 90 on all pages
+**Plans**: 3 plans in 3 waves
 
 Plans:
-- [ ] 06-01: TBD during planning
+- [ ] 06-01-PLAN.md — Bundle optimization & code splitting (manual chunks, vendor splitting, CSS fixes)
+- [ ] 06-02-PLAN.md — Glass morphism performance tuning (GPU acceleration, scroll debouncing, reduced motion)
+- [ ] 06-03-PLAN.md — Advanced optimizations & lazy loading (ChatAssistant dynamic import, font optimization, critical CSS)
 
 ## Progress
 
@@ -126,10 +130,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Navigation Architecture & State Foundation | 3/3 | ✓ Complete | 2026-03-03 |
 | 2. Landing Page & Chapter Cards | 2/2 | ✓ Complete | 2026-03-03 |
 | 3. Chapter Reader & Navigation UX | 4/4 | ✓ Complete | 2026-03-03 |
-| 4. Visual Theming & Glass Morphism | 0/3 | Planned | - |
-| 5. AI Chapter Companion | 0/2 | Planned | - |
-| 6. Performance Optimization | 0/1 | Not started | - |
+| 4. Visual Theming & Glass Morphism | 3/3 | ✓ Complete | 2026-03-03 |
+| 5. AI Chapter Companion | 2/2 | Planned | - |
+| 6. Performance Optimization | 0/3 | Planned | - |
 
 ---
 *Created: 2026-03-02*
-*Last updated: 2026-03-03 after Phase 5 planning*
+*Last updated: 2026-03-03 after Phase 6 planning*

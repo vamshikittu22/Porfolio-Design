@@ -6,8 +6,9 @@
  * 
  * Features:
  * - 10px threshold to prevent jitter on small movements
- * - 50ms debounce to reduce state updates
+ * - requestAnimationFrame debouncing for optimal performance
  * - Returns 'none' at top of page or on initial mount
+ * - Passive scroll listener for better scroll performance
  * - Cleans up listeners on unmount
  * 
  * Usage:
@@ -67,14 +68,10 @@ function useScrollDirection(): ScrollDirection {
     };
 
     const handleScroll = () => {
-      // Debounce using requestAnimationFrame (better than setTimeout for scroll)
+      // Debounce using requestAnimationFrame - syncs with browser repaint cycle
       if (!ticking.current) {
         ticking.current = true;
-        
-        // Add 50ms delay for additional debouncing
-        setTimeout(() => {
-          window.requestAnimationFrame(updateScrollDirection);
-        }, 50);
+        window.requestAnimationFrame(updateScrollDirection);
       }
     };
 
