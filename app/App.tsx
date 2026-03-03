@@ -2,6 +2,7 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { GeminiService } from '../services/geminiService';
 import { HeaderNav } from '../components/layout/HeaderNav';
 import FooterBar from '../components/layout/FooterBar';
+// TODO: Remove after verifying chapter-only navigation (sections now composed into chapters)
 import { HeroSection } from '../sections/hero/HeroSection';
 import { AboutSection } from '../sections/about/AboutSection';
 import CareerSnapshot from '../sections/career/CareerSnapshot';
@@ -14,6 +15,14 @@ import { ChapterSidebar } from '../components/navigation/ChapterSidebar';
 import { ChapterBottomSheet } from '../components/navigation/ChapterBottomSheet';
 import { ChapterTransition } from '../src/components/transitions/ChapterTransition';
 import LandingPage from '../src/pages/LandingPage';
+import {
+  Chapter01Introduction,
+  Chapter02Builder,
+  Chapter03Journey,
+  Chapter04Explorer,
+  Chapter05Thinker,
+  Chapter06Connection
+} from '../src/pages/chapters';
 import {
   HERO_FALLBACK_DARK,
   HERO_FALLBACK_LIGHT,
@@ -209,17 +218,15 @@ const AppContent: React.FC = () => {
             // No chapter selected - show landing page with all chapter cards
             <LandingPage />
           ) : (
-            // Chapter selected - show chapter content (placeholder for Phase 3)
-            <div className="chapter-view min-h-screen flex items-center justify-center">
-              <div className="text-center">
-                <h1 className="text-4xl font-bold text-t-primary mb-4">
-                  Chapter: {currentChapter}
-                </h1>
-                <p className="text-t-secondary">
-                  Chapter content implementation coming in Phase 3
-                </p>
-              </div>
-            </div>
+            // Chapter selected - route to appropriate chapter component
+            <>
+              {currentChapter === '01-introduction' && <Chapter01Introduction />}
+              {currentChapter === '02-builder' && <Chapter02Builder />}
+              {currentChapter === '03-journey' && <Chapter03Journey />}
+              {currentChapter === '04-explorer' && <Chapter04Explorer />}
+              {currentChapter === '05-thinker' && <Chapter05Thinker />}
+              {currentChapter === '06-connection' && <Chapter06Connection />}
+            </>
           )}
         </ChapterTransition>
       </main>
