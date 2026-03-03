@@ -17,10 +17,12 @@
  * - Reduced motion: instant appearance (no animation)
  */
 
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { CHAPTERS } from '../../../data/chapters';
 import useReducedMotion from '../../hooks/useReducedMotion';
+import { ChapterCard } from './ChapterCard';
 import '../../styles/landing.css';
+import '../../styles/glass-cards.css';
 
 export function ChapterCardGrid() {
   const prefersReducedMotion = useReducedMotion();
@@ -49,7 +51,7 @@ export function ChapterCardGrid() {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.3, ease: 'easeOut' }
+      transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] } // easeOut cubic-bezier
     }
   };
 
@@ -64,22 +66,8 @@ export function ChapterCardGrid() {
         <motion.div 
           key={chapter.id}
           variants={prefersReducedMotion ? {} : cardVariants}
-          className="chapter-card-placeholder"
         >
-          {/* Placeholder content - actual ChapterCard in 02-02 */}
-          <div className="p-6 border border-white/20 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors duration-200">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-2xl font-bold text-t-accent">
-                {chapter.number}
-              </span>
-              <h3 className="text-xl font-semibold text-t-primary">
-                {chapter.title}
-              </h3>
-            </div>
-            <p className="text-sm text-t-secondary">
-              {chapter.description}
-            </p>
-          </div>
+          <ChapterCard chapter={chapter} />
         </motion.div>
       ))}
     </motion.div>
