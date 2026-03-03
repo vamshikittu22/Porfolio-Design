@@ -63,12 +63,13 @@ Plans:
   2. Each chapter blends professional work with personal growth/habits
   3. Blueprint/Case Study remains accessible separate from chapter flow
   4. Chapter transitions are smooth without jank
-**Plans**: TBD
+**Plans**: 4 plans in 3 waves
 
 Plans:
-- [ ] 03-01: TBD during planning
-- [ ] 03-02: TBD during planning
-- [ ] 03-03: TBD during planning
+- [ ] 03-01-PLAN.md — Chapter container infrastructure with progress bar and keyboard navigation
+- [ ] 03-02-PLAN.md — Chapters 1-3 (Introduction, Builder, Journey)
+- [ ] 03-03-PLAN.md — Chapters 4-6 (Explorer, Thinker, Connection)
+- [ ] 03-04-PLAN.md — Chapter routing integration with verification checkpoint
 
 ### Phase 4: Visual Theming & Glass Morphism
 **Goal**: Every chapter has consistent visual identity using glass morphism with theme support
@@ -121,7 +122,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Navigation Architecture & State Foundation | 3/3 | ✓ Complete | 2026-03-03 |
 | 2. Landing Page & Chapter Cards | 2/2 | ✓ Complete | 2026-03-03 |
-| 3. Chapter Reader & Navigation UX | 0/3 | Not started | - |
+| 3. Chapter Reader & Navigation UX | 0/4 | Not started | - |
 | 4. Visual Theming & Glass Morphism | 0/2 | Not started | - |
 | 5. AI Chapter Companion | 0/2 | Not started | - |
 | 6. Performance Optimization | 0/1 | Not started | - |
