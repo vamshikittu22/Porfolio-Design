@@ -205,12 +205,14 @@ const AppContent: React.FC = () => {
         />
       )}
 
-      <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60 print:p-0">
+      <main className="print:p-0">
         <ChapterTransition>
           {/* Chapter-based routing: Landing page vs Chapter view */}
           {currentChapter === null ? (
             // No chapter selected - show landing page with all chapter cards
-            <LandingPage />
+            <div className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60">
+              <LandingPage />
+            </div>
           ) : (
             // Chapter selected - route to appropriate chapter component
             <>

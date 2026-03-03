@@ -35,23 +35,21 @@ export function Chapter01Introduction() {
   
   return (
     <ChapterContainer chapterId="01-introduction">
-      <article className="space-y-20">
-        {/* Hero Section - Above the fold introduction */}
+      <article>
+        {/* Hero Section - Full screen above the fold */}
         <Suspense fallback={<SectionLoader />}>
-          <section>
-            <HeroSection 
-              image={heroImage}
-              loading={heroLoading}
-              onScroll={handleScroll}
-            />
-          </section>
+          <HeroSection 
+            image={heroImage}
+            loading={heroLoading}
+            onScroll={handleScroll}
+          />
         </Suspense>
         
-        {/* About Section - Skills and background */}
+        {/* About Section - Constrained width with padding */}
         <Suspense fallback={<SectionLoader />}>
-          <section>
+          <div className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20">
             <AboutSection />
-          </section>
+          </div>
         </Suspense>
       </article>
     </ChapterContainer>

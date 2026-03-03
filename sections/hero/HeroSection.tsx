@@ -33,15 +33,16 @@ export const HeroSection: React.FC<HeroProps> = ({ image, loading, onScroll }) =
   return (
     <section
       id="hero-section"
-      className="relative min-h-screen flex items-center justify-center py-20 mb-[20rem] lg:mb-[30rem] print:hidden overflow-visible"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
       onMouseMove={handleMouseMove}
       aria-labelledby="hero-title"
     >
-      <div className="absolute inset-0 z-0">
+      {/* Full-screen background */}
+      <div className="fixed inset-0 z-0">
         <NameBackground />
       </div>
 
-      <div className="grid lg:grid-cols-[1.4fr_0.6fr] gap-12 lg:gap-24 items-center w-full relative z-20">
+      <div className="container max-w-[1440px] mx-auto px-10 lg:px-32 grid lg:grid-cols-[1.4fr_0.6fr] gap-12 lg:gap-24 items-center w-full relative z-20">
         <div className="space-y-16 animate-in fade-in slide-in-from-left duration-1000">
           <div className="space-y-4">
             <div className="flex items-center gap-4">
