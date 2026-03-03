@@ -6,11 +6,12 @@ import FooterBar from '../components/layout/FooterBar';
 import { HeroSection } from '../sections/hero/HeroSection';
 import { AboutSection } from '../sections/about/AboutSection';
 import CareerSnapshot from '../sections/career/CareerSnapshot';
-import ChatAssistant from '../components/layout/ChatAssistant/ChatAssistant';
+import ChatAssistant from '../components/layout/ChatAssistant';
 import PortfolioCaseStudy from '../sections/case-study/PortfolioCaseStudy';
 import { BlueprintLauncher } from '../components/layout/BlueprintLauncher';
 import SectionLoader from '../components/ui/SectionLoader';
 import { NavigationProvider, useNavigation } from '../contexts/NavigationContext';
+import { ThemeProvider, useTheme } from '../src/contexts/ThemeContext';
 import { ChapterSidebar } from '../components/navigation/ChapterSidebar';
 import { ChapterBottomSheet } from '../components/navigation/ChapterBottomSheet';
 import { ChapterTransition } from '../src/components/transitions/ChapterTransition';
@@ -45,15 +46,15 @@ const ContactSection = lazy(() => import('../sections/contact/ContactSection'));
  */
 const AppContent: React.FC = () => {
   const { currentChapter } = useNavigation();
+  const { resolvedTheme } = useTheme();
   const [view, setView] = useState<'portfolio' | 'case-study'>('portfolio');
   const [heroImage, setHeroImage] = useState<string | null>(null);
   const [heroLoading, setHeroLoading] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const saved = localStorage.getItem('theme');
-    return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  });
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('hero-section');
+
+  // Derived from ThemeContext
+  const isDarkMode = resolvedTheme === 'dark';
 
   useEffect(() => {
     const handleScroll = () => { setScrolled(window.scrollY > 150); };
@@ -139,16 +140,6 @@ const AppContent: React.FC = () => {
     return () => preloadObserver.disconnect();
   }, [view]);
 
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDarkMode]);
-
   const generateHero = async () => {
     const gemini = GeminiService.getInstance();
     setHeroLoading(true);
@@ -208,7 +199,7 @@ const AppContent: React.FC = () => {
           isDarkMode={isDarkMode}
           onScrollToSection={scrollToSection}
           onScrollToTop={handleScrollToTop}
-          onToggleTheme={() => setIsDarkMode(!isDarkMode)}
+          onToggleTheme={() => {}} // Theme now managed by ThemeToggle component
           onGoHome={() => setView('portfolio')}
           isCaseStudyView={view === 'case-study'}
         />
@@ -241,14 +232,16 @@ const AppContent: React.FC = () => {
 };
 
 /**
- * App - Root component with NavigationProvider wrapper
- * Provides chapter navigation context to all child components
+ * App - Root component with NavigationProvider and ThemeProvider wrappers
+ * Provides chapter navigation and theme context to all child components
  */
 const App: React.FC = () => {
   return (
-    <NavigationProvider>
-      <AppContent />
-    </NavigationProvider>
+    <ThemeProvider>
+      <NavigationProvider>
+        <AppContent />
+      </NavigationProvider>
+    </ThemeProvider>
   );
 };
 

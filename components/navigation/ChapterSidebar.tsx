@@ -25,6 +25,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigation } from '../../contexts/NavigationContext';
 import useScrollDirection from '../../hooks/useScrollDirection';
 import { CHAPTERS } from '../../data/chapters';
+import { ThemeToggle } from '../../src/components/ui/ThemeToggle';
 
 export const ChapterSidebar: React.FC = () => {
   const { currentChapter, navigateToChapter, isMenuOpen } = useNavigation();
@@ -177,6 +178,11 @@ export const ChapterSidebar: React.FC = () => {
             </div>
           );
         })}
+      </div>
+
+      {/* Theme Toggle - at bottom of sidebar */}
+      <div className="mt-6 pt-6 border-t border-t-border/20">
+        <ThemeToggle />
       </div>
     </motion.nav>
   );
