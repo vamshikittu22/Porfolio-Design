@@ -9,10 +9,11 @@ import ChatAssistant from '../components/layout/ChatAssistant/ChatAssistant';
 import PortfolioCaseStudy from '../sections/case-study/PortfolioCaseStudy';
 import { BlueprintLauncher } from '../components/layout/BlueprintLauncher';
 import SectionLoader from '../components/ui/SectionLoader';
-import { NavigationProvider } from '../contexts/NavigationContext';
+import { NavigationProvider, useNavigation } from '../contexts/NavigationContext';
 import { ChapterSidebar } from '../components/navigation/ChapterSidebar';
 import { ChapterBottomSheet } from '../components/navigation/ChapterBottomSheet';
 import { ChapterTransition } from '../src/components/transitions/ChapterTransition';
+import LandingPage from '../src/pages/LandingPage';
 import {
   HERO_FALLBACK_DARK,
   HERO_FALLBACK_LIGHT,
@@ -29,7 +30,12 @@ const GameSection = lazy(() => import('../sections/game/GameSection'));
 const TravelSection = lazy(() => import('../sections/travel/TravelSection'));
 const ContactSection = lazy(() => import('../sections/contact/ContactSection'));
 
-const App: React.FC = () => {
+/**
+ * AppContent - Inner component that uses NavigationContext
+ * Separated to allow useNavigation hook usage within NavigationProvider
+ */
+const AppContent: React.FC = () => {
+  const { currentChapter } = useNavigation();
   const [view, setView] = useState<'portfolio' | 'case-study'>('portfolio');
   const [heroImage, setHeroImage] = useState<string | null>(null);
   const [heroLoading, setHeroLoading] = useState(false);
@@ -171,20 +177,19 @@ const App: React.FC = () => {
   const activeHeroImage = heroImage || (isDarkMode ? HERO_FALLBACK_DARK : HERO_FALLBACK_LIGHT);
 
   return (
-    <NavigationProvider>
-      <div className="min-h-screen relative selection:bg-t-accent selection:text-t-bg bg-t-bg transition-colors duration-500 overflow-x-hidden">
-        <div className="fixed inset-0 pointer-events-none z-[-1] opacity-15 dark:opacity-20 print:hidden">
-          <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-t-accent-s/40 blur-[200px] rounded-full" />
-        </div>
+    <div className="min-h-screen relative selection:bg-t-accent selection:text-t-bg bg-t-bg transition-colors duration-500 overflow-x-hidden">
+      <div className="fixed inset-0 pointer-events-none z-[-1] opacity-15 dark:opacity-20 print:hidden">
+        <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-t-accent-s/40 blur-[200px] rounded-full" />
+      </div>
 
-        {/* Chapter Navigation UI */}
-        <ChapterSidebar />
-        <ChapterBottomSheet />
+      {/* Chapter Navigation UI */}
+      <ChapterSidebar />
+      <ChapterBottomSheet />
 
-        <BlueprintLauncher
-          onOpen={() => setView('case-study')}
-          visible={view === 'portfolio'}
-        />
+      <BlueprintLauncher
+        onOpen={() => setView('case-study')}
+        visible={view === 'portfolio'}
+      />
 
       <HeaderNav
         scrolled={scrolled}
@@ -199,57 +204,22 @@ const App: React.FC = () => {
 
       <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60 print:p-0">
         <ChapterTransition>
-          {view === 'portfolio' ? (
-            <>
-              <div id="hero-section">
-                <HeroSection image={activeHeroImage} loading={heroLoading} onScroll={scrollToSection} />
-              </div>
-
-              <div className="space-y-[30rem] lg:space-y-[40rem]">
-                <AboutSection />
-                <div id="career-snapshot-section">
-                  <CareerSnapshot />
-                </div>
-
-                <div id="projects-section-anchor" className="scroll-mt-32">
-                  <Suspense fallback={<SectionLoader />}>
-                    <ProjectsSection />
-                  </Suspense>
-                </div>
-
-                <div id="github-section-anchor" className="scroll-mt-32">
-                  <Suspense fallback={<SectionLoader />}>
-                    <GithubSection />
-                  </Suspense>
-                </div>
-
-                <div id="resume-section-anchor" className="scroll-mt-32">
-                  <Suspense fallback={<SectionLoader />}>
-                    <ResumeSection />
-                  </Suspense>
-                </div>
-
-                <div id="game-section-anchor" className="scroll-mt-32">
-                  <Suspense fallback={<SectionLoader />}>
-                    <GameSection />
-                  </Suspense>
-                </div>
-
-                <div id="travel-section-anchor" className="scroll-mt-32">
-                  <Suspense fallback={<SectionLoader />}>
-                    <TravelSection />
-                  </Suspense>
-                </div>
-
-                <div id="contact-section-anchor" className="scroll-mt-32">
-                  <Suspense fallback={<SectionLoader />}>
-                    <ContactSection />
-                  </Suspense>
-                </div>
-              </div>
-            </>
+          {/* Chapter-based routing: Landing page vs Chapter view */}
+          {currentChapter === null ? (
+            // No chapter selected - show landing page with all chapter cards
+            <LandingPage />
           ) : (
-            <PortfolioCaseStudy onBack={() => setView('portfolio')} />
+            // Chapter selected - show chapter content (placeholder for Phase 3)
+            <div className="chapter-view min-h-screen flex items-center justify-center">
+              <div className="text-center">
+                <h1 className="text-4xl font-bold text-t-primary mb-4">
+                  Chapter: {currentChapter}
+                </h1>
+                <p className="text-t-secondary">
+                  Chapter content implementation coming in Phase 3
+                </p>
+              </div>
+            </div>
           )}
         </ChapterTransition>
       </main>
@@ -257,6 +227,17 @@ const App: React.FC = () => {
       <FooterBar onScrollToTop={handleScrollToTop} onOpenCaseStudy={() => setView('case-study')} />
       <ChatAssistant />
     </div>
+  );
+};
+
+/**
+ * App - Root component with NavigationProvider wrapper
+ * Provides chapter navigation context to all child components
+ */
+const App: React.FC = () => {
+  return (
+    <NavigationProvider>
+      <AppContent />
     </NavigationProvider>
   );
 };
