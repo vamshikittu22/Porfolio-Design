@@ -9,6 +9,9 @@ import ChatAssistant from '../components/layout/ChatAssistant/ChatAssistant';
 import PortfolioCaseStudy from '../sections/case-study/PortfolioCaseStudy';
 import { BlueprintLauncher } from '../components/layout/BlueprintLauncher';
 import SectionLoader from '../components/ui/SectionLoader';
+import { NavigationProvider } from '../contexts/NavigationContext';
+import { ChapterSidebar } from '../components/navigation/ChapterSidebar';
+import { ChapterBottomSheet } from '../components/navigation/ChapterBottomSheet';
 import {
   HERO_FALLBACK_DARK,
   HERO_FALLBACK_LIGHT,
@@ -167,15 +170,20 @@ const App: React.FC = () => {
   const activeHeroImage = heroImage || (isDarkMode ? HERO_FALLBACK_DARK : HERO_FALLBACK_LIGHT);
 
   return (
-    <div className="min-h-screen relative selection:bg-t-accent selection:text-t-bg bg-t-bg transition-colors duration-500 overflow-x-hidden">
-      <div className="fixed inset-0 pointer-events-none z-[-1] opacity-15 dark:opacity-20 print:hidden">
-        <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-t-accent-s/40 blur-[200px] rounded-full" />
-      </div>
+    <NavigationProvider>
+      <div className="min-h-screen relative selection:bg-t-accent selection:text-t-bg bg-t-bg transition-colors duration-500 overflow-x-hidden">
+        <div className="fixed inset-0 pointer-events-none z-[-1] opacity-15 dark:opacity-20 print:hidden">
+          <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-t-accent-s/40 blur-[200px] rounded-full" />
+        </div>
 
-      <BlueprintLauncher
-        onOpen={() => setView('case-study')}
-        visible={view === 'portfolio'}
-      />
+        {/* Chapter Navigation UI */}
+        <ChapterSidebar />
+        <ChapterBottomSheet />
+
+        <BlueprintLauncher
+          onOpen={() => setView('case-study')}
+          visible={view === 'portfolio'}
+        />
 
       <HeaderNav
         scrolled={scrolled}
@@ -246,6 +254,7 @@ const App: React.FC = () => {
       <FooterBar onScrollToTop={handleScrollToTop} onOpenCaseStudy={() => setView('case-study')} />
       <ChatAssistant />
     </div>
+    </NavigationProvider>
   );
 };
 
