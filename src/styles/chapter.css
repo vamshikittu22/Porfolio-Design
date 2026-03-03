@@ -1,0 +1,152 @@
+/**
+ * Chapter Styles
+ * 
+ * Global styles for chapter reading experience.
+ * Includes theming, glass morphism utilities, GPU optimization, and print styles.
+ */
+
+/* ============================================================================
+   CSS Custom Properties - Chapter Theming
+   ============================================================================ */
+
+:root {
+  /* Accent color for progress bar and interactive elements */
+  --accent-color: rgb(59, 130, 246); /* Tailwind blue-500 */
+  
+  /* Background RGB values for glass morphism calculations */
+  --background-rgb: 255, 255, 255; /* Light mode default */
+}
+
+/* Dark mode theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-rgb: 15, 23, 42; /* Tailwind slate-900 */
+  }
+}
+
+/* ============================================================================
+   Glass Morphism Utilities
+   ============================================================================ */
+
+.glass-morphism {
+  position: relative;
+}
+
+/* Backdrop filter support with progressive enhancement */
+@supports (backdrop-filter: blur(12px)) {
+  .glass-morphism {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* Safari support */
+  }
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(12px)) {
+  .glass-morphism {
+    background: rgba(var(--background-rgb), 0.95) !important;
+  }
+}
+
+/* ============================================================================
+   Chapter Container Spacing
+   ============================================================================ */
+
+.chapter-container {
+  /* Responsive padding */
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .chapter-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .chapter-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* ============================================================================
+   Progress Bar GPU Optimization
+   ============================================================================ */
+
+.chapter-progress-bar {
+  /* Force GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .chapter-progress-bar {
+    will-change: auto;
+    transition: none !important;
+  }
+}
+
+/* ============================================================================
+   Skip Link Accessibility
+   ============================================================================ */
+
+.skip-link {
+  /* Screen reader only by default */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.skip-link:focus {
+  /* Visible when focused */
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ============================================================================
+   Print Styles
+   ============================================================================ */
+
+@media print {
+  /* Hide progress bar in print */
+  .chapter-progress-bar {
+    display: none !important;
+  }
+  
+  /* Hide navigation chrome */
+  .chapter-header,
+  .chapter-footer {
+    display: none !important;
+  }
+  
+  /* Skip link not needed in print */
+  .skip-link {
+    display: none !important;
+  }
+  
+  /* Optimize main content for printing */
+  .chapter-container {
+    min-height: auto;
+    padding: 0;
+  }
+  
+  main {
+    page-break-inside: avoid;
+  }
+}
