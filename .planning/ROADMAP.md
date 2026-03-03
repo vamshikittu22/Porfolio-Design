@@ -31,12 +31,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. User can jump to any chapter from the menu
   4. Chapter menu works on mobile with touch-friendly targets
   5. User can return to landing page from any chapter
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 01-01: TBD during planning
-- [ ] 01-02: TBD during planning
-- [ ] 01-03: TBD during planning
+- [ ] 01-01-PLAN.md — Chapter registry, navigation context, and TypeScript types
+- [ ] 01-02-PLAN.md — Desktop sidebar and mobile bottom sheet UI components
+- [ ] 01-03-PLAN.md — Chapter transitions with fade animation and scroll management
 
 ### Phase 2: Landing Page & Chapter Cards
 **Goal**: Users can discover and access all chapters through an engaging card-based landing page
