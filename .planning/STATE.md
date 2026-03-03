@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-03-02)
 ## Current Position
 
 Phase: 1 of 6 (Navigation Architecture & State Foundation)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-03-03 — Completed 01-01-PLAN.md (Navigation Architecture & State Foundation)
+Last activity: 2026-03-03 — Completed 01-02-PLAN.md (Responsive Chapter Navigation UI)
 
-Progress: [█░░░░░░░░░] 8% (1/13 total plans)
+Progress: [██░░░░░░░░] 15% (2/13 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 7 min
-- Total execution time: 0.12 hours
+- Total plans completed: 2
+- Average duration: 6 min
+- Total execution time: 0.20 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1 - Navigation Architecture | 1 | 7 min | 7 min |
+| 1 - Navigation Architecture | 2 | 12 min | 6 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (7 min)
-- Trend: Baseline established
+- Last 5 plans: 01-01 (7 min), 01-02 (5 min)
+- Trend: Consistent velocity
 
 *Updated after each plan completion*
 
@@ -46,6 +46,10 @@ Recent decisions affecting current work:
 - React Context API for state management - sufficient scope, no external dependencies (01-01)
 - NavigationType enum (sequential vs jump) to control scroll behavior (01-01)
 - 300ms transition duration for responsive feel (01-01)
+- Scroll direction hook with 10px threshold to prevent jitter (01-02)
+- Auto-hide sidebar on scroll down, show on scroll up or when menu open (01-02)
+- Horizontal scrollable grid for mobile (better thumb reach) (01-02)
+- 44px minimum touch targets for WCAG compliance on mobile (01-02)
 - Landing page + immersive chapters: Combines discoverability (cards) with focused reading (full-screen chapters)
 - Book-like navigation with freedom: Sequential suggestion respects narrative flow; jump-to-any respects user agency
 - AI chatbot as navigation companion: Leverages existing Gemini integration; adds utility beyond content Q&A
@@ -63,14 +67,14 @@ None yet.
 - Performance budget critical: 60fps scroll, <3s load, Lighthouse >90
 
 **From Execution:**
-- Need placeholder chapter icons at `/icons/chapters/*.svg` before building UI components in 01-02
+- ~~Need placeholder chapter icons at `/icons/chapters/*.svg` before building UI components in 01-02~~ ✓ NOTED: Components created with number-only UI, icons deferred to future (TODOs added)
 
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 01-01-PLAN.md - ready for 01-02-PLAN.md
+Stopped at: Completed 01-02-PLAN.md - ready for 01-03-PLAN.md
 Resume file: None
 
 ---
 *Created: 2026-03-02*
-*Last updated: 2026-03-03 after completing 01-01-PLAN.md*
+*Last updated: 2026-03-03 after completing 01-02-PLAN.md*
