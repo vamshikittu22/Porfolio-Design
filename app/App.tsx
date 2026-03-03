@@ -6,7 +6,7 @@ import FooterBar from '../components/layout/FooterBar';
 import { HeroSection } from '../sections/hero/HeroSection';
 import { AboutSection } from '../sections/about/AboutSection';
 import CareerSnapshot from '../sections/career/CareerSnapshot';
-import ChatAssistant from '../components/layout/ChatAssistant';
+import ChatAssistant from '../components/layout/ChatAssistant/ChatAssistant';
 import PortfolioCaseStudy from '../sections/case-study/PortfolioCaseStudy';
 import { BlueprintLauncher } from '../components/layout/BlueprintLauncher';
 import SectionLoader from '../components/ui/SectionLoader';
