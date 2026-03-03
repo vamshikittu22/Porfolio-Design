@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import custom styles */
+@import './styles/glass-cards.css';
+@import './styles/glass-morphism.css';
+@import './styles/landing.css';
+@import './styles/chapter.css';
