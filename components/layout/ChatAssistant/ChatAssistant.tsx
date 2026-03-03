@@ -1,8 +1,11 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ChatService, ChatMessage } from '../../../services/chatService';
 import { GlassCard } from '../../ui/GlassUI';
+import { useNavigation } from '../../../contexts/NavigationContext';
+import { ChapterId } from '../../../types/chapters';
+import { getChapterById } from '../../../data/chapters';
 
 // --- MINIMALIST LIVING AI CORE ---
 const LivingAICore = ({ isHovered, isOpen }: { isHovered: boolean; isOpen: boolean }) => {
@@ -70,6 +73,7 @@ const LivingAICore = ({ isHovered, isOpen }: { isHovered: boolean; isOpen: boole
 };
 
 const ChatAssistant: React.FC = () => {
+  const { currentChapter } = useNavigation();
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -79,12 +83,48 @@ const ChatAssistant: React.FC = () => {
   const chatService = ChatService.getInstance();
   const reducedMotion = useReducedMotion();
 
-  const SUGGESTIONS = [
-    { label: "Summarize profile", query: "Summarize Vamshi's profile for a recruiter." },
-    { label: "Top 3 projects", query: "Tell me about your top 3 software projects." },
-    { label: "Backend experience", query: "What is your experience with backend development and .NET?" },
-    { label: "Work auth", query: "What is your current work authorization status?" },
-  ];
+  // Dynamic suggestions based on chapter
+  const SUGGESTIONS = useMemo(() => {
+    const baseSuggestions = [
+      { label: "Summarize profile", query: "Summarize Vamshi's profile for a recruiter." },
+    ];
+
+    const chapterSuggestions: Record<ChapterId, Array<{ label: string; query: string }>> = {
+      '01-introduction': [
+        { label: "Who is Vamshi?", query: "Give me a brief introduction to Vamshi." },
+        { label: "What's next?", query: "What chapters should I explore next?" },
+        { label: "Core strengths", query: "What are Vamshi's core technical strengths?" },
+      ],
+      '02-builder': [
+        { label: "Top 3 projects", query: "Tell me about your top 3 software projects." },
+        { label: "Related chapters", query: "Which other chapters relate to technical work?" },
+        { label: "Tech stack", query: "What technologies does Vamshi work with?" },
+      ],
+      '03-journey': [
+        { label: "Career path", query: "Walk me through Vamshi's career journey." },
+        { label: "Explore more", query: "What else can I learn about Vamshi?" },
+        { label: "Work auth", query: "What is Vamshi's current work authorization status?" },
+      ],
+      '04-explorer': [
+        { label: "Travel stories", query: "Tell me about Vamshi's travel experiences." },
+        { label: "More chapters", query: "What other chapters are available?" },
+      ],
+      '05-thinker': [
+        { label: "AI expertise", query: "What AI technologies does Vamshi work with?" },
+        { label: "Navigation help", query: "How do I navigate between chapters?" },
+      ],
+      '06-connection': [
+        { label: "How to contact", query: "How can I get in touch with Vamshi?" },
+        { label: "Start over", query: "Take me back to the beginning." },
+      ],
+    };
+
+    if (!currentChapter) {
+      return baseSuggestions;
+    }
+
+    return chapterSuggestions[currentChapter] || baseSuggestions;
+  }, [currentChapter]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -101,7 +141,8 @@ const ChatAssistant: React.FC = () => {
     setInput('');
     setIsLoading(true);
 
-    const reply = await chatService.sendMessage(textToSend);
+    // Pass current chapter context to ChatService
+    const reply = await chatService.sendMessage(textToSend, currentChapter);
     const botMsg: ChatMessage = { role: 'model', text: reply };
     
     setMessages(prev => [...prev, botMsg]);
@@ -109,7 +150,10 @@ const ChatAssistant: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-[200] print:hidden">
+    <div 
+      className="fixed bottom-8 right-8 z-[200] print:hidden"
+      data-chapter={currentChapter || undefined} // Apply chapter context
+    >
       {/* Launcher Button - Minimal Swiss Style */}
       <motion.button
         onMouseEnter={() => setIsHovered(true)}
@@ -158,7 +202,12 @@ const ChatAssistant: React.FC = () => {
                     <h3 className="text-base font-black uppercase tracking-[0.2em] text-t-fg">VK Neural</h3>
                     <div className="flex items-center gap-1.5 mt-0.5 opacity-60">
                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <p className="text-[9px] font-bold text-t-fg-m uppercase tracking-widest">Active Intelligence</p>
+                      <p className="text-[9px] font-bold text-t-fg-m uppercase tracking-widest">
+                        {currentChapter 
+                          ? `Chapter ${getChapterById(currentChapter)?.number || ''} Context` 
+                          : 'Landing Page'
+                        }
+                      </p>
                     </div>
                   </div>
                 </div>

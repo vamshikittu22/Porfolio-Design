@@ -97,11 +97,11 @@ Plans:
   2. AI chatbot can inject chapter context into conversation
   3. Chatbot remains accessible across all chapters (overlay/sidebar)
   4. Chatbot uses existing Gemini integration with enhanced context
-**Plans**: TBD
+**Plans**: 2 plans in 2 waves
 
 Plans:
-- [ ] 05-01: TBD during planning
-- [ ] 05-02: TBD during planning
+- [ ] 05-01-PLAN.md — Chapter context awareness (registry, NavigationContext integration, dynamic suggestions)
+- [ ] 05-02-PLAN.md — AI navigation assistant (enhanced capabilities, theme integration, chapter indicator)
 
 ### Phase 6: Performance Optimization
 **Goal**: Portfolio loads fast and runs smoothly with glass morphism effects
@@ -127,9 +127,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Landing Page & Chapter Cards | 2/2 | ✓ Complete | 2026-03-03 |
 | 3. Chapter Reader & Navigation UX | 4/4 | ✓ Complete | 2026-03-03 |
 | 4. Visual Theming & Glass Morphism | 0/3 | Planned | - |
-| 5. AI Chapter Companion | 0/2 | Not started | - |
+| 5. AI Chapter Companion | 0/2 | Planned | - |
 | 6. Performance Optimization | 0/1 | Not started | - |
 
 ---
 *Created: 2026-03-02*
-*Last updated: 2026-03-03 after Phase 4 planning*
+*Last updated: 2026-03-03 after Phase 5 planning*

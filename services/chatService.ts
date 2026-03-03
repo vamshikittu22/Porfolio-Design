@@ -1,6 +1,9 @@
 import { GoogleGenAI } from "@google/genai";
 import { FULL_NAME, EMAIL } from "../config/constants";
 import { RESUME_CONTENT } from "../sections/resume/data/ResumeData";
+import { getChapterContext } from '../data/chapterContent';
+import { ChapterId } from '../types/chapters';
+import { CHAPTERS } from '../data/chapters';
 
 export interface ChatMessage {
   role: 'user' | 'model';
@@ -18,12 +21,14 @@ export class ChatService {
     return this.instance;
   }
 
-  private getContext(): string {
+  private getContext(currentChapter: ChapterId | null): string {
     const expCtx = RESUME_CONTENT.experience.map(e => `
       Role: ${e.title} at ${e.subtitle}
       Period: ${e.period}
       Summary: ${e.description.join(' ')}
     `).join('\n');
+
+    const chapterCtx = getChapterContext(currentChapter); // Add chapter context
 
     /**
      * Fix: Replaced invalid 'technicalInfrastructure' with the correct 'technicalSkills' 
@@ -40,19 +45,40 @@ export class ChatService {
       Cloud: ${RESUME_CONTENT.technicalSkills.cloud.join(', ')}
       Databases: ${RESUME_CONTENT.technicalSkills.databases.join(', ')}
       Email: ${EMAIL}
+      
+      ${chapterCtx}
     `;
   }
 
-  async sendMessage(message: string): Promise<string> {
+  async sendMessage(message: string, currentChapter: ChapterId | null = null): Promise<string> {
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      const context = this.getContext();
+      const context = this.getContext(currentChapter); // Pass chapter to context builder
+
+      // Build chapter navigation map for AI
+      const chapterMap = CHAPTERS.map(ch => 
+        `${ch.number}. ${ch.title} (${ch.id}): ${ch.description}`
+      ).join('\n');
 
       const systemInstruction = `
         You are the AI portfolio assistant for ${FULL_NAME}.
-        Ground all your answers strictly in the provided resume data.
+        Ground all your answers strictly in the provided resume data and current chapter context.
         If asked about experience, highlight the 5+ years of full-stack expertise and recent roles at CVS Health and Citadel.
+        Tailor your responses to the current chapter's theme and focus areas.
+        
+        NAVIGATION CAPABILITIES:
+        When users ask about topics covered in other chapters, suggest they visit those chapters.
+        Available chapters:
+        ${chapterMap}
+        
+        Example navigation suggestions:
+        - "To see my projects, check out Chapter 2: The Builder"
+        - "My travel experiences are in Chapter 4: The Explorer"
+        - "For contact information, visit Chapter 6: The Connection"
+        
+        Do not use markdown or complex formatting. Keep suggestions natural and conversational.
         Be professional, concise (2-4 sentences), and helpful. 
+        
         Context: ${context}
       `;
 
