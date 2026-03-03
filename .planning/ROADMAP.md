@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 01-01-PLAN.md — Chapter registry, navigation context, and TypeScript types
+- [x] 01-01-PLAN.md — Chapter registry, navigation context, and TypeScript types (completed 2026-03-03)
 - [ ] 01-02-PLAN.md — Desktop sidebar and mobile bottom sheet UI components
 - [ ] 01-03-PLAN.md — Chapter transitions with fade animation and scroll management
 
@@ -119,7 +119,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Navigation Architecture & State Foundation | 0/3 | Not started | - |
+| 1. Navigation Architecture & State Foundation | 1/3 | In progress | - |
 | 2. Landing Page & Chapter Cards | 0/2 | Not started | - |
 | 3. Chapter Reader & Navigation UX | 0/3 | Not started | - |
 | 4. Visual Theming & Glass Morphism | 0/2 | Not started | - |
@@ -128,4 +128,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 ---
 *Created: 2026-03-02*
-*Last updated: 2026-03-02 after roadmap creation*
+*Last updated: 2026-03-03 after completing 01-01-PLAN.md*
