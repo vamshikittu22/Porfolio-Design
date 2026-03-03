@@ -48,6 +48,56 @@ export const ChapterSidebar: React.FC = () => {
     >
       {/* Chapter list */}
       <div className="flex flex-col gap-4">
+        {/* Home button - Returns to landing page */}
+        <div
+          className="relative flex items-center justify-center group"
+          onMouseEnter={() => setHoveredId('home')}
+          onMouseLeave={() => setHoveredId(null)}
+        >
+          {/* Hover label - appears on right */}
+          <AnimatePresence>
+            {hoveredId === 'home' && (
+              <motion.div
+                initial={{ opacity: 0, x: -10, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, x: -10, filter: 'blur(4px)' }}
+                transition={{ duration: 0.2 }}
+                className="absolute left-16 whitespace-nowrap pointer-events-none"
+              >
+                <div className="bg-t-bg-el/95 backdrop-blur-xl border border-t-border px-4 py-2 rounded-xl shadow-2xl">
+                  <span className="text-[10px] font-bold text-t-fg uppercase tracking-tight">
+                    Return to Landing
+                  </span>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Home navigation button */}
+          <motion.button
+            onClick={() => { window.location.hash = ''; }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className={`
+              relative w-12 h-12 rounded-full border-2 flex items-center justify-center
+              transition-all duration-300 outline-none
+              ${
+                hoveredId === 'home'
+                  ? 'bg-t-bg-el/50 border-t-accent/50 text-t-fg scale-105'
+                  : 'bg-t-bg-el/50 border-t-border/30 text-t-fg/50 hover:border-t-border/50'
+              }
+              backdrop-blur-xl
+            `}
+            aria-label="Return to landing page"
+          >
+            {/* Home icon */}
+            <span className="text-lg font-bold">⌂</span>
+          </motion.button>
+        </div>
+
+        {/* Separator line */}
+        <div className="h-px bg-gradient-to-r from-transparent via-t-border/30 to-transparent my-2" />
+
         {CHAPTERS.map((chapter) => {
           const isActive = currentChapter === chapter.id;
           const isHovered = hoveredId === chapter.id;

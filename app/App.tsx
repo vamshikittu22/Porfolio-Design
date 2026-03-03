@@ -200,16 +200,19 @@ const AppContent: React.FC = () => {
         visible={view === 'portfolio'}
       />
 
-      <HeaderNav
-        scrolled={scrolled}
-        activeSection={activeSection}
-        isDarkMode={isDarkMode}
-        onScrollToSection={scrollToSection}
-        onScrollToTop={handleScrollToTop}
-        onToggleTheme={() => setIsDarkMode(!isDarkMode)}
-        onGoHome={() => setView('portfolio')}
-        isCaseStudyView={view === 'case-study'}
-      />
+      {/* HeaderNav only renders on landing page (not in chapters) */}
+      {currentChapter === null && (
+        <HeaderNav
+          scrolled={scrolled}
+          activeSection={activeSection}
+          isDarkMode={isDarkMode}
+          onScrollToSection={scrollToSection}
+          onScrollToTop={handleScrollToTop}
+          onToggleTheme={() => setIsDarkMode(!isDarkMode)}
+          onGoHome={() => setView('portfolio')}
+          isCaseStudyView={view === 'case-study'}
+        />
+      )}
 
       <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60 print:p-0">
         <ChapterTransition>
