@@ -137,14 +137,28 @@ export const ChapterSidebar: React.FC = () => {
                 onClick={() => navigateToChapter(chapter.id, 'jump')}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
+                style={
+                  isActive
+                    ? {
+                        backgroundColor: `rgba(var(--chapter-0${chapter.number}-accent), 0.2)`,
+                        borderColor: `rgb(var(--chapter-0${chapter.number}-accent))`,
+                        color: `rgb(var(--chapter-0${chapter.number}-accent))`,
+                        boxShadow: `0 0 20px rgba(var(--chapter-0${chapter.number}-accent), 0.3)`,
+                      }
+                    : isHovered
+                    ? {
+                        borderColor: `rgba(var(--chapter-0${chapter.number}-accent), 0.5)`,
+                      }
+                    : undefined
+                }
                 className={`
                   relative w-12 h-12 rounded-full border-2 flex items-center justify-center
                   transition-all duration-300 outline-none
                   ${
                     isActive
-                      ? 'bg-t-accent/20 border-t-accent text-t-accent shadow-[0_0_20px_rgba(var(--color-accent-rgb),0.3)]'
+                      ? ''
                       : isHovered
-                      ? 'bg-t-bg-el/50 border-t-accent/50 text-t-fg scale-105'
+                      ? 'bg-t-bg-el/50 text-t-fg scale-105'
                       : 'bg-t-bg-el/50 border-t-border/30 text-t-fg/30 hover:border-t-border/50'
                   }
                   backdrop-blur-xl
@@ -162,7 +176,10 @@ export const ChapterSidebar: React.FC = () => {
                 {/* Active indicator pulse */}
                 {isActive && (
                   <motion.div
-                    className="absolute -inset-2 rounded-full border-2 border-t-accent/20"
+                    className="absolute -inset-2 rounded-full border-2"
+                    style={{
+                      borderColor: `rgba(var(--chapter-0${chapter.number}-accent), 0.2)`,
+                    }}
                     animate={{
                       scale: [1, 1.2, 1],
                       opacity: [0.3, 0.6, 0.3]

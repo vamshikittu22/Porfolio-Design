@@ -135,27 +135,47 @@ export const ChapterBottomSheet: React.FC = () => {
                             closeMenu();
                           }}
                           whileTap={{ scale: 0.95 }}
+                          style={
+                            isActive
+                              ? {
+                                  backgroundColor: `rgba(var(--chapter-0${chapter.number}-accent), 0.2)`,
+                                  borderColor: `rgb(var(--chapter-0${chapter.number}-accent))`,
+                                  boxShadow: `0 0 20px rgba(var(--chapter-0${chapter.number}-accent), 0.3)`,
+                                }
+                              : undefined
+                          }
                           className={`
                             relative flex flex-col items-center justify-center
                             p-4 rounded-2xl border-2 min-h-[120px] min-w-[44px]
                             transition-all duration-300
                             ${
                               isActive
-                                ? 'bg-t-accent/20 border-t-accent shadow-[0_0_20px_rgba(var(--color-accent-rgb),0.3)]'
+                                ? ''
                                 : 'bg-t-bg/50 border-t-border/30 hover:border-t-accent/50 hover:bg-t-bg-el/50'
                             }
                           `}
                           aria-label={`Navigate to ${chapter.title}`}
                         >
                           {/* Chapter number */}
-                          <div className={`
-                            w-12 h-12 rounded-full border-2 flex items-center justify-center mb-3
-                            ${
+                          <div 
+                            style={
                               isActive
-                                ? 'border-t-accent bg-t-accent/20 text-t-accent'
-                                : 'border-t-border/50 bg-t-bg-el/50 text-t-fg/50'
+                                ? {
+                                    borderColor: `rgb(var(--chapter-0${chapter.number}-accent))`,
+                                    backgroundColor: `rgba(var(--chapter-0${chapter.number}-accent), 0.2)`,
+                                    color: `rgb(var(--chapter-0${chapter.number}-accent))`,
+                                  }
+                                : undefined
                             }
-                          `}>
+                            className={`
+                              w-12 h-12 rounded-full border-2 flex items-center justify-center mb-3
+                              ${
+                                isActive
+                                  ? ''
+                                  : 'border-t-border/50 bg-t-bg-el/50 text-t-fg/50'
+                              }
+                            `}
+                          >
                             <span className="text-lg font-black font-mono">
                               {chapter.number}
                             </span>
@@ -165,17 +185,29 @@ export const ChapterBottomSheet: React.FC = () => {
                           {/* TODO: Replace with actual chapter icons from /icons/chapters/ */}
 
                           {/* Chapter title */}
-                          <span className={`
-                            text-[9px] font-bold uppercase tracking-wider text-center
-                            ${isActive ? 'text-t-accent' : 'text-t-fg/70'}
-                          `}>
+                          <span 
+                            style={
+                              isActive
+                                ? {
+                                    color: `rgb(var(--chapter-0${chapter.number}-accent))`,
+                                  }
+                                : undefined
+                            }
+                            className={`
+                              text-[9px] font-bold uppercase tracking-wider text-center
+                              ${isActive ? '' : 'text-t-fg/70'}
+                            `}
+                          >
                             {chapter.title}
                           </span>
 
                           {/* Active indicator */}
                           {isActive && (
                             <motion.div
-                              className="absolute -inset-1 rounded-2xl border-2 border-t-accent/20"
+                              className="absolute -inset-1 rounded-2xl border-2"
+                              style={{
+                                borderColor: `rgba(var(--chapter-0${chapter.number}-accent), 0.2)`,
+                              }}
                               animate={{
                                 scale: [1, 1.05, 1],
                                 opacity: [0.3, 0.6, 0.3]
