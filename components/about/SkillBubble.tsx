@@ -62,6 +62,7 @@ const SkillBubbleComponent: React.FC<SkillBubbleProps> = ({
                 src={item.icon}
                 alt={item.name}
                 loading="lazy"
+                decoding="async"
                 onError={(e) => {
                     const target = e.currentTarget;
                     target.onerror = null;

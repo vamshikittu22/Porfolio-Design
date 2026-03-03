@@ -112,7 +112,7 @@ const AIPlayground: React.FC = () => {
               {video ? (
                 <video src={video} autoPlay loop muted className="w-full h-full object-cover" />
               ) : image ? (
-                <img src={image} className="w-full h-full object-cover" alt="AI Generated Study" />
+                <img src={image} loading="lazy" decoding="async" className="w-full h-full object-cover" alt="AI Generated Study" />
               ) : (
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-16 h-16 rounded-full border-4 border-dashed border-t-accent-2/20 flex items-center justify-center">

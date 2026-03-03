@@ -6,7 +6,6 @@ import FooterBar from '../components/layout/FooterBar';
 import { HeroSection } from '../sections/hero/HeroSection';
 import { AboutSection } from '../sections/about/AboutSection';
 import CareerSnapshot from '../sections/career/CareerSnapshot';
-import ChatAssistant from '../components/layout/ChatAssistant/ChatAssistant';
 import PortfolioCaseStudy from '../sections/case-study/PortfolioCaseStudy';
 import { BlueprintLauncher } from '../components/layout/BlueprintLauncher';
 import SectionLoader from '../components/ui/SectionLoader';
@@ -40,6 +39,10 @@ const GameSection = lazy(() => import('../sections/game/GameSection'));
 const TravelSection = lazy(() => import('../sections/travel/TravelSection'));
 const ContactSection = lazy(() => import('../sections/contact/ContactSection'));
 
+// --- LAZY LOAD CHATASSISTANT (Performance Optimization) ---
+// ChatAssistant includes Google GenAI SDK (~100kB) - only load when needed
+const ChatAssistant = lazy(() => import('../components/layout/ChatAssistant/ChatAssistant'));
+
 /**
  * AppContent - Inner component that uses NavigationContext
  * Separated to allow useNavigation hook usage within NavigationProvider
@@ -52,6 +55,7 @@ const AppContent: React.FC = () => {
   const [heroLoading, setHeroLoading] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('hero-section');
+  const [shouldLoadChat, setShouldLoadChat] = useState(false);
 
   // Derived from ThemeContext
   const isDarkMode = resolvedTheme === 'dark';
@@ -159,6 +163,29 @@ const AppContent: React.FC = () => {
     generateHero();
   }, [isDarkMode]);
 
+  // Lazy load ChatAssistant on first user interaction (idle strategy)
+  useEffect(() => {
+    // Preload chat after 3 seconds of idle time OR on first scroll/click
+    const idleTimer = setTimeout(() => {
+      setShouldLoadChat(true);
+    }, 3000);
+
+    const handleInteraction = () => {
+      setShouldLoadChat(true);
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('click', handleInteraction);
+    };
+
+    window.addEventListener('scroll', handleInteraction, { once: true, passive: true });
+    window.addEventListener('click', handleInteraction, { once: true });
+
+    return () => {
+      clearTimeout(idleTimer);
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('click', handleInteraction);
+    };
+  }, []);
+
   const scrollToSection = (id: string) => {
     if (view !== 'portfolio') {
       setView('portfolio');
@@ -228,7 +255,13 @@ const AppContent: React.FC = () => {
       </main>
 
       <FooterBar onScrollToTop={handleScrollToTop} onOpenCaseStudy={() => setView('case-study')} />
-      <ChatAssistant />
+      
+      {/* ChatAssistant - Lazy loaded on first interaction for performance */}
+      {shouldLoadChat && (
+        <Suspense fallback={null}>
+          <ChatAssistant />
+        </Suspense>
+      )}
     </div>
   );
 };

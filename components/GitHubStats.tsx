@@ -179,9 +179,9 @@ const GitHubStats: React.FC = () => {
             <div className="flex items-center gap-4">
                <div className="relative group/avatar">
                  <div className="absolute -inset-1 rounded-xl bg-t-accent opacity-0 group-hover/avatar:opacity-30 transition-opacity blur-md" />
-                 <div className="relative w-10 h-10 rounded-lg overflow-hidden border border-t-border shadow-sm bg-t-bg">
-                   <img src={user?.avatar_url} className="w-full h-full object-cover" alt="Avatar" />
-                 </div>
+                  <div className="relative w-10 h-10 rounded-lg overflow-hidden border border-t-border shadow-sm bg-t-bg">
+                    <img src={user?.avatar_url} loading="lazy" decoding="async" className="w-full h-full object-cover" alt="Avatar" />
+                  </div>
                  <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-t-bg-el animate-pulse shadow-sm" />
                </div>
                
