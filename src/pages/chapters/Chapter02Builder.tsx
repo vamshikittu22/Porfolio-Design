@@ -32,19 +32,15 @@ const GithubSection = lazy(() => import('../../../sections/github/GithubSection'
 export function Chapter02Builder() {
   return (
     <ChapterContainer chapterId="02-builder">
-      <article className="space-y-20">
+      <article className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20 space-y-20">
         {/* Projects Section - Portfolio projects and case studies */}
         <Suspense fallback={<SectionLoader />}>
-          <section>
-            <ProjectsSection />
-          </section>
+          <ProjectsSection />
         </Suspense>
         
         {/* GitHub Section - Contribution stats and activity */}
         <Suspense fallback={<SectionLoader />}>
-          <section>
-            <GithubSection />
-          </section>
+          <GithubSection />
         </Suspense>
       </article>
     </ChapterContainer>

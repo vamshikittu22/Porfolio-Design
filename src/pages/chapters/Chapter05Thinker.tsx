@@ -34,14 +34,14 @@ const GameSection = lazy(() => import('../../../sections/game/GameSection'));
 export function Chapter05Thinker() {
   return (
     <ChapterContainer chapterId="05-thinker">
-      <section className="chapter-content py-12 md:py-16">
+      <div className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20">
         {/* TODO: Verify AI playground is included in GameSection */}
         {/* If separate, add component in future enhancement */}
         
         <Suspense fallback={<SectionLoader />}>
           <GameSection />
         </Suspense>
-      </section>
+      </div>
     </ChapterContainer>
   );
 }

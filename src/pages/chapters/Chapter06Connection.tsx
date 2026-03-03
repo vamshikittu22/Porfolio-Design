@@ -43,14 +43,14 @@ const ContactSection = lazy(() => import('../../../sections/contact/ContactSecti
 export function Chapter06Connection() {
   return (
     <ChapterContainer chapterId="06-connection">
-      <section className="chapter-content py-12 md:py-16">
+      <div className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20">
         {/* TODO: Verify social feed is included in ContactSection */}
         {/* If separate, add component in future enhancement */}
         
         <Suspense fallback={<SectionLoader />}>
           <ContactSection />
         </Suspense>
-      </section>
+      </div>
     </ChapterContainer>
   );
 }
