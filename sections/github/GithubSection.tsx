@@ -5,7 +5,7 @@ import '../../src/styles/glass-morphism.css';
 
 export const GithubSection: React.FC = () => {
   return (
-    <section id="github-section" className="py-12 md:py-16 mb-[40rem] print:hidden">
+    <section id="github-section" className="py-12 md:py-16 mb-48 print:hidden">
       <ScrollReveal>
         <GitHubStats />
       </ScrollReveal>

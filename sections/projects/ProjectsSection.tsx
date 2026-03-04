@@ -29,12 +29,49 @@ const ProjectsSection: React.FC = () => {
     setOpenProjectId(prev => prev === id ? null : id);
   };
 
+  // Stats for the header
+  const totalProjects = PROJECTS_CONFIG.length;
+  const liveDemos = PROJECTS_CONFIG.filter(p => p.liveUrl).length;
+  const uniqueTech = new Set(PROJECTS_CONFIG.flatMap(p => p.tech)).size;
+  const aiProjects = PROJECTS_CONFIG.filter(p => p.category === ProjectCategory.AI).length;
+
   return (
-    <section id="projects-section" className="py-12 md:py-16 mb-[40rem] scroll-mt-32 print:hidden">
+    <section id="projects-section" className="py-12 md:py-16 mb-32 scroll-mt-32 print:hidden">
       <ScrollReveal className="flex flex-col items-center mb-16 text-center">
+        {/* Section label */}
+        <div className="flex items-center gap-4 mb-8">
+          <div className="w-12 h-[2px] bg-t-accent" />
+          <span className="text-[9px] font-black uppercase tracking-[0.6em] text-t-accent">What I Build</span>
+          <div className="w-12 h-[2px] bg-t-accent" />
+        </div>
+
+        {/* Section title */}
         <h2 className="heading-lg text-t-fg uppercase tracking-tighter leading-none text-balance">
           Technical <br /> Showcase.
         </h2>
+
+        {/* Stats strip */}
+        <div className="flex items-center gap-6 mt-8 flex-wrap justify-center">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-t-fg-m/60">
+            {totalProjects} Projects
+          </span>
+          <span className="w-1 h-1 rounded-full bg-t-accent/40" />
+          <span className="text-[10px] font-bold uppercase tracking-wider text-t-fg-m/60">
+            {liveDemos} Live Demos
+          </span>
+          <span className="w-1 h-1 rounded-full bg-t-accent/40" />
+          <span className="text-[10px] font-bold uppercase tracking-wider text-t-fg-m/60">
+            {uniqueTech}+ Technologies
+          </span>
+          {aiProjects > 0 && (
+            <>
+              <span className="w-1 h-1 rounded-full bg-t-accent/40" />
+              <span className="text-[10px] font-bold uppercase tracking-wider text-t-fg-m/60">
+                {aiProjects} AI-Native Apps
+              </span>
+            </>
+          )}
+        </div>
 
         <ProjectFilter
           categories={CATEGORIES}
@@ -45,10 +82,10 @@ const ProjectsSection: React.FC = () => {
           }}
         />
 
-        <div className="w-48 h-px bg-t-accent-2 mt-16 opacity-30 shadow-[0_0_20px_rgba(var(--color-accent-secondary-rgb),0.5)]" />
+        <div className="w-48 h-px bg-t-accent-2 mt-12 opacity-30 shadow-[0_0_20px_rgba(var(--color-accent-secondary-rgb),0.5)]" />
       </ScrollReveal>
 
-      <div className="flex flex-col gap-6 md:gap-8 transition-all duration-700">
+      <div className="transition-all duration-700">
         {filteredProjects.length > 0 ? (
           <ProjectList
             projects={filteredProjects}

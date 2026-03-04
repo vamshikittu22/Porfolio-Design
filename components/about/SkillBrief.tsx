@@ -18,14 +18,32 @@ export const SkillBrief: React.FC<SkillBriefProps> = ({ skillName }) => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="flex flex-col items-center justify-center h-full text-center p-6"
+                        className="flex flex-col items-start justify-center h-full p-6 space-y-6"
                     >
-                        <div className="w-16 h-16 rounded-full border-2 border-dashed border-white/10 flex items-center justify-center mb-6">
-                            <span className="text-white/20 text-2xl">?</span>
+                        <div className="space-y-2">
+                            <span className="text-[10px] font-mono text-t-accent uppercase tracking-[0.3em]">Overview</span>
+                            <h3 className="text-2xl font-black text-white uppercase tracking-tight leading-none">Skill Matrix</h3>
                         </div>
-                        <h3 className="text-white/40 font-mono text-sm uppercase tracking-widest mb-2">Capability Insight</h3>
-                        <p className="text-white/20 text-xs max-w-[200px]">
-                            Hover over any node in the matrix to view specialized proficiency and project history.
+                        <div className="grid grid-cols-2 gap-4 w-full">
+                            <div className="bg-white/[0.03] border border-white/5 rounded-xl p-3 text-center">
+                                <span className="text-xl font-black text-t-accent">40+</span>
+                                <p className="text-[8px] font-mono text-white/40 uppercase tracking-widest mt-1">Technologies</p>
+                            </div>
+                            <div className="bg-white/[0.03] border border-white/5 rounded-xl p-3 text-center">
+                                <span className="text-xl font-black text-t-accent-2">10</span>
+                                <p className="text-[8px] font-mono text-white/40 uppercase tracking-widest mt-1">Categories</p>
+                            </div>
+                            <div className="bg-white/[0.03] border border-white/5 rounded-xl p-3 text-center">
+                                <span className="text-xl font-black text-white">5+</span>
+                                <p className="text-[8px] font-mono text-white/40 uppercase tracking-widest mt-1">YoE</p>
+                            </div>
+                            <div className="bg-white/[0.03] border border-white/5 rounded-xl p-3 text-center">
+                                <span className="text-xl font-black text-white">3</span>
+                                <p className="text-[8px] font-mono text-white/40 uppercase tracking-widest mt-1">Domains</p>
+                            </div>
+                        </div>
+                        <p className="text-[10px] font-mono text-white/30 uppercase tracking-widest border-t border-white/5 pt-4">
+                            ← Hover a skill node for details
                         </p>
                     </motion.div>
                 ) : (

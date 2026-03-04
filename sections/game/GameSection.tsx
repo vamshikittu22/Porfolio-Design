@@ -6,7 +6,7 @@ import '../../src/styles/glass-morphism.css';
 
 export const GameSection: React.FC = () => {
   return (
-    <section id="game-section" className="py-12 md:py-16 mb-[40rem] rounded-[120px] p-16 lg:p-48 bg-t-bg-el/40 border border-t-border print:hidden scroll-mt-32 relative overflow-hidden group">
+    <section id="game-section" className="py-12 md:py-16 mb-48 rounded-[120px] p-16 lg:p-48 bg-t-bg-el/40 border border-t-border print:hidden scroll-mt-32 relative overflow-hidden group">
       <div className="absolute inset-0 z-[-1] opacity-10 dark:opacity-20 transition-all duration-1000">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-radial from-t-accent-2/30 via-transparent to-transparent blur-[160px] scale-125" />
       </div>

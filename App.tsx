@@ -112,12 +112,24 @@ const App: React.FC = () => {
       <main className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60 print:p-0">
         <HeroSection image={activeHeroImage} loading={heroLoading} onScroll={scrollToSection} />
         <AboutSection />
-        <ProjectsSection />
-        <GithubSection />
-        <ResumeSection />
-        <GameSection />
-        <TravelSection />
-        <ContactSection />
+        <Suspense fallback={<SectionLoading />}>
+          <ProjectsSection />
+        </Suspense>
+        <Suspense fallback={<SectionLoading />}>
+          <GithubSection />
+        </Suspense>
+        <Suspense fallback={<SectionLoading />}>
+          <ResumeSection />
+        </Suspense>
+        <Suspense fallback={<SectionLoading />}>
+          <GameSection />
+        </Suspense>
+        <Suspense fallback={<SectionLoading />}>
+          <TravelSection />
+        </Suspense>
+        <Suspense fallback={<SectionLoading />}>
+          <ContactSection />
+        </Suspense>
       </main>
 
       <FooterBar onScrollToTop={handleScrollToTop} />

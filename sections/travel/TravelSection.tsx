@@ -6,7 +6,7 @@ import '../../src/styles/glass-morphism.css';
 
 export const TravelSection: React.FC = () => {
   return (
-    <section id="travel-section" className="py-12 md:py-16 mb-[40rem] scroll-mt-32 overflow-hidden rounded-[120px] bg-t-bg-el/40 border border-t-border print:hidden">
+    <section id="travel-section" className="py-12 md:py-16 mb-48 scroll-mt-32 overflow-hidden rounded-[120px] bg-t-bg-el/40 border border-t-border print:hidden">
       <ScrollReveal className="flex flex-col items-center py-64 text-center space-y-12 bg-t-accent-s/5 border-b border-t-border">
         <div className="px-16 py-6 rounded-full bg-t-accent-2 text-t-bg font-black uppercase tracking-[2em] text-[9px] shadow-lg">Personal Adventures</div>
         <div className="space-y-10 px-6">

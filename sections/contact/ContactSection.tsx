@@ -105,7 +105,7 @@ export const ContactSection: React.FC = () => {
                   <div className="w-1.5 h-1.5 rounded-full bg-t-accent-2 shadow-[0_0_8px_rgba(249,115,22,0.5)]" />
                   <span className="text-[8px] font-black uppercase tracking-[0.5em] text-t-fg-m opacity-60">Reach Out</span>
                 </div>
-                <button onClick={handleToggle} className="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all text-t-fg bg-white/5">
+                <button onClick={handleToggle} className="cursor-pointer w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all text-t-fg bg-white/5">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
               </div>

@@ -128,7 +128,7 @@ export const AboutSection: React.FC = () => {
   if (!isMounted) return null;
 
   return (
-    <section id="about-section" className="py-12 md:py-16 mb-[20rem] scroll-mt-32 relative">
+    <section id="about-section" className="py-12 md:py-16 mb-40 scroll-mt-32 relative">
       <ScrollReveal>
         <AboutHeader />
 
@@ -150,7 +150,7 @@ export const AboutSection: React.FC = () => {
               <div className="flex flex-wrap gap-2 mb-10 justify-end lg:justify-start">
                 {(['All', 'Languages', 'Frameworks', 'Backend & APIs', 'Data & DB', 'Cloud & Infra', 'DevOps & Ops', 'Testing & Quality', 'Tools & Collab', 'AI & Analytics', 'Coursework'] as Category[]).map(cat => (
                   <button key={cat} onClick={(e) => { e.stopPropagation(); setSelectedCategory(cat); }}
-                    className={`px-3 py-1.5 rounded-lg text-[8px] font-mono font-black uppercase tracking-widest transition-all border ${selectedCategory === cat ? 'bg-t-accent text-t-bg border-t-accent shadow-[0_0_15px_rgba(var(--color-accent-rgb),0.3)]' : 'bg-transparent text-white/40 border-white/5 hover:border-white/20 hover:text-white'}`}>
+                    className={`cursor-pointer px-3 py-1.5 rounded-lg text-[8px] font-mono font-black uppercase tracking-widest transition-all border ${selectedCategory === cat ? 'bg-t-accent text-t-bg border-t-accent shadow-[0_0_15px_rgba(var(--color-accent-rgb),0.3)]' : 'bg-transparent text-white/40 border-white/5 hover:border-white/20 hover:text-white'}`}>
                     {cat}
                   </button>
                 ))}

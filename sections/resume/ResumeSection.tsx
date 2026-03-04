@@ -26,7 +26,7 @@ const ResumeSection: React.FC = () => {
   };
 
   return (
-    <section id="resume-section" className="mb-[15rem] lg:mb-[20rem] scroll-mt-32">
+    <section id="resume-section" className="mb-40 scroll-mt-32">
       <ScrollReveal className="max-w-7xl mx-auto px-6 lg:px-20">
         <GlassCard
           className="max-w-4xl lg:max-w-5xl mx-auto px-8 lg:px-20 py-12 lg:py-24 rounded-[40px] bg-t-bg-el/90 border border-t-border shadow-2xl print:shadow-none print:border-0 print:bg-white print:max-w-none print:px-0 print:py-0 print:text-black"

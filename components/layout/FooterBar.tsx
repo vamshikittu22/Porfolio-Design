@@ -148,13 +148,7 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop, onOpenCaseS
   }, []);
 
   const handleOrbClick = (id: string, url: string) => {
-    if (flippedId === id) {
-      window.open(url, '_blank');
-      setFlippedId(null);
-    } else {
-      setFlippedId(id);
-      setTimeout(() => setFlippedId(null), 8000);
-    }
+    window.open(url, '_blank');
   };
 
   return (

@@ -10,9 +10,9 @@
  * 
  * Theme: "What I create and build"
  * 
- * Performance Note:
- * Both sections are lazy loaded as they contain below-the-fold content
- * and maintain performance optimization pattern from App.tsx
+ * Scalability: Projects are data-driven from PROJECTS_CONFIG.
+ * Add new projects to config/projects.ts and they auto-appear.
+ * Set featured: true on one project for the hero card treatment.
  */
 
 import React, { lazy, Suspense } from 'react';
@@ -32,12 +32,12 @@ const GithubSection = lazy(() => import('../../../sections/github/GithubSection'
 export function Chapter02Builder() {
   return (
     <ChapterContainer chapterId="02-builder">
-      <article className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20 space-y-20">
+      <article className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20 space-y-12">
         {/* Projects Section - Portfolio projects and case studies */}
         <Suspense fallback={<SectionLoader />}>
           <ProjectsSection />
         </Suspense>
-        
+
         {/* GitHub Section - Contribution stats and activity */}
         <Suspense fallback={<SectionLoader />}>
           <GithubSection />

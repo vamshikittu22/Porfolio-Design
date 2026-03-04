@@ -1,7 +1,8 @@
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Project } from '../../../config/types';
 import { ProjectCard } from './ProjectCard';
+import { FeaturedProjectCard } from './FeaturedProjectCard';
 import { ProjectDetails } from './ProjectDetails';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -15,77 +16,108 @@ interface ProjectListProps {
 export const ProjectList: React.FC<ProjectListProps> = ({ projects, activeProjectId, onToggleProject, accents }) => {
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  // Effect to handle centering the card when it is closed
-  useEffect(() => {
-    if (activeProjectId === null) {
-      // Logic for when any project is closed - we could track which one was just closed, 
-      // but for simplicity, we assume we want to stay near where we were.
-      // If we specifically want to center the one that was just closed, we'd need a "lastActiveId" state.
-    }
-  }, [activeProjectId]);
-
   const handleClose = (id: string) => {
     onToggleProject(id);
-    // Scroll back to the card and center it
     setTimeout(() => {
-      cardRefs.current[id]?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
+      cardRefs.current[id]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 100);
   };
 
+  // Separate featured project from the rest
+  const featuredProject = projects.find(p => p.featured);
+  const remainingProjects = featuredProject
+    ? projects.filter(p => p.id !== featuredProject.id)
+    : projects;
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 w-full items-start">
-      {projects.map((project, idx) => {
-        const accent = accents[idx % accents.length];
-        const isActive = activeProjectId === project.id;
-        const isInactive = activeProjectId !== null && !isActive;
+    <div className="space-y-8">
+      {/* Featured Project — Full-Width Hero */}
+      {featuredProject && (
+        <>
+          <div ref={el => { cardRefs.current[featuredProject.id] = el; }}>
+            <FeaturedProjectCard
+              project={featuredProject}
+              onViewDetails={() => onToggleProject(featuredProject.id)}
+            />
+          </div>
 
-        return (
-          <React.Fragment key={project.id}>
-            <motion.div
-              // Fix: Added block braces to avoid returning the assigned element to the ref callback
-              ref={el => { cardRefs.current[project.id] = el; }}
-              layout
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-              className="h-full"
-            >
-              <ProjectCard
-                project={project}
-                index={idx}
-                isActive={isActive}
-                isInactive={isInactive}
-                onToggle={() => onToggleProject(project.id)}
-                accent={accent}
-              />
-            </motion.div>
+          {/* Featured project details panel */}
+          <AnimatePresence mode="wait">
+            {activeProjectId === featuredProject.id && (
+              <motion.div
+                key={`details-${featuredProject.id}`}
+                layout
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="overflow-hidden z-20"
+              >
+                <ProjectDetails
+                  project={featuredProject}
+                  accent={accents[0]}
+                  onClose={() => handleClose(featuredProject.id)}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </>
+      )}
 
-            {/* Inline Details Panel */}
-            <AnimatePresence mode="wait">
-              {isActive && (
+      {/* Remaining Projects — 2-Column Grid */}
+      {remainingProjects.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 w-full items-start">
+          {remainingProjects.map((project, idx) => {
+            const accentIdx = featuredProject ? idx + 1 : idx;
+            const accent = accents[accentIdx % accents.length];
+            const isActive = activeProjectId === project.id;
+            const isInactive = activeProjectId !== null && !isActive;
+
+            return (
+              <React.Fragment key={project.id}>
                 <motion.div
-                  key={`details-${project.id}`}
+                  ref={el => { cardRefs.current[project.id] = el; }}
                   layout
-                  initial={{ opacity: 0, height: 0, marginBottom: 0 }}
-                  animate={{ opacity: 1, height: 'auto', marginBottom: 24 }}
-                  exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="col-span-full overflow-hidden z-20"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
+                  className="h-full"
                 >
-                  <ProjectDetails
+                  <ProjectCard
                     project={project}
+                    index={featuredProject ? idx + 1 : idx}
+                    isActive={isActive}
+                    isInactive={isInactive}
+                    onToggle={() => onToggleProject(project.id)}
                     accent={accent}
-                    onClose={() => handleClose(project.id)}
                   />
                 </motion.div>
-              )}
-            </AnimatePresence>
-          </React.Fragment>
-        );
-      })}
+
+                {/* Inline Details Panel */}
+                <AnimatePresence mode="wait">
+                  {isActive && (
+                    <motion.div
+                      key={`details-${project.id}`}
+                      layout
+                      initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                      animate={{ opacity: 1, height: 'auto', marginBottom: 24 }}
+                      exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      className="col-span-full overflow-hidden z-20"
+                    >
+                      <ProjectDetails
+                        project={project}
+                        accent={accent}
+                        onClose={() => handleClose(project.id)}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </React.Fragment>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

@@ -89,7 +89,7 @@ const CareerSnapshot: React.FC = () => {
   if (!activeItem) return null;
 
   return (
-    <section id="career-snapshot-section" className="py-12 md:py-16 mb-[20rem] scroll-mt-32 max-w-7xl mx-auto px-6">
+    <section id="career-snapshot-section" className="py-12 md:py-16 mb-40 scroll-mt-32 max-w-7xl mx-auto px-6">
       <ScrollReveal>
         <GlassCard className="p-8 lg:p-12 overflow-hidden bg-t-bg-el/60 border-t-accent/10" accent="theme">
 
