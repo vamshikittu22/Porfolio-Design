@@ -1,0 +1,29 @@
+# Robots.txt for Vamshi Krishna Pullaiahgari Portfolio
+# Allow all search engines to crawl the entire site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://vamshikrishnapullaiahgariportfolio.vercel.app/sitemap.xml
+
+# Crawl-delay for polite crawling (optional, mainly for smaller bots)
+Crawl-delay: 1
+
+# Disallow crawling of API endpoints or sensitive paths (if any)
+# Disallow: /api/
+# Disallow: /.well-known/
+
+# Allow Google Image Bot
+User-agent: Googlebot-Image
+Allow: /
+
+# Allow social media crawlers for Open Graph previews
+User-agent: facebookexternalHit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /

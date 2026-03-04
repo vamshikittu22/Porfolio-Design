@@ -30,6 +30,7 @@ import {
   HERO_PROMPT_LIGHT,
   PHYSICAL_FALLBACKS
 } from '../config/constants';
+import { SEOManager } from '../components/seo/SEOManager';
 
 // --- LAZY LOADED SECTIONS (Below the fold) ---
 const ProjectsSection = lazy(() => import('../sections/projects/ProjectsSection'));
@@ -205,12 +206,14 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen relative selection:bg-t-accent selection:text-t-bg bg-t-bg transition-colors duration-500 overflow-x-hidden">
+      {/* SEO Manager - Dynamically updates meta tags based on current chapter */}
+      <SEOManager />
+      
       <div className="fixed inset-0 pointer-events-none z-[-1] opacity-15 dark:opacity-20 print:hidden">
         <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-t-accent-s/40 blur-[200px] rounded-full" />
       </div>
 
-      {/* Chapter Navigation UI */}
-      <ChapterSidebar />
+      {/* Mobile bottom sheet navigation */}
       <ChapterBottomSheet />
 
       <BlueprintLauncher
@@ -218,44 +221,46 @@ const AppContent: React.FC = () => {
         visible={view === 'portfolio'}
       />
 
-      {/* HeaderNav only renders on landing page (not in chapters) */}
-      {currentChapter === null && (
-        <HeaderNav
-          scrolled={scrolled}
-          activeSection={activeSection}
-          isDarkMode={isDarkMode}
-          onScrollToSection={scrollToSection}
-          onScrollToTop={handleScrollToTop}
-          onToggleTheme={() => {}} // Theme now managed by ThemeToggle component
-          onGoHome={() => setView('portfolio')}
-          isCaseStudyView={view === 'case-study'}
-        />
-      )}
+      {/* Top header navigation */}
+      <HeaderNav
+        scrolled={scrolled}
+        activeSection={activeSection}
+        isDarkMode={isDarkMode}
+        onScrollToSection={scrollToSection}
+        onScrollToTop={handleScrollToTop}
+        onToggleTheme={() => { }}
+        onGoHome={() => setView('portfolio')}
+        isCaseStudyView={view === 'case-study'}
+      />
 
       <main className="print:p-0">
-        <ChapterTransition>
-          {/* Chapter-based routing: Landing page vs Chapter view */}
-          {currentChapter === null ? (
-            // No chapter selected - show landing page with all chapter cards
-            <div className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60">
-              <LandingPage />
-            </div>
-          ) : (
-            // Chapter selected - route to appropriate chapter component
-            <>
-              {currentChapter === '01-introduction' && <Chapter01Introduction />}
-              {currentChapter === '02-builder' && <Chapter02Builder />}
-              {currentChapter === '03-journey' && <Chapter03Journey />}
-              {currentChapter === '04-explorer' && <Chapter04Explorer />}
-              {currentChapter === '05-thinker' && <Chapter05Thinker />}
-              {currentChapter === '06-connection' && <Chapter06Connection />}
-            </>
-          )}
-        </ChapterTransition>
+        {view === 'case-study' ? (
+          <PortfolioCaseStudy onBack={() => setView('portfolio')} />
+        ) : (
+          <ChapterTransition>
+            {/* Chapter-based routing: Landing page vs Chapter view */}
+            {currentChapter === null ? (
+              // No chapter selected - show landing page with all chapter cards
+              <div className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60">
+                <LandingPage />
+              </div>
+            ) : (
+              // Chapter selected - route to appropriate chapter component
+              <>
+                {currentChapter === '01-introduction' && <Chapter01Introduction />}
+                {currentChapter === '02-builder' && <Chapter02Builder />}
+                {currentChapter === '03-journey' && <Chapter03Journey />}
+                {currentChapter === '04-explorer' && <Chapter04Explorer />}
+                {currentChapter === '05-thinker' && <Chapter05Thinker />}
+                {currentChapter === '06-connection' && <Chapter06Connection />}
+              </>
+            )}
+          </ChapterTransition>
+        )}
       </main>
 
       <FooterBar onScrollToTop={handleScrollToTop} onOpenCaseStudy={() => setView('case-study')} />
-      
+
       {/* ChatAssistant - Lazy loaded on first interaction for performance */}
       {shouldLoadChat && (
         <Suspense fallback={null}>
