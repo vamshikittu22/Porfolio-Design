@@ -26,26 +26,26 @@ interface CollapsibleSectionProps {
   icon?: React.ReactNode;
 }
 
-const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({ 
-  title, 
-  subtitle, 
-  children, 
-  isOpen, 
-  onToggle, 
+const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
+  title,
+  subtitle,
+  children,
+  isOpen,
+  onToggle,
   accentColor,
-  icon 
+  icon
 }) => {
   return (
     <div className="w-full border-t border-t-border/50 first:border-t-0">
-      <button 
+      <button
         onClick={onToggle}
         className="w-full py-8 lg:py-10 flex items-center justify-between group outline-none focus-visible:bg-t-bg-el/50 transition-colors"
       >
         <div className="flex items-center gap-6 lg:gap-8">
-          <div 
+          <div
             className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 shadow-sm"
-            style={{ 
-              backgroundColor: isOpen ? accentColor : 'rgba(var(--color-fg-muted-rgb), 0.05)',
+            style={{
+              backgroundColor: isOpen ? accentColor : 'var(--color-bg-elevated)',
               color: isOpen ? 'var(--color-bg)' : 'var(--color-fg)'
             }}
           >
@@ -134,14 +134,14 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
   return (
     <div className="py-24 lg:py-32 border-b border-t-border last:border-0 relative overflow-visible">
       {/* Background Section Ambient Glow */}
-      <div className={`absolute top-0 right-0 w-2/3 h-full bg-${chapter.color}-500/[0.03] blur-[160px] pointer-events-none -z-10`} />
+      <div className="absolute top-0 right-0 w-2/3 h-full blur-[160px] pointer-events-none -z-10" style={{ backgroundColor: `${currentAccentHex}08` }} />
 
       <div className="max-w-6xl mx-auto px-6">
         {/* CHAPTER HEADER - Fixed Identity Block */}
         <div className="mb-20 space-y-6">
           <div className="flex items-center gap-6">
-            <span className={`text-[10px] font-black font-technical uppercase tracking-[0.8em] text-${chapter.color}-500`}>{chapter.introLabel}</span>
-            <div className={`h-px flex-1 bg-${chapter.color}-500/20`} />
+            <span className="text-[10px] font-black font-technical uppercase tracking-[0.8em]" style={{ color: currentAccentHex }}>{chapter.introLabel}</span>
+            <div className="h-px flex-1" style={{ backgroundColor: `${currentAccentHex}33` }} />
           </div>
           <h3 className="text-6xl lg:text-[8rem] font-black font-display text-t-fg uppercase tracking-tighter leading-[0.8]">
             {chapter.title}.
@@ -151,7 +151,7 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
 
         {/* MODULAR SECTIONS */}
         <div className="space-y-0">
-          
+
           {/* SECTION 1: OVERVIEW */}
           <CollapsibleSection
             title="Structural Overview"
@@ -167,10 +167,10 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
                   {chapter.content.purpose}
                 </div>
                 <div className="space-y-4">
-                   <h5 className="text-[10px] font-black font-technical uppercase tracking-widest text-t-fg opacity-40">System Logic Breakdown</h5>
-                   <div className="p-8 rounded-[40px] bg-t-bg-el border border-t-border shadow-inner">
-                      <p className="text-sm lg:text-base font-mono text-t-accent-2 leading-relaxed whitespace-pre-wrap">{chapter.content.coreLogic}</p>
-                   </div>
+                  <h5 className="text-[10px] font-black font-technical uppercase tracking-widest text-t-fg opacity-40">System Logic Breakdown</h5>
+                  <div className="p-8 rounded-[40px] bg-t-bg-el border border-t-border shadow-inner">
+                    <p className="text-sm lg:text-base font-mono text-t-accent-2 leading-relaxed whitespace-pre-wrap">{chapter.content.coreLogic}</p>
+                  </div>
                 </div>
               </div>
               <div className="lg:col-span-4 flex flex-col justify-end pb-2">
@@ -192,8 +192,8 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
               <div className="lg:col-span-4 space-y-6">
-                 <h5 className="text-[10px] font-black font-technical uppercase tracking-widest text-t-fg opacity-40 mb-8">Performance Targets</h5>
-                 <div className="grid grid-cols-1 gap-4">
+                <h5 className="text-[10px] font-black font-technical uppercase tracking-widest text-t-fg opacity-40 mb-8">Performance Targets</h5>
+                <div className="grid grid-cols-1 gap-4">
                   {chapter.content.metrics.map((m, i) => (
                     <div key={i} className="px-8 py-6 rounded-3xl bg-t-bg-el border border-t-border flex justify-between items-center group hover:border-t-accent transition-all shadow-sm">
                       <span className="text-[9px] font-black font-technical uppercase tracking-widest text-t-fg-m opacity-50">{m.label}</span>
@@ -206,12 +206,12 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
                 <h5 className="text-[10px] font-black font-technical uppercase tracking-widest text-t-fg opacity-40 mb-8">Architecture Insights</h5>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {chapter.content.insights?.map((insight, i) => (
-                    <InsightCard 
-                      key={i} 
-                      type={insight.type} 
-                      title={insight.title} 
-                      description={insight.description} 
-                      accent={chapter.color} 
+                    <InsightCard
+                      key={i}
+                      type={insight.type}
+                      title={insight.title}
+                      description={insight.description}
+                      accent={chapter.color}
                     />
                   ))}
                 </div>
@@ -230,22 +230,22 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
           >
             <div className="relative group">
               <GlassCard accent={chapter.color} className="p-0 overflow-hidden shadow-2xl bg-t-bg-el/40 backdrop-blur-3xl">
-                 <div className="p-8 lg:p-16 flex flex-col justify-center min-h-[500px]">
-                    <div className="mb-12 flex justify-between items-center border-b border-t-border pb-6">
-                       <div className="flex flex-col gap-1">
-                          <div className={`w-12 h-1.5 bg-${chapter.color}-500 shadow-[0_0_15px_rgba(var(--color-accent-rgb),0.5)] rounded-full`} />
-                          <span className="text-[10px] font-black font-technical uppercase tracking-[0.4em] text-t-fg opacity-40">
-                             LIVE_RENDER_VIEW // {chapter.visualId}
-                          </span>
-                       </div>
-                       <div className="flex gap-2">
-                         <div className="w-3 h-3 rounded-full bg-rose-500/20" />
-                         <div className="w-3 h-3 rounded-full bg-amber-500/20" />
-                         <div className="w-3 h-3 rounded-full bg-emerald-500/20" />
-                       </div>
+                <div className="p-8 lg:p-16 flex flex-col justify-center min-h-[500px]">
+                  <div className="mb-12 flex justify-between items-center border-b border-t-border pb-6">
+                    <div className="flex flex-col gap-1">
+                      <div className="w-12 h-1.5 rounded-full" style={{ backgroundColor: currentAccentHex, boxShadow: `0 0 15px ${currentAccentHex}80` }} />
+                      <span className="text-[10px] font-black font-technical uppercase tracking-[0.4em] text-t-fg opacity-40">
+                        LIVE_RENDER_VIEW // {chapter.visualId}
+                      </span>
                     </div>
-                    {renderVisuals()}
-                 </div>
+                    <div className="flex gap-2">
+                      <div className="w-3 h-3 rounded-full bg-rose-500/20" />
+                      <div className="w-3 h-3 rounded-full bg-amber-500/20" />
+                      <div className="w-3 h-3 rounded-full bg-emerald-500/20" />
+                    </div>
+                  </div>
+                  {renderVisuals()}
+                </div>
               </GlassCard>
             </div>
           </CollapsibleSection>
@@ -261,19 +261,19 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
           >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {chapter.content.techStack.map((t, i) => (
-                <motion.div 
+                <motion.div
                   key={t.name}
                   whileHover={{ y: -8, scale: 1.02 }}
                   className="p-8 rounded-[48px] bg-t-bg-el border border-t-border shadow-sm hover:shadow-2xl hover:border-t-accent transition-all duration-500 group/techitem flex flex-col justify-between h-full"
                 >
                   <div className="space-y-6">
                     <div className="flex justify-between items-start">
-                      <div className={`w-12 h-12 rounded-2xl bg-${chapter.color}-500/10 flex items-center justify-center text-${chapter.color}-500 group-hover/techitem:bg-${chapter.color}-500 group-hover/techitem:text-t-bg transition-colors duration-500`}>
+                      <div className="w-12 h-12 rounded-2xl flex items-center justify-center transition-colors duration-500" style={{ backgroundColor: `${currentAccentHex}1A`, color: currentAccentHex }}>
                         <span className="text-xs font-black font-technical">0{i + 1}</span>
                       </div>
-                      <div className={`w-2 h-2 rounded-full bg-${chapter.color}-500/30 group-hover/techitem:animate-ping`} />
+                      <div className="w-2 h-2 rounded-full group-hover/techitem:animate-ping" style={{ backgroundColor: `${currentAccentHex}4D` }} />
                     </div>
-                    
+
                     <div className="space-y-4">
                       <h5 className="text-xl font-black font-display text-t-fg uppercase tracking-tight">{t.name}</h5>
                       <p className="text-[12px] font-sans font-medium text-t-fg-m leading-relaxed opacity-70 italic group-hover/techitem:opacity-100 transition-opacity">
@@ -281,10 +281,10 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
                       </p>
                     </div>
                   </div>
-                  
+
                   <div className="mt-8 pt-6 border-t border-t-border/50 flex justify-between items-center">
                     <span className="text-[8px] font-black font-technical uppercase tracking-widest opacity-30 group-hover/techitem:opacity-100 transition-opacity">Component Protocol</span>
-                    <svg className={`w-4 h-4 text-${chapter.color}-500 opacity-0 group-hover/techitem:opacity-100 transition-all transform translate-x-[-10px] group-hover/techitem:translate-x-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}><path d="M9 5l7 7-7 7" /></svg>
+                    <svg className="w-4 h-4 opacity-0 group-hover/techitem:opacity-100 transition-all transform translate-x-[-10px] group-hover/techitem:translate-x-0" style={{ color: currentAccentHex }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}><path d="M9 5l7 7-7 7" /></svg>
                   </div>
                 </motion.div>
               ))}
@@ -322,7 +322,7 @@ export const CaseStudyChapterView: React.FC<CaseStudyChapterViewProps> = ({ chap
 
               <div className="lg:col-span-7 space-y-8">
                 <h5 className="text-[10px] font-black font-technical uppercase tracking-widest text-t-fg opacity-40 mb-8">Logic Explorer</h5>
-                <CodePlayground 
+                <CodePlayground
                   code={chapter.content.code.code}
                   lang={chapter.content.code.lang}
                   filename={chapter.content.code.filename}

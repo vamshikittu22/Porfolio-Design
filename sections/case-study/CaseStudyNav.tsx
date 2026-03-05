@@ -12,6 +12,11 @@ interface CaseStudyNavProps {
 export const CaseStudyNav: React.FC<CaseStudyNavProps> = ({ chapters, activeId, onNavigate }) => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
+  const hexMap: Record<string, string> = {
+    indigo: '#6366f1', emerald: '#10b981', rose: '#f43f5e',
+    amber: '#f59e0b', purple: '#a855f7', cyan: '#06b2d2',
+  };
+
   return (
     <div className="fixed right-6 lg:right-12 top-1/2 -translate-y-1/2 z-[400] flex flex-col items-center gap-8 print:hidden">
       {/* Vertical Rail */}
@@ -22,8 +27,8 @@ export const CaseStudyNav: React.FC<CaseStudyNavProps> = ({ chapters, activeId, 
         const isHovered = hoveredId === chapter.id;
 
         return (
-          <div 
-            key={chapter.id} 
+          <div
+            key={chapter.id}
             className="relative flex items-center justify-center group"
             onMouseEnter={() => setHoveredId(chapter.id)}
             onMouseLeave={() => setHoveredId(null)}
@@ -38,7 +43,7 @@ export const CaseStudyNav: React.FC<CaseStudyNavProps> = ({ chapters, activeId, 
                   className="absolute right-12 whitespace-nowrap pointer-events-none"
                 >
                   <div className="bg-t-bg-el/95 backdrop-blur-xl border border-t-border px-4 py-2 rounded-xl shadow-2xl flex flex-col items-end">
-                    <span className={`text-[8px] font-black uppercase tracking-[0.2em] text-${chapter.color}-500 mb-0.5`}>
+                    <span className="text-[8px] font-black uppercase tracking-[0.2em] mb-0.5" style={{ color: hexMap[chapter.color] || '#6366f1' }}>
                       Module 0{idx + 1}
                     </span>
                     <span className="text-[10px] font-bold text-t-fg uppercase tracking-tight">
@@ -52,25 +57,26 @@ export const CaseStudyNav: React.FC<CaseStudyNavProps> = ({ chapters, activeId, 
             {/* Nav Node */}
             <button
               onClick={() => onNavigate(chapter.id)}
-              className={`
-                relative w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-500 outline-none
-                ${isActive 
-                  ? `bg-${chapter.color}-500 border-${chapter.color}-500 text-t-bg shadow-[0_0_20px_rgba(var(--color-accent-rgb),0.3)]` 
-                  : isHovered 
-                    ? 'bg-t-bg-el border-t-accent text-t-fg' 
-                    : 'bg-t-bg-el border-t-border text-t-fg/30'}
-              `}
+              className="relative w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-500 outline-none"
+              style={
+                isActive
+                  ? { backgroundColor: hexMap[chapter.color], borderColor: hexMap[chapter.color], color: 'var(--color-bg)', boxShadow: `0 0 20px ${hexMap[chapter.color]}4D` }
+                  : isHovered
+                    ? { backgroundColor: 'var(--color-bg-elevated)', borderColor: 'var(--color-accent)', color: 'var(--color-fg)' }
+                    : { backgroundColor: 'var(--color-bg-elevated)', borderColor: 'var(--color-border-subtle)', color: 'var(--color-fg)' }
+              }
               aria-label={`Jump to ${chapter.title}`}
             >
               <span className="text-[9px] font-black font-mono">
                 {idx + 1}
               </span>
-              
+
               {/* Active Indicator Pulse */}
               {isActive && (
-                <motion.div 
+                <motion.div
                   layoutId="nav-active-glow"
-                  className={`absolute -inset-2 rounded-full border border-${chapter.color}-500/20`}
+                  className="absolute -inset-2 rounded-full border"
+                  style={{ borderColor: `${hexMap[chapter.color]}33` }}
                   animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
