@@ -208,7 +208,7 @@ const AppContent: React.FC = () => {
     <div className="min-h-screen relative selection:bg-t-accent selection:text-t-bg bg-t-bg transition-colors duration-500 overflow-x-hidden">
       {/* SEO Manager - Dynamically updates meta tags based on current chapter */}
       <SEOManager />
-      
+
       <div className="fixed inset-0 pointer-events-none z-[-1] opacity-15 dark:opacity-20 print:hidden">
         <div className="absolute top-[-5%] right-[-5%] w-[60%] h-[60%] bg-t-accent-s/40 blur-[200px] rounded-full" />
       </div>
@@ -241,7 +241,7 @@ const AppContent: React.FC = () => {
             {/* Chapter-based routing: Landing page vs Chapter view */}
             {currentChapter === null ? (
               // No chapter selected - show landing page with all chapter cards
-              <div className="max-w-[1440px] mx-auto px-10 lg:px-32 pt-80 pb-60">
+              <div className="max-w-[1440px] mx-auto px-6 lg:px-16 pt-32 pb-20">
                 <LandingPage />
               </div>
             ) : (

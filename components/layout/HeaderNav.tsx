@@ -271,12 +271,11 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
   };
 
   const handleLogoClick = () => {
-    if (isCaseStudyView) {
-      onGoHome?.();
-    } else {
-      onGoHome?.();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    // Clear the hash to navigate back to landing page
+    // This triggers NavigationContext's hashchange listener → sets currentChapter to null
+    window.location.hash = '';
+    onGoHome?.(); // Also reset view to 'portfolio' (exits case study if active)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
