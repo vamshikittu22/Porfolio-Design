@@ -77,12 +77,12 @@ export function ChapterCard({ chapter }: ChapterCardProps) {
         )}
 
         {/* Chapter title */}
-        <h2 className="card-title text-2xl font-black mt-3 group-hover:text-t-accent transition-colors duration-300">
+        <h2 className="text-2xl font-black mt-3 text-t-fg group-hover:text-t-accent transition-colors duration-300">
           {chapter.title}
         </h2>
 
         {/* Chapter description */}
-        <p className="card-description text-sm text-white/50 mt-2 group-hover:text-white/70 transition-colors duration-300">
+        <p className="text-sm text-t-fg-m/70 mt-2 group-hover:text-t-fg-m transition-colors duration-300">
           {chapter.description}
         </p>
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 import { useNavigation } from '../../contexts/NavigationContext';
+import { useTheme } from '../../src/contexts/ThemeContext';
+import type { ThemeMode } from '../../src/contexts/ThemeContext';
 import type { ChapterId } from '../../types/chapters';
 
 // --- TYPES & INTERFACES ---
@@ -250,6 +252,14 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
 }) => {
   const [logoHovered, setLogoHovered] = useState(false);
   const { currentChapter, navigateToChapter } = useNavigation();
+  const { themeMode, setThemeMode } = useTheme();
+
+  const handleToggleTheme = () => {
+    const cycle: ThemeMode[] = ['light', 'dark', 'system'];
+    const currentIndex = cycle.indexOf(themeMode);
+    const nextIndex = (currentIndex + 1) % cycle.length;
+    setThemeMode(cycle[nextIndex]);
+  };
 
   const handleDownloadResumeFile = () => {
     const link = document.createElement('a');
@@ -317,16 +327,18 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
         {/* Theme toggle + Resume download */}
         <div className="flex items-center gap-2 px-1">
           <motion.button
-            onClick={onToggleTheme}
+            onClick={handleToggleTheme}
             whileHover={{ scale: 1.15, rotate: 20 }}
             whileTap={{ scale: 0.9 }}
-            aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
+            aria-label={`Theme: ${themeMode} (click to switch)`}
             className="p-3 rounded-xl transition-all duration-500 text-t-fg/30 hover:text-t-accent hover:bg-t-accent/10 outline-none cursor-pointer focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg"
           >
-            {isDarkMode ? (
+            {themeMode === 'dark' ? (
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
+            ) : themeMode === 'light' ? (
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" /></svg>
             ) : (
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg>
             )}
           </motion.button>
 

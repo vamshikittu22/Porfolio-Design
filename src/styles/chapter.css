@@ -53,10 +53,8 @@
 }
 
 /* Dark mode theme */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-rgb: 15, 23, 42; /* Tailwind slate-900 */
-  }
+.dark {
+  --background-rgb: 15, 23, 42; /* Tailwind slate-900 */
 }
 
 /* ============================================================================
