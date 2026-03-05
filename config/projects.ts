@@ -132,5 +132,30 @@ export const PROJECTS_CONFIG: Project[] = [
     liveUrl: 'https://pullaiahgari-tickets.vercel.app',
     repoUrl: 'https://github.com/vamshikittu22/PullaiahgariTicketSales',
     featured: false,
+  },
+  {
+    id: 'local-slm',
+    title: 'Local SLM API',
+    tagline: 'On-Device AI Inference Server.',
+    description: 'A lightweight FastAPI server for running and benchmarking Small Language Models locally via Ollama — with a built-in interactive playground, real-time benchmark dashboard, and multi-model comparison.',
+    overview: 'Local SLM API is a fully local, privacy-first inference platform that wraps the Ollama engine with a high-performance async API and a rich web UI. It enables developers to benchmark, compare, and interact with multiple SLMs without any data leaving their machine.',
+    useCases: [
+      'Multi-Model Comparison: Send the same prompt to multiple models simultaneously and compare speed, tokens, and quality side-by-side.',
+      'Automated Benchmarking: Run 10 standardized coding/CS prompts across models, tracking latency, tok/s, and success rate over time.',
+      'Persistent History: Every benchmark run is logged with a unique ID for trend analysis and regression detection.',
+      'Structured Generation: Generate validated JSON output from any locally installed model via a dedicated endpoint.'
+    ],
+    architecture: 'Async FastAPI application with httpx for non-blocking Ollama communication. Background benchmarks run via asyncio.create_task() keeping the server fully responsive. Pydantic v2 for strict request/response validation. Server-rendered HTML pages with vanilla JS for zero-build frontend.',
+    roleHighlights: [
+      'Engineered the full async API layer with 15+ endpoints including health, generation, benchmarking, and comparison.',
+      'Built a real-time benchmark dashboard with progress polling, KPI cards, and expandable prompt-level results.',
+      'Designed the multi-model playground UI for side-by-side inference comparison with speed metrics and winner badges.'
+    ],
+    category: ProjectCategory.AI,
+    thumbnailUrl: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&q=75&w=1000&fm=webp',
+    secondaryImageUrl: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=75&w=1200&fm=webp',
+    tech: ['Python', 'FastAPI', 'Ollama', 'Pydantic v2', 'httpx', 'Uvicorn'],
+    repoUrl: 'https://github.com/vamshikittu22/slm',
+    featured: true,
   }
 ];
