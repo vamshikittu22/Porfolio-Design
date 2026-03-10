@@ -49,52 +49,52 @@ export const BADGES: BadgeHighlight[] = [
   {
     id: 'cert-ai',
     title: 'Artificial Intelligence',
-    issuer: 'External Certification',
+    issuer: 'Oracle Academy',
     issuedOn: '2024-12-01',
     skills: ['AI', 'Machine Learning', 'Neural Networks'],
     summary: 'Comprehensive certification covering fundamental AI concepts and practical implementation.',
     url: '/assets/certificates/certificate Artificial Intelligence.pdf',
-    image: '/icons/ai.svg'
+    image: '/icons/oracle.svg'
   },
   {
     id: 'cert-blockchain',
     title: 'Blockchain Technology',
-    issuer: 'External Certification',
+    issuer: 'Oracle Academy',
     issuedOn: '2024-11-15',
     skills: ['Blockchain', 'Smart Contracts', 'Web3'],
     summary: 'Mastery of blockchain architecture, consensus mechanisms, and decentralized applications.',
     url: '/assets/certificates/certificate Blockchain.pdf',
-    image: '/icons/distributedsystems.svg'
+    image: '/icons/oracle.svg'
   },
   {
     id: 'cert-db-security',
     title: 'Database Security',
-    issuer: 'External Certification',
+    issuer: 'Oracle Academy',
     issuedOn: '2024-10-20',
     skills: ['Security', 'SQL', 'Database Protection'],
     summary: 'Advanced security protocols for safeguarding relational and non-relational database systems.',
     url: '/assets/certificates/certificate Database Security.pdf',
-    image: '/icons/informationsecurity.svg'
+    image: '/icons/oracle.svg'
   },
   {
     id: 'cert-digital-exp',
     title: 'Digital Experience',
-    issuer: 'External Certification',
+    issuer: 'Oracle Academy',
     issuedOn: '2024-09-10',
     skills: ['UX/UI', 'Digital Transformation', 'User Experience'],
     summary: 'Strategy and execution of multi-channel digital experiences centered around the user.',
     url: '/assets/certificates/certificate Digital Experience.pdf',
-    image: '/icons/html5.svg'
+    image: '/icons/oracle.svg'
   },
   {
     id: 'cert-nosql',
     title: 'NoSQL Database Mastery',
-    issuer: 'External Certification',
+    issuer: 'Oracle Academy',
     issuedOn: '2024-08-05',
     skills: ['NoSQL', 'MongoDB', 'Scalability'],
     summary: 'Expertise in architecting and managing high-scale NoSQL data environments.',
     url: '/assets/certificates/certificate Nosql.pdf',
-    image: '/icons/mongodb.svg'
+    image: '/icons/oracle.svg'
   },
   {
     id: 'gd-premium',

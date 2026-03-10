@@ -149,31 +149,31 @@ export const RESUME_CONTENT = {
     },
     {
       name: "Artificial Intelligence",
-      image: "/icons/ai.svg",
+      image: "/icons/oracle.svg",
       earned: "Dec 2024",
       url: "/assets/certificates/certificate Artificial Intelligence.pdf"
     },
     {
       name: "Blockchain Technology",
-      image: "/icons/distributedsystems.svg",
+      image: "/icons/oracle.svg",
       earned: "Nov 2024",
       url: "/assets/certificates/certificate Blockchain.pdf"
     },
     {
       name: "Database Security",
-      image: "/icons/informationsecurity.svg",
+      image: "/icons/oracle.svg",
       earned: "Oct 2024",
       url: "/assets/certificates/certificate Database Security.pdf"
     },
     {
       name: "Digital Experience",
-      image: "/icons/html5.svg",
+      image: "/icons/oracle.svg",
       earned: "Sep 2024",
       url: "/assets/certificates/certificate Digital Experience.pdf"
     },
     {
       name: "NoSQL Database Mastery",
-      image: "/icons/mongodb.svg",
+      image: "/icons/oracle.svg",
       earned: "Aug 2024",
       url: "/assets/certificates/certificate Nosql.pdf"
     },
