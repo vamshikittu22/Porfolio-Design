@@ -35,10 +35,10 @@ const ResumeSection = lazy(() => import('../../../sections/resume/ResumeSection'
 export function Chapter03Journey() {
   return (
     <ChapterContainer chapterId="03-journey">
-      <article className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20 space-y-20">
+      <article className="w-full max-w-[min(1500px,100%)] mx-auto px-4 sm:px-10 lg:px-16 py-20 space-y-32">
         {/* Career Snapshot - Above the fold overview */}
         <CareerSnapshot />
-        
+
         {/* Resume Section - Detailed work history and experience */}
         <Suspense fallback={<SectionLoader />}>
           <ResumeSection />

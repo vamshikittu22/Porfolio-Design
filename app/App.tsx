@@ -238,10 +238,9 @@ const AppContent: React.FC = () => {
           <PortfolioCaseStudy onBack={() => setView('portfolio')} />
         ) : (
           <ChapterTransition>
-            {/* Chapter-based routing: Landing page vs Chapter view */}
             {currentChapter === null ? (
               // No chapter selected - show landing page with all chapter cards
-              <div className="max-w-[1440px] mx-auto px-6 lg:px-16 pt-32 pb-20">
+              <div className="w-full max-w-[min(1600px,94vw)] mx-auto px-4 sm:px-8 lg:px-12 pt-32 pb-20">
                 <LandingPage />
               </div>
             ) : (

@@ -18,7 +18,7 @@ import '../../styles/glass-morphism.css';
 interface ChapterHeaderProps {
   /** Chapter title (e.g., "The Introduction", "The Builder") */
   title: string;
-  
+
   /** Chapter description/tagline */
   description: string;
 }
@@ -36,7 +36,7 @@ export function ChapterHeader({ title, description }: ChapterHeaderProps) {
   };
 
   return (
-    <header 
+    <header
       onClick={handleClick}
       className="chapter-header sticky top-0 z-100 glass-overlay cursor-pointer transition-all duration-200 hover:bg-opacity-90"
       role="button"
@@ -49,20 +49,20 @@ export function ChapterHeader({ title, description }: ChapterHeaderProps) {
         }
       }}
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-[min(1500px,100%)] mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Chapter Title */}
         <h1 className="heading-lg text-t-foreground mb-2">
           {title}
         </h1>
-        
+
         {/* Chapter Description */}
         <p className="body-md text-t-secondary">
           {description}
         </p>
       </div>
-      
+
       {/* Enhanced bottom border with chapter accent */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-transparent to-transparent" 
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-transparent to-transparent"
         style={{
           backgroundImage: 'linear-gradient(to right, transparent, rgba(var(--chapter-accent), 0.4), transparent)',
         }}

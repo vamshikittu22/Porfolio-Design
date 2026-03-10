@@ -31,10 +31,10 @@ const TravelSection = lazy(() => import('../../../sections/travel/TravelSection'
 export function Chapter04Explorer() {
   return (
     <ChapterContainer chapterId="04-explorer">
-      <div className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20">
+      <div className="w-full max-w-[min(1500px,100%)] mx-auto px-4 sm:px-10 lg:px-16 py-20 pb-40">
         {/* TODO (CHAP-07): Add section intro text about travel → learning connection */}
         {/* Blending professional/personal growth narrative */}
-        
+
         <Suspense fallback={<SectionLoader />}>
           <TravelSection />
         </Suspense>

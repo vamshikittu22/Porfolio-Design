@@ -43,10 +43,10 @@ const ContactSection = lazy(() => import('../../../sections/contact/ContactSecti
 export function Chapter06Connection() {
   return (
     <ChapterContainer chapterId="06-connection">
-      <div className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20">
+      <div className="w-full max-w-[min(1500px,100%)] mx-auto px-4 sm:px-10 lg:px-16 py-20 pb-40">
         {/* TODO: Verify social feed is included in ContactSection */}
         {/* If separate, add component in future enhancement */}
-        
+
         <Suspense fallback={<SectionLoader />}>
           <ContactSection />
         </Suspense>

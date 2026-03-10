@@ -34,7 +34,7 @@ import { useReadingProgress } from '../../hooks/useReadingProgress';
 interface ChapterContainerProps {
   /** Chapter ID - must match one of the 6 defined chapters */
   chapterId: ChapterId;
-  
+
   /** Chapter content - rendered between header and footer */
   children: ReactNode;
 }
@@ -54,15 +54,15 @@ export function ChapterContainer({ chapterId, children }: ChapterContainerProps)
   const { currentChapter } = useNavigation();
   const mainRef = useRef<HTMLElement>(null);
   const { containerRef, progress } = useReadingProgress();
-  
+
   // Get chapter metadata from registry
   const chapter = getChapterById(chapterId);
-  
+
   if (!chapter) {
     console.error(`Invalid chapter ID: ${chapterId}`);
     return null;
   }
-  
+
   /**
    * Focus main content on mount for accessibility
    * Ensures keyboard users land in the right place after navigation
@@ -72,16 +72,16 @@ export function ChapterContainer({ chapterId, children }: ChapterContainerProps)
       mainRef.current.focus();
     }
   }, [currentChapter, chapterId]);
-  
+
   return (
-    <div 
+    <div
       ref={containerRef}
       className="chapter-container min-h-screen flex flex-col"
       data-chapter={chapterId}
     >
       {/* Progress bar - fixed at top of viewport */}
       <ChapterProgress progress={progress} />
-      
+
       {/* Skip link for keyboard accessibility */}
       <a
         href="#main-content"
@@ -89,13 +89,13 @@ export function ChapterContainer({ chapterId, children }: ChapterContainerProps)
       >
         Skip to main content
       </a>
-      
+
       {/* Chapter Header - sticky at top */}
-      <ChapterHeader 
+      <ChapterHeader
         title={chapter.title}
         description={chapter.description}
       />
-      
+
       {/* Main Content Area */}
       <main
         id="main-content"
@@ -104,9 +104,11 @@ export function ChapterContainer({ chapterId, children }: ChapterContainerProps)
         aria-label={`Chapter ${chapter.number}: ${chapter.title}`}
         className="flex-1 focus:outline-none"
       >
-        {children}
+        <div className="chapter-content-wrap">
+          {children}
+        </div>
       </main>
-      
+
       {/* Chapter Footer - prev/next navigation */}
       <ChapterFooter chapterId={chapterId} />
     </div>

@@ -33,7 +33,7 @@ const BadgeHighlights = lazy(() => import('../../../sections/badges/BadgeHighlig
 export function Chapter02Builder() {
   return (
     <ChapterContainer chapterId="02-builder">
-      <article className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20 space-y-12">
+      <article className="w-full max-w-[min(1500px,100%)] mx-auto px-4 sm:px-10 lg:px-16 py-20 space-y-24">
         {/* Projects Section - Portfolio projects and case studies */}
         <Suspense fallback={<SectionLoader />}>
           <ProjectsSection />
