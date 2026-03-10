@@ -1,25 +1,13 @@
 /**
  * ChapterCardGrid Component
  * 
- * Responsive grid layout that displays all 6 chapters with Framer Motion stagger animations.
- * Uses CSS Grid auto-fit pattern for automatic column adjustment across breakpoints.
- * 
- * Features:
- * - Responsive grid (1 col mobile, 2 cols tablet, 3 cols desktop)
- * - Stagger animation with 100ms delay between cards
- * - Lazy animation loading - deferred until after initial paint for better FCP
- * - Respects prefers-reduced-motion for accessibility
- * - Stable React keys using chapter.id (not index)
- * 
- * Animation pattern:
- * - Container: opacity fade-in with staggerChildren
- * - Cards: opacity + translateY fade-up effect
- * - Duration: 300ms per card, 100ms stagger delay
- * - Reduced motion: instant appearance (no animation)
- * - Deferred: Animations delayed by 100ms after mount for better perceived performance
+ * Responsive layout that displays all 6 chapters with Framer Motion stagger animations.
+ * Fixed to a balanced layout:
+ * - Even count: Divided equally into 2 centered rows
+ * - Odd count: Divided into n and n+1 centered rows
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { CHAPTERS } from '../../../data/chapters';
 import useReducedMotion from '../../hooks/useReducedMotion';
@@ -38,46 +26,64 @@ export function ChapterCardGrid() {
   }, []);
 
   /**
-   * Container animation variants
-   * Controls stagger timing for child cards
+   * Calculate split rows based on count
+   * even -> half and half
+   * odd -> n and n+1
    */
+  const rows = useMemo(() => {
+    const total = CHAPTERS.length;
+    const splitPoint = Math.floor(total / 2);
+    return [
+      CHAPTERS.slice(0, splitPoint),
+      CHAPTERS.slice(splitPoint)
+    ];
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,  // 100ms delay between cards
-        delayChildren: 0.2     // Start after 200ms
+        staggerChildren: 0.1,
+        delayChildren: 0.2
       }
     }
   };
 
-  /**
-   * Card animation variants
-   * Fade-up effect: opacity 0→1, y 20→0
-   */
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] } // easeOut cubic-bezier
+      transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
     }
   };
 
   return (
     <motion.div
-      className="chapter-card-grid"
+      className="chapter-grid-container"
       variants={!prefersReducedMotion && shouldAnimate ? containerVariants : {}}
       initial={shouldAnimate ? "hidden" : false}
       animate={shouldAnimate ? "visible" : {}}
     >
-      {CHAPTERS.map(chapter => (
-        <motion.div 
-          key={chapter.id}
-          variants={!prefersReducedMotion && shouldAnimate ? cardVariants : {}}
+      {rows.map((row, rowIdx) => (
+        <motion.div
+          key={rowIdx}
+          className="chapter-row"
+          variants={!prefersReducedMotion && shouldAnimate ? {
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } }
+          } : {}}
         >
-          <ChapterCard chapter={chapter} />
+          {row.map(chapter => (
+            <motion.div
+              key={chapter.id}
+              className="chapter-card-wrapper"
+              variants={!prefersReducedMotion && shouldAnimate ? cardVariants : {}}
+            >
+              <ChapterCard chapter={chapter} />
+            </motion.div>
+          ))}
         </motion.div>
       ))}
     </motion.div>

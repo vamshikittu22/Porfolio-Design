@@ -1,43 +1,58 @@
 /**
  * Landing Page Styles
  * 
- * CSS Grid responsive layout for chapter cards using auto-fit pattern.
- * Automatically adjusts column count based on available space without hard-coded breakpoints.
- * 
- * Pattern: minmax(min(280px, 100%), 1fr)
- * - 280px: minimum card width (optimal readability)
- * - 100%: prevents overflow on small screens
- * - 1fr: cards expand to fill available space
- * - auto-fit: columns collapse/expand automatically
- * 
- * Result:
- * - Mobile (<640px): 1 column
- * - Tablet (640-900px): 2 columns
- * - Desktop (>900px): 3 columns
+ * Managed layout for chapter cards with balanced row distribution.
+ * - Desktop: 2 centered rows
+ * - Tablet/Mobile: Responsive flex wrap
  */
 
-.chapter-card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-  gap: 2rem; /* 32px between cards */
-  padding: 2rem;
+.chapter-grid-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
+  align-items: center;
 }
 
-/* Mobile adjustments */
+.chapter-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.chapter-card-wrapper {
+  flex: 0 1 380px;
+  /* Base width for cards */
+  min-width: 280px;
+}
+
+/* For small screens, revert to a simple flow */
 @media (max-width: 640px) {
-  .chapter-card-grid {
-    gap: 1.5rem; /* 24px on mobile */
-    padding: 1.5rem;
+  .chapter-grid-container {
+    gap: 1.5rem;
+  }
+
+  .chapter-row {
+    gap: 1.5rem;
+  }
+
+  .chapter-card-wrapper {
+    flex: 1 1 100%;
   }
 }
 
 /**
- * Placeholder card styling
- * Temporary styles for Task 2 - will be replaced by ChapterCard component in 02-02
+ * Legacy support for older components (if any)
  */
-.chapter-card-placeholder {
-  min-height: 120px;
+.chapter-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
