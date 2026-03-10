@@ -23,46 +23,55 @@ export const CHAPTERS: Chapter[] = [
     description: '5+ years of experience, 40+ technologies, and the story behind the engineer'
   },
   {
-    id: '02-builder',
+    id: '02-learner',
     number: 2,
+    title: 'The Learner',
+    hash: '02-learner',
+    icon: '/icons/chapters/explorer.svg', // Temporary icon, should use a more relevant one if available
+    subtitle: 'Certifications & Continued Learning',
+    description: 'Oracle Academy certifications, Google Skills Boost badges, and lifelong learning journey'
+  },
+  {
+    id: '03-builder',
+    number: 3,
     title: 'The Builder',
-    hash: '02-builder',
+    hash: '03-builder',
     icon: '/icons/chapters/builder.svg',
     subtitle: 'Projects & Technical Showcase',
     description: 'Full-stack projects with case studies, architecture decisions, and live demos'
   },
   {
-    id: '03-journey',
-    number: 3,
+    id: '04-journey',
+    number: 4,
     title: 'The Journey',
-    hash: '03-journey',
+    hash: '04-journey',
     icon: '/icons/chapters/journey.svg',
     subtitle: 'Career Timeline & Education',
     description: 'Career path from Mphasis to Citadel to CVS Health, plus academic background'
   },
   {
-    id: '04-explorer',
-    number: 4,
+    id: '05-explorer',
+    number: 5,
     title: 'The Explorer',
-    hash: '04-explorer',
+    hash: '05-explorer',
     icon: '/icons/chapters/explorer.svg',
     subtitle: 'Travel & Personal Adventures',
     description: 'Curiosity beyond code — travel stories and personal explorations'
   },
   {
-    id: '05-thinker',
-    number: 5,
+    id: '06-thinker',
+    number: 6,
     title: 'The Thinker',
-    hash: '05-thinker',
+    hash: '06-thinker',
     icon: '/icons/chapters/thinker.svg',
     subtitle: 'Problem Solving & AI Playground',
     description: 'Interactive games, AI experiments, and algorithmic thinking'
   },
   {
-    id: '06-connection',
-    number: 6,
+    id: '07-connection',
+    number: 7,
     title: 'The Connection',
-    hash: '06-connection',
+    hash: '07-connection',
     icon: '/icons/chapters/connection.svg',
     subtitle: 'Contact & Social Links',
     description: 'Email, LinkedIn, GitHub, and scheduling links to connect'

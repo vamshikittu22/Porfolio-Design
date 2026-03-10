@@ -59,3 +59,4 @@ export const ResumeCertifications: React.FC = () => {
         </section>
     );
 };
+export default ResumeCertifications;

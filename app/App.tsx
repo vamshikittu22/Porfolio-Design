@@ -17,11 +17,12 @@ import { ChapterTransition } from '../src/components/transitions/ChapterTransiti
 import LandingPage from '../src/pages/LandingPage';
 import {
   Chapter01Introduction,
-  Chapter02Builder,
-  Chapter03Journey,
-  Chapter04Explorer,
-  Chapter05Thinker,
-  Chapter06Connection
+  Chapter02Learner,
+  Chapter03Builder,
+  Chapter04Journey,
+  Chapter05Explorer,
+  Chapter06Thinker,
+  Chapter07Connection
 } from '../src/pages/chapters';
 import {
   HERO_FALLBACK_DARK,
@@ -247,11 +248,12 @@ const AppContent: React.FC = () => {
               // Chapter selected - route to appropriate chapter component
               <>
                 {currentChapter === '01-introduction' && <Chapter01Introduction />}
-                {currentChapter === '02-builder' && <Chapter02Builder />}
-                {currentChapter === '03-journey' && <Chapter03Journey />}
-                {currentChapter === '04-explorer' && <Chapter04Explorer />}
-                {currentChapter === '05-thinker' && <Chapter05Thinker />}
-                {currentChapter === '06-connection' && <Chapter06Connection />}
+                {currentChapter === '02-learner' && <Chapter02Learner />}
+                {currentChapter === '03-builder' && <Chapter03Builder />}
+                {currentChapter === '04-journey' && <Chapter04Journey />}
+                {currentChapter === '05-explorer' && <Chapter05Explorer />}
+                {currentChapter === '06-thinker' && <Chapter06Thinker />}
+                {currentChapter === '07-connection' && <Chapter07Connection />}
               </>
             )}
           </ChapterTransition>

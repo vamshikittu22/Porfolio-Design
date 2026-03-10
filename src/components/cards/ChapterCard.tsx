@@ -55,7 +55,8 @@ export function ChapterCard({ chapter }: ChapterCardProps) {
       aria-label={`Navigate to ${chapter.title}`}
       style={{
         cursor: 'pointer',
-        minHeight: '200px',
+        height: '100%',
+        minHeight: '340px',
         position: 'relative',
       }}
     >
@@ -70,19 +71,19 @@ export function ChapterCard({ chapter }: ChapterCardProps) {
         {/* Subtitle badge */}
         {chapter.subtitle && (
           <div className="mb-3">
-            <span className="text-[9px] font-mono font-bold text-t-accent-2 uppercase tracking-[0.3em] bg-t-accent-2/10 px-3 py-1 rounded-full">
+            <span className="text-[11px] font-mono font-bold text-t-accent-2 uppercase tracking-[0.3em] bg-t-accent-2/10 px-4 py-1.5 rounded-full">
               {chapter.subtitle}
             </span>
           </div>
         )}
 
         {/* Chapter title */}
-        <h2 className="text-2xl font-black mt-3 text-t-fg group-hover:text-t-accent transition-colors duration-300">
+        <h2 className="text-3xl font-black mt-4 text-t-fg group-hover:text-t-accent transition-colors duration-300 tracking-tight">
           {chapter.title}
         </h2>
 
         {/* Chapter description */}
-        <p className="text-sm text-t-fg-m/70 mt-2 group-hover:text-t-fg-m transition-colors duration-300">
+        <p className="text-base text-t-fg-m/70 mt-3 group-hover:text-t-fg-m transition-colors duration-300 leading-relaxed">
           {chapter.description}
         </p>
 

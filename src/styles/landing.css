@@ -7,34 +7,47 @@
 .chapter-grid-container {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
-  /* Increased vertical gap between rows */
+  gap: 3rem;
+  /* Increased vertical gap */
   width: 100%;
-  max-width: 1600px;
+  max-width: 1850px;
   margin: 0 auto;
   align-items: center;
 }
 
 .chapter-row {
   display: flex;
-  flex-wrap: wrap;
-  /* Allow wrapping on small screens */
+  flex-wrap: nowrap;
+  /* Force the rows to respect our split logic (3 top, 4 bottom) */
   justify-content: center;
   gap: 2rem;
   width: 100%;
+  align-items: stretch;
+  /* Ensures all wrappers in a row have same height */
 }
 
 .chapter-card-wrapper {
-  flex: 0 1 380px;
+  flex: 0 0 420px;
+  /* Fixed width for perfect identity */
+  /* Increased from 380px */
   /* Base width for cards */
-  min-width: 300px;
+  min-width: 320px;
+  display: flex;
+  /* Allows child to fill height */
 }
 
 /* On very wide screens, ensure we don't accidentally fit 4 if the container allows it */
 @media (min-width: 1024px) {
   .chapter-row {
-    max-width: 1250px;
-    /* Fits exactly 3 cards + gaps (3 * 380 + 2 * 32 = 1204) */
+    max-width: none;
+    /* Allow flexibility for both 3 and 4 item rows */
+  }
+}
+
+@media (max-width: 1100px) {
+  .chapter-row {
+    flex-wrap: wrap;
+    /* Allow wrapping on smaller desktop/tablet */
   }
 }
 
@@ -46,6 +59,7 @@
 
   .chapter-row {
     gap: 1.5rem;
+    flex-wrap: wrap;
   }
 
   .chapter-card-wrapper {

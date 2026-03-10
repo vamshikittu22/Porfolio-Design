@@ -9,6 +9,7 @@ import {
   SKILLS_RESUME,
 } from '../../config/constants';
 import { getAllBadges, type BadgeHighlight } from '../../data/badges';
+import { CHAPTERS } from '../../data/chapters';
 
 /* ─────────────────────── animation config ─────────────────────── */
 const stagger = {
@@ -220,14 +221,14 @@ export default function LandingPage() {
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10" /></svg>
             </a>
             <button
-              onClick={() => navigateToChapter('06-connection')}
+              onClick={() => navigateToChapter('07-connection')}
               className="group flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl border-2 border-t-border/40 text-t-fg text-[11px] font-mono font-bold uppercase tracking-[0.2em] hover:border-t-accent/50 hover:text-t-accent hover:bg-t-accent/5 hover:scale-[1.03] transition-all duration-300"
             >
               <span>Connect Me</span>
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10" /></svg>
             </button>
             <button
-              onClick={() => navigateToChapter('03-journey')}
+              onClick={() => navigateToChapter('04-journey')}
               className="group flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-t-bg-el/60 backdrop-blur-xl border border-t-border/40 text-t-fg text-[11px] font-mono font-bold uppercase tracking-[0.2em] hover:scale-[1.03] transition-all duration-300 shadow-xl"
             >
               <span>Experience</span>
@@ -291,7 +292,7 @@ export default function LandingPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full max-w-[min(1440px,94vw)] mx-auto px-4 py-24 sm:px-6 lg:px-8"
+        className="w-full max-w-[min(1850px,94vw)] mx-auto px-4 py-24 sm:px-6 lg:px-8"
       >
         {/* Section header */}
         <header className="text-center mb-16">
@@ -302,12 +303,12 @@ export default function LandingPage() {
             Choose Your Chapter
           </h2>
           <p className="text-[clamp(0.875rem,1.1vw,1.1rem)] text-t-fg-m/60 max-w-lg mx-auto">
-            Six deep dives into engineering, design, and everything in between.
+            Seven deep dives into engineering, design, and everything in between.
           </p>
         </header>
 
         {/* Chapter grid */}
-        <ChapterCardGrid />
+        <ChapterCardGrid chapters={CHAPTERS} />
       </motion.section>
     </main>
   );

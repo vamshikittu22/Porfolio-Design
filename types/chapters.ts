@@ -12,11 +12,12 @@
  */
 export type ChapterId =
   | '01-introduction'
-  | '02-builder'
-  | '03-journey'
-  | '04-explorer'
-  | '05-thinker'
-  | '06-connection';
+  | '02-learner'
+  | '03-builder'
+  | '04-journey'
+  | '05-explorer'
+  | '06-thinker'
+  | '07-connection';
 
 /**
  * NavigationType - Determines scroll behavior on chapter transition

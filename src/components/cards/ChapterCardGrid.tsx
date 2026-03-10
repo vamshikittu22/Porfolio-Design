@@ -15,9 +15,15 @@ import { ChapterCard } from './ChapterCard';
 import '../../styles/landing.css';
 import '../../styles/glass-cards.css';
 
-export function ChapterCardGrid() {
+interface ChapterCardGridProps {
+  chapters?: any[]; // Using any to avoid complex type import for this quick fix
+}
+
+export function ChapterCardGrid({ chapters: propChapters }: ChapterCardGridProps) {
   const prefersReducedMotion = useReducedMotion();
   const [shouldAnimate, setShouldAnimate] = useState(false);
+
+  const displayChapters = propChapters || CHAPTERS;
 
   // Defer animations until after initial paint
   useEffect(() => {
@@ -25,25 +31,17 @@ export function ChapterCardGrid() {
     return () => clearTimeout(timer);
   }, []);
 
-  /**
-   * Calculate split rows based on count
-   * even -> half and half (e.g., 6 -> 3 and 3)
-   * odd -> n and n+1 (e.g., 5 -> 2 and 3)
-   */
-  const rows = useMemo(() => {
-    const total = CHAPTERS.length;
-    // We want the smaller or equal number on top if odd (n)
-    // and the larger or equal number on bottom (n+1)
-    const firstRowSize = Math.floor(total / 2);
+  const total = displayChapters.length;
+  // We want the smaller or equal number on top if odd (n)
+  // and the larger or equal number on bottom (n+1)
+  const firstRowSize = Math.floor(total / 2);
 
-    // Safety check: ensure we handle small counts
-    if (total <= 3) return [CHAPTERS]; // Single row if very few entries
-
-    return [
-      CHAPTERS.slice(0, firstRowSize),
-      CHAPTERS.slice(firstRowSize)
+  const rows = total <= 3
+    ? [displayChapters]
+    : [
+      displayChapters.slice(0, firstRowSize),
+      displayChapters.slice(firstRowSize)
     ];
-  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },

@@ -20,51 +20,38 @@
 
   /* Chapter 01 - Introduction: Blue (Professional, Trust, Beginning) */
   --chapter-01-accent: 59, 130, 246;
-  /* Tailwind blue-500 */
   --chapter-01-accent-light: 96, 165, 250;
-  /* blue-400 */
   --chapter-01-accent-dark: 37, 99, 235;
-  /* blue-600 */
 
-  /* Chapter 02 - Builder: Green (Growth, Creation, Building) */
-  --chapter-02-accent: 34, 197, 94;
-  /* Tailwind green-500 */
-  --chapter-02-accent-light: 74, 222, 128;
-  /* green-400 */
-  --chapter-02-accent-dark: 22, 163, 74;
-  /* green-600 */
+  /* Chapter 02 - Learner: Emerald (Growth, Freshness, Learning) */
+  --chapter-02-accent: 16, 185, 129;
+  --chapter-02-accent-light: 52, 211, 153;
+  --chapter-02-accent-dark: 5, 150, 105;
 
-  /* Chapter 03 - Journey: Purple (Evolution, Transformation) */
-  --chapter-03-accent: 168, 85, 247;
-  /* Tailwind purple-500 */
-  --chapter-03-accent-light: 192, 132, 252;
-  /* purple-400 */
-  --chapter-03-accent-dark: 147, 51, 234;
-  /* purple-600 */
+  /* Chapter 03 - Builder: Green (Creation, Building) */
+  --chapter-03-accent: 34, 197, 94;
+  --chapter-03-accent-light: 74, 222, 128;
+  --chapter-03-accent-dark: 22, 163, 74;
 
-  /* Chapter 04 - Explorer: Orange (Adventure, Discovery, Energy) */
-  --chapter-04-accent: 249, 115, 22;
-  /* Tailwind orange-500 */
-  --chapter-04-accent-light: 251, 146, 60;
-  /* orange-400 */
-  --chapter-04-accent-dark: 234, 88, 12;
-  /* orange-600 */
+  /* Chapter 04 - Journey: Purple (Evolution, Transformation) */
+  --chapter-04-accent: 168, 85, 247;
+  --chapter-04-accent-light: 192, 132, 252;
+  --chapter-04-accent-dark: 147, 51, 234;
 
-  /* Chapter 05 - Thinker: Pink (Creativity, Problem-Solving) */
-  --chapter-05-accent: 236, 72, 153;
-  /* Tailwind pink-500 */
-  --chapter-05-accent-light: 244, 114, 182;
-  /* pink-400 */
-  --chapter-05-accent-dark: 219, 39, 119;
-  /* pink-600 */
+  /* Chapter 05 - Explorer: Orange (Adventure, Discovery, Energy) */
+  --chapter-05-accent: 249, 115, 22;
+  --chapter-05-accent-light: 251, 146, 60;
+  --chapter-05-accent-dark: 234, 88, 12;
 
-  /* Chapter 06 - Connection: Cyan (Communication, Community) */
-  --chapter-06-accent: 6, 182, 212;
-  /* Tailwind cyan-500 */
-  --chapter-06-accent-light: 34, 211, 238;
-  /* cyan-400 */
-  --chapter-06-accent-dark: 14, 165, 233;
-  /* cyan-600 */
+  /* Chapter 06 - Thinker: Pink (Creativity, Problem-Solving) */
+  --chapter-06-accent: 236, 72, 153;
+  --chapter-06-accent-light: 244, 114, 182;
+  --chapter-06-accent-dark: 219, 39, 119;
+
+  /* Chapter 07 - Connection: Cyan (Communication, Community) */
+  --chapter-07-accent: 6, 182, 212;
+  --chapter-07-accent-light: 34, 211, 238;
+  --chapter-07-accent-dark: 14, 165, 233;
 
   /* Active chapter accent - defaults to blue, overridden by data-chapter attribute */
   --chapter-accent: var(--chapter-01-accent);
@@ -89,34 +76,40 @@
   --chapter-accent-dark: var(--chapter-01-accent-dark);
 }
 
-[data-chapter="02-builder"] {
+[data-chapter="02-learner"] {
   --chapter-accent: var(--chapter-02-accent);
   --chapter-accent-light: var(--chapter-02-accent-light);
   --chapter-accent-dark: var(--chapter-02-accent-dark);
 }
 
-[data-chapter="03-journey"] {
+[data-chapter="03-builder"] {
   --chapter-accent: var(--chapter-03-accent);
   --chapter-accent-light: var(--chapter-03-accent-light);
   --chapter-accent-dark: var(--chapter-03-accent-dark);
 }
 
-[data-chapter="04-explorer"] {
+[data-chapter="04-journey"] {
   --chapter-accent: var(--chapter-04-accent);
   --chapter-accent-light: var(--chapter-04-accent-light);
   --chapter-accent-dark: var(--chapter-04-accent-dark);
 }
 
-[data-chapter="05-thinker"] {
+[data-chapter="05-explorer"] {
   --chapter-accent: var(--chapter-05-accent);
   --chapter-accent-light: var(--chapter-05-accent-light);
   --chapter-accent-dark: var(--chapter-05-accent-dark);
 }
 
-[data-chapter="06-connection"] {
+[data-chapter="06-thinker"] {
   --chapter-accent: var(--chapter-06-accent);
   --chapter-accent-light: var(--chapter-06-accent-light);
   --chapter-accent-dark: var(--chapter-06-accent-dark);
+}
+
+[data-chapter="07-connection"] {
+  --chapter-accent: var(--chapter-07-accent);
+  --chapter-accent-light: var(--chapter-07-accent-light);
+  --chapter-accent-dark: var(--chapter-07-accent-dark);
 }
 
 /* ============================================================================

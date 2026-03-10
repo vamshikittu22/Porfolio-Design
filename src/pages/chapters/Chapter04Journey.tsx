@@ -1,21 +1,8 @@
 /**
- * Chapter 03: The Journey
+ * Chapter 04: The Journey
  * 
- * Third chapter depicting career progression and professional growth.
+ * Fourth chapter depicting career progression and professional growth.
  * Shows career path from overview to detailed experience.
- * 
- * Sections:
- * - CareerSnapshot: High-level career overview and timeline stats
- * - ResumeSection: Detailed work history, education, and skills
- * 
- * Theme: "Career path and growth"
- * 
- * Content Flow:
- * CareerSnapshot → ResumeSection (progressive disclosure pattern)
- * Snapshot provides entry point, resume adds depth.
- * 
- * TODO (Phase 4): Add personal growth narrative text between sections
- * to fulfill CHAP-07 blended professional/personal requirement
  */
 
 import React, { lazy, Suspense } from 'react';
@@ -27,14 +14,13 @@ import SectionLoader from '../../../components/ui/SectionLoader';
 const ResumeSection = lazy(() => import('../../../sections/resume/ResumeSection'));
 
 /**
- * Chapter03Journey Component
+ * Chapter04Journey Component
  * 
  * Composes Career and Resume sections into "Journey" narrative.
- * Progressive disclosure: overview → details.
  */
-export function Chapter03Journey() {
+export function Chapter04Journey() {
   return (
-    <ChapterContainer chapterId="03-journey">
+    <ChapterContainer chapterId="04-journey">
       <article className="w-full max-w-[min(1500px,100%)] mx-auto px-4 sm:px-10 lg:px-16 py-20 space-y-32">
         {/* Career Snapshot - Above the fold overview */}
         <CareerSnapshot />
@@ -48,4 +34,4 @@ export function Chapter03Journey() {
   );
 }
 
-export default Chapter03Journey;
+export default Chapter04Journey;
