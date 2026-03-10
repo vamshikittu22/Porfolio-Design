@@ -87,6 +87,16 @@ export const BADGES: BadgeHighlight[] = [
     image: '/icons/oracle.svg'
   },
   {
+    id: 'cert-nosql-demo',
+    title: 'NoSQL Database Demo Mastery',
+    issuer: 'Oracle Academy',
+    issuedOn: '2024-08-15',
+    skills: ['NoSQL', 'Database Design', 'Data Orchestration'],
+    summary: 'Practical demonstration of NoSQL database concepts and high-performance data modeling.',
+    url: '/assets/certificates/certificate Nosql Demo.pdf',
+    image: '/icons/oracle.svg'
+  },
+  {
     id: 'cert-nosql',
     title: 'NoSQL Database Mastery',
     issuer: 'Oracle Academy',
@@ -135,16 +145,6 @@ export const BADGES: BadgeHighlight[] = [
     summary: 'Active contributor to the Firebase developer community.',
     url: 'https://g.dev/VamshiKi22u',
     image: 'https://developers.google.com/static/profile/badges/community/firebasestudio/firebase-studio/badge.svg'
-  },
-  {
-    id: 'intro-responsible-ai',
-    title: 'Introduction to Responsible AI',
-    issuer: 'Google Cloud Skills Boost',
-    issuedOn: '2025-09-13',
-    skills: ['Generative AI', 'Responsible AI', 'Ethics'],
-    summary: 'Explored the principles and best practices for developing and deploying AI responsibly.',
-    url: 'https://www.skills.google/public_profiles/b45b93dd-7d1d-4dda-b666-71ac228c075c',
-    image: 'https://cdn.qwiklabs.com/RV0XLMKJOc1vq9CQ6rcMquorhDw4XasPcP2QRT3iuVA%3D'
   }
 ];
 

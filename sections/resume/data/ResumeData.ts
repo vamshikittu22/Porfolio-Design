@@ -172,6 +172,12 @@ export const RESUME_CONTENT = {
       url: "/assets/certificates/certificate Digital Experience.pdf"
     },
     {
+      name: "NoSQL Database Demo Mastery",
+      image: "/icons/oracle.svg",
+      earned: "Aug 2024",
+      url: "/assets/certificates/certificate Nosql Demo.pdf"
+    },
+    {
       name: "NoSQL Database Mastery",
       image: "/icons/oracle.svg",
       earned: "Aug 2024",
@@ -181,11 +187,6 @@ export const RESUME_CONTENT = {
       name: "Google Developer Program premium tier",
       image: "https://developers.google.com/static/profile/badges/community/innovators/cloud/innovators_plus/badge.svg",
       earned: "Feb 10, 2026"
-    },
-    {
-      name: "Level 1: Compute, Storage and Monitoring",
-      image: "https://cdn.qwiklabs.com/s2Z%2FNVvCyvqdC7YjLTIWb1hG4x%2BQ7NzrqC7x5g2gXU0%3D",
-      earned: "Jan 23, 2026"
     }
   ]
 };
