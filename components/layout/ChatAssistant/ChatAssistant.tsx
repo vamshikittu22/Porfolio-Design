@@ -13,15 +13,15 @@ const LivingAICore = ({ isHovered, isOpen }: { isHovered: boolean; isOpen: boole
     <div className="relative w-10 h-10 flex items-center justify-center">
       <AnimatePresence mode="wait">
         {!isOpen ? (
-          <motion.div 
+          <motion.div
             key="launcher-visual"
             className="relative w-full h-full flex items-center justify-center"
             animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
           >
             {/* Soft Neural Breathing Core */}
-            <motion.div 
+            <motion.div
               className="absolute w-4 h-4 bg-t-accent rounded-full z-10 shadow-[0_0_15px_rgba(var(--color-accent-rgb),0.5)]"
-              animate={{ 
+              animate={{
                 scale: isHovered ? [1, 1.4, 1] : [1, 1.2, 1],
                 opacity: isHovered ? [0.8, 1, 0.8] : [0.5, 0.8, 0.5]
               }}
@@ -31,11 +31,11 @@ const LivingAICore = ({ isHovered, isOpen }: { isHovered: boolean; isOpen: boole
             {/* Single Minimal Orbital Ring */}
             <motion.div
               className="absolute inset-0 border border-t-accent/20 rounded-full"
-              animate={{ 
+              animate={{
                 rotate: 360,
                 borderColor: isHovered ? 'rgba(var(--color-accent-rgb), 0.4)' : 'rgba(var(--color-accent-rgb), 0.1)'
               }}
-              transition={{ 
+              transition={{
                 rotate: { duration: 10, repeat: Infinity, ease: "linear" },
                 borderColor: { duration: 0.5 }
               }}
@@ -95,25 +95,30 @@ const ChatAssistant: React.FC = () => {
         { label: "What's next?", query: "What chapters should I explore next?" },
         { label: "Core strengths", query: "What are Vamshi's core technical strengths?" },
       ],
-      '02-builder': [
+      '02-learner': [
+        { label: "Certifications", query: "What certifications does Vamshi hold?" },
+        { label: "Technical skills", query: "What are Vamshi's technical skills?" },
+        { label: "Learning path", query: "Tell me about Vamshi's learning journey." },
+      ],
+      '03-builder': [
         { label: "Top 3 projects", query: "Tell me about your top 3 software projects." },
         { label: "Related chapters", query: "Which other chapters relate to technical work?" },
         { label: "Tech stack", query: "What technologies does Vamshi work with?" },
       ],
-      '03-journey': [
+      '04-journey': [
         { label: "Career path", query: "Walk me through Vamshi's career journey." },
         { label: "Explore more", query: "What else can I learn about Vamshi?" },
         { label: "Work auth", query: "What is Vamshi's current work authorization status?" },
       ],
-      '04-explorer': [
+      '05-explorer': [
         { label: "Travel stories", query: "Tell me about Vamshi's travel experiences." },
         { label: "More chapters", query: "What other chapters are available?" },
       ],
-      '05-thinker': [
+      '06-thinker': [
         { label: "AI expertise", query: "What AI technologies does Vamshi work with?" },
         { label: "Navigation help", query: "How do I navigate between chapters?" },
       ],
-      '06-connection': [
+      '07-connection': [
         { label: "How to contact", query: "How can I get in touch with Vamshi?" },
         { label: "Start over", query: "Take me back to the beginning." },
       ],
@@ -144,13 +149,13 @@ const ChatAssistant: React.FC = () => {
     // Pass current chapter context to ChatService
     const reply = await chatService.sendMessage(textToSend, currentChapter);
     const botMsg: ChatMessage = { role: 'model', text: reply };
-    
+
     setMessages(prev => [...prev, botMsg]);
     setIsLoading(false);
   };
 
   return (
-    <div 
+    <div
       className="fixed bottom-8 right-8 z-[200] print:hidden"
       data-chapter={currentChapter || undefined} // Apply chapter context
     >
@@ -182,7 +187,7 @@ const ChatAssistant: React.FC = () => {
       {/* Chat Panel */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.98, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: 10 }}
@@ -203,8 +208,8 @@ const ChatAssistant: React.FC = () => {
                     <div className="flex items-center gap-1.5 mt-0.5 opacity-60">
                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                       <p className="text-[9px] font-bold text-t-fg-m uppercase tracking-widest">
-                        {currentChapter 
-                          ? `Chapter ${getChapterById(currentChapter)?.number || ''} Context` 
+                        {currentChapter
+                          ? `Chapter ${getChapterById(currentChapter)?.number || ''} Context`
                           : 'Landing Page'
                         }
                       </p>
@@ -214,12 +219,12 @@ const ChatAssistant: React.FC = () => {
               </div>
 
               {/* Chat History Area */}
-              <div 
+              <div
                 ref={scrollRef}
                 className="flex-1 overflow-y-auto p-8 space-y-8 scrollbar-hide"
               >
                 {messages.length === 0 && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="bg-t-bg/50 border border-t-border p-6 rounded-[28px] rounded-tl-none"
@@ -231,15 +236,15 @@ const ChatAssistant: React.FC = () => {
                 )}
 
                 {messages.map((m, i) => (
-                  <motion.div 
-                    key={i} 
+                  <motion.div
+                    key={i}
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div className={`max-w-[85%] p-5 rounded-[24px] text-sm leading-relaxed shadow-sm
-                      ${m.role === 'user' 
-                        ? 'bg-t-accent text-t-bg rounded-tr-none font-bold' 
+                      ${m.role === 'user'
+                        ? 'bg-t-accent text-t-bg rounded-tr-none font-bold'
                         : 'bg-t-bg-el border border-t-border text-t-fg rounded-tl-none font-medium'
                       }`}
                     >
@@ -252,9 +257,9 @@ const ChatAssistant: React.FC = () => {
                   <div className="flex justify-start">
                     <div className="bg-t-bg-el border border-t-border px-5 py-4 rounded-[24px] rounded-tl-none flex gap-1.5">
                       {[0, 1, 2].map(i => (
-                        <motion.div 
+                        <motion.div
                           key={i}
-                          className="w-1.5 h-1.5 rounded-full bg-t-accent/40" 
+                          className="w-1.5 h-1.5 rounded-full bg-t-accent/40"
                           animate={{ opacity: [0.3, 1, 0.3] }}
                           transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
                         />
@@ -281,7 +286,7 @@ const ChatAssistant: React.FC = () => {
                 </div>
 
                 <div className="relative flex items-center gap-3">
-                  <input 
+                  <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
@@ -289,7 +294,7 @@ const ChatAssistant: React.FC = () => {
                     placeholder="Type an inquiry..."
                     className="w-full bg-t-bg border border-t-border rounded-2xl px-6 py-4 text-xs font-medium focus:ring-4 focus:ring-t-accent/5 focus:border-t-accent outline-none transition-all placeholder:text-t-fg/30"
                   />
-                  <motion.button 
+                  <motion.button
                     onClick={() => handleSend()}
                     disabled={isLoading || !input.trim()}
                     whileHover={{ scale: 1.1 }}

@@ -61,7 +61,21 @@ export const CHAPTER_SEO: Record<ChapterId, ChapterSEO> = {
     ],
     ogImage: '/og-chapter-01.png',
   },
-  '02-builder': {
+  '02-learner': {
+    title: 'The Learner - Certifications & Continuous Learning | Vamshi Krishna',
+    description: 'Specialized certifications from Oracle Academy, Google Cloud, and AWS. Commitment to lifelong learning and staying at the forefront of software engineering technologies.',
+    keywords: [
+      'Certifications',
+      'Oracle Certified',
+      'Google Cloud Skills',
+      'Continuous Learning',
+      'Professional Development',
+      'Technical Skills',
+      'Lifelong Learner',
+    ],
+    ogImage: '/og-chapter-02.png',
+  },
+  '03-builder': {
     title: 'The Builder - Projects & Technical Showcase | Vamshi Krishna',
     description: 'Explore full-stack projects including AI-powered applications, microservices architectures, and cloud-native solutions. Live demos, case studies, and technical deep-dives.',
     keywords: [
@@ -74,9 +88,9 @@ export const CHAPTER_SEO: Record<ChapterId, ChapterSEO> = {
       'Cloud Native',
       'Case Studies',
     ],
-    ogImage: '/og-chapter-02.png',
+    ogImage: '/og-chapter-03.png',
   },
-  '03-journey': {
+  '04-journey': {
     title: 'The Journey - Career Timeline & Education | Vamshi Krishna',
     description: 'Career progression from Mphasis to Citadel to CVS Health. Masters in Computer Science from University of Central Missouri. 5+ years of enterprise software development.',
     keywords: [
@@ -89,9 +103,9 @@ export const CHAPTER_SEO: Record<ChapterId, ChapterSEO> = {
       'Computer Science',
       'Career Path',
     ],
-    ogImage: '/og-chapter-03.png',
+    ogImage: '/og-chapter-04.png',
   },
-  '04-explorer': {
+  '05-explorer': {
     title: 'The Explorer - Travel & Personal Adventures | Vamshi Krishna',
     description: 'Curiosity beyond code. Travel stories from Rishikesh to Coorg, personal adventures, and experiences that shape my perspective as an engineer.',
     keywords: [
@@ -103,9 +117,9 @@ export const CHAPTER_SEO: Record<ChapterId, ChapterSEO> = {
       'Personal Growth',
       'Life Beyond Code',
     ],
-    ogImage: '/og-chapter-04.png',
+    ogImage: '/og-chapter-05.png',
   },
-  '05-thinker': {
+  '06-thinker': {
     title: 'The Thinker - AI Playground & Problem Solving | Vamshi Krishna',
     description: 'Interactive games, AI experiments, and algorithmic thinking. Explore problem-solving approaches with hands-on demonstrations.',
     keywords: [
@@ -118,9 +132,9 @@ export const CHAPTER_SEO: Record<ChapterId, ChapterSEO> = {
       'Gemini AI',
       'Technical Challenges',
     ],
-    ogImage: '/og-chapter-05.png',
+    ogImage: '/og-chapter-06.png',
   },
-  '06-connection': {
+  '07-connection': {
     title: 'The Connection - Contact & Social Links | Vamshi Krishna',
     description: 'Get in touch via email, LinkedIn, GitHub, or schedule a call. Open to full-time software engineering opportunities, consulting, and collaboration.',
     keywords: [
@@ -133,7 +147,7 @@ export const CHAPTER_SEO: Record<ChapterId, ChapterSEO> = {
       'Schedule Call',
       'Job Opportunities',
     ],
-    ogImage: '/og-chapter-06.png',
+    ogImage: '/og-chapter-07.png',
   },
 };
 

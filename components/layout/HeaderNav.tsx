@@ -107,6 +107,13 @@ const PlaylabIcon = ({ isHovered }: { isHovered: boolean }) => (
   </svg>
 );
 
+const LearnerIcon = ({ isHovered }: { isHovered: boolean }) => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
+    <motion.path d="M22 10v6M2 10l10-5 10 5-10 5z" animate={isHovered ? { y: [-1, 1, -1] } : { y: 0 }} />
+    <motion.path d="M6 12.5V16c0 1.1 2.68 2 6 2s6-.9 6-2v-3.5" animate={isHovered ? { scale: [1, 1.05, 1] } : { scale: 1 }} />
+  </svg>
+);
+
 const ContactIcon = ({ isHovered }: { isHovered: boolean }) => (
   <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
     <motion.rect x="2" y="4" width="20" height="16" rx="2" animate={isHovered ? { scale: [1, 1.05, 1] } : {}} />
@@ -125,6 +132,7 @@ const CrazyNavIcon = ({ name, isActive, isHovered }: CrazyNavIconProps) => {
   const iconProps = { isHovered, isActive };
   switch (name) {
     case 'About': return <AboutIcon {...iconProps} />;
+    case 'Learner': return <LearnerIcon {...iconProps} />;
     case 'Career': return <CareerIcon {...iconProps} />;
     case 'Projects': return <ProjectsIcon {...iconProps} />;
     case 'Playlab': return <PlaylabIcon {...iconProps} />;
@@ -145,11 +153,12 @@ interface ChapterNavConfig {
 
 const CHAPTER_NAV: ChapterNavConfig[] = [
   { chapterId: '01-introduction', icon: 'About', label: 'Intro', sections: ['Hero', 'About & Skills'] },
-  { chapterId: '02-builder', icon: 'Projects', label: 'Builder', sections: ['Projects', 'GitHub'] },
-  { chapterId: '03-journey', icon: 'Career', label: 'Journey', sections: ['Career', 'Resume'] },
-  { chapterId: '04-explorer', icon: 'Travel', label: 'Explorer', sections: ['Travel'] },
-  { chapterId: '05-thinker', icon: 'Playlab', label: 'Thinker', sections: ['Game', 'AI Playground'] },
-  { chapterId: '06-connection', icon: 'Contact', label: 'Connect', sections: ['Contact', 'Social'] },
+  { chapterId: '02-learner', icon: 'Learner', label: 'Learner', sections: ['Certifications', 'Learning'] },
+  { chapterId: '03-builder', icon: 'Projects', label: 'Builder', sections: ['Projects', 'GitHub'] },
+  { chapterId: '04-journey', icon: 'Career', label: 'Journey', sections: ['Career', 'Resume'] },
+  { chapterId: '05-explorer', icon: 'Travel', label: 'Explorer', sections: ['Travel'] },
+  { chapterId: '06-thinker', icon: 'Playlab', label: 'Thinker', sections: ['Game', 'AI Playground'] },
+  { chapterId: '07-connection', icon: 'Contact', label: 'Connect', sections: ['Contact', 'Social'] },
 ];
 
 // --- CHAPTER NAV ITEM WITH DROPDOWN ---

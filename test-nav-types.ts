@@ -13,7 +13,7 @@ const test: HookReturn extends NavigationContextType ? true : false = true;
 // Verify navigateToChapter accepts ChapterId
 function testNavigation(ctx: NavigationContextType) {
   ctx.navigateToChapter('01-introduction'); // Should compile
-  ctx.navigateToChapter('02-builder', 'sequential'); // Should compile
+  ctx.navigateToChapter('03-builder', 'sequential'); // Should compile
   ctx.toggleMenu();
   ctx.closeMenu();
   ctx.openMenu();
