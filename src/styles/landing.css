@@ -2,14 +2,13 @@
  * Landing Page Styles
  * 
  * Managed layout for chapter cards with balanced row distribution.
- * - Desktop: 2 centered rows
- * - Tablet/Mobile: Responsive flex wrap
  */
 
 .chapter-grid-container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
+  /* Increased vertical gap between rows */
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
@@ -19,6 +18,7 @@
 .chapter-row {
   display: flex;
   flex-wrap: wrap;
+  /* Allow wrapping on small screens */
   justify-content: center;
   gap: 2rem;
   width: 100%;
@@ -27,7 +27,15 @@
 .chapter-card-wrapper {
   flex: 0 1 380px;
   /* Base width for cards */
-  min-width: 280px;
+  min-width: 300px;
+}
+
+/* On very wide screens, ensure we don't accidentally fit 4 if the container allows it */
+@media (min-width: 1024px) {
+  .chapter-row {
+    max-width: 1250px;
+    /* Fits exactly 3 cards + gaps (3 * 380 + 2 * 32 = 1204) */
+  }
 }
 
 /* For small screens, revert to a simple flow */
@@ -46,7 +54,7 @@
 }
 
 /**
- * Legacy support for older components (if any)
+ * Legacy support
  */
 .chapter-card-grid {
   display: grid;

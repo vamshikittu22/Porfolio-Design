@@ -3,8 +3,8 @@
  * 
  * Responsive layout that displays all 6 chapters with Framer Motion stagger animations.
  * Fixed to a balanced layout:
- * - Even count: Divided equally into 2 centered rows
- * - Odd count: Divided into n and n+1 centered rows
+ * - Even count: Divided equally into 2 centered rows (e.g., 3 + 3)
+ * - Odd count: Divided into n and n+1 centered rows (e.g., 2 + 3)
  */
 
 import { useState, useEffect, useMemo } from 'react';
@@ -27,15 +27,21 @@ export function ChapterCardGrid() {
 
   /**
    * Calculate split rows based on count
-   * even -> half and half
-   * odd -> n and n+1
+   * even -> half and half (e.g., 6 -> 3 and 3)
+   * odd -> n and n+1 (e.g., 5 -> 2 and 3)
    */
   const rows = useMemo(() => {
     const total = CHAPTERS.length;
-    const splitPoint = Math.floor(total / 2);
+    // We want the smaller or equal number on top if odd (n)
+    // and the larger or equal number on bottom (n+1)
+    const firstRowSize = Math.floor(total / 2);
+
+    // Safety check: ensure we handle small counts
+    if (total <= 3) return [CHAPTERS]; // Single row if very few entries
+
     return [
-      CHAPTERS.slice(0, splitPoint),
-      CHAPTERS.slice(splitPoint)
+      CHAPTERS.slice(0, firstRowSize),
+      CHAPTERS.slice(firstRowSize)
     ];
   }, []);
 
