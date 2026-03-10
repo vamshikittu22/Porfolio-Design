@@ -7,6 +7,7 @@ import { ResumeSkills } from './components/ResumeSkills';
 import { ResumeExperience } from './components/ResumeExperience';
 import { ResumeProjects } from './components/ResumeProjects';
 import { ResumeEducation } from './components/ResumeEducation';
+import { ResumeCertifications } from './components/ResumeCertifications';
 import { ResumeFooter } from './components/ResumeFooter';
 
 const ResumeSection: React.FC = () => {
@@ -72,6 +73,7 @@ const ResumeSection: React.FC = () => {
               <ResumeExperience />
               <ResumeProjects />
               <ResumeEducation />
+              <ResumeCertifications />
               <ResumeFooter onDownload={handleDownloadFile} />
             </div>
           </div>

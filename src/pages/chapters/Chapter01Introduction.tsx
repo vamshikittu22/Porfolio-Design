@@ -1,11 +1,10 @@
 /**
  * Chapter 01: The Introduction
  * 
- * First chapter of the portfolio narrative combining Hero and About sections.
- * Provides first impression and personal background introduction.
+ * First chapter of the portfolio narrative focused on the About section.
+ * Provides personal background and a deep dive into skills.
  * 
  * Sections:
- * - HeroSection: Visual introduction and hero card
  * - AboutSection: Skills matrix and personal background
  * 
  * Theme: "Who I am and why I'm here"
@@ -13,41 +12,31 @@
 
 import React, { Suspense } from 'react';
 import { ChapterContainer } from '../../components/chapter/ChapterContainer';
-import { HeroSection } from '../../../sections/hero/HeroSection';
 import { AboutSection } from '../../../sections/about/AboutSection';
 import SectionLoader from '../../../components/ui/SectionLoader';
 
 /**
  * Chapter01Introduction Component
  * 
- * Composes Hero and About sections into first chapter narrative.
+ * Renders the About section within the the first chapter narrative.
  * Uses ChapterContainer for consistent layout and navigation chrome.
  */
 export function Chapter01Introduction() {
-  // TODO: Wire up hero image state from navigation context in Plan 04
-  const heroImage = null;
-  const heroLoading = false;
-  
-  // Placeholder scroll handler - will be wired in Plan 04
-  const handleScroll = (_id: string) => {
-    console.log('Navigation scroll handler not yet implemented');
-  };
-  
   return (
     <ChapterContainer chapterId="01-introduction">
       <article>
-        {/* Hero Section - Full screen above the fold */}
-        <Suspense fallback={<SectionLoader />}>
-          <HeroSection 
-            image={heroImage}
-            loading={heroLoading}
-            onScroll={handleScroll}
-          />
-        </Suspense>
-        
         {/* About Section - Constrained width with padding */}
         <Suspense fallback={<SectionLoader />}>
-          <div className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20">
+          <div className="max-w-[1440px] mx-auto px-10 lg:px-32 py-20 pb-40">
+            <header className="mb-16">
+              <span className="inline-block text-[10px] font-mono font-black uppercase tracking-[0.5em] text-t-accent mb-4">
+                Chapter 01
+              </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black font-heading text-t-fg tracking-tight mb-6">
+                The Architect<span className="text-t-accent">'</span>s Introduction
+              </h1>
+              <div className="h-1 w-20 bg-t-accent" />
+            </header>
             <AboutSection />
           </div>
         </Suspense>

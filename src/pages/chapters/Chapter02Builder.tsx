@@ -22,6 +22,7 @@ import SectionLoader from '../../../components/ui/SectionLoader';
 // Lazy load sections for performance (below-the-fold content)
 const ProjectsSection = lazy(() => import('../../../sections/projects/ProjectsSection'));
 const GithubSection = lazy(() => import('../../../sections/github/GithubSection'));
+const BadgeHighlights = lazy(() => import('../../../sections/badges/BadgeHighlights'));
 
 /**
  * Chapter02Builder Component
@@ -36,6 +37,11 @@ export function Chapter02Builder() {
         {/* Projects Section - Portfolio projects and case studies */}
         <Suspense fallback={<SectionLoader />}>
           <ProjectsSection />
+        </Suspense>
+
+        {/* Badges & Certifications - credibility layer */}
+        <Suspense fallback={<SectionLoader />}>
+          <BadgeHighlights />
         </Suspense>
 
         {/* GitHub Section - Contribution stats and activity */}

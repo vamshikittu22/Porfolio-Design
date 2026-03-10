@@ -134,6 +134,17 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 5. AI Chapter Companion | 2/2 | ✓ Complete | 2026-03-03 |
 | 6. Performance Optimization | 3/3 | ✓ Complete | 2026-03-03 |
 
+### Phase 7: Badges and certifications showcase
+
+**Goal:** Visitors can explore, filter, and independently verify Vamshi's badges/certifications through a dedicated chapter that emits machine-readable credentials for SEO/AI.
+**Depends on:** Phase 6
+**Plans:** 3 plans in 3 waves
+
+Plans:
+- [ ] 07-01-PLAN.md — Badge data pipeline, schema validation, and verification services
+- [ ] 07-02-PLAN.md — Chapter 7 badge showcase UI + navigation/theming integration
+- [ ] 07-03-PLAN.md — Structured data emission, proof surfacing, and AI assistant wiring
+
 ---
 *Created: 2026-03-02*
 *Last updated: 2026-03-03 - All 6 phases complete (17/17 plans)*

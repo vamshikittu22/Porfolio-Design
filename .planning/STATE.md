@@ -93,6 +93,10 @@ Recent decisions affecting current work:
 - [Phase 04-03]: Consistent spacing rhythm (py-12 md:py-16 for sections, gap-6 md:gap-8 for grids) creates visual predictability
 - [Phase 04-03]: .glass-overlay provides stronger blur (16px) for chapter header/footer to separate from content
 
+### Roadmap Evolution
+
+- Phase 7 added: Badges and certifications showcase
+
 ### Pending Todos
 
 None yet.

@@ -6,6 +6,12 @@ export interface ResumeItem {
   description: string[];
 }
 
+export interface Certification {
+  name: string;
+  image: string;
+  earned?: string;
+}
+
 export const RESUME_CONTENT = {
   name: "Vamshi Krishna Pullaiahgari",
   role: "Software Engineer",
@@ -120,5 +126,52 @@ export const RESUME_CONTENT = {
     tools: ["Maven", "SonarQube", "JIRA", "Postman"],
     analytics: ["LLM Summarization", "Anomaly Detection", "Pipelines"],
     testing: ["JUnit", "Jest", "Selenium WebDriver"]
-  }
+  },
+  certifications: [
+    {
+      name: "Gemini Enterprise Agent Ready",
+      image: "https://developers.google.com/static/profile/badges/community/gear/badge.svg",
+      earned: "Mar 10, 2026"
+    },
+    {
+      name: "Claude 101",
+      image: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg",
+      earned: "Mar 9, 2026"
+    },
+    {
+      name: "Claude Code in Action",
+      image: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg",
+      earned: "Mar 9, 2026"
+    },
+    {
+      name: "Google Developer Program premium tier",
+      image: "https://developers.google.com/static/profile/badges/community/innovators/cloud/innovators_plus/badge.svg",
+      earned: "Feb 10, 2026"
+    },
+    {
+      name: "Level 1: Compute, Storage and Monitoring",
+      image: "https://cdn.qwiklabs.com/s2Z%2FNVvCyvqdC7YjLTIWb1hG4x%2BQ7NzrqC7x5g2gXU0%3D",
+      earned: "Jan 23, 2026"
+    },
+    {
+      name: "Introduction to Responsible AI",
+      image: "https://cdn.qwiklabs.com/RV0XLMKJOc1vq9CQ6rcMquorhDw4XasPcP2QRT3iuVA%3D",
+      earned: "Sep 13, 2025"
+    },
+    {
+      name: "Introduction to Large Language Models",
+      image: "https://cdn.qwiklabs.com/T7axgDk%2BIsxSCt0WQg0Dfx8E0%2FoSv0E7UE2QF1C7eHU%3D",
+      earned: "Sep 13, 2025"
+    },
+    {
+      name: "Introduction to Generative AI",
+      image: "https://cdn.qwiklabs.com/1IjA1paFzxAwvhaEuCNYzcrZkNyM%2FRWnfSQue%2BwKv3M%3D",
+      earned: "Sep 13, 2025"
+    },
+    {
+      name: "Firebase Studio Developer Community",
+      image: "https://developers.google.com/static/profile/badges/community/firebasestudio/firebase-studio/badge.svg",
+      earned: "Sep 13, 2025"
+    }
+  ]
 };
