@@ -169,6 +169,31 @@ export const RESUME_CONTENT = {
       earned: "Sep 13, 2025"
     },
     {
+      name: "Artificial Intelligence Specialist",
+      image: "https://www.svgrepo.com/show/303108/google-cloud-logo.svg",
+      earned: "Nov 20, 2025"
+    },
+    {
+      name: "Blockchain Solutions Architect",
+      image: "https://www.svgrepo.com/show/349346/ethereum.svg",
+      earned: "Oct 15, 2025"
+    },
+    {
+      name: "NoSQL Database Professional",
+      image: "https://www.svgrepo.com/show/331488/mongodb.svg",
+      earned: "Aug 10, 2025"
+    },
+    {
+      name: "Database Security Specialist",
+      image: "https://www.svgrepo.com/show/443109/lock-security.svg",
+      earned: "Jul 5, 2025"
+    },
+    {
+      name: "Digital Experience Designer",
+      image: "https://www.svgrepo.com/show/349354/figma.svg",
+      earned: "May 12, 2025"
+    },
+    {
       name: "Firebase Studio Developer Community",
       image: "https://developers.google.com/static/profile/badges/community/firebasestudio/firebase-studio/badge.svg",
       earned: "Sep 13, 2025"

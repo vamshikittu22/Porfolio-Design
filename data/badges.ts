@@ -47,6 +47,56 @@ export const BADGES: BadgeHighlight[] = [
     image: 'https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg'
   },
   {
+    id: 'ai-specialist',
+    title: 'Artificial Intelligence Specialist',
+    issuer: 'Industry Certification',
+    issuedOn: '2025-11-20',
+    skills: ['Deep Learning', 'Neural Networks', 'AI Strategy'],
+    summary: 'Comprehensive certification in artificial intelligence systems and deployment strategies.',
+    url: '/assets/certificates/certificate Artificial Intelligence.pdf',
+    image: 'https://www.svgrepo.com/show/303108/google-cloud-logo.svg'
+  },
+  {
+    id: 'blockchain-expert',
+    title: 'Blockchain Solutions Architect',
+    issuer: 'Industry Certification',
+    issuedOn: '2025-10-15',
+    skills: ['Smart Contracts', 'Web3', 'Decentralized Apps'],
+    summary: 'Expertise in designing and implementing secure blockchain-based infrastructure.',
+    url: '/assets/certificates/certificate Blockchain.pdf',
+    image: 'https://www.svgrepo.com/show/349346/ethereum.svg'
+  },
+  {
+    id: 'nosql-master',
+    title: 'NoSQL Database Professional',
+    issuer: 'Industry Certification',
+    issuedOn: '2025-08-10',
+    skills: ['MongoDB', 'Cassandra', 'Data Modeling'],
+    summary: 'Advanced proficiency in horizontally scaling database architectures.',
+    url: '/assets/certificates/certificate Nosql.pdf',
+    image: 'https://www.svgrepo.com/show/331488/mongodb.svg'
+  },
+  {
+    id: 'db-security',
+    title: 'Database Security Specialist',
+    issuer: 'Industry Certification',
+    issuedOn: '2025-07-05',
+    skills: ['Encryption', 'SQL Injection', 'Audit Logging'],
+    summary: 'Focused on hardening database layers against enterprise-level threats.',
+    url: '/assets/certificates/certificate Database Security.pdf',
+    image: 'https://www.svgrepo.com/show/443109/lock-security.svg'
+  },
+  {
+    id: 'digital-exp',
+    title: 'Digital Experience Designer',
+    issuer: 'Industry Certification',
+    issuedOn: '2025-05-12',
+    skills: ['UI/UX', 'Interaction Design', 'Accessibility'],
+    summary: 'Bridging the gap between engineering efficiency and high-fidelity user experiences.',
+    url: '/assets/certificates/certificate Digital Experience.pdf',
+    image: 'https://www.svgrepo.com/show/349354/figma.svg'
+  },
+  {
     id: 'gd-premium',
     title: 'Google Developer Program Premium',
     issuer: 'Google Developers',
@@ -75,46 +125,6 @@ export const BADGES: BadgeHighlight[] = [
     summary: 'Demonstrated proficiency in core Google Cloud services and architectural patterns.',
     url: 'https://g.dev/VamshiKi22u',
     image: 'https://developers.google.com/static/profile/badges/skillsboost/earned-badge/badge.svg'
-  },
-  {
-    id: 'firebase-studio',
-    title: 'Firebase Studio Developer',
-    issuer: 'Google Developers',
-    issuedOn: '2025-09-13',
-    skills: ['Firebase', 'App Development', 'Real-time Data'],
-    summary: 'Active contributor to the Firebase developer community.',
-    url: 'https://g.dev/VamshiKi22u',
-    image: 'https://developers.google.com/static/profile/badges/community/firebasestudio/firebase-studio/badge.svg'
-  },
-  {
-    id: 'intro-responsible-ai',
-    title: 'Introduction to Responsible AI',
-    issuer: 'Google Cloud Skills Boost',
-    issuedOn: '2025-09-13',
-    skills: ['Generative AI', 'Responsible AI', 'Ethics'],
-    summary: 'Explored the principles and best practices for developing and deploying AI responsibly.',
-    url: 'https://www.skills.google/public_profiles/b45b93dd-7d1d-4dda-b666-71ac228c075c',
-    image: 'https://cdn.qwiklabs.com/RV0XLMKJOc1vq9CQ6rcMquorhDw4XasPcP2QRT3iuVA%3D'
-  },
-  {
-    id: 'intro-llm',
-    title: 'Introduction to Large Language Models',
-    issuer: 'Google Cloud Skills Boost',
-    issuedOn: '2025-09-13',
-    skills: ['LLM', 'NLU', 'Deep Learning'],
-    summary: 'Mastered foundational concepts behind Large Language Models and their practical applications.',
-    url: 'https://www.skills.google/public_profiles/b45b93dd-7d1d-4dda-b666-71ac228c075c',
-    image: 'https://cdn.qwiklabs.com/T7axgDk%2BIsxSCt0WQg0Dfx8E0%2FoSv0E7UE2QF1C7eHU%3D'
-  },
-  {
-    id: 'intro-genai',
-    title: 'Introduction to Generative AI',
-    issuer: 'Google Cloud Skills Boost',
-    issuedOn: '2025-09-13',
-    skills: ['Generative AI', 'Machine Learning', 'Cloud AI'],
-    summary: 'Explored the core concepts of Generative AI and how it works within the Google Cloud ecosystem.',
-    url: 'https://www.skills.google/public_profiles/b45b93dd-7d1d-4dda-b666-71ac228c075c',
-    image: 'https://cdn.qwiklabs.com/1IjA1paFzxAwvhaEuCNYzcrZkNyM%2FRWnfSQue%2BwKv3M%3D'
   }
 ];
 
