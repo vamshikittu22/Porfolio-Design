@@ -10,6 +10,7 @@ export interface Certification {
   name: string;
   image: string;
   earned?: string;
+  url?: string;
 }
 
 export const RESUME_CONTENT = {
@@ -131,17 +132,50 @@ export const RESUME_CONTENT = {
     {
       name: "Gemini Enterprise Agent Ready",
       image: "https://developers.google.com/static/profile/badges/community/gear/badge.svg",
-      earned: "Mar 10, 2026"
+      earned: "Mar 10, 2026",
+      url: "https://g.dev/VamshiKi22u"
     },
     {
       name: "Claude 101",
       image: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg",
-      earned: "Mar 9, 2026"
+      earned: "Mar 9, 2026",
+      url: "https://verify.skilljar.com/c/82icwb5fsrhj"
     },
     {
       name: "Claude Code in Action",
       image: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg",
-      earned: "Mar 9, 2026"
+      earned: "Mar 9, 2026",
+      url: "https://verify.skilljar.com/c/ewamyseus64t"
+    },
+    {
+      name: "Artificial Intelligence",
+      image: "/icons/ai.svg",
+      earned: "Dec 2024",
+      url: "/assets/certificates/certificate Artificial Intelligence.pdf"
+    },
+    {
+      name: "Blockchain Technology",
+      image: "/icons/distributedsystems.svg",
+      earned: "Nov 2024",
+      url: "/assets/certificates/certificate Blockchain.pdf"
+    },
+    {
+      name: "Database Security",
+      image: "/icons/informationsecurity.svg",
+      earned: "Oct 2024",
+      url: "/assets/certificates/certificate Database Security.pdf"
+    },
+    {
+      name: "Digital Experience",
+      image: "/icons/html5.svg",
+      earned: "Sep 2024",
+      url: "/assets/certificates/certificate Digital Experience.pdf"
+    },
+    {
+      name: "NoSQL Database Mastery",
+      image: "/icons/mongodb.svg",
+      earned: "Aug 2024",
+      url: "/assets/certificates/certificate Nosql.pdf"
     },
     {
       name: "Google Developer Program premium tier",
@@ -152,51 +186,6 @@ export const RESUME_CONTENT = {
       name: "Level 1: Compute, Storage and Monitoring",
       image: "https://cdn.qwiklabs.com/s2Z%2FNVvCyvqdC7YjLTIWb1hG4x%2BQ7NzrqC7x5g2gXU0%3D",
       earned: "Jan 23, 2026"
-    },
-    {
-      name: "Introduction to Responsible AI",
-      image: "https://cdn.qwiklabs.com/RV0XLMKJOc1vq9CQ6rcMquorhDw4XasPcP2QRT3iuVA%3D",
-      earned: "Sep 13, 2025"
-    },
-    {
-      name: "Introduction to Large Language Models",
-      image: "https://cdn.qwiklabs.com/T7axgDk%2BIsxSCt0WQg0Dfx8E0%2FoSv0E7UE2QF1C7eHU%3D",
-      earned: "Sep 13, 2025"
-    },
-    {
-      name: "Introduction to Generative AI",
-      image: "https://cdn.qwiklabs.com/1IjA1paFzxAwvhaEuCNYzcrZkNyM%2FRWnfSQue%2BwKv3M%3D",
-      earned: "Sep 13, 2025"
-    },
-    {
-      name: "Artificial Intelligence Specialist",
-      image: "https://www.svgrepo.com/show/303108/google-cloud-logo.svg",
-      earned: "Nov 20, 2025"
-    },
-    {
-      name: "Blockchain Solutions Architect",
-      image: "https://www.svgrepo.com/show/349346/ethereum.svg",
-      earned: "Oct 15, 2025"
-    },
-    {
-      name: "NoSQL Database Professional",
-      image: "https://www.svgrepo.com/show/331488/mongodb.svg",
-      earned: "Aug 10, 2025"
-    },
-    {
-      name: "Database Security Specialist",
-      image: "https://www.svgrepo.com/show/443109/lock-security.svg",
-      earned: "Jul 5, 2025"
-    },
-    {
-      name: "Digital Experience Designer",
-      image: "https://www.svgrepo.com/show/349354/figma.svg",
-      earned: "May 12, 2025"
-    },
-    {
-      name: "Firebase Studio Developer Community",
-      image: "https://developers.google.com/static/profile/badges/community/firebasestudio/firebase-studio/badge.svg",
-      earned: "Sep 13, 2025"
     }
   ]
 };

@@ -47,54 +47,54 @@ export const BADGES: BadgeHighlight[] = [
     image: 'https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg'
   },
   {
-    id: 'ai-specialist',
-    title: 'Artificial Intelligence Specialist',
-    issuer: 'Industry Certification',
-    issuedOn: '2025-11-20',
-    skills: ['Deep Learning', 'Neural Networks', 'AI Strategy'],
-    summary: 'Comprehensive certification in artificial intelligence systems and deployment strategies.',
+    id: 'cert-ai',
+    title: 'Artificial Intelligence',
+    issuer: 'External Certification',
+    issuedOn: '2024-12-01',
+    skills: ['AI', 'Machine Learning', 'Neural Networks'],
+    summary: 'Comprehensive certification covering fundamental AI concepts and practical implementation.',
     url: '/assets/certificates/certificate Artificial Intelligence.pdf',
-    image: 'https://www.svgrepo.com/show/303108/google-cloud-logo.svg'
+    image: '/icons/ai.svg'
   },
   {
-    id: 'blockchain-expert',
-    title: 'Blockchain Solutions Architect',
-    issuer: 'Industry Certification',
-    issuedOn: '2025-10-15',
-    skills: ['Smart Contracts', 'Web3', 'Decentralized Apps'],
-    summary: 'Expertise in designing and implementing secure blockchain-based infrastructure.',
+    id: 'cert-blockchain',
+    title: 'Blockchain Technology',
+    issuer: 'External Certification',
+    issuedOn: '2024-11-15',
+    skills: ['Blockchain', 'Smart Contracts', 'Web3'],
+    summary: 'Mastery of blockchain architecture, consensus mechanisms, and decentralized applications.',
     url: '/assets/certificates/certificate Blockchain.pdf',
-    image: 'https://www.svgrepo.com/show/349346/ethereum.svg'
+    image: '/icons/distributedsystems.svg'
   },
   {
-    id: 'nosql-master',
-    title: 'NoSQL Database Professional',
-    issuer: 'Industry Certification',
-    issuedOn: '2025-08-10',
-    skills: ['MongoDB', 'Cassandra', 'Data Modeling'],
-    summary: 'Advanced proficiency in horizontally scaling database architectures.',
-    url: '/assets/certificates/certificate Nosql.pdf',
-    image: 'https://www.svgrepo.com/show/331488/mongodb.svg'
-  },
-  {
-    id: 'db-security',
-    title: 'Database Security Specialist',
-    issuer: 'Industry Certification',
-    issuedOn: '2025-07-05',
-    skills: ['Encryption', 'SQL Injection', 'Audit Logging'],
-    summary: 'Focused on hardening database layers against enterprise-level threats.',
+    id: 'cert-db-security',
+    title: 'Database Security',
+    issuer: 'External Certification',
+    issuedOn: '2024-10-20',
+    skills: ['Security', 'SQL', 'Database Protection'],
+    summary: 'Advanced security protocols for safeguarding relational and non-relational database systems.',
     url: '/assets/certificates/certificate Database Security.pdf',
-    image: 'https://www.svgrepo.com/show/443109/lock-security.svg'
+    image: '/icons/informationsecurity.svg'
   },
   {
-    id: 'digital-exp',
-    title: 'Digital Experience Designer',
-    issuer: 'Industry Certification',
-    issuedOn: '2025-05-12',
-    skills: ['UI/UX', 'Interaction Design', 'Accessibility'],
-    summary: 'Bridging the gap between engineering efficiency and high-fidelity user experiences.',
+    id: 'cert-digital-exp',
+    title: 'Digital Experience',
+    issuer: 'External Certification',
+    issuedOn: '2024-09-10',
+    skills: ['UX/UI', 'Digital Transformation', 'User Experience'],
+    summary: 'Strategy and execution of multi-channel digital experiences centered around the user.',
     url: '/assets/certificates/certificate Digital Experience.pdf',
-    image: 'https://www.svgrepo.com/show/349354/figma.svg'
+    image: '/icons/html5.svg'
+  },
+  {
+    id: 'cert-nosql',
+    title: 'NoSQL Database Mastery',
+    issuer: 'External Certification',
+    issuedOn: '2024-08-05',
+    skills: ['NoSQL', 'MongoDB', 'Scalability'],
+    summary: 'Expertise in architecting and managing high-scale NoSQL data environments.',
+    url: '/assets/certificates/certificate Nosql.pdf',
+    image: '/icons/mongodb.svg'
   },
   {
     id: 'gd-premium',
@@ -125,6 +125,26 @@ export const BADGES: BadgeHighlight[] = [
     summary: 'Demonstrated proficiency in core Google Cloud services and architectural patterns.',
     url: 'https://g.dev/VamshiKi22u',
     image: 'https://developers.google.com/static/profile/badges/skillsboost/earned-badge/badge.svg'
+  },
+  {
+    id: 'firebase-studio',
+    title: 'Firebase Studio Developer',
+    issuer: 'Google Developers',
+    issuedOn: '2025-09-13',
+    skills: ['Firebase', 'App Development', 'Real-time Data'],
+    summary: 'Active contributor to the Firebase developer community.',
+    url: 'https://g.dev/VamshiKi22u',
+    image: 'https://developers.google.com/static/profile/badges/community/firebasestudio/firebase-studio/badge.svg'
+  },
+  {
+    id: 'intro-responsible-ai',
+    title: 'Introduction to Responsible AI',
+    issuer: 'Google Cloud Skills Boost',
+    issuedOn: '2025-09-13',
+    skills: ['Generative AI', 'Responsible AI', 'Ethics'],
+    summary: 'Explored the principles and best practices for developing and deploying AI responsibly.',
+    url: 'https://www.skills.google/public_profiles/b45b93dd-7d1d-4dda-b666-71ac228c075c',
+    image: 'https://cdn.qwiklabs.com/RV0XLMKJOc1vq9CQ6rcMquorhDw4XasPcP2QRT3iuVA%3D'
   }
 ];
 
