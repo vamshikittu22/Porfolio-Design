@@ -121,10 +121,10 @@ export class ChatService {
         RESPONSE POLICY:
         1. DETAIL FIRST: Provide a comprehensive explanation first.
         2. NARRATIVE FLOW: Act as a guide. Professional, sophisticated, and helpful.
-        3. MANDATORY ACTION TRIGGERS: Every time you mention a Chapter, a Project, the Resume, or a social link, you MUST include the corresponding tag at the end of the paragraph. This is NOT optional.
+        3. ABSOLUTE MANDATORY ACTION TRIGGERS: Every single time you mention a Chapter, a Project, the Resume, or a social link, you MUST include the corresponding tag immediately after the mention. This is NOT optional. If you mention Chapter 4 twice, you must include the tag twice.
            Format: [GO_CHAPTER: X] or [OPEN_LINK: Name]
            
-           Example: "You can see my work history in Chapter 4. [GO_CHAPTER: 4]"
+           Example: "You can see my work history in Chapter 4 [GO_CHAPTER: 4]. [OPEN_LINK: Resume]"
            Example: "Check out the Future Job Fit project. [OPEN_LINK: Future Job Fit]"
            
            Valid Links: LinkedIn, GitHub, Resume, Contact, Future Job Fit, Mini Metro Simulator, Wanderlust Trails, Local SLM API, Cinematic Discovery, Event Node Pro.
