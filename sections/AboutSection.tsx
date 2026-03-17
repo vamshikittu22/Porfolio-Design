@@ -91,7 +91,8 @@ export const AboutSection: React.FC = () => {
                     <BubbleTag key={tool} accent="amber" className="!px-4 !py-1.5 !text-[8px]">{tool}</BubbleTag>
                   ))}
                   <BubbleTag accent="purple" className="!px-4 !py-1.5 !text-[8px]">Gemini AI</BubbleTag>
-                  <BubbleTag accent="purple" className="!px-4 !py-1.5 !text-[8px]">Prompt Engineering</BubbleTag>
+                  <BubbleTag accent="purple" className="!px-4 !py-1.5 !text-[8px]">Claude Code Skills</BubbleTag>
+                  <BubbleTag accent="purple" className="!px-4 !py-1.5 !text-[8px]">Agentic Workflows</BubbleTag>
                 </div>
               </div>
             </div>

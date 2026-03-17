@@ -96,7 +96,7 @@ export const SKILLS_RESUME = {
   languages: ['C', 'Python', 'Core Java', 'C#', '.NET', 'PHP', 'JavaScript', 'HTML5', 'CSS3'],
   frameworks: ['Reactjs', '.NET MVC CORE', '.NET MVC Entity Framework'],
   cloud_db: ['MySQL', 'Azure', 'PostgreSQL'],
-  tools: ['VS Code', 'Visual Studio', 'Eclipse', 'Xampp', 'Putty', 'ServiceNow']
+  tools: ['VS Code', 'Visual Studio', 'Eclipse', 'Xampp', 'Putty', 'ServiceNow', 'Claude Code', 'Agentic Workflows']
 };
 
 export const AWARDS: ResumeItem[] = [

@@ -1,11 +1,12 @@
-
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useMemo, useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ChatService, ChatMessage } from '../../../services/chatService';
-import { GlassCard } from '../../ui/GlassUI';
-import { useNavigation } from '../../../contexts/NavigationContext';
+import { getChapterById, CHAPTERS } from '../../../data/chapters';
+import { PROJECTS_CONFIG } from '../../../config/projects';
+import { GITHUB_URL, LINKEDIN_URL, RESUME_URL } from '../../../config/constants';
 import { ChapterId } from '../../../types/chapters';
-import { getChapterById } from '../../../data/chapters';
+import { useNavigation } from '../../../contexts/NavigationContext';
+import { GlassCard } from '../../ui/GlassUI';
 
 // --- MINIMALIST LIVING AI CORE ---
 const LivingAICore = ({ isHovered, isOpen }: { isHovered: boolean; isOpen: boolean }) => {
@@ -82,11 +83,45 @@ const ChatAssistant: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatService = ChatService.getInstance();
   const reducedMotion = useReducedMotion();
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  // Load history on mount
+  useEffect(() => {
+    const history = chatService.getHistory();
+    setMessages(history);
+  }, []);
+
+  // Follow-up questions mapping
+  const FOLLOW_UPS: Record<string, Array<{ label: string; query: string }>> = {
+    'summary': [
+      { label: "Check Core Bio", query: "Give me a brief introduction to Vamshi." },
+      { label: "Current Focus", query: "What is Vamshi currently working on?" },
+      { label: "Recruiter Summary", query: "Summarize Vamshi's profile for a recruiter." }
+    ],
+    'skills': [
+      { label: "Backend Stack", query: "Tell me more about the Java/Spring Boot stack." },
+      { label: "Cloud Expertise", query: "What AWS and Azure services does he use?" },
+      { label: "AI Tools", query: "Which AI models has he integrated?" }
+    ],
+    'career': [
+      { label: "CVS Health Details", query: "Tell me about his experience at CVS Health." },
+      { label: "Citadel Role", query: "What exactly did he do at Citadel?" },
+      { label: "Previous Roles", query: "Tell me about his time at Mphasis and Covantech." }
+    ],
+    'projects': [
+      { label: "Source Code?", query: "Where can I find the source code for his projects?" },
+      { label: "Future Job Fit", query: "Tell me more about the AI Resume platform." },
+      { label: "Travel Platform", query: "Details on WanderlustTrails travel app." }
+    ]
+  };
 
   // Dynamic suggestions based on chapter
   const SUGGESTIONS = useMemo(() => {
     const baseSuggestions = [
-      { label: "Summarize profile", query: "Summarize Vamshi's profile for a recruiter." },
+      { label: "Bio Summary", query: "Give me a brief introduction to Vamshi.", key: 'summary' },
+      { label: "Tech Stack", query: "What are Vamshi's core technical strengths?", key: 'skills' },
+      { label: "Career Path", query: "Tell me about his experience at CVS Health and Citadel.", key: 'career' },
+      { label: "Top Projects", query: "Tell me about your top 3 software projects.", key: 'projects' }
     ];
 
     const chapterSuggestions: Record<ChapterId, Array<{ label: string; query: string }>> = {
@@ -98,7 +133,7 @@ const ChatAssistant: React.FC = () => {
       '02-learner': [
         { label: "Certifications", query: "What certifications does Vamshi hold?" },
         { label: "Technical skills", query: "What are Vamshi's technical skills?" },
-        { label: "Learning path", query: "Tell me about Vamshi's learning journey." },
+        { label: "Agent Skills", query: "Tell me about his recent Anthropic AI certifications." },
       ],
       '03-builder': [
         { label: "Top 3 projects", query: "Tell me about your top 3 software projects." },
@@ -116,6 +151,7 @@ const ChatAssistant: React.FC = () => {
       ],
       '06-thinker': [
         { label: "AI expertise", query: "What AI technologies does Vamshi work with?" },
+        { label: "Claude Code", query: "How does he use Claude Code and Agent Skills?" },
         { label: "Navigation help", query: "How do I navigate between chapters?" },
       ],
       '07-connection': [
@@ -124,12 +160,16 @@ const ChatAssistant: React.FC = () => {
       ],
     };
 
+    if (activeCategory && FOLLOW_UPS[activeCategory]) {
+      return FOLLOW_UPS[activeCategory];
+    }
+
     if (!currentChapter) {
       return baseSuggestions;
     }
 
     return chapterSuggestions[currentChapter] || baseSuggestions;
-  }, [currentChapter]);
+  }, [currentChapter, activeCategory]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -137,16 +177,22 @@ const ChatAssistant: React.FC = () => {
     }
   }, [messages, isLoading]);
 
-  const handleSend = async (query?: string) => {
+  const handleSend = async (query?: string, categoryKey?: string) => {
     const textToSend = query || input;
     if (!textToSend.trim() || isLoading) return;
+
+    if (categoryKey) {
+      setActiveCategory(categoryKey);
+    } else if (!query) {
+      // If typing manually, we might want to clear category if it's a new topic
+      // For now, let's keep it sticky unless they reset
+    }
 
     const userMsg: ChatMessage = { role: 'user', text: textToSend };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
     setIsLoading(true);
 
-    // Pass current chapter context to ChatService
     const reply = await chatService.sendMessage(textToSend, currentChapter);
     const botMsg: ChatMessage = { role: 'model', text: reply };
 
@@ -216,6 +262,34 @@ const ChatAssistant: React.FC = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Clear & Menu Buttons */}
+                <div className="flex items-center gap-2">
+                  <button 
+                    onClick={() => {
+                      setActiveCategory(null);
+                    }}
+                    className={`p-2 rounded-lg transition-all text-[10px] font-bold uppercase tracking-widest
+                      ${!activeCategory ? 'bg-t-accent text-t-bg' : 'bg-t-bg-el border border-t-border text-t-fg-m hover:text-t-accent'}
+                    `}
+                    title="Back to Main Menu"
+                  >
+                    Menu
+                  </button>
+                  {messages.length > 0 && (
+                    <button 
+                      onClick={() => {
+                        chatService.clearHistory();
+                        setMessages([]);
+                        setActiveCategory(null);
+                      }}
+                      className="p-2 hover:bg-red-500/10 rounded-lg text-t-fg-m hover:text-red-500 transition-all text-[10px] font-bold uppercase tracking-widest"
+                      title="Clear Chat History"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* Chat History Area */}
@@ -223,16 +297,47 @@ const ChatAssistant: React.FC = () => {
                 ref={scrollRef}
                 className="flex-1 overflow-y-auto p-8 space-y-8 scrollbar-hide"
               >
-                {messages.length === 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-t-bg/50 border border-t-border p-6 rounded-[28px] rounded-tl-none"
-                  >
-                    <p className="text-sm font-medium text-t-fg-m leading-relaxed italic">
-                      Initializing connection... How can I assist with your review of Vamshi's engineering credentials?
-                    </p>
-                  </motion.div>
+                {/* Visual Menu (Always accessible when no active follow-ups or no messages) */}
+                {(!activeCategory || messages.length === 0) && (
+                  <div className="space-y-6 mb-8">
+                    {messages.length === 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-t-bg/50 border border-t-border p-6 rounded-[28px] rounded-tl-none"
+                      >
+                        <p className="text-sm font-medium text-t-fg-m leading-relaxed italic">
+                          Initializing connection... Select a core module to begin your review.
+                        </p>
+                      </motion.div>
+                    )}
+
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        { label: "Executive Summary", query: "Summarize Vamshi's profile for a recruiter.", icon: "📋", key: 'summary' },
+                        { label: "Technical Skills", query: "What are Vamshi's core technical strengths?", icon: "💻", key: 'skills' },
+                        { label: "Career Journey", query: "Tell me about his experience at CVS Health and Citadel.", icon: "💼", key: 'career' },
+                        { label: "Top Projects", query: "Tell me about your top 3 software projects.", icon: "🚀", key: 'projects' }
+                      ].map((item, idx) => (
+                        <motion.button
+                          key={idx}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: idx * 0.1 }}
+                          onClick={() => handleSend(item.query, item.key)}
+                          className={`flex flex-col items-center justify-center p-4 rounded-2xl transition-all group border
+                            ${activeCategory === item.key 
+                              ? 'bg-t-accent/10 border-t-accent border-2 shadow-lg' 
+                              : 'bg-t-bg-el/50 border-t-border hover:border-t-accent/50 hover:bg-t-accent/5'
+                            }
+                          `}
+                        >
+                          <span className="text-xl mb-2">{item.icon}</span>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-t-fg-m group-hover:text-t-accent text-center">{item.label}</span>
+                        </motion.button>
+                      ))}
+                    </div>
+                  </div>
                 )}
 
                 {messages.map((m, i) => (
@@ -248,7 +353,89 @@ const ChatAssistant: React.FC = () => {
                         : 'bg-t-bg-el border border-t-border text-t-fg rounded-tl-none font-medium'
                       }`}
                     >
-                      {m.text}
+                      {/* Message Content with Linkification and Action Tokens */}
+                      <div className="space-y-4">
+                        <div className="text-sm font-medium leading-relaxed">
+                          {m.text.split(/(\[GO_CHAPTER: \d+\]|\[OPEN_LINK: [^\]]+\]|https?:\/\/[^\s]+)/g).map((part, index) => {
+                            if (part.match(/^https?:\/\//)) {
+                              return (
+                                <a key={index} href={part} target="_blank" rel="noopener noreferrer" className="underline decoration-2 underline-offset-4 hover:text-t-accent transition-colors break-all">
+                                  {part}
+                                </a>
+                              );
+                            }
+                            if (part.startsWith('[GO_CHAPTER:')) {
+                              return null; // Rendered as buttons below
+                            }
+                            if (part.startsWith('[OPEN_LINK:')) {
+                              return null; // Rendered as buttons below
+                            }
+                            return part;
+                          })}
+                        </div>
+
+                        {/* Action Buttons Row */}
+                        {(m.text.includes('[GO_CHAPTER:') || m.text.includes('[OPEN_LINK:')) && (
+                          <div className="flex flex-wrap gap-2 pt-2">
+                            {/* Chapter Navigation Buttons */}
+                            {Array.from(m.text.matchAll(/\[GO_CHAPTER: (\d+)\]/g)).map((match, idx) => {
+                              const num = parseInt(match[1]);
+                              const chapter = CHAPTERS.find(c => c.number === num);
+                              if (!chapter) return null;
+                              return (
+                                <button
+                                  key={`chap-${idx}`}
+                                  onClick={() => window.location.hash = chapter.hash}
+                                  className="flex items-center gap-2 px-3 py-1.5 bg-t-accent text-t-bg rounded-full text-[9px] font-black uppercase tracking-wider hover:scale-105 transition-transform"
+                                >
+                                  <span>🚀</span> Go to Chapter {num}
+                                </button>
+                              );
+                            })}
+                            
+                            {/* External Link Buttons */}
+                            {Array.from(m.text.matchAll(/\[OPEN_LINK: ([^\]]+)\]/g)).map((match, idx) => {
+                              const name = match[1];
+                              let url = '';
+                              let icon = '🔗';
+                              
+                              const lowerName = name.toLowerCase();
+                              if (lowerName.includes('linkedin')) { url = LINKEDIN_URL; icon = '👤'; }
+                              else if (lowerName.includes('github')) { url = GITHUB_URL; icon = '🐙'; }
+                              else if (lowerName.includes('resume')) { 
+                                url = '#04-journey'; // Map resume button specifically to Chapter 4 anchor
+                                icon = '📄'; 
+                              }
+                              else if (lowerName.includes('contact')) { url = '#07-connection'; icon = '✉️'; }
+                              else {
+                                // Try to find a specific project repository URL
+                                const project = PROJECTS_CONFIG.find(p => 
+                                  p.title.toLowerCase() === lowerName || 
+                                  p.id.toLowerCase() === lowerName.replace(/\s+/g, '-') ||
+                                  lowerName.includes(p.title.toLowerCase())
+                                );
+                                if (project && project.repoUrl) {
+                                  url = project.repoUrl;
+                                  icon = '📁';
+                                }
+                              }
+
+                              if (!url) return null;
+                              return (
+                                <a
+                                  key={`link-${idx}`}
+                                  href={url}
+                                  target={url.startsWith('http') ? "_blank" : "_self"}
+                                  rel="noopener noreferrer"
+                                  className="flex items-center gap-2 px-3 py-1.5 bg-t-bg/40 border border-t-accent/30 text-t-accent rounded-full text-[9px] font-black uppercase tracking-wider hover:bg-t-accent/10 transition-colors"
+                                >
+                                  <span>{icon}</span> {url.includes('github.com') ? 'Source Code' : name}
+                                </a>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -277,7 +464,7 @@ const ChatAssistant: React.FC = () => {
                       key={i}
                       whileHover={{ scale: 1.05, borderColor: 'var(--color-accent)' }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => handleSend(s.query)}
+                      onClick={() => handleSend(s.query, (s as any).key)}
                       className="px-4 py-2 bg-t-bg border border-t-border rounded-full text-[8px] font-black uppercase tracking-widest text-t-fg-m hover:text-t-accent transition-all"
                     >
                       {s.label}

@@ -4,6 +4,7 @@ export const FULL_NAME = 'Vamshi Krishna Pullaiahgari';
 export const EMAIL = 'vamshikrishna2297@gmail.com';
 export const PHONE = '+1 (913) 326-7373';
 export const GITHUB_USERNAME = 'vamshikittu22';
+export const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`;
 export const INSTAGRAM_HANDLE = 'vamshi._.ki22u';
 export const INSTAGRAM_URL = `https://www.instagram.com/vamshi._.ki22u/`;
 export const X_HANDLE = 'ki22u__';

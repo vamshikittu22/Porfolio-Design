@@ -20,7 +20,7 @@ export const CHAPTER_CONTENT: Record<ChapterId, ChapterContentMap> = {
   '02-learner': {
     sections: ['Certifications', 'Learning'],
     theme: 'Lifelong learning and certifications',
-    contextPrompt: 'Discuss Vamshi\'s certifications (Oracle, Google Cloud, AWS) and his approach to continuous technical learning and professional development.'
+    contextPrompt: 'Discuss Vamshi\'s certifications (Oracle, Google Cloud, AWS, Anthropic AI) and his approach to continuous technical learning and professional development.'
   },
   '03-builder': {
     sections: ['Projects', 'GitHub'],

@@ -123,12 +123,25 @@ export const RESUME_CONTENT = {
     databases: ["Oracle", "PostgreSQL", "MySQL", "MongoDB", "DynamoDB"],
     cloud: ["AWS (ECS, EKS, Lambda, Fargate, S3, RDS)", "Azure"],
     devops: ["Docker", "Kubernetes", "Jenkins", "Terraform", "Git", "GitHub"],
-    ai: ["OpenAI API", "Claude", "AI Chatbot Integration"],
+    ai: ["OpenAI API", "Claude", "AI Chatbot Integration", "Agentic Workflows", "Claude Code Skills"],
+
     tools: ["Maven", "SonarQube", "JIRA", "Postman"],
     analytics: ["LLM Summarization", "Anomaly Detection", "Pipelines"],
     testing: ["JUnit", "Jest", "Selenium WebDriver"]
   },
   certifications: [
+    {
+      name: "AI Fluency: Framework & Foundations",
+      image: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg",
+      earned: "Mar 16, 2026",
+      url: "https://verify.skilljar.com/c/93pmga4xsseu"
+    },
+    {
+      name: "Introduction to Agent Skills",
+      image: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg",
+      earned: "Mar 16, 2026",
+      url: "https://verify.skilljar.com/c/ubfih4rkw27j"
+    },
     {
       name: "Gemini Enterprise Agent Ready",
       image: "https://developers.google.com/static/profile/badges/community/gear/badge.svg",

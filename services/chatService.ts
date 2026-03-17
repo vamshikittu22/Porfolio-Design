@@ -1,9 +1,11 @@
+
 import { GoogleGenAI } from "@google/genai";
 import { FULL_NAME, EMAIL } from "../config/constants";
 import { RESUME_CONTENT } from "../sections/resume/data/ResumeData";
 import { getChapterContext } from '../data/chapterContent';
 import { ChapterId } from '../types/chapters';
 import { CHAPTERS } from '../data/chapters';
+import { CHAT_KNOWLEDGE_BASE } from '../data/chatKnowledgeBase';
 
 export interface ChatMessage {
   role: 'user' | 'model';
@@ -17,8 +19,55 @@ export class ChatService {
   static getInstance() {
     if (!this.instance) {
       this.instance = new ChatService();
+      this.instance.loadHistory();
     }
     return this.instance;
+  }
+
+  private loadHistory() {
+    const saved = localStorage.getItem('vk_chat_history');
+    if (saved) {
+      try {
+        this.history = JSON.parse(saved);
+      } catch (e) {
+        this.history = [];
+      }
+    }
+  }
+
+  private saveHistory() {
+    localStorage.setItem('vk_chat_history', JSON.stringify(this.history));
+  }
+
+  private getCachedAnswer(query: string): string | null {
+    const q = query.toLowerCase().trim();
+    
+    // 1. Check Hardcoded Knowledge Base
+    const kbMatch = CHAT_KNOWLEDGE_BASE.find(k => 
+      q.includes(k.query.toLowerCase()) || k.query.toLowerCase().includes(q)
+    );
+    if (kbMatch) return kbMatch.answer;
+
+    // 2. Check Dynamic LocalStorage Cache
+    const dynamicCache = localStorage.getItem('vk_chat_cache');
+    if (dynamicCache) {
+      try {
+        const cache = JSON.parse(dynamicCache);
+        if (cache[q]) return cache[q];
+      } catch (e) {}
+    }
+
+    return null;
+  }
+
+  private saveToDynamicCache(query: string, answer: string) {
+    const q = query.toLowerCase().trim();
+    const dynamicCache = localStorage.getItem('vk_chat_cache') || '{}';
+    try {
+      const cache = JSON.parse(dynamicCache);
+      cache[q] = answer;
+      localStorage.setItem('vk_chat_cache', JSON.stringify(cache));
+    } catch (e) {}
   }
 
   private getContext(currentChapter: ChapterId | null): string {
@@ -28,12 +77,8 @@ export class ChatService {
       Summary: ${e.description.join(' ')}
     `).join('\n');
 
-    const chapterCtx = getChapterContext(currentChapter); // Add chapter context
+    const chapterCtx = getChapterContext(currentChapter);
 
-    /**
-     * Fix: Replaced invalid 'technicalInfrastructure' with the correct 'technicalSkills' 
-     * property and mapped the fields to match the RESUME_CONTENT definition.
-     */
     return `
       Profile: ${FULL_NAME}
       Summary: ${RESUME_CONTENT.summary}
@@ -51,33 +96,48 @@ export class ChatService {
   }
 
   async sendMessage(message: string, currentChapter: ChapterId | null = null): Promise<string> {
+    const userMsg: ChatMessage = { role: 'user', text: message };
+    
+    // 1. Check Caches first to save tokens
+    const cached = this.getCachedAnswer(message);
+    if (cached) {
+      this.history.push(userMsg);
+      this.history.push({ role: 'model', text: cached });
+      this.saveHistory();
+      return cached;
+    }
+
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      const context = this.getContext(currentChapter); // Pass chapter to context builder
+      const context = this.getContext(currentChapter);
 
-      // Build chapter navigation map for AI
       const chapterMap = CHAPTERS.map(ch => 
         `${ch.number}. ${ch.title} (${ch.id}): ${ch.description}`
       ).join('\n');
 
       const systemInstruction = `
-        You are the AI portfolio assistant for ${FULL_NAME}.
-        Ground all your answers strictly in the provided resume data and current chapter context.
-        If asked about experience, highlight the 5+ years of full-stack expertise and recent roles at CVS Health and Citadel.
-        Tailor your responses to the current chapter's theme and focus areas.
+        You are the VK Neural Assistant, the advanced AI representative for ${FULL_NAME}.
         
-        NAVIGATION CAPABILITIES:
-        When users ask about topics covered in other chapters, suggest they visit those chapters.
-        Available chapters:
+        RESPONSE POLICY:
+        1. DETAIL FIRST: Provide a comprehensive explanation first.
+        2. NARRATIVE FLOW: Act as a guide. Professional, sophisticated, and helpful.
+        3. MANDATORY ACTION TRIGGERS: Every time you mention a Chapter, a Project, the Resume, or a social link, you MUST include the corresponding tag at the end of the paragraph. This is NOT optional.
+           Format: [GO_CHAPTER: X] or [OPEN_LINK: Name]
+           
+           Example: "You can see my work history in Chapter 4. [GO_CHAPTER: 4]"
+           Example: "Check out the Future Job Fit project. [OPEN_LINK: Future Job Fit]"
+           
+           Valid Links: LinkedIn, GitHub, Resume, Contact, Future Job Fit, Mini Metro Simulator, Wanderlust Trails, Local SLM API, Cinematic Discovery, Event Node Pro.
+        
+        CHAPTER MAPPING:
         ${chapterMap}
         
-        Example navigation suggestions:
-        - "To see my projects, check out Chapter 2: The Builder"
-        - "My travel experiences are in Chapter 4: The Explorer"
-        - "For contact information, visit Chapter 6: The Connection"
+        ACCURACY RULES:
+        - Resume Location: The resume section and download are located in Chapter 4. Whenever referencing the resume, use [GO_CHAPTER: 4] and [OPEN_LINK: Resume].
+        - Project Repos: Use [OPEN_LINK: Project Name] to show the specific source code button for that project.
+        - Ground all answers strictly in provided data.
         
-        Do not use markdown or complex formatting. Keep suggestions natural and conversational.
-        Be professional, concise (2-4 sentences), and helpful. 
+        Constraint: Do not use markdown bolding. Use natural paragraphs.
         
         Context: ${context}
       `;
@@ -90,18 +150,63 @@ export class ChatService {
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: contents,
-        config: { systemInstruction }
+        config: { 
+          systemInstruction: systemInstruction 
+        }
       });
 
       const reply = response.text || "I'm sorry, I couldn't process that request.";
-      this.history.push({ role: 'user', text: message });
+      this.history.push(userMsg);
       this.history.push({ role: 'model', text: reply });
+      this.saveHistory();
+      this.saveToDynamicCache(message, reply);
       return reply;
-    } catch (error) {
-      return "I'm having trouble connecting to my neural logic. Please review my Resume manually in the section below!";
+    } catch (error: any) {
+      console.error("VK Neural Error:", error);
+      
+      const errorMsg = error?.message || "";
+      if (errorMsg.includes("403") || errorMsg.includes("PERMISSION_DENIED")) {
+        const activationUrlMatch = errorMsg.match(/https?:\/\/console\.developers\.google\.com\/apis\/api\/generativelanguage\.googleapis\.com\/overview\?project=\d+/);
+        const url = activationUrlMatch ? activationUrlMatch[0] : "https://console.cloud.google.com/apis/library/generativelanguage.googleapis.com";
+        return `The Generative Language API is not enabled for your project. Please enable it here: ${url}`;
+      }
+
+      return this.getLocalFallbackResponse(message);
     }
   }
 
+  private getLocalFallbackResponse(query: string): string {
+    const q = query.toLowerCase();
+    
+    if (q.includes("who") || q.includes("profile") || q.includes("about")) {
+      return `Vamshi is a ${RESUME_CONTENT.role} with 5+ years of experience in full-stack development. ${RESUME_CONTENT.summary}`;
+    }
+    if (q.includes("skill") || q.includes("tech") || q.includes("languages")) {
+      return `Vamshi is proficient in ${RESUME_CONTENT.technicalSkills.languages.join(", ")}. He also works with ${RESUME_CONTENT.technicalSkills.frontend.join(", ")} and ${RESUME_CONTENT.technicalSkills.backend.join(", ")}.`;
+    }
+    if (q.includes("experience") || q.includes("work") || q.includes("history")) {
+      const latest = RESUME_CONTENT.experience[0];
+      return `Currently, Vamshi is a ${latest.title} at ${latest.subtitle} (${latest.period}). He has also worked at Citadel and Mphasis.`;
+    }
+    if (q.includes("contact") || q.includes("email") || q.includes("reach")) {
+      return `You can reach Vamshi at ${EMAIL} or through his LinkedIn: ${RESUME_CONTENT.contact.linkedin}`;
+    }
+    if (q.includes("project") || q.includes("built")) {
+      const projects = RESUME_CONTENT.projects.map(p => p.title).join(", ");
+      return `Some of Vamshi's key projects include: ${projects}. You can find more details in Chapter 3: The Builder.`;
+    }
+    if (q.includes("education") || q.includes("study")) {
+      const edu = RESUME_CONTENT.education[0];
+      return `Vamshi holds a ${edu.title} from ${edu.subtitle}, completed in ${edu.period}.`;
+    }
+
+    return "I'm having trouble connecting to my neural logic (API Disabled). However, you can review my Resume manually in the section below, or check out my experience, skills, and projects in the different chapters!";
+  }
+
   getHistory() { return this.history; }
-  clearHistory() { this.history = []; }
+  
+  clearHistory() { 
+    this.history = []; 
+    localStorage.removeItem('vk_chat_history');
+  }
 }

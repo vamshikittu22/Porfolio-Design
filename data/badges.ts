@@ -17,6 +17,26 @@ export interface BadgeHighlight {
 
 export const BADGES: BadgeHighlight[] = [
   {
+    id: 'ai-fluency',
+    title: 'AI Fluency: Framework & Foundations',
+    issuer: 'Anthropic Education',
+    issuedOn: '2026-03-16',
+    skills: ['Delegation', 'Prompting', 'AI Ethics', 'GenAI Foundations'],
+    summary: 'Mastered foundational frameworks for effective, efficient, ethical, and safe collaboration between humans and AI systems.',
+    url: 'https://verify.skilljar.com/c/93pmga4xsseu',
+    image: 'https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg'
+  },
+  {
+    id: 'agent-skills',
+    title: 'Introduction to Agent Skills',
+    issuer: 'Anthropic Education',
+    issuedOn: '2026-03-16',
+    skills: ['Claude Code', 'Agentic Workflows', 'SKILL.md', 'Tool Use'],
+    summary: 'Advanced technical training on building, configuring, and sharing Agent Skills within the Claude Code environment.',
+    url: 'https://verify.skilljar.com/c/ubfih4rkw27j',
+    image: 'https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg'
+  },
+  {
     id: 'gemini-agent',
     title: 'Gemini Enterprise Agent Ready',
     issuer: 'Google Developers',
