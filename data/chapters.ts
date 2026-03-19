@@ -75,6 +75,15 @@ export const CHAPTERS: Chapter[] = [
     icon: '/icons/chapters/connection.svg',
     subtitle: 'Contact & Social Links',
     description: 'Email, LinkedIn, GitHub, and scheduling links to connect'
+  },
+  {
+    id: '08-architecture',
+    number: 8,
+    title: 'System Architecture',
+    hash: '08-architecture',
+    icon: '/icons/chapters/builder.svg',
+    subtitle: 'Engineering Blueprint',
+    description: 'Technical deep dive into the performance, scaling, and systems design of this portfolio.'
   }
 ];
 

@@ -7,7 +7,6 @@ import { HeroSection } from '../sections/hero/HeroSection';
 import { AboutSection } from '../sections/about/AboutSection';
 import CareerSnapshot from '../sections/career/CareerSnapshot';
 import PortfolioCaseStudy from '../sections/case-study/PortfolioCaseStudy';
-import { BlueprintLauncher } from '../components/layout/BlueprintLauncher';
 import SectionLoader from '../components/ui/SectionLoader';
 import { NavigationProvider, useNavigation } from '../contexts/NavigationContext';
 import { ThemeProvider, useTheme } from '../src/contexts/ThemeContext';
@@ -22,7 +21,8 @@ import {
   Chapter04Journey,
   Chapter05Explorer,
   Chapter06Thinker,
-  Chapter07Connection
+  Chapter07Connection,
+  Chapter08Architecture
 } from '../src/pages/chapters';
 import {
   HERO_FALLBACK_DARK,
@@ -52,7 +52,6 @@ const ChatAssistant = lazy(() => import('../components/layout/ChatAssistant/Chat
 const AppContent: React.FC = () => {
   const { currentChapter } = useNavigation();
   const { resolvedTheme } = useTheme();
-  const [view, setView] = useState<'portfolio' | 'case-study'>('portfolio');
   const [heroImage, setHeroImage] = useState<string | null>(null);
   const [heroLoading, setHeroLoading] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -68,83 +67,7 @@ const AppContent: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navigation Observer (Active State Tracking)
-  useEffect(() => {
-    if (view !== 'portfolio') return;
-
-    // Mapping of Anchor ID -> Section ID for navigation highlighting
-    const sectionMap: Record<string, string> = {
-      'hero-section': 'hero-section',
-      'about-section': 'about-section',
-      'career-snapshot-section': 'career-snapshot-section',
-      'projects-section-anchor': 'projects-section',
-      'github-section-anchor': 'github-section',
-      'resume-section-anchor': 'resume-section',
-      'game-section-anchor': 'game-section',
-      'travel-section-anchor': 'travel-section',
-      'contact-section-anchor': 'contact-section'
-    };
-
-    const observerOptions = {
-      // Use a broader margin to account for large section gaps
-      rootMargin: '-10% 0px -40% 0px',
-      threshold: 0.01
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const navId = sectionMap[entry.target.id];
-          if (navId) setActiveSection(navId);
-        }
-      });
-    }, observerOptions);
-
-    Object.keys(sectionMap).forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [view]);
-
-  // Preload Observer (Performance Optimization)
-  useEffect(() => {
-    if (view !== 'portfolio') return;
-    const lazyIds = [
-      'projects-section-anchor',
-      'github-section-anchor',
-      'resume-section-anchor',
-      'game-section-anchor',
-      'travel-section-anchor',
-      'contact-section-anchor'
-    ];
-
-    const preloadObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            switch (entry.target.id) {
-              case 'projects-section-anchor': import('../sections/projects/ProjectsSection'); break;
-              case 'github-section-anchor': import('../sections/github/GithubSection'); break;
-              case 'resume-section-anchor': import('../sections/resume/ResumeSection'); break;
-              case 'game-section-anchor': import('../sections/game/GameSection'); break;
-              case 'travel-section-anchor': import('../sections/travel/TravelSection'); break;
-              case 'contact-section-anchor': import('../sections/contact/ContactSection'); break;
-            }
-          }
-        });
-      },
-      { rootMargin: '1200px 0px' }
-    );
-
-    lazyIds.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) preloadObserver.observe(el);
-    });
-
-    return () => preloadObserver.disconnect();
-  }, [view]);
+  // Removed Navigation & Preload Observers which were tied to the old single-page architecture
 
   const generateHero = async () => {
     const gemini = GeminiService.getInstance();
@@ -189,14 +112,6 @@ const AppContent: React.FC = () => {
   }, []);
 
   const scrollToSection = (id: string) => {
-    if (view !== 'portfolio') {
-      setView('portfolio');
-      setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-      return;
-    }
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
@@ -217,11 +132,6 @@ const AppContent: React.FC = () => {
       {/* Mobile bottom sheet navigation */}
       <ChapterBottomSheet />
 
-      <BlueprintLauncher
-        onOpen={() => setView('case-study')}
-        visible={view === 'portfolio'}
-      />
-
       {/* Top header navigation */}
       <HeaderNav
         scrolled={scrolled}
@@ -230,14 +140,9 @@ const AppContent: React.FC = () => {
         onScrollToSection={scrollToSection}
         onScrollToTop={handleScrollToTop}
         onToggleTheme={() => { }}
-        onGoHome={() => setView('portfolio')}
-        isCaseStudyView={view === 'case-study'}
       />
 
       <main className="print:p-0">
-        {view === 'case-study' ? (
-          <PortfolioCaseStudy onBack={() => setView('portfolio')} />
-        ) : (
           <ChapterTransition>
             {currentChapter === null ? (
               // No chapter selected - show landing page with all chapter cards
@@ -254,13 +159,13 @@ const AppContent: React.FC = () => {
                 {currentChapter === '05-explorer' && <Chapter05Explorer />}
                 {currentChapter === '06-thinker' && <Chapter06Thinker />}
                 {currentChapter === '07-connection' && <Chapter07Connection />}
+                {currentChapter === '08-architecture' && <Chapter08Architecture />}
               </>
             )}
           </ChapterTransition>
-        )}
       </main>
 
-      <FooterBar onScrollToTop={handleScrollToTop} onOpenCaseStudy={() => setView('case-study')} />
+      <FooterBar onScrollToTop={handleScrollToTop} />
 
       {/* ChatAssistant - Lazy loaded on first interaction for performance */}
       {shouldLoadChat && (

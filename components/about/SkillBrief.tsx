@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { getSkillSpec } from '../../config/skillSpecs';
 
 interface SkillBriefProps {
@@ -11,13 +11,11 @@ export const SkillBrief: React.FC<SkillBriefProps> = ({ skillName }) => {
 
     return (
         <div className="flex flex-col h-full justify-between">
-            <AnimatePresence mode="wait">
                 {!skillName ? (
                     <motion.div
                         key="empty"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
                         className="flex flex-col items-start justify-center h-full p-6 space-y-6"
                     >
                         <div className="space-y-2">
@@ -51,7 +49,6 @@ export const SkillBrief: React.FC<SkillBriefProps> = ({ skillName }) => {
                         key={skillName}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
                         className="space-y-8"
                     >
                         <div className="space-y-2">
@@ -94,7 +91,6 @@ export const SkillBrief: React.FC<SkillBriefProps> = ({ skillName }) => {
                         </div>
                     </motion.div>
                 )}
-            </AnimatePresence>
 
             <div className="mt-8 pt-6 border-t border-white/5">
                 <div className="flex items-center gap-3 opacity-40 hover:opacity-100 transition-opacity cursor-help group">

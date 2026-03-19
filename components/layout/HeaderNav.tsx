@@ -159,6 +159,7 @@ const CHAPTER_NAV: ChapterNavConfig[] = [
   { chapterId: '05-explorer', icon: 'Travel', label: 'Explorer', sections: ['Travel'] },
   { chapterId: '06-thinker', icon: 'Playlab', label: 'Thinker', sections: ['Game', 'AI Playground'] },
   { chapterId: '07-connection', icon: 'Contact', label: 'Connect', sections: ['Contact', 'Social'] },
+  { chapterId: '08-architecture', icon: 'Home', label: 'Blueprint', sections: ['Architecture'] },
 ];
 
 // --- CHAPTER NAV ITEM WITH DROPDOWN ---
@@ -247,17 +248,12 @@ interface HeaderNavProps {
   onScrollToSection: (id: string) => void;
   onScrollToTop: () => void;
   onToggleTheme: () => void;
-  onGoHome?: () => void;
-  onOpenCaseStudy?: () => void;
-  isCaseStudyView?: boolean;
 }
 
 export const HeaderNav: React.FC<HeaderNavProps> = ({
   scrolled,
   isDarkMode,
-  onToggleTheme,
-  onGoHome,
-  isCaseStudyView
+  onToggleTheme
 }) => {
   const [logoHovered, setLogoHovered] = useState(false);
   const { currentChapter, navigateToChapter } = useNavigation();
@@ -283,7 +279,6 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
     // Clear the hash to navigate back to landing page
     // This triggers NavigationContext's hashchange listener → sets currentChapter to null
     window.location.hash = '';
-    onGoHome?.(); // Also reset view to 'portfolio' (exits case study if active)
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -305,29 +300,21 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
           aria-label="Return to landing page"
           className="flex items-center outline-none group relative overflow-visible mr-1 cursor-pointer focus-visible:ring-4 focus-visible:ring-t-accent focus-visible:ring-offset-2 focus-visible:ring-offset-t-bg focus-visible:rounded-xl"
         >
-          <VKIcon isHovered={logoHovered} isActive={currentChapter === null && !isCaseStudyView} />
+          <VKIcon isHovered={logoHovered} isActive={currentChapter === null} />
         </motion.button>
 
         <div className="h-6 w-px bg-t-border/20 mx-2" />
 
         {/* Chapter navigation icons */}
         <div className="flex items-center gap-1" role="tablist" aria-label="Chapter navigation">
-          {isCaseStudyView ? (
+          {CHAPTER_NAV.map((chapter) => (
             <ChapterNavItem
-              config={{ chapterId: '01-introduction', icon: 'Home', label: 'Home', sections: ['Return to Portfolio'] }}
-              isActive={false}
-              onNavigate={() => onGoHome?.()}
+              key={chapter.chapterId}
+              config={chapter}
+              isActive={currentChapter === chapter.chapterId}
+              onNavigate={(id) => navigateToChapter(id, 'jump')}
             />
-          ) : (
-            CHAPTER_NAV.map((chapter) => (
-              <ChapterNavItem
-                key={chapter.chapterId}
-                config={chapter}
-                isActive={currentChapter === chapter.chapterId}
-                onNavigate={(id) => navigateToChapter(id, 'jump')}
-              />
-            ))
-          )}
+          ))}
         </div>
 
         <div className="h-6 w-px bg-t-border/20 mx-2" />

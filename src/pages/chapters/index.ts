@@ -11,3 +11,4 @@ export { Chapter04Journey } from './Chapter04Journey';
 export { Chapter05Explorer } from './Chapter05Explorer';
 export { Chapter06Thinker } from './Chapter06Thinker';
 export { Chapter07Connection } from './Chapter07Connection';
+export { Chapter08Architecture } from './Chapter08Architecture';

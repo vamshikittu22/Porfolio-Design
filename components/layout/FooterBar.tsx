@@ -93,7 +93,6 @@ const SOCIAL_PLATFORMS: SocialOrbData[] = [
 
 interface FooterBarProps {
   onScrollToTop: () => void;
-  onOpenCaseStudy?: () => void;
 }
 
 const AnimatedName: React.FC<{ name: string; isHovered: boolean }> = ({ name, isHovered }) => {
@@ -126,7 +125,7 @@ const AnimatedName: React.FC<{ name: string; isHovered: boolean }> = ({ name, is
   );
 };
 
-export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop, onOpenCaseStudy }) => {
+export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [flippedId, setFlippedId] = useState<string | null>(null);
   const [isTitleHovered, setIsTitleHovered] = useState(false);
@@ -253,17 +252,6 @@ export const FooterBar: React.FC<FooterBarProps> = ({ onScrollToTop, onOpenCaseS
                 © 2025 <span className="text-t-fg font-bold tracking-widest">{FULL_NAME}</span>
               </div>
             </div>
-            {onOpenCaseStudy && (
-              <button
-                onClick={onOpenCaseStudy}
-                className="flex items-center gap-2 group outline-none"
-              >
-                <div className="w-8 h-8 rounded-lg bg-t-accent/10 border border-t-accent/20 flex items-center justify-center text-t-accent transition-all group-hover:bg-t-accent group-hover:text-t-bg">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                </div>
-                <span className="text-[8px] font-black uppercase tracking-[0.4em] text-t-fg-m hover:text-t-accent transition-colors">Engineering Blueprint</span>
-              </button>
-            )}
           </div>
 
           <div className="flex items-center gap-4 text-[8px] font-black uppercase tracking-[0.2em] text-t-fg-m opacity-50">

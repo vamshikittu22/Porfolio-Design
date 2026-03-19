@@ -7,7 +7,7 @@
  */
 
 /**
- * ChapterId - Literal union type for all 6 chapters
+ * ChapterId - Literal union type for all 8 chapters
  * Ensures only valid chapter IDs can be used throughout the app
  */
 export type ChapterId =
@@ -17,7 +17,8 @@ export type ChapterId =
   | '04-journey'
   | '05-explorer'
   | '06-thinker'
-  | '07-connection';
+  | '07-connection'
+  | '08-architecture';
 
 /**
  * NavigationType - Determines scroll behavior on chapter transition
@@ -34,7 +35,7 @@ export interface Chapter {
   /** Unique identifier matching URL hash */
   id: ChapterId;
 
-  /** Chapter number (1-6) for sequential ordering */
+  /** Chapter number (1-8) for sequential ordering */
   number: number;
 
   /** Display title (e.g., "The Introduction", "The Builder") */
