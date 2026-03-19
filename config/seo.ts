@@ -149,6 +149,19 @@ export const CHAPTER_SEO: Record<ChapterId, ChapterSEO> = {
     ],
     ogImage: '/og-chapter-07.png',
   },
+  '08-architecture': {
+    title: 'The Architecture - System Design & Engineering | Vamshi Krishna',
+    description: 'Deep dive into the modular shell architecture, section-level hydration, and performance engineering of this portfolio.',
+    keywords: [
+      'System Architecture',
+      'Software Design',
+      'Performance Optimization',
+      'React Architecture',
+      'Modular Design',
+      'Engineering Blueprint',
+    ],
+    ogImage: '/og-chapter-08.png',
+  },
 };
 
 /**

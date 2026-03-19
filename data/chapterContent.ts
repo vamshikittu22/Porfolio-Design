@@ -46,6 +46,11 @@ export const CHAPTER_CONTENT: Record<ChapterId, ChapterContentMap> = {
     sections: ['Contact'],
     theme: 'Contact, community, and staying in touch',
     contextPrompt: 'Guide users on how to connect, collaborate, or reach out. Provide contact information and encourage engagement.'
+  },
+  '08-architecture': {
+    sections: ['SystemArchitecture'],
+    theme: 'Technical systems and architecture',
+    contextPrompt: 'Focus on System Architecture, modular design, and technical engineering decisions built into the portfolio.'
   }
 };
 

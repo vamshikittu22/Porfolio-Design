@@ -158,6 +158,11 @@ const ChatAssistant: React.FC = () => {
         { label: "How to contact", query: "How can I get in touch with Vamshi?" },
         { label: "Start over", query: "Take me back to the beginning." },
       ],
+      '08-architecture': [
+        { label: "System Design", query: "How is this portfolio built?" },
+        { label: "Performance", query: "What makes this site so fast?" },
+        { label: "Tech stack", query: "What technologies power this architecture?" },
+      ],
     };
 
     if (activeCategory && FOLLOW_UPS[activeCategory]) {
