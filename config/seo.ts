@@ -48,7 +48,7 @@ export interface ChapterSEO {
 export const CHAPTER_SEO: Record<ChapterId, ChapterSEO> = {
   '01-introduction': {
     title: 'The Introduction - Vamshi Krishna | Software Engineer',
-    description: '5+ years of full-stack experience across CVS Health, Citadel, and Mphasis. Expertise in Java, Spring Boot, React, AWS, and cloud-native architectures. STEM OPT Software Engineer.',
+    description: '5+ years of full-stack experience across CVS Health and Mphasis. Expertise in Java, Spring Boot, React, AWS, and cloud-native architectures. STEM OPT Software Engineer.',
     keywords: [
       'About Vamshi Krishna',
       'Software Engineer Bio',
@@ -57,7 +57,7 @@ export const CHAPTER_SEO: Record<ChapterId, ChapterSEO> = {
       'React Developer',
       'Cloud Engineer',
       'CVS Health',
-      'Citadel',
+      // 'Citadel',
     ],
     ogImage: '/og-chapter-01.png',
   },
@@ -92,12 +92,12 @@ export const CHAPTER_SEO: Record<ChapterId, ChapterSEO> = {
   },
   '04-journey': {
     title: 'The Journey - Career Timeline & Education | Vamshi Krishna',
-    description: 'Career progression from Mphasis to Citadel to CVS Health. Masters in Computer Science from University of Central Missouri. 5+ years of enterprise software development.',
+    description: 'Career progression from Mphasis to CVS Health. Masters in Computer Science from University of Central Missouri. 5+ years of enterprise software development.',
     keywords: [
       'Career Timeline',
       'Work Experience',
       'CVS Health Engineer',
-      'Citadel Engineer',
+      // 'Citadel Engineer',
       'Mphasis',
       'University of Central Missouri',
       'Computer Science',

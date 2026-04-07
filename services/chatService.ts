@@ -186,7 +186,7 @@ export class ChatService {
     }
     if (q.includes("experience") || q.includes("work") || q.includes("history")) {
       const latest = RESUME_CONTENT.experience[0];
-      return `Currently, Vamshi is a ${latest.title} at ${latest.subtitle} (${latest.period}). He has also worked at Citadel and Mphasis.`;
+      return `Currently, Vamshi is a ${latest.title} at ${latest.subtitle} (${latest.period}). He has also worked at Mphasis and Covantech.`;
     }
     if (q.includes("contact") || q.includes("email") || q.includes("reach")) {
       return `You can reach Vamshi at ${EMAIL} or through his LinkedIn: ${RESUME_CONTENT.contact.linkedin}`;

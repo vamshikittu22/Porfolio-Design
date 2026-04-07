@@ -10,7 +10,7 @@ export const SKILL_SPECIFICATIONS: Record<string, SkillSpec> = {
     // Languages
     'Java (8-17)': {
         role: 'Primary Backend Language',
-        usedIn: 'CVS Health, Citadel, Mphasis',
+        usedIn: 'CVS Health, Mphasis',
         exp: '5+ Years',
         desc: 'Main language for high-performance microservices and enterprise legacy modernization.',
         strength: 'Concurrency & JVM Tuning'
@@ -24,7 +24,7 @@ export const SKILL_SPECIFICATIONS: Record<string, SkillSpec> = {
     },
     'JavaScript': {
         role: 'Frontend & Backend Development',
-        usedIn: 'CVS Health, citadel, Zions Bank',
+        usedIn: 'CVS Health, Zions Bank',
         exp: '5 Years',
         desc: 'Core language for building interactive UIs and Node.js backend services.',
         strength: 'ES6+ & Async Patterns'
@@ -54,7 +54,7 @@ export const SKILL_SPECIFICATIONS: Record<string, SkillSpec> = {
     // Frameworks
     'Spring Boot': {
         role: 'Backend Microservices',
-        usedIn: 'CVS Health, Citadel, Mphasis',
+        usedIn: 'CVS Health, Mphasis',
         exp: '4+ Years',
         desc: 'Primary framework for building scalable REST/GraphQL APIs and cloud-native apps.',
         strength: 'Auto Configuration & Cloud Native'
@@ -75,7 +75,7 @@ export const SKILL_SPECIFICATIONS: Record<string, SkillSpec> = {
     },
     'React.js': {
         role: 'Modern UI Development',
-        usedIn: 'Citadel, Personal Projects',
+        usedIn: 'CVS Health, Personal Projects',
         exp: '4 Years',
         desc: 'Building responsive dashboards and highly interactive user interfaces.',
         strength: 'Hooks & Component Lifecycle'
@@ -105,14 +105,14 @@ export const SKILL_SPECIFICATIONS: Record<string, SkillSpec> = {
     // Backend & APIs
     'RESTful APIs': {
         role: 'Service Integration',
-        usedIn: 'CVS Health, Citadel, Mphasis',
+        usedIn: 'CVS Health, Mphasis',
         exp: '5 Years',
         desc: 'Designing and implementing decoupled, scalable REST interfaces.',
         strength: 'Resource Design & Security'
     },
     'Microservices Architecture': {
         role: 'System Design',
-        usedIn: 'CVS Health, Citadel',
+        usedIn: 'CVS Health, Mphasis',
         exp: '3 Years',
         desc: 'Architecting distributed systems with focus on scalability and loose coupling.',
         strength: 'Saga Patterns & Discovery'
@@ -126,7 +126,7 @@ export const SKILL_SPECIFICATIONS: Record<string, SkillSpec> = {
     },
     'Apache Kafka': {
         role: 'Real-time Event Streaming',
-        usedIn: 'Citadel, Enterprise Log Aggregation',
+        usedIn: 'CVS Health, Enterprise Log Aggregation',
         exp: '2 Years',
         desc: 'Building resilient data pipelines and real-time event-driven architectures.',
         strength: 'Message Persistence & Throttling'
@@ -193,7 +193,7 @@ export const SKILL_SPECIFICATIONS: Record<string, SkillSpec> = {
     },
     'Docker': {
         role: 'Containerization',
-        usedIn: 'CVS Health, Citadel, Development',
+        usedIn: 'CVS Health, Development',
         exp: '4 Years',
         desc: 'Packaging applications for consistent deployment across environments.',
         strength: 'Optimized Builds & Layering'
@@ -209,7 +209,7 @@ export const SKILL_SPECIFICATIONS: Record<string, SkillSpec> = {
     // DevOps
     'CI/CD': {
         role: 'DevOps Lifecycle',
-        usedIn: 'Citadel, CVS Health',
+        usedIn: 'CVS Health',
         exp: '3 Years',
         desc: 'Developing automated pipelines for seamless code integration and delivery.',
         strength: 'Pipeline as Code'

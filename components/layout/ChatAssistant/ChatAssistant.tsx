@@ -105,7 +105,7 @@ const ChatAssistant: React.FC = () => {
     ],
     'career': [
       { label: "CVS Health Details", query: "Tell me about his experience at CVS Health." },
-      { label: "Citadel Role", query: "What exactly did he do at Citadel?" },
+      // { label: "Citadel Role", query: "What exactly did he do at Citadel?" },
       { label: "Previous Roles", query: "Tell me about his time at Mphasis and Covantech." }
     ],
     'projects': [
@@ -120,7 +120,7 @@ const ChatAssistant: React.FC = () => {
     const baseSuggestions = [
       { label: "Bio Summary", query: "Give me a brief introduction to Vamshi.", key: 'summary' },
       { label: "Tech Stack", query: "What are Vamshi's core technical strengths?", key: 'skills' },
-      { label: "Career Path", query: "Tell me about his experience at CVS Health and Citadel.", key: 'career' },
+      { label: "Career Path", query: "Tell me about his experience at CVS Health and Mphasis.", key: 'career' },
       { label: "Top Projects", query: "Tell me about your top 3 software projects.", key: 'projects' }
     ];
 
@@ -327,7 +327,7 @@ const ChatAssistant: React.FC = () => {
                       {[
                         { label: "Summary", query: "Summarize Vamshi's profile for a recruiter.", icon: "󱐋", key: 'summary' },
                         { label: "Skills", query: "What are Vamshi's core technical strengths?", icon: "󱓞", key: 'skills' },
-                        { label: "Experience", query: "Tell me about his experience at CVS Health and Citadel.", icon: "󱇬", key: 'career' },
+                        { label: "Experience", query: "Tell me about his experience at CVS Health and Mphasis.", icon: "󱇬", key: 'career' },
                         { label: "Projects", query: "Tell me about your top 3 software projects.", icon: "󱐉", key: 'projects' }
                       ].map((item, idx) => {
                         const icons = {

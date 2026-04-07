@@ -268,8 +268,9 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
 
   const handleDownloadResumeFile = () => {
     const link = document.createElement('a');
-    link.href = '/assets/downloads/Vamshi_Krishna_Resume.pdf';
-    link.download = 'Vamshi_Krishna_Resume.pdf';
+    // Old: link.href = '/assets/downloads/Vamshi_Krishna_Resume.pdf';
+    link.href = '/assets/downloads/Vamshi_Krishna_Java_Fullstack_.pdf';
+    link.download = 'Vamshi_Krishna_Java_Fullstack_.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

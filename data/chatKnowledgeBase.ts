@@ -22,10 +22,10 @@ export const CHAT_KNOWLEDGE_BASE: CachedResponse[] = [
     query: "Tell me about his experience at CVS Health.",
     answer: "At CVS Health, Vamshi plays a pivotal role in engineering Java Spring Boot and GraphQL APIs to streamline claims processing workflows. His work involves orchestrating Kafka-based event-driven communication and integrating AI-assisted analysis to automate manual reviews, significantly reducing processing time. He also maintains the operational visibility of these services by deploying them on AWS ECS through automated CI/CD pipelines. To see a detailed breakdown of his timeline and professional journey, please visit Chapter 4. [GO_CHAPTER: 4]"
   },
-  {
-    query: "What did he do at Citadel?",
-    answer: "During his tenure at Citadel within the financial services sector, Vamshi engineered mission-critical Java microservices supporting real-time trading and risk data pipelines. He leveraged Azure Kubernetes Service (AKS) for container orchestration and implemented Azure Functions for high-scale asynchronous event ingestion. His contributions ensured the reliability and speed of data flow across high-frequency trading environments. For more insights into his career path and previous roles, check out Chapter 4. [GO_CHAPTER: 4]"
-  },
+  // {
+  //   query: "What did he do at Citadel?",
+  //   answer: "During his tenure at Citadel within the financial services sector, Vamshi engineered mission-critical Java microservices supporting real-time trading and risk data pipelines. He leveraged Azure Kubernetes Service (AKS) for container orchestration and implemented Azure Functions for high-scale asynchronous event ingestion. His contributions ensured the reliability and speed of data flow across high-frequency trading environments. For more insights into his career path and previous roles, check out Chapter 4. [GO_CHAPTER: 4]"
+  // },
   {
     query: "Tell me about your top 3 software projects.",
     answer: "Vamshi has architected several high-impact projects, with his top three being: \n1. Future Job Fit: An AI-driven resume optimization platform using React and Gemini to help users match jobs using NLP. [OPEN_LINK: Future Job Fit] \n2. Wanderlust Trails: A full-stack travel booking platform with secure JWT authentication and complex relational schemas. [OPEN_LINK: Wanderlust Trails] \n3. Mini Metro Simulator: A high-performance transit simulation replicating Mini Metro mechanics with AI pathfinding. [OPEN_LINK: Mini Metro Simulator] \nEach project showcases his ability to combine clean code with sophisticated AI integrations. You can explore the full case studies and architecture diagrams in Chapter 3. [GO_CHAPTER: 3]"
@@ -36,6 +36,6 @@ export const CHAT_KNOWLEDGE_BASE: CachedResponse[] = [
   },
   {
     query: "Summarize Vamshi's profile for a recruiter.",
-    answer: "For a recruiter, Vamshi is best described as a high-impact, full-stack engineer with 5+ years of experience delivering secure, cloud-native solutions in high-stakes environments like CVS Health and Citadel. He is a 'Builder' who architectures systems that solve real business problems through automation and AI. For an executive summary and his downloadable resume, visit Chapter 4. [GO_CHAPTER: 4] [OPEN_LINK: Resume]"
+    answer: "For a recruiter, Vamshi is best described as a high-impact, full-stack engineer with 5+ years of experience delivering secure, cloud-native solutions in high-stakes environments like CVS Health and Mphasis. He is a 'Builder' who architectures systems that solve real business problems through automation and AI. For an executive summary and his downloadable resume, visit Chapter 4. [GO_CHAPTER: 4] [OPEN_LINK: Resume]"
   }
 ];

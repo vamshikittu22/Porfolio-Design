@@ -10,7 +10,7 @@ export const X_HANDLE = 'ki22u__';
 export const X_URL = `https://x.com/ki22u__`;
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/vamshi-krishna-pullaiahgari/';
 export const BLOG_URL = 'https://travelsofvk.blogspot.com';
-export const RESUME_URL = '#resume-section'; 
+export const RESUME_URL = '#resume-section';
 
 export interface ResumeItem {
   title: string;
@@ -52,19 +52,19 @@ export const EXPERIENCE: ResumeItem[] = [
       'Hardened application security by implementing JWT-based role-based access control integrated with AWS IAM.'
     ]
   },
-  {
-    title: 'Software Engineer',
-    subtitle: 'Citadel (Financial Services)',
-    location: 'Florida, USA',
-    period: 'Aug 2024 – Dec 2024',
-    description: [
-      'Developed Java Spring Boot microservices with REST APIs and Kafka-based streaming pipelines, supporting real-time processing of trading and risk data.',
-      'Provisioned containerized services on Azure Kubernetes Service (AKS) using Azure Container Registry, ensuring controlled rollouts.',
-      'Enabled asynchronous event ingestion using Azure Functions and Azure Event Hubs to improve scalability.',
-      'Constructed React.js components with optimized Webpack builds, improving frontend performance and maintainability.',
-      'Applied anomaly detection and predictive analytics features with monitoring via Azure Monitor.'
-    ]
-  },
+  // {
+  //   title: 'Software Engineer',
+  //   subtitle: 'Citadel (Financial Services)',
+  //   location: 'Florida, USA',
+  //   period: 'Aug 2024 – Dec 2024',
+  //   description: [
+  //     'Developed Java Spring Boot microservices with REST APIs and Kafka-based streaming pipelines, supporting real-time processing of trading and risk data.',
+  //     'Provisioned containerized services on Azure Kubernetes Service (AKS) using Azure Container Registry, ensuring controlled rollouts.',
+  //     'Enabled asynchronous event ingestion using Azure Functions and Azure Event Hubs to improve scalability.',
+  //     'Constructed React.js components with optimized Webpack builds, improving frontend performance and maintainability.',
+  //     'Applied anomaly detection and predictive analytics features with monitoring via Azure Monitor.'
+  //   ]
+  // },
   {
     title: 'Software Engineer',
     subtitle: 'Mphasis',

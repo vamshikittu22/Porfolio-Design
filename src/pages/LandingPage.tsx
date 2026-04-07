@@ -235,8 +235,9 @@ export default function LandingPage() {
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10" /></svg>
             </button>
             <a
-              href="/assets/downloads/Vamshi_Krishna_Resume.pdf"
-              download="Vamshi_Krishna_Resume.pdf"
+              // Old: href="/assets/downloads/Vamshi_Krishna_Resume.pdf"
+              href="/assets/downloads/Vamshi_Krishna_Java_Fullstack_.pdf"
+              download="Vamshi_Krishna_Java_Fullstack_.pdf"
               className="group flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[11px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-emerald-500/20 hover:scale-[1.03] transition-all duration-300"
             >
               <span>Download CV</span>
@@ -259,7 +260,7 @@ export default function LandingPage() {
                 Previously At
               </span>
               <motion.div variants={stagger} className="flex flex-wrap items-center justify-center gap-4">
-                <CompanyBadge name="Citadel" />
+                {/* <CompanyBadge name="Citadel" /> */}
                 <CompanyBadge name="CVS Health" />
                 <CompanyBadge name="Mphasis" />
               </motion.div>

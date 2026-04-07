@@ -47,7 +47,7 @@ export const CHAPTERS: Chapter[] = [
     hash: '04-journey',
     icon: '/icons/chapters/journey.svg',
     subtitle: 'Career Timeline & Education',
-    description: 'Career path from Mphasis to Citadel to CVS Health, plus academic background'
+    description: 'Career path from Mphasis to CVS Health, plus academic background'
   },
   {
     id: '05-explorer',

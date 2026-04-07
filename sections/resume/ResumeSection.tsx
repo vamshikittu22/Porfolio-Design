@@ -11,12 +11,13 @@ import { ResumeCertifications } from './components/ResumeCertifications';
 import { ResumeFooter } from './components/ResumeFooter';
 
 const ResumeSection: React.FC = () => {
-  const RESUME_FILE_PATH = '/assets/downloads/Vamshi_Krishna_Resume.pdf';
+  // Old: const RESUME_FILE_PATH = '/assets/downloads/Vamshi_Krishna_Resume.pdf';
+  const RESUME_FILE_PATH = '/assets/downloads/Vamshi_Krishna_Java_Fullstack_.pdf';
 
   const handleDownloadFile = () => {
     const link = document.createElement('a');
     link.href = RESUME_FILE_PATH;
-    link.download = 'Vamshi_Krishna_Resume.pdf';
+    link.download = 'Vamshi_Krishna_Java_Fullstack_.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
